@@ -1,0 +1,14 @@
+import { styled } from "@mui/system"
+import { Table } from "antd"
+
+export const StyledTable = styled(Table)({
+    '& .ant-table': {
+        '& .ant-table-container': {
+            '& .ant-table-body, & .ant-table-content': {
+                scrollbarWidth: 'thin',
+                scrollbarColor: '#eaeaea transparent',
+                scrollbarGutter: 'stable',
+            }
+        }
+    }
+})
