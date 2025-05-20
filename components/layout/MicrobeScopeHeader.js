@@ -39,7 +39,9 @@ const LogoAndTitle = () => (
             sx={{
                 fontWeight: 'bold'
             }}
-        >MicrobeScope</Span>
+        >
+            MicrobialScope
+        </Span>
     </A>
 )
 
@@ -71,9 +73,9 @@ const menuItems = [
         link: '/'
     },
     {
-        key: 'microbes',
-        label: 'Microbes',
-        link: '/microbes'
+        key: 'microorganism',
+        label: 'Microorganism',
+        link: '/microorganism'
     },
     {
         key: 'database',

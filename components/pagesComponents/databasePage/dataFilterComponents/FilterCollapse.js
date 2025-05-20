@@ -1,11 +1,13 @@
-import { Button, Checkbox, Collapse, ConfigProvider } from "antd"
+import { Button, Checkbox, Collapse, ConfigProvider, Tooltip, Typography } from "antd"
 import { Stack } from "@mui/system"
 import { useState } from "react"
 import { DoubleLeftOutlined } from "@ant-design/icons"
 import FilterCancel from "@/components/icons/FilterCancel"
 import { DATABASECONFIG, initSelected } from "@/components/pagesComponents/databasePage/DatabaseContent"
+import { useDatabaseContext } from "@/components/context/DatabaseContext"
 
-const FilterCollapse = ({ microbe, dataType, filterOptions, selectedFilterOptions, setSelectedFilterOptions }) => {
+const FilterCollapse = ({ filterOptions, selectedFilterOptions, setSelectedFilterOptions }) => {
+    const { microbe, dataType } = useDatabaseContext()
     const [activeKey, setActiveKey] = useState([Object.keys(filterOptions)[0]])
 
     const items = DATABASECONFIG[microbe][dataType]['filterItems'](
@@ -13,8 +15,6 @@ const FilterCollapse = ({ microbe, dataType, filterOptions, selectedFilterOption
         selectedFilterOptions,
         setSelectedFilterOptions
     )
-
-    console.log(filterOptions)
 
     const handleCollapseChange = (props) => {
         setActiveKey(props)
@@ -46,7 +46,20 @@ const FilterCollapse = ({ microbe, dataType, filterOptions, selectedFilterOption
     )
 }
 
-export const FilterCheckBox = ({ name, options, selected, setSelected, formatFn=undefined }) => {
+const DefaultOptionWrapper = ({ option }) => (
+    <Tooltip title={option}>
+        <Typography.Text
+            ellipsis={true}
+            style={{
+                maxWidth: '200px'
+            }}
+        >
+            {option}
+        </Typography.Text>
+    </Tooltip>
+)
+
+export const FilterCheckBox = ({ name, options, selected, setSelected, OptionWrapper=DefaultOptionWrapper, formatFn = undefined }) => {
     const handelChange = (checkedValue) => {
         setSelected(prev => ({
             ...prev,
@@ -64,7 +77,7 @@ export const FilterCheckBox = ({ name, options, selected, setSelected, formatFn=
                                 value={option}
                                 key={index}
                             >
-                                { formatFn ? formatFn(option) : option}
+                                <OptionWrapper option={formatFn ? formatFn(option) : option} />
                             </Checkbox>
                     )
                 }

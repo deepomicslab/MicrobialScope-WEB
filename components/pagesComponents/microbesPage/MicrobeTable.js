@@ -1,8 +1,9 @@
-import { Box } from "@mui/system"
+import { Box, Stack } from "@mui/system"
 import { StyledTable } from "@/components/styledComponents/styledAntdTable"
 import Link from "next/link"
-import { Button } from "antd"
+import { Button, Tag } from "antd"
 import { EyeOutlined } from "@ant-design/icons"
+import { TitleWithTooltip } from "@/components/pagesComponents/sharedComponents/sharedTableComponents"
 
 const MicrobeTable = ({ data }) => {
     const dataSource = extractTableData(data)
@@ -30,23 +31,23 @@ const OverviewButton = () => (
 )
 
 const AssemblyTypeChip = ({ assemblyType }) => (
-    <Button
+    <Tag
         style={{
-            backgroundColor: assemblyType === 'MAG' ? '#253D56' : '#A12D44',
-            color: 'rgb(255, 255, 255, 0.95)',
-            border: `1px solid ${assemblyType === 'MAG' ? '#253D56' : '#A12D44'}`,
             borderRadius: '20px',
-            fontSize: '13px',
+            padding: '2px 8px',
+            backgroundColor: assemblyType === 'MAG' ? '#253D56' : '#A12D44',
+            border: `1px solid ${assemblyType === 'MAG' ? '#253D56' : '#A12D44'}`,
+            color: 'rgb(255, 255, 255, 0.95)',
+            cursor: 'default',
         }}
-        size='small'
     >
         {assemblyType}
-    </Button>
+    </Tag>
 )
 
 const columns = [
     {
-        title: 'Microbe Type',
+        title: <TitleWithTooltip title='Microbe Type' info='Info'/>,
         dataIndex: 'microbeType',
         key: 'microbeType',
         fixed: 'left',
@@ -64,78 +65,89 @@ const columns = [
         },
     },
     {
-        title: 'Assembly Type',
+        title: <TitleWithTooltip title='Assembly Type' info='info'/> ,
         dataIndex: 'assemblyType',
         key: 'assemblyType',
         fixed: 'left',
         align: 'center',
-        render: assemblyType => <AssemblyTypeChip assemblyType={assemblyType} />
+        render: assemblyType => <AssemblyTypeChip assemblyType={assemblyType}/>
     },
     {
-        title: 'Genomes',
+        title: <TitleWithTooltip title='Genomes' info='info'/> ,
         dataIndex: 'genomes',
         key: 'genomes',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'Taxonomies',
+        title: <TitleWithTooltip title='Taxonomies' info='info'/>,
         dataIndex: 'taxonomies',
         key: 'taxonomies',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'Proteins',
+        title: <TitleWithTooltip title='Proteins' info='info'/>,
         dataIndex: 'proteins',
         key: 'proteins',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'tRNAs',
+        title: <TitleWithTooltip title='tRNAs' info='info'/>,
         dataIndex: 'tRNAs',
         key: 'tRNAs',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'CRISPR/Cas Systems',
+        title: <TitleWithTooltip title='CRISPR/Cas Systems' info='info'/>,
         dataIndex: 'CRISPRCasSystems',
         key: 'CRISPRCasSystems',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'Anti-CRISPR',
+        title: <TitleWithTooltip title='Anti-CRISPR' info='info'/>,
         dataIndex: 'antiCRISPR',
         key: 'antiCRISPR',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'Secondary Metabolites',
+        title: <TitleWithTooltip title='Secondary Metabolites' info='info'/>,
         dataIndex: 'secondaryMetabolites',
         key: 'secondaryMetabolites',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'Signal Peptides',
+        title: <TitleWithTooltip title='Signal Peptides' info='info'/>,
         dataIndex: 'signalPeptides',
         key: 'signalPeptides',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'Virulence Factors',
+        title: <TitleWithTooltip title='Virulence Factors' info='info'/>,
         dataIndex: 'virulenceFactors',
         key: 'virulenceFactors',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'Antibiotic Resistance Genes',
+        title: <TitleWithTooltip title='Antibiotic Resistance Genes' info='info'/>,
         dataIndex: 'antibioticResistanceGenes',
         key: 'antibioticResistanceGenes',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
-        title: 'Transmembrane Proteins',
+        title: <TitleWithTooltip title='Transmembrane Proteins' info='info'/>,
         dataIndex: 'transmembraneProteins',
         key: 'transmembraneProteins',
-        align: 'center'
+        align: 'center',
+        render: (value) => value === 0 ? '--' : value
     },
     {
         title: 'Action',
@@ -159,7 +171,7 @@ const extractTableData = (data) => [
         taxonomies: data['MAGArchaeaTaxonomyCount'],
         proteins: data['MAGArchaeaProteinCount'],
         tRNAs: data['MAGArchaeaTrnaCount'],
-        CRISPRCasSystems: data['MAGArchaeaCRISPRCasCount'],
+        CRISPRCasSystems: data['MAGArchaeaCRISPRCount'],
         antiCRISPR: data['MAGArchaeaAntiCRISPRAnnotationCount'],
         secondaryMetabolites: data['MAGArchaeaSecondaryMetaboliteRegionCount'],
         signalPeptides: data['MAGArchaeaSignalPeptidePredictionCount'],
@@ -175,7 +187,7 @@ const extractTableData = (data) => [
         taxonomies: data['unMAGArchaeaTaxonomyCount'],
         proteins: data['unMAGArchaeaProteinCount'],
         tRNAs: data['unMAGArchaeaTrnaCount'],
-        CRISPRCasSystems: data['unMAGArchaeaCRISPRCasCount'],
+        CRISPRCasSystems: data['unMAGArchaeaCRISPRCount'],
         antiCRISPR: data['unMAGArchaeaAntiCRISPRAnnotationCount'],
         secondaryMetabolites: data['unMAGArchaeaSecondaryMetaboliteRegionCount'],
         signalPeptides: data['unMAGArchaeaSignalPeptidePredictionCount'],
@@ -191,7 +203,7 @@ const extractTableData = (data) => [
         taxonomies: data['MAGBacteriaTaxonomyCount'],
         proteins: data['MAGBacteriaProteinCount'],
         tRNAs: data['MAGBacteriaTrnaCount'],
-        CRISPRCasSystems: data['MAGBacteriaCRISPRCasCount'],
+        CRISPRCasSystems: data['MAGBacteriaCRISPRCount'],
         antiCRISPR: data['MAGBacteriaAntiCRISPRAnnotationCount'],
         secondaryMetabolites: data['MAGBacteriaSecondaryMetaboliteRegionCount'],
         signalPeptides: data['MAGBacteriaSignalPeptidePredictionCount'],
@@ -207,7 +219,7 @@ const extractTableData = (data) => [
         taxonomies: data['unMAGBacteriaTaxonomyCount'],
         proteins: data['unMAGBacteriaProteinCount'],
         tRNAs: data['unMAGBacteriaTrnaCount'],
-        CRISPRCasSystems: data['unMAGBacteriaCRISPRCasCount'],
+        CRISPRCasSystems: data['unMAGBacteriaCRISPRCount'],
         antiCRISPR: data['unMAGBacteriaAntiCRISPRAnnotationCount'],
         secondaryMetabolites: data['unMAGBacteriaSecondaryMetaboliteRegionCount'],
         signalPeptides: data['unMAGBacteriaSignalPeptidePredictionCount'],
@@ -255,7 +267,7 @@ const extractTableData = (data) => [
         taxonomies: data['MAGVirusesTaxonomyCount'],
         proteins: data['MAGVirusesProteinCount'],
         tRNAs: data['MAGVirusesTrnaCount'],
-        CRISPRCasSystems: data['MAGVirusesCRISPRCasCount'],
+        CRISPRCasSystems: data['MAGVirusesCRISPRCount'],
         antiCRISPR: data['MAGVirusesAntiCRISPRAnnotationCount'],
         secondaryMetabolites: 0,
         signalPeptides: 0,
@@ -271,7 +283,7 @@ const extractTableData = (data) => [
         taxonomies: data['unMAGVirusesTaxonomyCount'],
         proteins: data['unMAGVirusesProteinCount'],
         tRNAs: data['unMAGVirusesTrnaCount'],
-        CRISPRCasSystems: data['unMAGVirusesCRISPRCasCount'],
+        CRISPRCasSystems: data['unMAGVirusesCRISPRCount'],
         antiCRISPR: data['unMAGVirusesAntiCRISPRAnnotationCount'],
         secondaryMetabolites: 0,
         signalPeptides: 0,
