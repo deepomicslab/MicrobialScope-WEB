@@ -8,7 +8,8 @@ export const CustomHeader = styled(Layout.Header)({
     top: 0,
     zIndex: 1000,
     width: '100%',
-    height: '64px'
+    height: '64px',
+    paddingLeft: '16px'
 })
 
 export const CustomContent = styled(Layout.Content)`

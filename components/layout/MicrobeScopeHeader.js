@@ -21,18 +21,19 @@ const LogoAndTitle = () => (
             height: '64px',
             lineHeight: '64px',
             display: 'inline-flex',
-            columnGap: '12px',
+            columnGap: '8px',
             alignItems: 'center',
             fontSize: '20px',
             overflow: 'hidden',
             color: '#000000',
         }}
+        href='/'
     >
         <Img
-            src="/favicon.ico"
+            src="/microbial_logo.png"
             sx={{
-                height: '36px',
-                width: '36px'
+                height: '48px',
+                width: '48px'
             }}
         />
         <Span

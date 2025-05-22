@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }) {
                         <title>MicrobialScope</title>
                         <meta name="description" content="MicrobialScope"/>
                         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-                        <link rel="icon" href="/favicon.ico"/>
+                        <link rel="icon" href="/microbial_logo.png"/>
                     </Head>
                     <MicrobeScopeLayout>
                         <Component {...pageProps} />
