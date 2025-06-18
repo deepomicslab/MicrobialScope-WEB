@@ -1,20 +1,35 @@
-import { Button, Checkbox, Collapse, ConfigProvider, Tooltip, Typography } from "antd"
+import { Button, Checkbox, Radio, Collapse, ConfigProvider, Tooltip, Typography } from "antd"
 import { Stack } from "@mui/system"
 import { useState } from "react"
 import { DoubleLeftOutlined } from "@ant-design/icons"
 import FilterCancel from "@/components/icons/FilterCancel"
-import { DATABASECONFIG, initSelected } from "@/components/pagesComponents/databasePage/DatabaseContent"
+import {
+    annotationToMicrobeMap,
+    DATABASECONFIG,
+    initSelected
+} from "@/components/pagesComponents/databasePage/DatabaseContent"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
 
 const FilterCollapse = ({ filterOptions, selectedFilterOptions, setSelectedFilterOptions }) => {
-    const { microbe, dataType } = useDatabaseContext()
-    const [activeKey, setActiveKey] = useState([Object.keys(filterOptions)[0]])
+    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const [activeKey, setActiveKey] = useState(['microbe', 'magStatus'])
 
-    const items = DATABASECONFIG[microbe][dataType]['filterItems'](
-        filterOptions,
-        selectedFilterOptions,
-        setSelectedFilterOptions
-    )
+    const items = [
+        {
+            key: 'microbe',
+            label: 'Microbe',
+            children: <MicrobeRadio/>
+        },
+        {
+            key: 'magStatus',
+            label: 'MAG Status',
+            children: <MAGStatusRadio/>
+        },
+        ...DATABASECONFIG[microbe][magStatus][dataType]['filterItems'](
+            filterOptions,
+            selectedFilterOptions,
+            setSelectedFilterOptions
+        )]
 
     const handleCollapseChange = (props) => {
         setActiveKey(props)
@@ -59,7 +74,72 @@ const DefaultOptionWrapper = ({ option }) => (
     </Tooltip>
 )
 
-export const FilterCheckBox = ({ name, options, selected, setSelected, OptionWrapper=DefaultOptionWrapper, formatFn = undefined }) => {
+const MicrobeRadio = ({}) => {
+    const { microbe, setMicrobe, dataType } = useDatabaseContext()
+
+    const handleChange = (e) => {
+        setMicrobe(e.target.value)
+    }
+
+    return (
+        <Radio.Group name='microbe' onChange={handleChange} value={microbe}>
+            <Stack>
+                {
+                    annotationToMicrobeMap[dataType].map((option, index) => (
+                        <Radio value={option} key={index}>
+                            <Typography.Text
+                                ellipsis={true}
+                                style={{
+                                    maxWidth: '200px'
+                                }}
+                            >
+                                {option}
+                            </Typography.Text>
+                        </Radio>
+                    ))
+                }
+            </Stack>
+        </Radio.Group>
+    )
+}
+
+const MAGStatusRadio = ({}) => {
+    const {magStatus, setMagStatus, dataType} = useDatabaseContext()
+
+    const handleChange = (e) => {
+        setMagStatus(e.target.value)
+    }
+
+    return (
+        <Radio.Group name='magStatus' onChange={handleChange} value={magStatus}>
+            <Stack>
+                {
+                    ['MAG', 'unMAG'].map((option, index) => (
+                        <Radio value={option} key={index}>
+                            <Typography.Text
+                                ellipsis={true}
+                                style={{
+                                    maxWidth: '200px'
+                                }}
+                            >
+                                {option}
+                            </Typography.Text>
+                        </Radio>
+                    ))
+                }
+            </Stack>
+        </Radio.Group>
+    )
+}
+
+export const FilterCheckBox = ({
+    name,
+    options,
+    selected,
+    setSelected,
+    OptionWrapper = DefaultOptionWrapper,
+    formatFn = undefined
+}) => {
     const handelChange = (checkedValue) => {
         setSelected(prev => ({
             ...prev,
@@ -77,7 +157,7 @@ export const FilterCheckBox = ({ name, options, selected, setSelected, OptionWra
                                 value={option}
                                 key={index}
                             >
-                                <OptionWrapper option={formatFn ? formatFn(option) : option} />
+                                <OptionWrapper option={formatFn ? formatFn(option) : option}/>
                             </Checkbox>
                     )
                 }

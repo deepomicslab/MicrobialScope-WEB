@@ -4,9 +4,3 @@ body {
   padding: 0;
   margin: 0;
 }
-
-html {
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #eaeaea transparent; /* Firefox */
-  scrollbar-gutter: stable;
-}

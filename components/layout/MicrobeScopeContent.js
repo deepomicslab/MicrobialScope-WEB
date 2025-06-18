@@ -1,11 +1,11 @@
 import { CustomContent } from "@/components/styledComponents/styledLayoutComponents"
-import { Container } from "@mui/system"
+import { Box } from "@mui/system"
 
 const MicrobeScopeContent = ({ children }) => (
     <CustomContent>
-        <Container maxWidth="xl">
+        <Box sx={{ px: '80px' }}>
             {children}
-        </Container>
+        </Box>
     </CustomContent>
 )
 

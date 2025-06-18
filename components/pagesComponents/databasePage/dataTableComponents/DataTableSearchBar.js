@@ -7,6 +7,7 @@ import { EyeOutlined, HolderOutlined, MenuOutlined, ReloadOutlined } from "@ant-
 import { useDrag, useDrop } from "react-dnd"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
 import { DATABASECONFIG } from "@/components/pagesComponents/databasePage/DatabaseContent"
+import { useDatabaseDetailModalContext } from "@/components/context/DatabaseDetailModalContext"
 
 const DataTableSearchBar = ({
     dataCount,
@@ -124,7 +125,8 @@ const TableSearchFieldSwitchList = ({
 }
 
 const SwitchContainer = ({ columnVisibilityMap, setColumnVisibilityMap, setColumns }) => {
-    const { microbe, dataType } = useDatabaseContext()
+    const { handleDetailClick } = useDatabaseDetailModalContext()
+    const { microbe, magStatus, dataType } = useDatabaseContext()
 
     const handleSwitchChange = useCallback((value) => {
         setColumnVisibilityMap(prevMap => {
@@ -133,7 +135,10 @@ const SwitchContainer = ({ columnVisibilityMap, setColumnVisibilityMap, setColum
                 if (field) field.visible = !field.visible
             })
 
-            const base = DATABASECONFIG[microbe][dataType]['columns']
+            const base = DATABASECONFIG[microbe][magStatus][dataType]['columns'](
+                handleDetailClick,
+                DATABASECONFIG[microbe][magStatus][dataType]['endpointSingleDownload']
+            )
             const visibleColumns = newMap
                 .filter(col => col.visible)
                 .map(col => base.find(item => item.dataIndex === col.value))
@@ -144,7 +149,7 @@ const SwitchContainer = ({ columnVisibilityMap, setColumnVisibilityMap, setColum
 
             return newMap
         })
-    }, [dataType, microbe, setColumnVisibilityMap, setColumns])
+    }, [dataType, handleDetailClick, magStatus, microbe, setColumnVisibilityMap, setColumns])
 
     const findCard = useCallback(
         (id) => {
@@ -172,7 +177,10 @@ const SwitchContainer = ({ columnVisibilityMap, setColumnVisibilityMap, setColum
     )
 
     const onDragEnd = useCallback(() => {
-        const base = DATABASECONFIG[microbe][dataType]['columns']
+        const base = DATABASECONFIG[microbe][magStatus][dataType]['columns'](
+            handleDetailClick,
+            DATABASECONFIG[microbe][magStatus][dataType]['endpointSingleDownload']
+        )
         const visibleColumns = columnVisibilityMap
             .filter(col => col.visible)
             .map(col => base.find(item => item.dataIndex === col.value))
@@ -180,7 +188,7 @@ const SwitchContainer = ({ columnVisibilityMap, setColumnVisibilityMap, setColum
 
         const operation = base.find(item => item.key === 'operation')
         setColumns(operation ? [...visibleColumns, operation] : visibleColumns)
-    }, [microbe, dataType, columnVisibilityMap, setColumns])
+    }, [microbe, magStatus, dataType, handleDetailClick, columnVisibilityMap, setColumns])
 
     const [, drop] = useDrop(() => ({ accept: 'card' }))
 

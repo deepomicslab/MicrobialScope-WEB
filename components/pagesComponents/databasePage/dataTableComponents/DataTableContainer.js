@@ -6,9 +6,12 @@ import DataTable from "@/components/pagesComponents/databasePage/dataTableCompon
 import DataTableOperations from "@/components/pagesComponents/databasePage/dataTableComponents/DataTableOperations"
 import { produce } from "immer"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
+import { useDatabaseDetailModalContext } from "@/components/context/DatabaseDetailModalContext"
 
 const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) => {
-    const { microbe, dataType } = useDatabaseContext()
+    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const { handleDetailClick } = useDatabaseDetailModalContext()
+
     const [tableData, setTableData] = useState([])
     const [total, setTotal] = useState(0)
     const [selectedRowInfo, setSelectedRowInfo] = useState({
@@ -25,45 +28,56 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
     const [searchText, setSearchText] = useState('')
     const [columnVisibilityMap, setColumnVisibilityMap] = useState(
         buildColumnVisibilityMap(
-            DATABASECONFIG[microbe][dataType]['columns'].filter(
+            DATABASECONFIG[microbe][magStatus][dataType]['columns'](
+                handleDetailClick,
+                DATABASECONFIG[microbe][magStatus][dataType]['endpointSingleDownload']
+            ).filter(
                 column => column.title !== 'Action'
             )
         )
     )
     const [columns, setColumns] = useState([])
+    const [filterTrigger, setFilterTrigger] = useState(0)
 
-    const fetchData = () => {
+    const fetchData = useCallback((
+        microbe,
+        magStatus,
+        dataType,
+        filterOptions,
+        searchContent
+    ) => {
         setLoading(true)
         axios.post(
-            DATABASECONFIG[microbe][dataType]['endpointList'],
+            DATABASECONFIG[microbe][magStatus][dataType]['endpointList'],
             {
                 ...tableParams,
-                filterOptions: selectedFilterOptions,
-                searchContent: searchText
+                filterOptions: filterOptions,
+                searchContent: searchContent
             }
-        ).then(
-            (response) => response.data
-        ).then(
-            ({ count, results }) => {
+        ).then(res => res.data)
+            .then(({ count, results }) => {
                 setTableData(results)
-                setTableParams({
-                    ...tableParams,
+                setTableParams(prev => ({
+                    ...prev,
                     pagination: {
-                        ...tableParams.pagination,
-                        total: count,
+                        ...prev.pagination,
+                        total: count
                     }
-                })
+                }))
                 setTotal(count)
-            }
-        ).finally(() => setLoading(false))
-    }
-
-    const handleDownload = () => {
-
-    }
+            }).finally(() => setLoading(false))
+    }, [
+        tableParams.pagination?.current,
+        tableParams.pagination?.pageSize,
+        tableParams?.sortOrder,
+        tableParams?.sortField,
+    ])
 
     const rebuildColumns = useCallback(() => {
-        const base = DATABASECONFIG[microbe][dataType]['columns']
+        const base = DATABASECONFIG[microbe][magStatus][dataType]['columns'](
+            handleDetailClick,
+            DATABASECONFIG[microbe][magStatus][dataType]['endpointSingleDownload']
+        )
         const filteredBase = base.filter(col => col.title !== 'Action')
 
         const map = buildColumnVisibilityMap(filteredBase)
@@ -78,7 +92,7 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
 
         setColumnVisibilityMap(map)
         setColumns(finalColumns)
-    }, [dataType, microbe])
+    }, [dataType, handleDetailClick, magStatus, microbe])
 
     const showAllColumns = useCallback(() => {
         setColumnVisibilityMap(prevMap => {
@@ -88,7 +102,10 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
                 })
             })
 
-            const base = DATABASECONFIG[microbe][dataType]['columns']
+            const base = DATABASECONFIG[microbe][magStatus][dataType]['columns'](
+                handleDetailClick,
+                DATABASECONFIG[microbe][magStatus][dataType]['endpointSingleDownload']
+            )
             const visibleColumns = newMap
                 .filter(col => col.visible)
                 .map(col => base.find(item => item.dataIndex === col.value))
@@ -97,23 +114,34 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
             setColumns(operation ? [...visibleColumns, operation] : visibleColumns)
 
             return newMap
-        });
-    }, [dataType, microbe])
+        })
+    }, [dataType, handleDetailClick, magStatus, microbe])
 
     useEffect(() => {
         rebuildColumns()
     }, [rebuildColumns])
 
-    useEffect(fetchData, [
-        microbe,
-        dataType,
-        selectedFilterOptions,
-        searchText,
-        tableParams.pagination?.current,
-        tableParams.pagination?.pageSize,
-        tableParams?.sortOrder,
-        tableParams?.sortField
-    ])
+    useEffect(() => {
+        setTableParams(prev => ({
+                ...prev,
+                pagination: {
+                    ...prev.pagination,
+                    current: 1
+                }
+            })
+        )
+        setFilterTrigger(prev => prev + 1)
+    }, [microbe, magStatus, selectedFilterOptions])
+
+    useEffect(() => {
+        fetchData(
+            microbe,
+            magStatus,
+            dataType,
+            selectedFilterOptions,
+            searchText
+        )
+    }, [dataType, fetchData, searchText, filterTrigger])
 
     return (
         <Stack spacing={2}>

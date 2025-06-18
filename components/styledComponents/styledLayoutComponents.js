@@ -9,7 +9,8 @@ export const CustomHeader = styled(Layout.Header)({
     zIndex: 1000,
     width: '100%',
     height: '64px',
-    paddingLeft: '16px'
+    paddingLeft: '96px',
+    paddingRight: '96px'
 })
 
 export const CustomContent = styled(Layout.Content)`
@@ -19,6 +20,8 @@ export const CustomContent = styled(Layout.Content)`
 
 export const CustomFooter = styled(Layout.Footer)({
     backgroundColor: '#FFFFFFE6',
+    paddingLeft: '80px',
+    paddingRight: '80px',
 })
 
 export const CustomHeaderMenu = styled(Menu)({

@@ -1,17 +1,24 @@
 import { CustomHeader, CustomHeaderMenu } from "@/components/styledComponents/styledLayoutComponents"
-import { Container } from "@mui/system"
 import { Flex } from "antd"
 import { A, Img, Span } from "@/components/styledComponents/styledHTMLTags"
 import { useRouter } from "next/router"
+import {
+    BookOutlined, CloudDownloadOutlined,
+    DatabaseOutlined,
+    DownloadOutlined,
+    ExperimentOutlined, FileTextOutlined,
+    HomeOutlined,
+    MailOutlined
+} from "@ant-design/icons"
+import MicrobialIcon from "@/components/icons/Microbial"
+import DatabaseIcon from "@/components/icons/Database"
 
 const MicrobeScopeHeader = () => (
     <CustomHeader>
-        <Container maxWidth="xl">
-            <Flex justify="space-between">
-                <LogoAndTitle/>
-                <HeaderMenu/>
-            </Flex>
-        </Container>
+        <Flex justify="space-between">
+            <LogoAndTitle/>
+            <HeaderMenu/>
+        </Flex>
     </CustomHeader>
 )
 
@@ -21,7 +28,7 @@ const LogoAndTitle = () => (
             height: '64px',
             lineHeight: '64px',
             display: 'inline-flex',
-            columnGap: '8px',
+            columnGap: '2px',
             alignItems: 'center',
             fontSize: '20px',
             overflow: 'hidden',
@@ -30,19 +37,13 @@ const LogoAndTitle = () => (
         href='/'
     >
         <Img
-            src="/microbial_logo.png"
+            src="/MicrobialScope_logo.png"
             sx={{
-                height: '48px',
-                width: '48px'
+                height: '56px',
+                width: '56px'
             }}
         />
-        <Span
-            sx={{
-                fontWeight: 'bold'
-            }}
-        >
-            MicrobialScope
-        </Span>
+        <Span sx={{ fontSize: '24px', fontWeight: 700 }}>MicorbialScope</Span>
     </A>
 )
 
@@ -57,10 +58,6 @@ const HeaderMenu = () => {
         <CustomHeaderMenu
             mode="horizontal"
             items={menuItems}
-            style={{
-                flex: 1,
-                minWidth: 0,
-            }}
             onClick={handleClick}
             selectable={false}
         />
@@ -71,304 +68,87 @@ const menuItems = [
     {
         key: 'home',
         label: 'Home',
+        icon: <HomeOutlined style={{ fontSize: '20px' }}/>,
         link: '/'
     },
     {
         key: 'microorganism',
         label: 'Microorganism',
+        icon: <MicrobialIcon style={{ fontSize: '20px' }}/>,
         link: '/microorganism'
     },
     {
         key: 'database',
         label: 'Database',
+        icon: <DatabaseIcon style={{ fontSize: '20px' }}/>,
         children: [
             {
-                key: 'archaeaGroup',
-                label: 'Archaea',
-                children: [
-                    {
-                        key: 'ReferenceAnnotationData',
-                        label: 'Reference Annotation Data',
-                        children: [
-                            {
-                                key: 'ArchaeaList',
-                                label: 'Archaea List',
-                                link: '/database/archaea/genomes'
-                            },
-                            {
-                                key: 'ArchaeaProteinList',
-                                label: 'Protein List',
-                                link: '/database/archaea/proteins'
-                            },
-                            // {
-                            //     key: 'MAGArchaeaTaxonomyList',
-                            //     label: 'Taxonomy List',
-                            //     link: '/database/MAG/archaea-taxonomy-list'
-                            // }
-                        ]
-                    },
-                    {
-                        key: 'FunctionalAnnotationData',
-                        label: 'Functional Annotation Data',
-                        children: [
-                            {
-                                key: 'ArchaeaTRNAsList',
-                                label: 'tRNAs List',
-                                link: '/database/archaea/tRNAs'
-                            },
-                            {
-                                key: 'ArchaeaCRISPRCasSystemsList',
-                                label: 'CRISPR/Cas Systems List',
-                                link: '/database/archaea/CRISPRCasSystems'
-                            },
-                            {
-                                key: 'ArchaeaAntiCRISPRProteinsList',
-                                label: 'Anti-CRISPR Proteins List',
-                                link: '/database/archaea/antiCRISPRProteins'
-                            },
-                            {
-                                key: 'ArchaeaSecondaryMetabolitesList',
-                                label: 'Secondary Metabolites List',
-                                link: '/database/archaea/secondaryMetabolites'
-                            },
-                            {
-                                key: 'ArchaeaSignalPeptidesList',
-                                label: 'Signal Peptides List',
-                                link: '/database/archaea/signalPeptides'
-                            },
-                            {
-                                key: 'ArchaeaVirulenceFactorsList',
-                                label: 'Virulence Factors List',
-                                link: '/database/archaea/virulenceFactors'
-                            },
-                            {
-                                key: 'ArchaeaAntibioticResistanceGenesList',
-                                label: 'Antibiotic Resistance Genes List',
-                                link: '/database/archaea/antibioticResistanceGenes'
-                            },
-                            {
-                                key: 'ArchaeaTransmembraneHelicesList',
-                                label: 'Transmembrane Helices List',
-                                link: '/database/archaea/transmembraneHelices'
-                            }
-                        ]
-                    }
-                ]
+                key: 'genomes',
+                label: 'Genomes',
+                link: '/database/genomes'
             },
             {
-                key: 'bacteriaGroup',
-                label: 'Bacteria',
-                children: [
-                    {
-                        key: 'BacteriaReferenceAnnotationData',
-                        label: 'Reference Annotation Data',
-                        children: [
-                            {
-                                key: 'BacteriaList',
-                                label: 'Bacteria List',
-                                link: '/database/bacteria/genomes'
-                            },
-                            {
-                                key: 'BacteriaProteinList',
-                                label: 'Protein List',
-                                link: '/database/bacteria/proteins'
-                            },
-                            // {
-                            //     key: 'MAGBacteriaTaxonomyList',
-                            //     label: 'Taxonomy List',
-                            //     link: '/database/MAG/bacteria-taxonomy-list'
-                            // }
-                        ]
-                    },
-                    {
-                        key: 'BacteriaFunctionalAnnotationData',
-                        label: 'Functional Annotation Data',
-                        children: [
-                            {
-                                key: 'BacteriaTRNAsList',
-                                label: 'tRNAs List',
-                                link: '/database/bacteria/tRNAs'
-                            },
-                            {
-                                key: 'BacteriaCRISPRCasSystemsList',
-                                label: 'CRISPR/Cas Systems List',
-                                link: '/database/bacteria/CRISPRCasSystems'
-                            },
-                            {
-                                key: 'BacteriaAntiCRISPRProteinsList',
-                                label: 'Anti-CRISPR Proteins List',
-                                link: '/database/bacteria/antiCRISPRProteins'
-                            },
-                            {
-                                key: 'BacteriaSecondaryMetabolitesList',
-                                label: 'Secondary Metabolites List',
-                                link: '/database/bacteria/secondaryMetabolites'
-                            },
-                            {
-                                key: 'BacteriaSignalPeptidesList',
-                                label: 'Signal Peptides List',
-                                link: '/database/bacteria/signalPeptides'
-                            },
-                            {
-                                key: 'BacteriaVirulenceFactorsList',
-                                label: 'Virulence Factors List',
-                                link: '/database/bacteria/virulenceFactors'
-                            },
-                            {
-                                key: 'BacteriaAntibioticResistanceGenesList',
-                                label: 'Antibiotic Resistance Genes List',
-                                link: '/database/bacteria/antibioticResistanceGenes'
-                            },
-                            {
-                                key: 'BacteriaTransmembraneHelicesList',
-                                label: 'Transmembrane Helices List',
-                                link: '/database/bacteria/transmembraneHelices'
-                            }
-                        ]
-                    }
-                ]
+                key: 'proteins',
+                label: 'Proteins',
+                link: '/database/proteins'
+            },{
+                key: 'tRNAs',
+                label: 'tRNAs',
+                link: '/database/tRNAs'
             },
             {
-                key: 'fungiGroup',
-                label: 'Fungi',
-                children: [
-                    {
-                        key: 'FungiReferenceAnnotationData',
-                        label: 'Reference Annotation Data',
-                        children: [
-                            {
-                                key: 'FungiList',
-                                label: 'Fungi List',
-                                link: '/database/fungi/genomes'
-                            },
-                            {
-                                key: 'FungiProteinList',
-                                label: 'Protein List',
-                                link: '/database/fungi/proteins'
-                            },
-                            // {
-                            //     key: 'MAGFungiTaxonomyList',
-                            //     label: 'Taxonomy List',
-                            //     link: '/database/MAG/fungi-taxonomy-list'
-                            // }
-                        ]
-                    },
-                    {
-                        key: 'FungiFunctionalAnnotationData',
-                        label: 'Functional Annotation Data',
-                        children: [
-                            {
-                                key: 'FungiTRNAsList',
-                                label: 'tRNAs List',
-                                link: '/database/fungi/tRNAs'
-                            },
-                            {
-                                key: 'FungiSecondaryMetabolitesList',
-                                label: 'Secondary Metabolites List',
-                                link: '/database/fungi/secondaryMetabolites'
-                            },
-                            {
-                                key: 'FungiSignalPeptidesList',
-                                label: 'Signal Peptides List',
-                                link: '/database/fungi/signalPeptides'
-                            },
-                            {
-                                key: 'FungiVirulenceFactorsList',
-                                label: 'Virulence Factors List',
-                                link: '/database/fungi/virulenceFactors'
-                            },
-                            {
-                                key: 'FungiAntibioticResistanceGenesList',
-                                label: 'Antibiotic Resistance Genes List',
-                                link: '/database/fungi/antibioticResistanceGenes'
-                            },
-                            {
-                                key: 'FungiTransmembraneHelicesList',
-                                label: 'Transmembrane Helices List',
-                                link: '/database/fungi/transmembraneHelices'
-                            }
-                        ]
-                    }
-                ]
+                key: 'CRISPRCasSystems',
+                label: 'CRISPR/Cas Systems',
+                link: '/database/CRISPRCasSystems'
             },
             {
-                key: 'virusesGroup',
-                label: 'Viruses',
-                children: [
-                    {
-                        key: 'VirusesReferenceAnnotationData',
-                        label: 'Reference Annotation Data',
-                        children: [
-                            {
-                                key: 'VirusesList',
-                                label: 'Viruses List',
-                                link: '/database/viruses/genomes'
-                            },
-                            {
-                                key: 'VirusesProteinList',
-                                label: 'Protein List',
-                                link: '/database/viruses/proteins'
-                            },
-                            // {
-                            //     key: 'MAGVirusesTaxonomyList',
-                            //     label: 'Taxonomy List',
-                            //     link: '/database/MAG/viruses-taxonomy-list'
-                            // }
-                        ]
-                    },
-                    {
-                        key: 'VirusesFunctionalAnnotationData',
-                        label: 'Functional Annotation Data',
-                        children: [
-                            {
-                                key: 'VirusesTRNAsList',
-                                label: 'tRNAs List',
-                                link: '/database/viruses/tRNAs'
-                            },
-                            {
-                                key: 'VirusesCRISPRCasSystemsList',
-                                label: 'CRISPR/Cas Systems List',
-                                link: '/database/viruses/CRISPRCasSystems'
-                            },
-                            {
-                                key: 'VirusesAntiCRISPRProteinsList',
-                                label: 'Anti-CRISPR Proteins List',
-                                link: '/database/viruses/antiCRISPRProteins'
-                            },
-                            {
-                                key: 'VirusesVirulenceFactorsList',
-                                label: 'Virulence Factors List',
-                                link: '/database/viruses/virulenceFactors'
-                            },
-                            {
-                                key: 'VirusesAntibioticResistanceGenesList',
-                                label: 'Antibiotic Resistance Genes List',
-                                link: '/database/viruses/antibioticResistanceGenes'
-                            },
-                            {
-                                key: 'VirusesTransmembraneHelicesList',
-                                label: 'Transmembrane Helices List',
-                                link: '/database/viruses/transmembraneHelices'
-                            }
-                        ]
-                    }
-                ]
+                key: 'antiCRISPRProteinsList',
+                label: 'Anti-CRISPR Proteins',
+                link: '/database/antiCRISPRProteins'
+            },
+            {
+                key: 'secondaryMetabolites',
+                label: 'Secondary Metabolites',
+                link: '/database/secondaryMetabolites'
+            },
+            {
+                key: 'signalPeptides',
+                label: 'Signal Peptides',
+                link: '/database/signalPeptides'
+            },
+            {
+                key: 'virulenceFactorsList',
+                label: 'Virulence Factors',
+                link: '/database/virulenceFactors'
+            },
+            {
+                key: 'antibioticResistanceGenes',
+                label: 'Antibiotic Resistance Genes',
+                link: '/database/antibioticResistanceGenes'
+            },
+            {
+                key: 'transmembraneHelices',
+                label: 'Transmembrane Helices',
+                link: '/database/transmembraneHelices'
             }
         ]
     },
     {
         key: 'download',
         label: 'Download',
+        icon: <CloudDownloadOutlined style={{ fontSize: '20px' }} />,
         link: '/download'
     },
     {
         key: 'tutorial',
         label: 'Tutorial',
+        icon: <FileTextOutlined style={{ fontSize: '20px' }} />,
         link: '/tutorial'
     },
     {
         key: 'contactUs',
         label: 'Contact us',
+        icon: <MailOutlined style={{ fontSize: '20px' }} />,
         link: '/contact'
     }
 ]

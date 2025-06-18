@@ -1,5 +1,5 @@
-import { FilterCheckBox } from "@/components/pagesComponents/databasePage/dataFilterComponents/FilterCollapse"
 import { Tooltip, Typography } from "antd"
+import { FilterCheckBox } from "@/components/pagesComponents/databasePage/dataFilterComponents/FilterCollapse"
 import { COGCategoryDict } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
 
 export const getArchaeaFilterItems = (filterOptions, selected, setSelected) => [

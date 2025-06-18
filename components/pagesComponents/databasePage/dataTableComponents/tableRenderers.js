@@ -1,15 +1,19 @@
 import { Button, Dropdown, Tag, Tooltip } from "antd"
-import Link from "next/link"
 import { DownloadOutlined, EyeOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons"
 import { Box, Stack } from "@mui/system"
 import { downloadSingleFile } from "@/dataFetch/get"
 import { Span } from "@/components/styledComponents/styledHTMLTags"
+import Link from "next/link"
 
-export const DetailButton = ({ url }) => (
+export const DetailButton = ({ handleClick }) => (
     <Tooltip title='View Details'>
-        <Link href={url}>
-            <Button shape='circle' color='danger' variant='filled' icon={<EyeOutlined/>}/>
-        </Link>
+        <Button
+            shape='circle'
+            color='danger'
+            variant='filled'
+            icon={<EyeOutlined/>}
+            onClick={handleClick}
+        />
     </Tooltip>
 )
 
@@ -85,17 +89,21 @@ export const ArchaeaIDChips = ({ archaeaIds }) => (
         {
             archaeaIds.split(', ').map(
                 archaeaId => (
-                    <Tag
+                    <Link
+                        href={`https://www.ncbi.nlm.nih.gov/datasets/genome/${archaeaId}/`}
+                        target='_blank'
                         key={archaeaId}
-                        style={{
-                            borderRadius: '20px',
-                            padding: '2px 8px',
-                            cursor: 'default',
-                        }}
-                        color="volcano"
                     >
-                        {archaeaId}
-                    </Tag>
+                        <Tag
+                            style={{
+                                borderRadius: '20px',
+                                padding: '2px 8px'
+                            }}
+                            color="volcano"
+                        >
+                            {archaeaId}
+                        </Tag>
+                    </Link>
                 )
             )
         }
@@ -150,7 +158,7 @@ export const StrandChip = ({ strand }) => (
         color={strand === 0 ? 'blue' : 'red'}
     >
         <Stack direction='row' spacing={0.5}>
-            <Span>{strand === 0 ? <PlusOutlined /> : <MinusOutlined />}</Span>
+            <Span>{strand === 0 ? <PlusOutlined/> : <MinusOutlined/>}</Span>
             <Span>{strand === 0 ? 'Forward' : 'Reverse'}</Span>
         </Stack>
     </Tag>

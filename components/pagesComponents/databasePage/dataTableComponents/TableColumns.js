@@ -19,7 +19,7 @@ import {
     DetailButton, DownloadButton, StrandChip
 } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
 
-export const archaeaTableColumns = [
+export const archaeaTableColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -122,10 +122,10 @@ export const archaeaTableColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaGenomesSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -133,7 +133,7 @@ export const archaeaTableColumns = [
     }
 ]
 
-export const archaeaProteinTableColumns = [
+export const archaeaProteinTableColumns = (handleDetailClick) => [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -229,8 +229,8 @@ export const archaeaProteinTableColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaProteinsSingleFileURL}
                     id={record.id}
@@ -240,7 +240,7 @@ export const archaeaProteinTableColumns = [
     }
 ]
 
-export const archaeaTRNATableColumns = [
+export const archaeaTRNATableColumns = (handleDetailClick) => [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -302,8 +302,8 @@ export const archaeaTRNATableColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaTRNAsSingleFileURL}
                     id={record.id}
@@ -313,7 +313,7 @@ export const archaeaTRNATableColumns = [
     }
 ]
 
-export const archaeaCRISPRCasColumns = [
+export const archaeaCRISPRCasColumns = (handleDetailClick) => [
     {
         title: 'Archaea ID',
         dataIndex: ['cas', 'archaea_id'],
@@ -385,8 +385,8 @@ export const archaeaCRISPRCasColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaCRISPRCasSystemsSingleFileURL}
                     id={record.id}
@@ -396,7 +396,7 @@ export const archaeaCRISPRCasColumns = [
     }
 ]
 
-export const archaeaAntiCRISPRAnnotationColumns = [
+export const archaeaAntiCRISPRAnnotationColumns = (handleDetailClick) => [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -462,8 +462,8 @@ export const archaeaAntiCRISPRAnnotationColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaAntiCRISPRAnnotationsSingleFileURL}
                     id={record.id}
@@ -473,7 +473,7 @@ export const archaeaAntiCRISPRAnnotationColumns = [
     }
 ]
 
-export const archaeaSecondaryMetaboliteColumns = [
+export const archaeaSecondaryMetaboliteColumns = (handleDetailClick) =>  [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -522,7 +522,7 @@ export const archaeaSecondaryMetaboliteColumns = [
                     format={() => (isInvalid ? '--%' : value)}
                     strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }}
                 />
-            );
+            )
         }
     },
     {
@@ -551,8 +551,8 @@ export const archaeaSecondaryMetaboliteColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaSecondaryMetabolitesSingleFileURL}
                     id={record.id}
@@ -562,7 +562,7 @@ export const archaeaSecondaryMetaboliteColumns = [
     }
 ]
 
-export const archaeaSignalPeptideColumns = [
+export const archaeaSignalPeptideColumns = (handleDetailClick) => [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -609,8 +609,8 @@ export const archaeaSignalPeptideColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaSignalPeptidesSingleFileURL}
                     id={record.id}
@@ -620,7 +620,7 @@ export const archaeaSignalPeptideColumns = [
     }
 ]
 
-export const archaeaVirulenceFactorColumns = [
+export const archaeaVirulenceFactorColumns = (handleDetailClick) => [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -667,8 +667,8 @@ export const archaeaVirulenceFactorColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaVirulenceFactorsSingleFileURL}
                     id={record.id}
@@ -678,7 +678,7 @@ export const archaeaVirulenceFactorColumns = [
     }
 ]
 
-export const archaeaAntibioticResistanceColumns = [
+export const archaeaAntibioticResistanceColumns = (handleDetailClick) => [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -731,8 +731,8 @@ export const archaeaAntibioticResistanceColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaAntibioticResistancesSingleFileURL}
                     id={record.id}
@@ -742,7 +742,7 @@ export const archaeaAntibioticResistanceColumns = [
     }
 ]
 
-export const archaeaTransmembraneHelicesColumns = [
+export const archaeaTransmembraneHelicesColumns = (handleDetailClick) => [
     {
         title: 'Archaea ID',
         dataIndex: 'archaea_id',
@@ -795,8 +795,8 @@ export const archaeaTransmembraneHelicesColumns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Stack direction="row" spacing={2}>
-                <DetailButton url={'/database/archaea/genomes'}/>
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
                     downloadUrl={getArchaeaTransmembraneHelicesSingleFileURL}
                     id={record.id}
