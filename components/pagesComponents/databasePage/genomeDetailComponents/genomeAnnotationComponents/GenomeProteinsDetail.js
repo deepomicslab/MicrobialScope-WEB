@@ -1,18 +1,10 @@
-import { useDatabaseGenomeDetailContext } from "@/components/context/DatabaseGenomeDetailContext"
-import useSWR from "swr"
-import {
-    GENOMEDETAILCONFIG
-} from "@/components/pagesComponents/databasePage/genomeDetailComponents/GenomeDetailContent"
-import { fetcher } from "@/dataFetch/get"
-import { LoadingView } from "@/components/stateViews/LoadingView"
-import { ErrorView } from "@/components/stateViews/ErrorView"
 import { Box, Stack } from "@mui/system"
 import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import { StyledTable } from "@/components/styledComponents/styledAntdTable"
 import {
     buildProteinsTableColumns
 } from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/genomeDetailTableColumns"
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo, useRef, useState } from "react"
 import DraggableModal from "@/components/feedbackComponents/modals/DraggableModal"
 import {
     ProteinModalDetailDescriptions,
@@ -23,16 +15,11 @@ import { Button } from "antd"
 import AnnotatedProteinMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedProteinMapViz"
 
-const GenomeProteinsDetail = ({ fastaDetail }) => {
-    const { microbe, magStatus, genomeId } = useDatabaseGenomeDetailContext()
-
-    const {
-        data: proteins,
-        isLoading,
-        error
-    } = useSWR(`${GENOMEDETAILCONFIG[microbe][magStatus]['genomeProteinsURL']}?genomeId=${genomeId}`, fetcher)
+const GenomeProteinsDetail = ({ fastaDetail, proteins }) => {
     const [open, setOpen] = useState(false)
     const [selectedRecord, setSelectedRecord] = useState(null)
+
+    const vizRef = useRef(null)
 
     const handleDetailClick = useCallback((record) => {
         setSelectedRecord(record)
@@ -51,14 +38,6 @@ const GenomeProteinsDetail = ({ fastaDetail }) => {
 
     const handleCancel = () => {
         setOpen(false)
-    }
-
-    if (isLoading) {
-        return <LoadingView containerSx={{ height: '400px', marginTop: '40px' }}/>
-    }
-
-    if (error) {
-        return <ErrorView containerSx={{ height: '400px', marginTop: '40px' }}/>
     }
 
     return (
@@ -94,11 +73,13 @@ const GenomeProteinsDetail = ({ fastaDetail }) => {
                         <Stack direction='row' spacing={2}>
                             <Button
                                 type="primary"
+                                onClick={() => vizRef.current?.downloadSvg()}
                             >
                                 Download SVG Chart
                             </Button>
                             <Button
                                 type="primary"
+                                onClick={() => vizRef.current?.downloadPng()}
                             >
                                 Download PNG Chart
                             </Button>
@@ -124,6 +105,7 @@ const GenomeProteinsDetail = ({ fastaDetail }) => {
                     >
                         <AnnotatedProteinMapViz
                             key={fastaDetail['contig']}
+                            ref={vizRef}
                             fastaDetail={fastaDetail}
                             proteins={filteredProteins}
                         />

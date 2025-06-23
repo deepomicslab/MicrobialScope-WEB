@@ -9,7 +9,7 @@ import { useDatabaseContext } from "@/components/context/DatabaseContext"
 import { useDatabaseDetailModalContext } from "@/components/context/DatabaseDetailModalContext"
 
 const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) => {
-    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const { microbe, magStatus, dataType, keyword } = useDatabaseContext()
     const { handleDetailClick } = useDatabaseDetailModalContext()
 
     const [tableData, setTableData] = useState([])
@@ -25,7 +25,6 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
             pageSize: 10,
         }
     })
-    const [searchText, setSearchText] = useState('')
     const [columnVisibilityMap, setColumnVisibilityMap] = useState(
         buildColumnVisibilityMap(
             DATABASECONFIG[microbe][magStatus][dataType]['columns'](
@@ -36,8 +35,16 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
             )
         )
     )
+    const [searchContent, setSearchContent] = useState({
+        field: 'archaea_id',
+        value: ''
+    })
     const [columns, setColumns] = useState([])
     const [filterTrigger, setFilterTrigger] = useState(0)
+
+    const handleSearContentChange = (newSearchContent) => {
+        setSearchContent(newSearchContent)
+    }
 
     const fetchData = useCallback((
         microbe,
@@ -70,7 +77,7 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
         tableParams.pagination?.current,
         tableParams.pagination?.pageSize,
         tableParams?.sortOrder,
-        tableParams?.sortField,
+        tableParams?.sortField
     ])
 
     const rebuildColumns = useCallback(() => {
@@ -139,9 +146,16 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
             magStatus,
             dataType,
             selectedFilterOptions,
-            searchText
+            searchContent
         )
-    }, [dataType, fetchData, searchText, filterTrigger])
+    }, [dataType, fetchData, searchContent, filterTrigger])
+
+    useEffect(() => {
+        setSearchContent(prev => ({
+            ...prev,
+            value: keyword
+        }))
+    }, [keyword])
 
     return (
         <Stack spacing={2}>
@@ -155,8 +169,9 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
                 refreshColumns={rebuildColumns}
                 showAllColumns={showAllColumns}
                 setColumns={setColumns}
-                setSearchText={setSearchText}
                 selectedFilterOptions={selectedFilterOptions}
+                searchContent={searchContent}
+                handleSearContentChange={handleSearContentChange}
             />
             <DataTable
                 columns={columns}

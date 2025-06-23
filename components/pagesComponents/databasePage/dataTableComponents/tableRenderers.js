@@ -87,7 +87,7 @@ export const BasicChip = ({ value, color }) => (
 export const ArchaeaIDChips = ({ archaeaIds }) => (
     <Stack direction='row' alignItems='center'>
         {
-            archaeaIds.split(', ').map(
+            archaeaIds.map(
                 archaeaId => (
                     <Link
                         href={`https://www.ncbi.nlm.nih.gov/datasets/genome/${archaeaId}/`}
@@ -116,7 +116,7 @@ export const AntibioticResistanceDrugClassChips = ({ drugClasses, color }) => {
     const hiddenCount = shouldCollapse ? drugClasses.length - 2 : 0
 
     return (
-        <Stack direction='row' alignItems='center' justifyContent='center'>
+        <Stack direction='row' alignItems='center' justifyContent='center' sx={{ flexWrap: 'wrap' }}>
             {
                 visible.map(
                     drugClassId => (
@@ -124,6 +124,7 @@ export const AntibioticResistanceDrugClassChips = ({ drugClasses, color }) => {
                             key={drugClassId}
                             style={{
                                 cursor: 'default',
+                                margin: '2px'
                             }}
                             color={color}
                         >
@@ -177,7 +178,7 @@ export const COGCategoryChips = ({ COGCategories }) => {
 
     return (
         <Stack direction='row' justifyContent='center' spacing={0.5}>
-            {COGCategories.split('').map((letter) => {
+            {COGCategories.map((letter) => {
                 const desc = COGCategoryDict[letter] || 'Unknown'
                 return (
                     <Tooltip title={desc} key={letter}>

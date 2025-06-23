@@ -8,7 +8,7 @@ export const ProteinTooltipTemplate = (protein) => {
             <TooltipItem groupName='Product' groupValue={protein.product}/>
             <TooltipItem groupName='Start' groupValue={protein.start}/>
             <TooltipItem groupName='End' groupValue={protein.end}/>
-            <TooltipItem groupName='Starnd' groupValue={protein.strand}/>
+            <TooltipItem groupName='Starnd' groupValue={protein.strand === 0 ? 'Forward' : 'Reverse'}/>
         </TooltipWrapper>
     )
 }

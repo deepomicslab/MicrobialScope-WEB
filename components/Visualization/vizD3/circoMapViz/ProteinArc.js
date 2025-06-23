@@ -1,9 +1,9 @@
-import { buildCircularPath } from "@/components/Visualization/vizD3/utils/cicularPathUtils"
+import { buildArrowPath, buildCircularPath } from "@/components/Visualization/vizD3/utils/cicularPathUtils"
 import { useMemo } from "react"
-import { buildProteinArrowPath, extractProteinsArrowData } from "@/components/Visualization/vizD3/utils/proteinsUtils"
+import { extractProteinsArrowData } from "@/components/Visualization/vizD3/utils/proteinsUtils"
 import { ProteinTooltipTemplate } from "@/components/Visualization/tooltip/ProteinTooltipTemplate"
 
-const ProteinsArc = ({
+const ProteinArc = ({
     cx,
     cy,
     radicalScale,
@@ -53,7 +53,7 @@ const ProteinsArc = ({
                                 key={protein.id}
                                 stroke='#818181'
                                 fill={protein.color}
-                                d={buildProteinArrowPath(protein, cx, cy, radius, radicalScale, arrowWidth)}
+                                d={buildArrowPath(protein, cx, cy, radius, radicalScale, arrowWidth)}
                                 onPointerEnter={(event) => showTooltip(event, protein)}
                                 onPointerMove={(event) => showTooltip(event, protein)}
                                 onPointerLeave={hideTooltip}
@@ -66,4 +66,4 @@ const ProteinsArc = ({
     )
 }
 
-export default ProteinsArc
+export default ProteinArc

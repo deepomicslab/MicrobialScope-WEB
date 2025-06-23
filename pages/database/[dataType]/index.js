@@ -4,18 +4,38 @@ import DatabaseContent from "@/components/pagesComponents/databasePage/DatabaseC
 import { DatabaseContext } from "@/components/context/DatabaseContext"
 import { Box } from "@mui/system"
 import { H1, H2, Span } from "@/components/styledComponents/styledHTMLTags"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const MicrobeDataList = () => {
     const router = useRouter()
-    const { dataType } = router.query
+    const { query, isReady } = router
+    const { dataType } = query
 
     const [microbe, setMicrobe] = useState('archaea')
     const [magStatus, setMagStatus] = useState('MAG')
+    const [keyword, setKeyword] = useState('')
 
-    if (!router.isReady) {
+    useEffect(() => {
+        if (!isReady) return
+
+        if (typeof query.keyword === 'string') {
+            setKeyword(query['keyword'])
+        } else {
+            setKeyword('')
+        }
+        if (typeof query.microbe === 'string') {
+            setMicrobe(query['microbe'])
+        }
+        if (typeof query.mag === 'string') {
+            setMagStatus(query['mag'])
+        }
+    }, [isReady, query])
+
+    if (!isReady) {
         return <LoadingView containerSx={{ height: '80vh', marginTop: '40px' }}/>
     }
+
+    // console.log(microbe)
 
     // if (microbe !== 'archaea') {
     //     return (
@@ -71,6 +91,7 @@ const MicrobeDataList = () => {
             value={{
                 microbe, setMicrobe,
                 magStatus, setMagStatus,
+                keyword, setKeyword,
                 dataType
             }}
         >

@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { arcTo, lineTo, moveTo } from "@/components/Visualization/vizD3/utils/basicPathUtils"
 
 export const getPointPosition = (cx, cy, angle, radius) => {
     return [cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)]
@@ -178,3 +179,137 @@ export const buildAnnularSectorClipPath = (
 
     return [moveToA, arcInner, lineToC, arcOuter, close].join(' ')
 }
+
+export const buildSegmentPath = (
+    item,
+    cx,
+    cy,
+    radius,
+    radicalScale,
+    arrowWidth
+) => {
+    const startAngle = radicalScale(item.startViz)
+    const endAngle = radicalScale(item.endViz)
+
+    const startOuter = getPointPosition(cx, cy, startAngle, radius + arrowWidth / 2)
+    const startInner = getPointPosition(cx, cy, startAngle, radius - arrowWidth / 2)
+
+    const endOuter = getPointPosition(cx, cy, endAngle, radius + arrowWidth / 2)
+    const endInner = getPointPosition(cx, cy, endAngle, radius - arrowWidth / 2)
+
+    const outerArcR = radius + arrowWidth / 2
+    const innerArcR = radius - arrowWidth / 2
+
+    return [
+        moveTo(startOuter[0], startOuter[1]),
+        lineTo(startOuter[0], startOuter[1]),
+        arcTo(
+            outerArcR,
+            0,
+            1,
+            endOuter[0],
+            endOuter[1]
+        ),
+        lineTo(endInner[0], endInner[1]),
+        arcTo(
+            innerArcR,
+            0,
+            0,
+            startInner[0],
+            startInner[1]
+        ),
+        'Z'
+    ].join(' ')
+}
+
+export const buildArrowPath = (
+    item,
+    cx,
+    cy,
+    radius,
+    radicalScale,
+    arrowWidth,
+    minDiffRad = 1.5 * (Math.PI / 180)
+) => {
+    const startAngle = radicalScale(item.startViz)
+    const endAngle = radicalScale(item.endViz)
+
+    const start = getPointPosition(cx, cy, startAngle, radius)
+    const end = getPointPosition(cx, cy, endAngle, radius)
+
+    const startOuter = getPointPosition(cx, cy, startAngle, radius + arrowWidth / 2)
+    const startInner = getPointPosition(cx, cy, startAngle, radius - arrowWidth / 2)
+
+    const endOuter = getPointPosition(cx, cy, endAngle, radius + arrowWidth / 2)
+    const endInner = getPointPosition(cx, cy, endAngle, radius - arrowWidth / 2)
+
+    let head, arrowOuter, arrowInner, tailOuter, tailInner
+
+    const arrowRad = (endAngle - startAngle < minDiffRad) ? (
+        endAngle - startAngle
+    ) : (
+        minDiffRad
+    )
+
+    if (item.strand === 1) {
+        head = start
+        arrowOuter = getPointPosition(cx, cy, startAngle + arrowRad, radius + arrowWidth / 2)
+        arrowInner = getPointPosition(cx, cy, startAngle + arrowRad, radius - arrowWidth / 2)
+        tailOuter = endOuter
+        tailInner = endInner
+    } else {
+        head = end
+        arrowOuter = getPointPosition(cx, cy, endAngle - arrowRad, radius + arrowWidth / 2)
+        arrowInner = getPointPosition(cx, cy, endAngle - arrowRad, radius - arrowWidth / 2)
+        tailOuter = startOuter
+        tailInner = startInner
+    }
+
+    const outerArcR = radius + arrowWidth / 2
+    const innerArcR = radius - arrowWidth / 2
+
+    return item.strand === 1 ? (
+        [
+            moveTo(head[0], head[1]),
+            lineTo(arrowOuter[0], arrowOuter[1]),
+            arcTo(
+                outerArcR,
+                0,
+                1,
+                tailOuter[0],
+                tailOuter[1]
+            ),
+            lineTo(tailInner[0], tailInner[1]),
+            arcTo(
+                innerArcR,
+                0,
+                0,
+                arrowInner[0],
+                arrowInner[1]
+            ),
+            'Z'
+        ].join(' ')
+    ) : (
+        [
+            moveTo(head[0], head[1]),
+            lineTo(arrowOuter[0], arrowOuter[1]),
+            arcTo(
+                outerArcR,
+                0,
+                0,
+                tailOuter[0],
+                tailOuter[1]
+            ),
+            lineTo(tailInner[0], tailInner[1]),
+            arcTo(
+                innerArcR,
+                0,
+                1,
+                arrowInner[0],
+                arrowInner[1]
+            ),
+            'Z'
+        ].join(' ')
+    )
+}
+

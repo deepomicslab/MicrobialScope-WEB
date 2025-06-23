@@ -22,9 +22,9 @@ export const CRISPRCasSystemModalDetailTitle = () => (
 
 const { TextArea } = Input
 
-export const CRISPRCasSystemModalDetailDescriptions = ({ record }) => {
+export const CRISPRCasSystemModalDetailDescriptions = ({ record, microbe }) => {
     const CRISPRItems = buildCRISPRItems(record)
-    const CasItems = buildCasItems(record)
+    const CasItems = buildCasItems(record, microbe)
 
     return (
         <Stack spacing={2}>
@@ -67,11 +67,11 @@ const buildCRISPRItems = (record) => [
     }
 ]
 
-const buildCasItems = (record) => [
+const buildCasItems = (record, microbe) => [
     {
-        key: 'archaeaId',
-        label: 'Archaea ID',
-        children: <BasicChip value={record['cas']['archaea_id']} color='volcano'/>
+        key: microbeMap[microbe].key,
+        label: microbeMap[microbe].label,
+        children: <BasicChip value={record['cas'][microbeMap[microbe].value]} color='volcano'/>
     },
     {
         key: 'contigId',
@@ -86,7 +86,7 @@ const buildCasItems = (record) => [
     {
         key: 'consensus_prediction',
         label: 'CRISPR-Cas Consenus Prediction',
-        children: record['cas']['consensus_prediction']
+        children: record['consensus_prediction']
     },
     {
         key: 'casSubtype',
@@ -123,3 +123,26 @@ const CasGenes = ({ casGenes }) => (
         }
     </Box>
 )
+
+const microbeMap = {
+    archaea: {
+        key: 'archaeaId',
+        label: 'Archaea ID',
+        value: 'archaea_id'
+    },
+    bacteria: {
+        key: 'bacteriaId',
+        label: 'Bacteria ID',
+        value: 'bacteria_id'
+    },
+    fungi: {
+        key: 'fungiId',
+        label: 'Fungi ID',
+        value: 'fungi_id'
+    },
+    viruses: {
+        key: 'virusesId',
+        label: 'Viruses ID',
+        value: 'viruses_id'
+    }
+}

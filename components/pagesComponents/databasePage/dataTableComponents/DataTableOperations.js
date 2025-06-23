@@ -19,13 +19,14 @@ const DataTableOperations = ({
     selectedRowInfo,
     showLeft,
     setShowLeft,
-    setSearchText,
     columnVisibilityMap,
     setColumnVisibilityMap,
     refreshColumns,
     showAllColumns,
     setColumns,
-    selectedFilterOptions
+    selectedFilterOptions,
+    searchContent,
+    handleSearContentChange
 }) => {
     return (
         <Stack direction="row" justifyContent="space-between">
@@ -38,12 +39,13 @@ const DataTableOperations = ({
             />
             <DataTableSearchBar
                 dataCount={dataCount}
-                setSearchText={setSearchText}
                 columnVisibilityMap={columnVisibilityMap}
                 setColumnVisibilityMap={setColumnVisibilityMap}
                 refreshColumns={refreshColumns}
                 showAllColumns={showAllColumns}
                 setColumns={setColumns}
+                searchContent={searchContent}
+                handleSearContentChange={handleSearContentChange}
             />
         </Stack>
     )

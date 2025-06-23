@@ -23,8 +23,8 @@ export const TRNAModalDetailTitle = () => (
 
 const { TextArea } = Input
 
-export const TRNAModalDetailDescriptions = ({ record }) => {
-    const items = buildItems(record)
+export const TRNAModalDetailDescriptions = ({ record, microbe }) => {
+    const items = buildItems(record, microbe)
 
     return (
         <Stack spacing={2}>
@@ -38,7 +38,7 @@ export const TRNAModalDetailDescriptions = ({ record }) => {
     )
 }
 
-const buildItems = (record) => [
+const buildItems = (record, microbe) => [
     {
         key: 'tRNAId',
         label: 'tRNA ID',
@@ -50,9 +50,9 @@ const buildItems = (record) => [
         children: <BasicChip value={record['trna_type']} color='purple'/>,
     },
     {
-        key: 'archaeaId',
-        label: 'Archaea ID',
-        children: <BasicChip value={record['archaea_id']} color='volcano'/>
+        key: microbeMap[microbe].key,
+        label: microbeMap[microbe].label,
+        children: <BasicChip value={record[microbeMap[microbe].value]} color="volcano"/>,
     },
     {
         key: 'contigId',
@@ -80,3 +80,26 @@ const buildItems = (record) => [
         children: record['end']
     }
 ]
+
+const microbeMap = {
+    archaea: {
+        key: 'archaeaId',
+        label: 'Archaea ID',
+        value: 'archaea_id'
+    },
+    bacteria: {
+        key: 'bacteriaId',
+        label: 'Bacteria ID',
+        value: 'bacteria_id'
+    },
+    fungi: {
+        key: 'fungiId',
+        label: 'Fungi ID',
+        value: 'fungi_id'
+    },
+    viruses: {
+        key: 'virusesId',
+        label: 'Viruses ID',
+        value: 'viruses_id'
+    }
+}

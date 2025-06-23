@@ -93,7 +93,7 @@ const MicrobeRadio = ({}) => {
                                     maxWidth: '200px'
                                 }}
                             >
-                                {option}
+                                {option.charAt(0).toUpperCase() + option.slice(1)}
                             </Typography.Text>
                         </Radio>
                     ))

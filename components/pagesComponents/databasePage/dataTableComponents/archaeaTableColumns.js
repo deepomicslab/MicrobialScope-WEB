@@ -5,13 +5,12 @@ import {
     getArchaeaAntibioticResistancesSingleFileURL,
     getArchaeaAntiCRISPRAnnotationsSingleFileURL,
     getArchaeaCRISPRCasSystemsSingleFileURL,
-    getArchaeaGenomesSingleFileURL,
     getArchaeaProteinsSingleFileURL,
     getArchaeaSecondaryMetabolitesSingleFileURL,
     getArchaeaSignalPeptidesSingleFileURL,
     getArchaeaTransmembraneHelicesSingleFileURL,
     getArchaeaTRNAsSingleFileURL,
-    getArchaeaVirulenceFactorsSingleFileURL
+    getArchaeaVirulenceFactorsSingleFileURL, getBacteriaProteinsSingleFileURL
 } from "@/dataFetch/get"
 import {
     AntibioticResistanceDrugClassChips,
@@ -305,7 +304,7 @@ export const archaeaTRNATableColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaTRNAsSingleFileURL}
+                    downloadUrl={getBacteriaProteinsSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -359,7 +358,7 @@ export const archaeaCRISPRCasColumns = (handleDetailClick) => [
     },
     {
         title: 'CRISPR-Cas Consenus Prediction',
-        dataIndex: ['cas', 'consensus_prediction'],
+        dataIndex: 'consensus_prediction',
         align: 'center'
     },
     {

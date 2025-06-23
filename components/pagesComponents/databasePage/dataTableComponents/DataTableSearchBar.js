@@ -1,8 +1,8 @@
-import { memo, useCallback, useState } from "react"
+import { memo, useCallback, useEffect, useState } from "react"
 import { produce } from "immer"
 import { Stack } from "@mui/system"
 import { H6, Hr, Span } from "@/components/styledComponents/styledHTMLTags"
-import { Button, Flex, Input, Popover, Statistic, Switch, Tooltip, Typography } from "antd"
+import { Button, Flex, Input, Popover, Select, Space, Statistic, Switch, Tooltip, Typography } from "antd"
 import { EyeOutlined, HolderOutlined, MenuOutlined, ReloadOutlined } from "@ant-design/icons"
 import { useDrag, useDrop } from "react-dnd"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
@@ -11,28 +11,44 @@ import { useDatabaseDetailModalContext } from "@/components/context/DatabaseDeta
 
 const DataTableSearchBar = ({
     dataCount,
-    setSearchText,
     columnVisibilityMap,
     setColumnVisibilityMap,
     refreshColumns,
     showAllColumns,
-    setColumns
+    setColumns,
+    searchContent,
+    handleSearContentChange
 }) => {
-    const { dataType } = useDatabaseContext()
-    const [localSearchText, setLocalSearchText] = useState('')
+    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const [localSearchText, setLocalSearchText] = useState({
+        field: 'archaea_id',
+        value: ''
+    })
 
-    const handleSearchTextChange = (e) => {
-        setLocalSearchText(e.target.value)
+    const handleSearchTextChange = (changed) => {
+        setLocalSearchText(prev => ({
+            ...prev,
+            ...changed
+        }))
     }
 
     const onSearch = () => {
-        setSearchText(localSearchText)
+        handleSearContentChange(localSearchText)
     }
 
     const onClear = () => {
-        setLocalSearchText('')
-        setSearchText('')
+        handleSearContentChange({
+            field: 'archaea_id',
+            value: ''
+        })
     }
+
+    useEffect(() => {
+        setLocalSearchText({
+            field: 'archaea_id',
+            value: searchContent.value
+        })
+    }, [searchContent.value])
 
     return (
         <Stack direction="row" spacing={2}>
@@ -42,17 +58,25 @@ const DataTableSearchBar = ({
                 <Span> {dataType.toUpperCase()}</Span>
             </Stack>
             <Stack direction="row" spacing={1}>
-                <Input.Search
-                    placeholder="Search..."
-                    allowClear
-                    value={localSearchText}
-                    onChange={handleSearchTextChange}
-                    onSearch={(value) => onSearch(value)}
-                    onClear={onClear}
-                    style={{
-                        width: 200,
-                    }}
-                />
+                <Space.Compact>
+                    <Select
+                        value={localSearchText.field}
+                        options={DATABASECONFIG[microbe][magStatus][dataType]['searchBarFields']}
+                        style={{ width: 120 }}
+                        onChange={(val) => handleSearchTextChange({ field: val })}
+                    />
+                    <Input.Search
+                        placeholder="Search..."
+                        allowClear
+                        value={localSearchText.value}
+                        onChange={(e) => handleSearchTextChange({value: e.target.value})}
+                        onSearch={(value) => onSearch({ value })}
+                        onClear={onClear}
+                        style={{
+                            width: 250,
+                        }}
+                    />
+                </Space.Compact>
                 <Popover
                     placement="bottomRight"
                     content={

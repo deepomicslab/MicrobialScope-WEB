@@ -22,8 +22,8 @@ export const AntiCRISPRAnnotationModalDetailTitle = () => (
 
 const { TextArea } = Input
 
-export const AntiCRISPRAnnotationModalDetailDescriptions = ({ record }) => {
-    const items = buildItems(record)
+export const AntiCRISPRAnnotationModalDetailDescriptions = ({ record, microbe }) => {
+    const items = buildItems(record, microbe)
 
     return (
         <Stack spacing={2}>
@@ -92,7 +92,7 @@ export const AntiCRISPRAnnotationModalDetailDescriptions = ({ record }) => {
     )
 }
 
-const buildItems = (record) => [
+const buildItems = (record, microbe) => [
     {
         key: 'proteinId',
         label: 'Protein ID',
@@ -104,9 +104,9 @@ const buildItems = (record) => [
         children: record['position'],
     },
     {
-        key: 'archaeaId',
-        label: 'Archaea ID',
-        children: <BasicChip value={record['archaea_id']} color="volcano" />,
+        key: microbeMap[microbe].key,
+        label: microbeMap[microbe].label,
+        children: <BasicChip value={record[microbeMap[microbe].value]} color="volcano"/>,
     },
     {
         key: 'contigId',
@@ -139,3 +139,27 @@ const buildItems = (record) => [
         children: record['aa_length'],
     }
 ]
+
+const microbeMap = {
+    archaea: {
+        key: 'archaeaId',
+        label: 'Archaea ID',
+        value: 'archaea_id'
+    },
+    bacteria: {
+        key: 'bacteriaId',
+        label: 'Bacteria ID',
+        value: 'bacteria_id'
+    },
+    fungi: {
+        key: 'fungiId',
+        label: 'Fungi ID',
+        value: 'fungi_id'
+    },
+    viruses: {
+        key: 'virusesId',
+        label: 'Viruses ID',
+        value: 'viruses_id'
+    }
+}
+

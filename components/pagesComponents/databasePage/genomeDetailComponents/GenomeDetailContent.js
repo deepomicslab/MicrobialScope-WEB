@@ -3,10 +3,23 @@ import useSWR from "swr"
 import { LoadingView } from "@/components/stateViews/LoadingView"
 import { ErrorView } from "@/components/stateViews/ErrorView"
 import {
-    fetcher,
-    getArchaeaGenomeDetailURL, getArchaeaGenomeFASTAURL,
+    fetcher, getArchaeaGenomeAntibioticResistanceURL,
+    getArchaeaGenomeAntiCRISPRURL,
+    getArchaeaGenomeCRISPRCasURL,
+    getArchaeaGenomeDetailURL,
+    getArchaeaGenomeFASTAURL,
     getArchaeaGenomeProteinsURL,
-    getUnMAGArchaeaGenomeDetailURL, getUnMAGArchaeaGenomeFASTAURL, getUnMAGArchaeaGenomeProteinsURL
+    getArchaeaGenomeSecondaryMetabolitesURL,
+    getArchaeaGenomeSignalPeptidesURL, getArchaeaGenomeTransmembraneHelicesURL,
+    getArchaeaGenomeTRNAsURL, getArchaeaGenomeVirulenceFactorsURL, getUnMAGArchaeaGenomeAntibioticResistanceURL,
+    getUnMAGArchaeaGenomeAntiCRISPRURL,
+    getUnMAGArchaeaGenomeCRISPRCasURL,
+    getUnMAGArchaeaGenomeDetailURL,
+    getUnMAGArchaeaGenomeFASTAURL,
+    getUnMAGArchaeaGenomeProteinsURL,
+    getUnMAGArchaeaGenomeSecondaryMetabolitesURL,
+    getUnMAGArchaeaGenomeSignalPeptidesURL, getUnMAGArchaeaGenomeTransmembraneHelicesURL,
+    getUnMAGArchaeaGenomeTRNAsURL, getUnMAGArchaeaGenomeVirulenceFactorsURL
 } from "@/dataFetch/get"
 import {
     buildArchaeaGenomeDetailItems
@@ -64,14 +77,30 @@ export const GENOMEDETAILCONFIG = {
             genomeDetailURL: getArchaeaGenomeDetailURL,
             genomeDetailDescriptionItemsBuilder: buildArchaeaGenomeDetailItems,
             genomeFASTAURL: getArchaeaGenomeFASTAURL,
-            genomeProteinsURL: getArchaeaGenomeProteinsURL
+            genomeProteinsURL: getArchaeaGenomeProteinsURL,
+            genomeTRNAsURL: getArchaeaGenomeTRNAsURL,
+            genomeCRISPRCasURL: getArchaeaGenomeCRISPRCasURL,
+            genomeAntiCRISPRURL: getArchaeaGenomeAntiCRISPRURL,
+            genomeSecondaryMetabolitesURL: getArchaeaGenomeSecondaryMetabolitesURL,
+            genomeSignalPeptidesURL: getArchaeaGenomeSignalPeptidesURL,
+            genomeVirulenceFactorsURL: getArchaeaGenomeVirulenceFactorsURL,
+            genomeAntibioticResistanceURL: getArchaeaGenomeAntibioticResistanceURL,
+            genomeTransmembraneHelicesURL: getArchaeaGenomeTransmembraneHelicesURL
         },
         unMAG: {
             title: 'Archaea Genome Detail',
             genomeDetailURL: getUnMAGArchaeaGenomeDetailURL,
             genomeDetailDescriptionItemsBuilder: buildArchaeaGenomeDetailItems,
             genomeFASTAURL: getUnMAGArchaeaGenomeFASTAURL,
-            genomeProteinsURL: getUnMAGArchaeaGenomeProteinsURL
+            genomeProteinsURL: getUnMAGArchaeaGenomeProteinsURL,
+            genomeTRNAsURL: getUnMAGArchaeaGenomeTRNAsURL,
+            genomeCRISPRCasURL: getUnMAGArchaeaGenomeCRISPRCasURL,
+            genomeAntiCRISPRURL: getUnMAGArchaeaGenomeAntiCRISPRURL,
+            genomeSecondaryMetabolitesURL: getUnMAGArchaeaGenomeSecondaryMetabolitesURL,
+            genomeSignalPeptidesURL: getUnMAGArchaeaGenomeSignalPeptidesURL,
+            genomeVirulenceFactorsURL: getUnMAGArchaeaGenomeVirulenceFactorsURL,
+            genomeAntibioticResistanceURL: getUnMAGArchaeaGenomeAntibioticResistanceURL,
+            genomeTransmembraneHelicesURL: getUnMAGArchaeaGenomeTransmembraneHelicesURL
         }
     }
 }

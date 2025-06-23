@@ -11,6 +11,22 @@ import { Button, Card, Select, Space, Typography } from "antd"
 import { useEffect, useMemo, useState } from "react"
 import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import GenomeProteinsDetail from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeProteinsDetail"
+import GenomeTRNAsDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeTRNAsDetail"
+import GenomeSecondaryMetabolitesDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeSecondaryMetabolitesDetail"
+import GenomeCRISPRCasDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeCRISPRCasDetail"
+import GenomeAntiCRISPRDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeAntiCRISPRDetail"
+import GenomeSignalPeptidesDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeSignalPeptidesDetail"
+import GenomeTransmembraneHelicesDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeTransmembraneHelicesDetail"
+import GenomeVirulenceFactorsDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeVirulenceFactorsDetail"
+import GenomeAntibioticResistanceDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeAntibioticResistanceDetail"
 
 const { Text } = Typography
 const { Option } = Select
@@ -24,6 +40,12 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
         isLoading,
         error
     } = useSWR(`${GENOMEDETAILCONFIG[microbe][magStatus]['genomeFASTAURL']}?genomeId=${genomeId}`, fetcher)
+
+    const {
+        data: proteins,
+        isLoading: proteinsIsLoading,
+        error: proteinsError
+    } = useSWR(`${GENOMEDETAILCONFIG[microbe][magStatus]['genomeProteinsURL']}?genomeId=${genomeId}`, fetcher)
 
     const handleContigChange = (value) => {
         setSelectedContig(value)
@@ -39,17 +61,17 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
         }
     }, [fastaInfo])
 
-    if (isLoading || !fastaDetail) {
+    if (isLoading || !fastaDetail || proteinsIsLoading) {
         return <LoadingView containerSx={{ height: '80vh', marginTop: '40px' }}/>
     }
 
-    if (error) {
+    if (error || proteinsError) {
         return <ErrorView containerSx={{ height: '80vh', marginTop: '40px' }}/>
     }
 
     return (
         <>
-            <Stack spacing={4}>
+            <Stack spacing={6}>
                 <Stack alignItems="center">
                     <Card
                         style={{ width: '100%' }}
@@ -79,8 +101,40 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
                     </Card>
                 </Stack>
                 {
-                    genomeDetail['protein_num'] !== 0 &&
-                    <GenomeProteinsDetail fastaDetail={fastaDetail} />
+                    proteins.length !== 0 &&
+                    <GenomeProteinsDetail fastaDetail={fastaDetail} proteins={proteins} />
+                }
+                {
+                    proteins.length !== 0 && genomeDetail['trna_count'] !== 0 &&
+                    <GenomeTRNAsDetail fastaDetail={fastaDetail} proteins={proteins}/>
+                }
+                {
+                    proteins.length !== 0 && genomeDetail['crispr_count'] !== 0 &&
+                    <GenomeCRISPRCasDetail fastaDetail={fastaDetail} proteins={proteins}/>
+                }
+                {
+                    proteins.length !== 0 && genomeDetail['anti_crispr_count'] !== 0 &&
+                    <GenomeAntiCRISPRDetail fastaDetail={fastaDetail} proteins={proteins}/>
+                }
+                {
+                    proteins.length !== 0 && genomeDetail['secondary_metabolite_count'] !== 0 &&
+                    <GenomeSecondaryMetabolitesDetail fastaDetail={fastaDetail} proteins={proteins}/>
+                }
+                {
+                    proteins.length !== 0 && genomeDetail['signal_peptide_count'] !== 0 &&
+                    <GenomeSignalPeptidesDetail fastaDetail={fastaDetail} proteins={proteins}/>
+                }
+                {
+                    proteins.length !== 0 && genomeDetail['virulence_factor_count'] !== 0 &&
+                    <GenomeVirulenceFactorsDetail fastaDetail={fastaDetail} proteins={proteins}/>
+                }
+                {
+                    proteins.length !== 0 && genomeDetail['arg_count'] !== 0 &&
+                    <GenomeAntibioticResistanceDetail fastaDetail={fastaDetail} proteins={proteins}/>
+                }
+                {
+                    proteins.length !== 0 && genomeDetail['tmh_count'] !== 0 &&
+                    <GenomeTransmembraneHelicesDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
             </Stack>
         </>
