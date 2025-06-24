@@ -29,9 +29,10 @@ export const buildDownloadDropdownItems = (
                                         {
                                             downloadType: downloadType,
                                             fileType: key,
-                                            payload: downloadType === 'selected' ? selectedRowInfo.rowKeys : filterOptions,
+                                            payload: downloadType === 'selected' ? buildPayload(dataType, selectedRowInfo) : filterOptions,
                                             microbe: microbe,
                                             magStatus: magStatus,
+                                            dataType: dataType
                                         }
                                     )
                                 }
@@ -57,4 +58,12 @@ export const buildDownloadDropdownItems = (
             disabled: selectedRowInfo.rowKeys.length === 0
         }
     ]
+}
+
+const buildPayload = (dataType, selectedRowInfo) => {
+    if (dataType === 'proteins' || dataType === 'antibioticResistanceGenes' || dataType === 'transmembraneHelices') {
+        return selectedRowInfo.rows.map(row => `${row['archaea_id']}:${row['contig_id']}:${row['protein_id']}`)
+    } else {
+        return selectedRowInfo.rowKeys
+    }
 }
