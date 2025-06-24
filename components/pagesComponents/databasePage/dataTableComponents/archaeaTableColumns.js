@@ -213,10 +213,10 @@ export const archaeaProteinTableColumns = (handleDetailClick, getSingleFileURL) 
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -286,10 +286,10 @@ export const archaeaTRNATableColumns = (handleDetailClick, getSingleFileURL) => 
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -369,10 +369,10 @@ export const archaeaCRISPRCasColumns = (handleDetailClick, getSingleFileURL) => 
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -446,10 +446,10 @@ export const archaeaAntiCRISPRAnnotationColumns = (handleDetailClick, getSingleF
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -535,10 +535,10 @@ export const archaeaSecondaryMetaboliteColumns = (handleDetailClick, getSingleFi
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -593,10 +593,10 @@ export const archaeaSignalPeptideColumns = (handleDetailClick, getSingleFileURL)
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -651,10 +651,10 @@ export const archaeaVirulenceFactorColumns = (handleDetailClick, getSingleFileUR
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -712,10 +712,10 @@ export const archaeaAntibioticResistanceColumns = (handleDetailClick, getSingleF
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -771,10 +771,10 @@ export const archaeaTransmembraneHelicesColumns = (handleDetailClick, getSingleF
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }

@@ -112,10 +112,10 @@ export const virusesTableColumns = (handleDetailClick, getSingleFileURL) => [
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -213,10 +213,10 @@ export const virusesProteinTableColumns = (handleDetailClick, getSingleFileURL) 
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -285,10 +285,10 @@ export const virusesTRNATableColumns = (handleDetailClick, getSingleFileURL) => 
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -367,10 +367,10 @@ export const virusesCRISPRCasColumns = (handleDetailClick, getSingleFileURL) => 
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -443,10 +443,10 @@ export const virusesAntiCRISPRAnnotationColumns = (handleDetailClick, getSingleF
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -500,10 +500,10 @@ export const virusesVirulenceFactorColumns = (handleDetailClick, getSingleFileUR
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -561,10 +561,10 @@ export const virusesAntibioticResistanceColumns = (handleDetailClick, getSingleF
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
@@ -620,10 +620,10 @@ export const virusesTransmembraneHelicesColumns = (handleDetailClick, getSingleF
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
+                {/*<DownloadButton*/}
+                {/*    downloadUrl={getSingleFileURL}*/}
+                {/*    id={record.id}*/}
+                {/*/>*/}
             </Stack>
         )
     }
