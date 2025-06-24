@@ -26,8 +26,8 @@ export const postArchaeaGenomesBatchDownloadURL = `${apiPrefix}/archaea/genome_b
 export const postUnMAGArchaeaGenomesBatchDownloadURL = `${apiPrefix}/archaea/genome_batch_download_unmag`
 
 // Archaea Proteins URLs
-export const postArchaeaProteinsURL = `${apiPrefix}/archaea/proteins`
-export const postUnMAGArchaeaProteinsURL = `${apiPrefix}/archaea/proteins_unmag`
+export const postArchaeaProteinsURL = `https://microbialapi.deepomics.org/api/largetable/archaea_protein_list/`
+export const postUnMAGArchaeaProteinsURL = `https://microbialapi.deepomics.org/api/largetable/archaea_unmag_protein_list/`
 export const postArchaeaProteinsBatchDownloadURL = `${apiPrefix}/archaea/protein_batch_download`
 export const postUnMAGArchaeaProteinsBatchDownloadURL = `${apiPrefix}/archaea/protein_batch_download_unmag`
 
@@ -68,17 +68,23 @@ export const postArchaeaVirulenceFactorsBatchDownloadURL = `${apiPrefix}/archaea
 export const postUnMAGArchaeaVirulenceFactorsBatchDownloadURL = `${apiPrefix}/archaea/virulence_factor_batch_download_unmag`
 
 // Archaea Antibiotic Resistances URLs
-export const postArchaeaAntibioticResistancesURL = `${apiPrefix}/archaea/antibiotic_resistances`
-export const postUnMAGArchaeaAntibioticResistancesURL = `${apiPrefix}/archaea/antibiotic_resistances_unmag`
+export const postArchaeaAntibioticResistancesURL = `https://microbialapi.deepomics.org/api/largetable/archaea_arg_list/`
+export const postUnMAGArchaeaAntibioticResistancesURL = `https://microbialapi.deepomics.org/api/largetable/archaea_unmag_arg_list/`
 export const postArchaeaAntibioticResistancesBatchDownloadURL = `${apiPrefix}/archaea/antibiotic_resistance_batch_download`
 export const postUnMAGArchaeaAntibioticResistancesBatchDownloadURL = `${apiPrefix}/archaea/antibiotic_resistance_batch_download_unmag`
 
 // Archaea Transmembrane Helices URLs
-export const postArchaeaTransmembraneHelicesURL = `${apiPrefix}/archaea/transmembrane_helices`
-export const postUnMAGArchaeaTransmembraneHelicesURL = `${apiPrefix}/archaea/transmembrane_helices_unmag`
+export const postArchaeaTransmembraneHelicesURL = `https://microbialapi.deepomics.org/api/largetable/archaea_tmh_list/`
+export const postUnMAGArchaeaTransmembraneHelicesURL = `https://microbialapi.deepomics.org/api/largetable/archaea_unmag_tmh_list/`
 export const postArchaeaTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/archaea/transmembrane_helice_batch_download`
 export const postUnMAGArchaeaTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/archaea/transmembrane_helice_batch_download_unmag`
 
+
+// Bacteria Genomes URLs
+export const postBacteriaGenomesURL = `${apiPrefix}/bacteria/genomes`
+export const postUnMAGBacteriaGenomesURL = `${apiPrefix}/bacteria/genomes_unmag`
+export const postBacteriaGenomesBatchDownloadURL = `${apiPrefix}/bacteria/genome_batch_download`
+export const postUnMAGBacteriaGenomesBatchDownloadURL = `${apiPrefix}/bacteria/genome_batch_download_unmag`
 
 // Bacteria Proteins URLs
 export const postBacteriaProteinsURL = `${apiPrefix}/bacteria/proteins`
@@ -133,3 +139,101 @@ export const postBacteriaTransmembraneHelicesURL = `${apiPrefix}/bacteria/transm
 export const postUnMAGBacteriaTransmembraneHelicesURL = `${apiPrefix}/bacteria/transmembrane_helices_unmag`
 export const postBacteriaTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/bacteria/transmembrane_helice_batch_download`
 export const postUnMAGBacteriaTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/bacteria/transmembrane_helice_batch_download_unmag`
+
+
+// Fungi Genomes URLs
+export const postFungiGenomesURL = `${apiPrefix}/fungi/genomes`
+export const postUnMAGFungiGenomesURL = `${apiPrefix}/fungi/genomes_unmag`
+export const postFungiGenomesBatchDownloadURL = `${apiPrefix}/fungi/genome_batch_download`
+export const postUnMAGFungiGenomesBatchDownloadURL = `${apiPrefix}/fungi/genome_batch_download_unmag`
+
+// Fungi Proteins URLs
+export const postFungiProteinsURL = `${apiPrefix}/fungi/proteins`
+export const postUnMAGFungiProteinsURL = `${apiPrefix}/fungi/proteins_unmag`
+export const postFungiProteinsBatchDownloadURL = `${apiPrefix}/fungi/protein_batch_download`
+export const postUnMAGFungiProteinsBatchDownloadURL = `${apiPrefix}/fungi/protein_batch_download_unmag`
+
+// Fungi tRNAs URLs
+export const postFungiTRNAsURL = `${apiPrefix}/fungi/tRNAs`
+export const postUnMAGFungiTRNAsURL = `${apiPrefix}/fungi/tRNAs_unmag`
+export const postFungiTRNAsBatchDownloadURL = `${apiPrefix}/fungi/tRNA_batch_download`
+export const postUnMAGFungiTRNAsBatchDownloadURL = `${apiPrefix}/fungi/tRNA_batch_download_unmag`
+
+// Fungi Secondary Metabolites URLs
+export const postFungiSecondaryMetabolitesURL = `${apiPrefix}/fungi/secondary_metabolites`
+export const postUnMAGFungiSecondaryMetabolitesURL = `${apiPrefix}/fungi/secondary_metabolites_unmag`
+export const postFungiSecondaryMetabolitesBatchDownloadURL = `${apiPrefix}/fungi/secondary_metabolite_batch_download`
+export const postUnMAGFungiSecondaryMetabolitesBatchDownloadURL = `${apiPrefix}/fungi/secondary_metabolite_batch_download_unmag`
+
+// Fungi Signal Peptides URLs
+export const postFungiSignalPeptidesURL = `${apiPrefix}/fungi/signal_peptides`
+export const postUnMAGFungiSignalPeptidesURL = `${apiPrefix}/fungi/signal_peptides_unmag`
+export const postFungiSignalPeptidesBatchDownloadURL = `${apiPrefix}/fungi/signal_peptide_batch_download`
+export const postUnMAGFungiSignalPeptidesBatchDownloadURL = `${apiPrefix}/fungi/signal_peptide_batch_download_unmag`
+
+// Fungi Virulence Factors URLs
+export const postFungiVirulenceFactorsURL = `${apiPrefix}/fungi/virulence_factors`
+export const postUnMAGFungiVirulenceFactorsURL = `${apiPrefix}/fungi/virulence_factors_unmag`
+export const postFungiVirulenceFactorsBatchDownloadURL = `${apiPrefix}/fungi/virulence_factor_batch_download`
+export const postUnMAGFungiVirulenceFactorsBatchDownloadURL = `${apiPrefix}/fungi/virulence_factor_batch_download_unmag`
+
+// Fungi Antibiotic Resistances URLs
+export const postFungiAntibioticResistancesURL = `${apiPrefix}/fungi/antibiotic_resistances`
+export const postUnMAGFungiAntibioticResistancesURL = `${apiPrefix}/fungi/antibiotic_resistances_unmag`
+export const postFungiAntibioticResistancesBatchDownloadURL = `${apiPrefix}/fungi/antibiotic_resistance_batch_download`
+export const postUnMAGFungiAntibioticResistancesBatchDownloadURL = `${apiPrefix}/fungi/antibiotic_resistance_batch_download_unmag`
+
+// Fungi Transmembrane Helices URLs
+export const postFungiTransmembraneHelicesURL = `${apiPrefix}/fungi/transmembrane_helices`
+export const postUnMAGFungiTransmembraneHelicesURL = `${apiPrefix}/fungi/transmembrane_helices_unmag`
+export const postFungiTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/fungi/transmembrane_helice_batch_download`
+export const postUnMAGFungiTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/fungi/transmembrane_helice_batch_download_unmag`
+
+
+// Viruses Genomes URLs
+export const postVirusesGenomesURL = `${apiPrefix}/viruses/genomes`
+export const postUnMAGVirusesGenomesURL = `${apiPrefix}/viruses/genomes_unmag`
+export const postVirusesGenomesBatchDownloadURL = `${apiPrefix}/viruses/genome_batch_download`
+export const postUnMAGVirusesGenomesBatchDownloadURL = `${apiPrefix}/viruses/genome_batch_download_unmag`
+
+// Viruses Proteins URLs
+export const postVirusesProteinsURL = `${apiPrefix}/viruses/proteins`
+export const postUnMAGVirusesProteinsURL = `${apiPrefix}/viruses/proteins_unmag`
+export const postVirusesProteinsBatchDownloadURL = `${apiPrefix}/viruses/protein_batch_download`
+export const postUnMAGVirusesProteinsBatchDownloadURL = `${apiPrefix}/viruses/protein_batch_download_unmag`
+
+// Viruses tRNAs URLs
+export const postVirusesTRNAsURL = `${apiPrefix}/viruses/tRNAs`
+export const postUnMAGVirusesTRNAsURL = `${apiPrefix}/viruses/tRNAs_unmag`
+export const postVirusesTRNAsBatchDownloadURL = `${apiPrefix}/viruses/tRNA_batch_download`
+export const postUnMAGVirusesTRNAsBatchDownloadURL = `${apiPrefix}/viruses/tRNA_batch_download_unmag`
+
+// Viruses CRISPR/Cas Systems URLs
+export const postVirusesCRISPRCasSystemsURL = `${apiPrefix}/viruses/CRISPR_Cas_systems`
+export const postUnMAGVirusesCRISPRCasSystemsURL = `${apiPrefix}/viruses/CRISPR_Cas_systems_unmag`
+export const postVirusesCRISPRCasSystemsBatchDownloadURL = `${apiPrefix}/viruses/CRISPR_Cas_system_batch_download`
+export const postUnMAGVirusesCRISPRCasSystemsBatchDownloadURL = `${apiPrefix}/viruses/CRISPR_Cas_system_batch_download_unmag`
+
+// Viruses Anti-CRISPR Annotations URLs
+export const postVirusesAntiCRISPRAnnotationsURL = `${apiPrefix}/viruses/anti_crispr_annotations`
+export const postUnMAGVirusesAntiCRISPRAnnotationsURL = `${apiPrefix}/viruses/anti_crispr_annotations_unmag`
+export const postVirusesAntiCRISPRAnnotationsBatchDownloadURL = `${apiPrefix}/viruses/anti_crispr_annotation_batch_download`
+export const postUnMAGVirusesAntiCRISPRAnnotationsBatchDownloadURL = `${apiPrefix}/viruses/anti_crispr_annotation_batch_download_unmag`
+
+// Viruses Virulence Factors URLs
+export const postVirusesVirulenceFactorsURL = `${apiPrefix}/viruses/virulence_factors`
+export const postUnMAGVirusesVirulenceFactorsURL = `${apiPrefix}/viruses/virulence_factors_unmag`
+export const postVirusesVirulenceFactorsBatchDownloadURL = `${apiPrefix}/viruses/virulence_factor_batch_download`
+export const postUnMAGVirusesVirulenceFactorsBatchDownloadURL = `${apiPrefix}/viruses/virulence_factor_batch_download_unmag`
+
+// Viruses Antibiotic Resistances URLs
+export const postVirusesAntibioticResistancesURL = `${apiPrefix}/viruses/antibiotic_resistances`
+export const postUnMAGVirusesAntibioticResistancesURL = `${apiPrefix}/viruses/antibiotic_resistances_unmag`
+export const postVirusesAntibioticResistancesBatchDownloadURL = `${apiPrefix}/viruses/antibiotic_resistance_batch_download`
+export const postUnMAGVirusesAntibioticResistancesBatchDownloadURL = `${apiPrefix}/viruses/antibiotic_resistance_batch_download_unmag`
+
+// Viruses Transmembrane Helices URLs
+export const postVirusesTransmembraneHelicesURL = `${apiPrefix}/viruses/transmembrane_helices`
+export const postUnMAGVirusesTransmembraneHelicesURL = `${apiPrefix}/viruses/transmembrane_helices_unmag`
+export const postVirusesTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/viruses/transmembrane_helice_batch_download`
+export const postUnMAGVirusesTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/viruses/transmembrane_helice_batch_download_unmag`

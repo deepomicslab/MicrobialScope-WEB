@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/system"
 import { StyledTable } from "@/components/styledComponents/styledAntdTable"
 import Link from "next/link"
 import { Button, Tag } from "antd"
-import { EyeOutlined } from "@ant-design/icons"
+import { ArrowRightOutlined, EyeOutlined } from "@ant-design/icons"
 import { TitleWithTooltip } from "@/components/pagesComponents/sharedComponents/sharedTableComponents"
 
 const MicrobeTable = ({ data }) => {
@@ -24,9 +24,10 @@ const OverviewButton = () => (
     <Button
         color="primary"
         variant="dashed"
-        icon={<EyeOutlined/>}
+        icon={<ArrowRightOutlined />}
+        iconPosition='end'
     >
-        Overview
+        Explore
     </Button>
 )
 
@@ -41,7 +42,7 @@ const AssemblyTypeChip = ({ assemblyType }) => (
             cursor: 'default',
         }}
     >
-        {assemblyType}
+        {magStatusValueMap[assemblyType]}
     </Tag>
 )
 
@@ -155,12 +156,24 @@ const columns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Link href={`/microbes/overview/${record['microbeType']}?assembly=${record['assemblyType']}`}>
+            <Link href={`http://localhost:3000/database/genomes?microbe=${microbeValueMap[record['microbeType']]}&mag=${record['assemblyType']}`}>
                 <OverviewButton/>
             </Link>
         )
     }
 ]
+
+const magStatusValueMap = {
+    unMAG: 'Monoisolate',
+    MAG: 'MAG'
+}
+
+const microbeValueMap = {
+    Archaea: 'archaea',
+    Bacteria: 'bacteria',
+    Fungi: 'fungi',
+    Viruses: 'viruses',
+}
 
 const extractTableData = (data) => [
     {

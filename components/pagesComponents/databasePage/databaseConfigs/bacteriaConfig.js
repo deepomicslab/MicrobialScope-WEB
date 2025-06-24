@@ -1,33 +1,19 @@
 import {
     getArchaeaAntibioticResistancesFilterItems,
     getArchaeaAntiCRISPRAnnotationsFilterItems,
-    getArchaeaCRISPRCasSystemsFilterItems,
+    getArchaeaCRISPRCasSystemsFilterItems, getArchaeaFilterItems,
     getArchaeaProteinsFilterItems,
     getArchaeaSecondaryMetabolitesFilterItems,
     getArchaeaSignalPeptidesFilterItems, getArchaeaTransmembraneHelicesFilterItems,
     getArchaeaTRNAsFilterItems, getArchaeaVirulenceFactorsFilterItems
 } from "@/components/pagesComponents/databasePage/dataFilterComponents/FilterItems"
 import {
-    postArchaeaAntibioticResistancesBatchDownloadURL,
-    postArchaeaAntibioticResistancesURL,
-    postArchaeaAntiCRISPRAnnotationsBatchDownloadURL,
-    postArchaeaAntiCRISPRAnnotationsURL,
-    postArchaeaCRISPRCasSystemsBatchDownloadURL,
-    postArchaeaCRISPRCasSystemsURL,
-    postArchaeaSecondaryMetabolitesBatchDownloadURL,
-    postArchaeaSecondaryMetabolitesURL,
-    postArchaeaSignalPeptidesBatchDownloadURL,
-    postArchaeaSignalPeptidesURL,
-    postArchaeaTransmembraneHelicesBatchDownloadURL,
-    postArchaeaTransmembraneHelicesURL,
-    postArchaeaVirulenceFactorsBatchDownloadURL,
-    postArchaeaVirulenceFactorsURL,
     postBacteriaAntibioticResistancesBatchDownloadURL,
     postBacteriaAntibioticResistancesURL,
     postBacteriaAntiCRISPRAnnotationsBatchDownloadURL,
     postBacteriaAntiCRISPRAnnotationsURL,
     postBacteriaCRISPRCasSystemsBatchDownloadURL,
-    postBacteriaCRISPRCasSystemsURL,
+    postBacteriaCRISPRCasSystemsURL, postBacteriaGenomesBatchDownloadURL, postBacteriaGenomesURL,
     postBacteriaProteinsBatchDownloadURL,
     postBacteriaProteinsURL,
     postBacteriaSecondaryMetabolitesBatchDownloadURL,
@@ -40,26 +26,12 @@ import {
     postBacteriaTRNAsURL,
     postBacteriaVirulenceFactorsBatchDownloadURL,
     postBacteriaVirulenceFactorsURL,
-    postUnMAGArchaeaAntibioticResistancesBatchDownloadURL,
-    postUnMAGArchaeaAntibioticResistancesURL,
-    postUnMAGArchaeaAntiCRISPRAnnotationsBatchDownloadURL,
-    postUnMAGArchaeaAntiCRISPRAnnotationsURL,
-    postUnMAGArchaeaCRISPRCasSystemsBatchDownloadURL,
-    postUnMAGArchaeaCRISPRCasSystemsURL,
-    postUnMAGArchaeaSecondaryMetabolitesBatchDownloadURL,
-    postUnMAGArchaeaSecondaryMetabolitesURL,
-    postUnMAGArchaeaSignalPeptidesBatchDownloadURL,
-    postUnMAGArchaeaSignalPeptidesURL,
-    postUnMAGArchaeaTransmembraneHelicesBatchDownloadURL,
-    postUnMAGArchaeaTransmembraneHelicesURL,
-    postUnMAGArchaeaVirulenceFactorsBatchDownloadURL,
-    postUnMAGArchaeaVirulenceFactorsURL,
     postUnMAGBacteriaAntibioticResistancesBatchDownloadURL,
     postUnMAGBacteriaAntibioticResistancesURL,
     postUnMAGBacteriaAntiCRISPRAnnotationsBatchDownloadURL,
     postUnMAGBacteriaAntiCRISPRAnnotationsURL,
     postUnMAGBacteriaCRISPRCasSystemsBatchDownloadURL,
-    postUnMAGBacteriaCRISPRCasSystemsURL,
+    postUnMAGBacteriaCRISPRCasSystemsURL, postUnMAGBacteriaGenomesBatchDownloadURL, postUnMAGBacteriaGenomesURL,
     postUnMAGBacteriaProteinsBatchDownloadURL,
     postUnMAGBacteriaProteinsURL,
     postUnMAGBacteriaSecondaryMetabolitesBatchDownloadURL,
@@ -74,26 +46,14 @@ import {
     postUnMAGBacteriaVirulenceFactorsURL
 } from "@/dataFetch/post"
 import {
-    getArchaeaAntibioticResistancesFilterOptionsURL,
-    getArchaeaAntibioticResistancesSingleFileURL,
-    getArchaeaAntiCRISPRAnnotationsFilterOptionsURL,
-    getArchaeaAntiCRISPRAnnotationsSingleFileURL,
-    getArchaeaCRISPRCasSystemsFilterOptionsURL,
-    getArchaeaCRISPRCasSystemsSingleFileURL,
-    getArchaeaSecondaryMetabolitesFilterOptionsURL,
-    getArchaeaSecondaryMetabolitesSingleFileURL,
-    getArchaeaSignalPeptidesFilterOptionsURL,
-    getArchaeaSignalPeptidesSingleFileURL,
-    getArchaeaTransmembraneHelicesFilterOptionsURL,
-    getArchaeaTransmembraneHelicesSingleFileURL,
-    getArchaeaVirulenceFactorsFilterOptionsURL,
-    getArchaeaVirulenceFactorsSingleFileURL,
     getBacteriaAntibioticResistancesFilterOptionsURL,
     getBacteriaAntibioticResistancesSingleFileURL,
     getBacteriaAntiCRISPRAnnotationsFilterOptionsURL,
     getBacteriaAntiCRISPRAnnotationsSingleFileURL,
     getBacteriaCRISPRCasSystemsFilterOptionsURL,
     getBacteriaCRISPRCasSystemsSingleFileURL,
+    getBacteriaGenomesFilterOptionsURL,
+    getBacteriaGenomesSingleFileURL,
     getBacteriaProteinsFilterOptionsURL,
     getBacteriaProteinsSingleFileURL,
     getBacteriaSecondaryMetabolitesFilterOptionsURL,
@@ -106,26 +66,14 @@ import {
     getBacteriaTRNAsSingleFileURL,
     getBacteriaVirulenceFactorsFilterOptionsURL,
     getBacteriaVirulenceFactorsSingleFileURL,
-    getUnMAGArchaeaAntibioticResistancesFilterOptionsURL,
-    getUnMAGArchaeaAntibioticResistancesSingleFileURL,
-    getUnMAGArchaeaAntiCRISPRAnnotationsFilterOptionsURL,
-    getUnMAGArchaeaAntiCRISPRAnnotationsSingleFileURL,
-    getUnMAGArchaeaCRISPRCasSystemsFilterOptionsURL,
-    getUnMAGArchaeaCRISPRCasSystemsSingleFileURL,
-    getUnMAGArchaeaSecondaryMetabolitesFilterOptionsURL,
-    getUnMAGArchaeaSecondaryMetabolitesSingleFileURL,
-    getUnMAGArchaeaSignalPeptidesFilterOptionsURL,
-    getUnMAGArchaeaSignalPeptidesSingleFileURL,
-    getUnMAGArchaeaTransmembraneHelicesFilterOptionsURL,
-    getUnMAGArchaeaTransmembraneHelicesSingleFileURL,
-    getUnMAGArchaeaVirulenceFactorsFilterOptionsURL,
-    getUnMAGArchaeaVirulenceFactorsSingleFileURL,
     getUnMAGBacteriaAntibioticResistancesFilterOptionsURL,
     getUnMAGBacteriaAntibioticResistancesSingleFileURL,
     getUnMAGBacteriaAntiCRISPRAnnotationsFilterOptionsURL,
     getUnMAGBacteriaAntiCRISPRAnnotationsSingleFileURL,
     getUnMAGBacteriaCRISPRCasSystemsFilterOptionsURL,
     getUnMAGBacteriaCRISPRCasSystemsSingleFileURL,
+    getUnMAGBacteriaGenomesFilterOptionsURL,
+    getUnMAGBacteriaGenomesSingleFileURL,
     getUnMAGBacteriaProteinsFilterOptionsURL,
     getUnMAGBacteriaProteinsSingleFileURL,
     getUnMAGBacteriaSecondaryMetabolitesFilterOptionsURL,
@@ -144,13 +92,15 @@ import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
 import {
-    ArchaeaAntibioticResistanceSearchBarConfig,
-    ArchaeaAntiCRISPRSearchBarConfig,
-    ArchaeaCRISPRSearchBarConfig,
-    ArchaeaProteinSearchBarConfig,
-    ArchaeaSecondaryMetabolitesSearchBarConfig,
-    ArchaeaSignalPeptideSearchBarConfig, ArchaeaTransmembraneHelicesSearchBarConfig,
-    ArchaeaTRNASearchBarConfig, ArchaeaVirulenceFactorSearchBarConfig
+    BacteriaAntibioticResistanceSearchBarConfig,
+    BacteriaAntiCRISPRSearchBarConfig,
+    BacteriaCRISPRSearchBarConfig, BacteriaGenomeSearchBarConfig,
+    BacteriaProteinSearchBarConfig,
+    BacteriaSecondaryMetabolitesSearchBarConfig,
+    BacteriaSignalPeptideSearchBarConfig,
+    BacteriaTransmembraneHelicesSearchBarConfig,
+    BacteriaTRNASearchBarConfig,
+    BacteriaVirulenceFactorSearchBarConfig
 } from "@/components/pagesComponents/databasePage/databaseConfigs/searchBarConfig"
 import {
     bacteriaAntibioticResistanceColumns,
@@ -158,7 +108,7 @@ import {
     bacteriaCRISPRCasColumns,
     bacteriaProteinTableColumns,
     bacteriaSecondaryMetaboliteColumns,
-    bacteriaSignalPeptideColumns, bacteriaTransmembraneHelicesColumns,
+    bacteriaSignalPeptideColumns, bacteriaTableColumns, bacteriaTransmembraneHelicesColumns,
     bacteriaTRNATableColumns, bacteriaVirulenceFactorColumns
 } from "@/components/pagesComponents/databasePage/dataTableComponents/bacteriaTableColumns"
 import {
@@ -197,6 +147,18 @@ import {
 export const bacteriaConfig = {
     'bacteria': {
         'MAG': {
+            'genomes': {
+                title: 'Bacteria Genomes',
+                columns: bacteriaTableColumns,
+                filterItems: getArchaeaFilterItems,
+                endpointList: postBacteriaGenomesURL,
+                endpointFilter: getBacteriaGenomesFilterOptionsURL,
+                endpointSingleDownload: getBacteriaGenomesSingleFileURL,
+                endpointBatchDownload: postBacteriaGenomesBatchDownloadURL,
+                modalDetail: (record, microbe) => <ProteinModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalTitle: <ProteinModalDetailTitle/>,
+                searchBarFields: BacteriaGenomeSearchBarConfig
+            },
             'proteins': {
                 title: 'Bacteria Proteins',
                 columns: bacteriaProteinTableColumns,
@@ -207,10 +169,10 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaProteinsBatchDownloadURL,
                 modalDetail: (record, microbe) => <ProteinModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <ProteinModalDetailTitle/>,
-                searchBarFields: ArchaeaProteinSearchBarConfig
+                searchBarFields: BacteriaProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Archaea tRNAs',
+                title: 'Bacteria tRNAs',
                 columns: bacteriaTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postBacteriaTRNAsURL,
@@ -219,7 +181,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaTRNAsBatchDownloadURL,
                 modalDetail: (record, microbe) => <TRNAModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <TRNAModalDetailTitle/>,
-                searchBarFields: ArchaeaTRNASearchBarConfig
+                searchBarFields: BacteriaTRNASearchBarConfig
             },
             'CRISPRCasSystems': {
                 title: 'CRISPR/Cas Systems',
@@ -231,7 +193,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaCRISPRCasSystemsBatchDownloadURL,
                 modalDetail: (record, microbe) => <CRISPRCasSystemModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <CRISPRCasSystemModalDetailTitle/>,
-                searchBarFields: ArchaeaCRISPRSearchBarConfig
+                searchBarFields: BacteriaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
                 title: 'Anti-CRISPR Proteins',
@@ -243,7 +205,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaAntiCRISPRAnnotationsBatchDownloadURL,
                 modalDetail: (record, microbe) => <AntiCRISPRAnnotationModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <AntiCRISPRAnnotationModalDetailTitle/>,
-                searchBarFields: ArchaeaAntiCRISPRSearchBarConfig
+                searchBarFields: BacteriaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
                 title: 'Secondary Metabolites',
@@ -255,7 +217,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaSecondaryMetabolitesBatchDownloadURL,
                 modalDetail: (record, microbe) => <SecondaryMetabolitesModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <SecondaryMetabolitesModalDetailTitle/>,
-                searchBarFields: ArchaeaSecondaryMetabolitesSearchBarConfig
+                searchBarFields: BacteriaSecondaryMetabolitesSearchBarConfig
             },
             'signalPeptides': {
                 title: 'Signal Peptides',
@@ -267,7 +229,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaSignalPeptidesBatchDownloadURL,
                 modalDetail: (record, microbe) => <SignalPeptideModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <SignalPeptideModalDetailTitle/>,
-                searchBarFields: ArchaeaSignalPeptideSearchBarConfig
+                searchBarFields: BacteriaSignalPeptideSearchBarConfig
             },
             'virulenceFactors': {
                 title: 'Virulence Factors',
@@ -279,7 +241,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaVirulenceFactorsBatchDownloadURL,
                 modalDetail: (record, microbe) => <VirulenceFactorModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <VirulenceFactorModalDetailTitle/>,
-                searchBarFields: ArchaeaVirulenceFactorSearchBarConfig
+                searchBarFields: BacteriaVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
                 title: 'Antibiotic Resistance Genes',
@@ -291,7 +253,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaAntibioticResistancesBatchDownloadURL,
                 modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <AntibioticResistanceGeneModalDetailTitle/>,
-                searchBarFields: ArchaeaAntibioticResistanceSearchBarConfig
+                searchBarFields: BacteriaAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
                 title: 'Transmembrane Helices',
@@ -303,10 +265,22 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postBacteriaTransmembraneHelicesBatchDownloadURL,
                 modalDetail: (record, microbe) => <TransmembraneHelicesModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <TransmembraneHelicesModalDetailTitle/>,
-                searchBarFields: ArchaeaTransmembraneHelicesSearchBarConfig
+                searchBarFields: BacteriaTransmembraneHelicesSearchBarConfig
             }
         },
         'unMAG': {
+            'genomes': {
+                title: 'Bacteria Genomes',
+                columns: bacteriaTableColumns,
+                filterItems: getArchaeaFilterItems,
+                endpointList: postUnMAGBacteriaGenomesURL,
+                endpointFilter: getUnMAGBacteriaGenomesFilterOptionsURL,
+                endpointSingleDownload: getUnMAGBacteriaGenomesSingleFileURL,
+                endpointBatchDownload: postUnMAGBacteriaGenomesBatchDownloadURL,
+                modalDetail: (record) => JSON.stringify(record, null, 2),
+                modalTitle: <TransmembraneHelicesModalDetailTitle/>,
+                searchBarFields: BacteriaGenomeSearchBarConfig
+            },
             'proteins': {
                 title: 'Bacteria Proteins',
                 columns: bacteriaProteinTableColumns,
@@ -317,7 +291,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaProteinsBatchDownloadURL,
                 modalDetail: (record, microbe) => <ProteinModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <ProteinModalDetailTitle/>,
-                searchBarFields: ArchaeaProteinSearchBarConfig
+                searchBarFields: BacteriaProteinSearchBarConfig
             },
             'tRNAs': {
                 title: 'Bacteria tRNAs',
@@ -329,7 +303,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaTRNAsBatchDownloadURL,
                 modalDetail: (record, microbe) => <TRNAModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <TRNAModalDetailTitle/>,
-                searchBarFields: ArchaeaTRNASearchBarConfig
+                searchBarFields: BacteriaTRNASearchBarConfig
             },
             'CRISPRCasSystems': {
                 title: 'CRISPR/Cas Systems',
@@ -341,7 +315,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaCRISPRCasSystemsBatchDownloadURL,
                 modalDetail: (record, microbe) => <CRISPRCasSystemModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <CRISPRCasSystemModalDetailTitle/>,
-                searchBarFields: ArchaeaCRISPRSearchBarConfig
+                searchBarFields: BacteriaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
                 title: 'Anti-CRISPR Proteins',
@@ -353,7 +327,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaAntiCRISPRAnnotationsBatchDownloadURL,
                 modalDetail: (record, microbe) => <AntiCRISPRAnnotationModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <AntiCRISPRAnnotationModalDetailTitle/>,
-                searchBarFields: ArchaeaAntiCRISPRSearchBarConfig
+                searchBarFields: BacteriaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
                 title: 'Secondary Metabolites',
@@ -365,7 +339,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaSecondaryMetabolitesBatchDownloadURL,
                 modalDetail: (record, microbe) => <SecondaryMetabolitesModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <SecondaryMetabolitesModalDetailTitle/>,
-                searchBarFields: ArchaeaSecondaryMetabolitesSearchBarConfig
+                searchBarFields: BacteriaSecondaryMetabolitesSearchBarConfig
             },
             'signalPeptides': {
                 title: 'Signal Peptides',
@@ -377,7 +351,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaSignalPeptidesBatchDownloadURL,
                 modalDetail: (record, microbe) => <SignalPeptideModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <SignalPeptideModalDetailTitle/>,
-                searchBarFields: ArchaeaSignalPeptideSearchBarConfig
+                searchBarFields: BacteriaSignalPeptideSearchBarConfig
             },
             'virulenceFactors': {
                 title: 'Virulence Factors',
@@ -389,7 +363,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaVirulenceFactorsBatchDownloadURL,
                 modalDetail: (record, microbe) => <VirulenceFactorModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <VirulenceFactorModalDetailTitle/>,
-                searchBarFields: ArchaeaVirulenceFactorSearchBarConfig
+                searchBarFields: BacteriaVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
                 title: 'Antibiotic Resistance Genes',
@@ -401,7 +375,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaAntibioticResistancesBatchDownloadURL,
                 modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <AntibioticResistanceGeneModalDetailTitle/>,
-                searchBarFields: ArchaeaAntibioticResistanceSearchBarConfig
+                searchBarFields: BacteriaAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
                 title: 'Transmembrane Helices',
@@ -413,7 +387,7 @@ export const bacteriaConfig = {
                 endpointBatchDownload: postUnMAGBacteriaTransmembraneHelicesBatchDownloadURL,
                 modalDetail: (record, microbe) => <TransmembraneHelicesModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <TransmembraneHelicesModalDetailTitle/>,
-                searchBarFields: ArchaeaTransmembraneHelicesSearchBarConfig,
+                searchBarFields: BacteriaTransmembraneHelicesSearchBarConfig,
             }
         }
     }

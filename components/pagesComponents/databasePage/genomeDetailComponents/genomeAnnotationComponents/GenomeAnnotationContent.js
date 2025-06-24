@@ -3,11 +3,11 @@ import useSWR from "swr"
 import { fetcher } from "@/dataFetch/get"
 import { LoadingView } from "@/components/stateViews/LoadingView"
 import { ErrorView } from "@/components/stateViews/ErrorView"
-import { Box, Stack } from "@mui/system"
+import { Stack } from "@mui/system"
 import {
     GENOMEDETAILCONFIG
 } from "@/components/pagesComponents/databasePage/genomeDetailComponents/GenomeDetailContent"
-import { Button, Card, Select, Space, Typography } from "antd"
+import { Card, Select, Typography } from "antd"
 import { useEffect, useMemo, useState } from "react"
 import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import GenomeProteinsDetail from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeProteinsDetail"
@@ -109,19 +109,19 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
                     <GenomeTRNAsDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
                 {
-                    proteins.length !== 0 && genomeDetail['crispr_count'] !== 0 &&
+                    microbe !== 'fungi' && proteins.length !== 0 && genomeDetail['crispr_count'] !== 0 &&
                     <GenomeCRISPRCasDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
                 {
-                    proteins.length !== 0 && genomeDetail['anti_crispr_count'] !== 0 &&
+                    microbe !== 'fungi' && proteins.length !== 0 && genomeDetail['anti_crispr_count'] !== 0 &&
                     <GenomeAntiCRISPRDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
                 {
-                    proteins.length !== 0 && genomeDetail['secondary_metabolite_count'] !== 0 &&
+                    microbe !== 'viruses' && proteins.length !== 0 && genomeDetail['secondary_metabolite_count'] !== 0 &&
                     <GenomeSecondaryMetabolitesDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
                 {
-                    proteins.length !== 0 && genomeDetail['signal_peptide_count'] !== 0 &&
+                    microbe !== 'viruses' && proteins.length !== 0 && genomeDetail['signal_peptide_count'] !== 0 &&
                     <GenomeSignalPeptidesDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
                 {

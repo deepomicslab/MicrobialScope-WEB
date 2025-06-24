@@ -46,7 +46,7 @@ const Microorganisms = ({ statistic }) => {
         router.push({
             pathname: '/database/genomes',
             query: {
-                type: microbe.type
+                microbe: microbe.type
             }
         })
     }

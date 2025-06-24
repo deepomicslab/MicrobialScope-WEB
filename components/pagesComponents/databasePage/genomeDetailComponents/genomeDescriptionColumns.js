@@ -3,12 +3,12 @@ import { Progress, Tooltip, Typography } from "antd"
 import Link from "next/link"
 import { Box } from "@mui/system"
 
-export const buildArchaeaGenomeDetailItems = (genomeDetail) => [
+export const buildArchaeaGenomeDetailItems = (genomeDetail, microbe) => [
     {
-        key: 'archaea_id',
-        label: 'Archaea ID',
+        key: keyMap[microbe].key,
+        label: keyMap[microbe].label,
         span: 2,
-        children: <ArchaeaIDChips archaeaIds={genomeDetail['archaea_id']}/>
+        children: <ArchaeaIDChips archaeaIds={genomeDetail[keyMap[microbe].key]}/>
     },
     {
         key: 'organism_name',
@@ -104,22 +104,22 @@ export const buildArchaeaGenomeDetailItems = (genomeDetail) => [
     {
         key: 'crispr_count',
         label: '# of CRISPR/Cas Systems',
-        children: genomeDetail['crispr_count']
+        children: genomeDetail['crispr_count'] === undefined ? '--' : genomeDetail['crispr_count']
     },
     {
         key: 'anti_crispr_count',
         label: '# of Anti-CRISPR Proteins',
-        children: genomeDetail['anti_crispr_count']
+        children: genomeDetail['anti_crispr_count'] === undefined ? '--' : genomeDetail['anti_crispr_count']
     },
     {
         key: 'secondary_metabolite_count',
         label: '# of Secondary Metabolites',
-        children: genomeDetail['secondary_metabolite_count']
+        children: genomeDetail['secondary_metabolite_count'] === undefined ? '--' : genomeDetail['secondary_metabolite_count']
     },
     {
         key: 'signal_peptide_count',
         label: '# of Signal Peptides',
-        children: genomeDetail['signal_peptide_count']
+        children: genomeDetail['signal_peptide_count'] === undefined ? '--' : genomeDetail['signal_peptide_count']
     },
     {
         key: 'virulence_factor_count',
@@ -137,3 +137,22 @@ export const buildArchaeaGenomeDetailItems = (genomeDetail) => [
         children: genomeDetail['tmh_count']
     },
 ]
+
+const keyMap = {
+    archaea: {
+        key: 'archaea_id',
+        label: 'Archaea ID'
+    },
+    bacteria: {
+        key: 'bacteria_id',
+        label: 'Bacteria ID'
+    },
+    fungi: {
+        key: 'fungi_id',
+        label: 'Fungi ID'
+    },
+    viruses: {
+        key: 'viruses_id',
+        label: 'Viruses ID'
+    }
+}

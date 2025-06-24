@@ -14,8 +14,11 @@ import ResponsiveVisualizationContainer from "@/components/Visualization/contain
 import { Button } from "antd"
 import AnnotatedProteinMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedProteinMapViz"
+import { useDatabaseGenomeDetailContext } from "@/components/context/DatabaseGenomeDetailContext"
 
 const GenomeProteinsDetail = ({ fastaDetail, proteins }) => {
+    const { microbe } = useDatabaseGenomeDetailContext()
+
     const [open, setOpen] = useState(false)
     const [selectedRecord, setSelectedRecord] = useState(null)
 
@@ -127,7 +130,7 @@ const GenomeProteinsDetail = ({ fastaDetail, proteins }) => {
                         overflowX: 'auto'
                     }}
                 >
-                    <ProteinModalDetailDescriptions record={selectedRecord}/>
+                    <ProteinModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                 </Box>
             </DraggableModal>
         </>

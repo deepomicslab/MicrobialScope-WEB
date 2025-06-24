@@ -7,6 +7,7 @@ import DataTableOperations from "@/components/pagesComponents/databasePage/dataT
 import { produce } from "immer"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
 import { useDatabaseDetailModalContext } from "@/components/context/DatabaseDetailModalContext"
+import { fieldMap } from "@/components/pagesComponents/databasePage/dataTableComponents/DataTableSearchBar"
 
 const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) => {
     const { microbe, magStatus, dataType, keyword } = useDatabaseContext()
@@ -36,7 +37,7 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
         )
     )
     const [searchContent, setSearchContent] = useState({
-        field: 'archaea_id',
+        field: fieldMap[microbe],
         value: ''
     })
     const [columns, setColumns] = useState([])

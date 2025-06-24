@@ -106,13 +106,22 @@ const DownloadButton = ({ selectedRowInfo, selectedFilterOptions, total }) => {
     const { microbe, magStatus, dataType } = useDatabaseContext()
     const url = DATABASECONFIG[microbe][magStatus][dataType]['endpointBatchDownload']
 
-    const openLoadingMessage = () => {
-        notification.info({
-            key: 'downloadNotification',
-            message: 'Download...',
-            description: 'Processing data... your download will begin shortly.',
-            placement: 'top'
-        })
+    const openLoadingMessage = (state) => {
+        if (state) {
+            notification.info({
+                key: 'downloadNotification',
+                message: 'Download...',
+                description: 'Processing data... your download will begin shortly.',
+                placement: 'top'
+            })
+        } else {
+            notification.warning({
+                key: 'downloadNotification',
+                message: 'Warning...',
+                description: 'You cannot download more than 100 items at a time.',
+                placement: 'top'
+            })
+        }
     }
 
     const items = buildDownloadDropdownItems(
@@ -121,12 +130,10 @@ const DownloadButton = ({ selectedRowInfo, selectedFilterOptions, total }) => {
         total,
         openLoadingMessage,
         url,
-        [
-            { key: 'meta', label: 'Download Meta' },
-            { key: 'fasta', label: 'Download FASTA' },
-            { key: 'gbk', label: 'Download GBK' },
-            { key: 'gff3', label: 'Download GFF3' }
-        ]
+        buildAllowFileTypes(dataType),
+        microbe,
+        magStatus,
+        dataType
     )
 
     return (
@@ -144,5 +151,18 @@ const DownloadButton = ({ selectedRowInfo, selectedFilterOptions, total }) => {
         </Dropdown>
     )
 }
+
+const buildAllowFileTypes = (dataType) => dataType === 'genomes' ? (
+    [
+        { key: 'meta', label: 'Download Meta' },
+        { key: 'fasta', label: 'Download FASTA' },
+        { key: 'gbk', label: 'Download GBK' },
+        { key: 'gff3', label: 'Download GFF3' }
+    ]
+) : (
+    [
+        { key: 'meta', label: 'Download Meta' },
+    ]
+)
 
 export default DataTableOperations

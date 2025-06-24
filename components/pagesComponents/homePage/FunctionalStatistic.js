@@ -147,35 +147,35 @@ const FunctionalStatistic = ({ statistic }) => {
                                         height={81}
                                     />
                                 </Box>
-                                    <Box sx={{ flex: 1 }}>
-                                        {index === 0 && <Box ref={containerRef}></Box>}
-                                        <Statistic
-                                            title={
-                                                <Span sx={{
-                                                    fontWeight: 600,
-                                                    fontSize: '16px',
-                                                    color: '#000',
-                                                    marginBottom: '2px'
-                                                }}>
-                                                    {functionalStatistic.name}
-                                                </Span>
-                                            }
-                                            value={functionalStatistic.count}
-                                            valueStyle={{
-                                                fontSize: '18px',
-                                                fontWeight: 'bold',
-                                                color: '#6b7280',
-                                            }}
-                                            formatter={isVisible ? formatter : null}
-                                        />
-                                    </Box>
+                                <Box sx={{ flex: 1 }}>
+                                    {index === 0 && <Box ref={containerRef}></Box>}
+                                    <Statistic
+                                        title={
+                                            <Span sx={{
+                                                fontWeight: 600,
+                                                fontSize: '16px',
+                                                color: '#000',
+                                                marginBottom: '2px'
+                                            }}>
+                                                {functionalStatistic.name}
+                                            </Span>
+                                        }
+                                        value={functionalStatistic.count}
+                                        valueStyle={{
+                                            fontSize: '18px',
+                                            fontWeight: 'bold',
+                                            color: '#6b7280',
+                                        }}
+                                        formatter={isVisible ? formatter : null}
+                                    />
+                                </Box>
                             </Stack>
                         </Card>
                     </Col>
-                    ))}
+                ))}
             </Row>
         </Box>
-)
+    )
 }
 
 export default FunctionalStatistic

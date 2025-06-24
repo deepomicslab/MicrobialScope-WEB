@@ -161,7 +161,7 @@ const GenomeSignalPeptidesDetail = ({ fastaDetail, proteins }) => {
                                     overflowX: 'auto'
                                 }}
                             >
-                                <SignalPeptideModalDetailDescriptions record={selectedRecord}/>
+                                <SignalPeptideModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>
                         </DraggableModal>
                     </>

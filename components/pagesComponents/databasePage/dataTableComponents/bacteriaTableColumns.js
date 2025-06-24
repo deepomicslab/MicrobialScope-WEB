@@ -1,28 +1,130 @@
 import {
-    AntibioticResistanceDrugClassChips,
+    AntibioticResistanceDrugClassChips, ArchaeaIDChips,
     BasicChip,
     COGCategoryChips, DetailButton, DownloadButton, StrandChip
 } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
 import Link from "next/link"
 import { Progress, Tag, Tooltip, Typography } from "antd"
 import { Stack } from "@mui/system"
-import {
-    getArchaeaAntibioticResistancesSingleFileURL,
-    getArchaeaAntiCRISPRAnnotationsSingleFileURL,
-    getArchaeaCRISPRCasSystemsSingleFileURL,
-    getArchaeaProteinsSingleFileURL,
-    getArchaeaSecondaryMetabolitesSingleFileURL,
-    getArchaeaSignalPeptidesSingleFileURL,
-    getArchaeaTransmembraneHelicesSingleFileURL,
-    getArchaeaTRNAsSingleFileURL,
-    getArchaeaVirulenceFactorsSingleFileURL
-} from "@/dataFetch/get"
 
-export const bacteriaProteinTableColumns = (handleDetailClick) => [
+export const bacteriaTableColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Bacteria ID',
         dataIndex: 'bacteria_id',
         sorter: true,
+        fixed: 'left',
+        align: 'center',
+        render: (value) => <ArchaeaIDChips archaeaIds={value}/>
+    },
+    {
+        title: 'Organism Name',
+        dataIndex: 'organism_name',
+        align: 'center',
+        render: (value, record) => (
+            <Tooltip title={value}>
+                <Typography.Link
+                    href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${record['taxonomic_id']}`}
+                    target='_blank'
+                    style={{ width: '175px' }}
+                    ellipsis={true}
+                >
+                    {value}
+                </Typography.Link>
+            </Tooltip>
+        )
+    },
+    {
+        title: 'Taxonomic ID',
+        dataIndex: 'taxonomic_id',
+        sorter: true,
+        align: 'center',
+        render: (value) => (
+            <Link href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${value}`} target='_blank'>
+                {value}
+            </Link>
+        )
+    },
+    {
+        title: 'Species',
+        dataIndex: 'species',
+        align: 'center',
+        render: value => (
+            <Tooltip title={value}>
+                <Typography.Text
+                    ellipsis={true}
+                    style={{ width: '175px' }}
+                >
+                    {value}
+                </Typography.Text>
+            </Tooltip>
+        )
+    },
+    {
+        title: 'Total Sequence Length',
+        dataIndex: 'total_sequence_length',
+        sorter: true,
+        align: 'center'
+    },
+    {
+        title: 'GC Content',
+        dataIndex: 'gc_content',
+        sorter: true,
+        align: 'center',
+        width: '250px',
+        render: value => (
+            <Progress
+                percent={value}
+                size="small"
+                format={(percent) => percent.toFixed(4) + '%'}
+                strokeColor={{ '0%': '#108ee9', '100%': '#87d068', }}
+            />
+        )
+    },
+    {
+        title: 'Assembly Level',
+        dataIndex: 'assembly_level',
+        align: 'center',
+        render: value => <BasicChip value={value} color='geekblue'/>
+    },
+    {
+        title: 'Total Number of Chromosomes',
+        dataIndex: 'total_chromosomes',
+        sorter: true,
+        align: 'center'
+    },
+    {
+        title: 'Contig N50',
+        dataIndex: 'contig_n50',
+        sorter: true,
+        align: 'center'
+    },
+    {
+        title: 'Scaffold N50',
+        dataIndex: 'scaffold_n50',
+        sorter: true,
+        align: 'center'
+    },
+    {
+        title: 'Action',
+        key: 'operation',
+        fixed: 'right',
+        align: 'center',
+        render: (_, record) => (
+            <Stack direction="row" spacing={2} justifyContent='center'>
+                <DetailButton handleClick={() => handleDetailClick(record)}/>
+                <DownloadButton
+                    downloadUrl={getSingleFileURL}
+                    id={record.id}
+                />
+            </Stack>
+        )
+    }
+]
+
+export const bacteriaProteinTableColumns = (handleDetailClick, getSingleFileURL) => [
+    {
+        title: 'Bacteria ID',
+        dataIndex: 'bacteria_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -30,7 +132,6 @@ export const bacteriaProteinTableColumns = (handleDetailClick) => [
     {
         title: 'Contig ID',
         dataIndex: 'contig_id',
-        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='geekblue'/>
@@ -38,7 +139,6 @@ export const bacteriaProteinTableColumns = (handleDetailClick) => [
     {
         title: 'Protein ID',
         dataIndex: 'protein_id',
-        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='gold'/>
@@ -87,13 +187,11 @@ export const bacteriaProteinTableColumns = (handleDetailClick) => [
     {
         title: 'Start',
         dataIndex: 'start',
-        sorter: true,
         align: 'center'
     },
     {
         title: 'End',
         dataIndex: 'end',
-        sorter: true,
         align: 'center'
     },
     {
@@ -105,7 +203,6 @@ export const bacteriaProteinTableColumns = (handleDetailClick) => [
     {
         title: 'Phase',
         dataIndex: 'phase',
-        sorter: true,
         align: 'center'
     },
     {
@@ -117,7 +214,7 @@ export const bacteriaProteinTableColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaProteinsSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -125,7 +222,7 @@ export const bacteriaProteinTableColumns = (handleDetailClick) => [
     }
 ]
 
-export const bacteriaTRNATableColumns = (handleDetailClick) => [
+export const bacteriaTRNATableColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Bacteria ID',
         dataIndex: 'bacteria_id',
@@ -190,7 +287,7 @@ export const bacteriaTRNATableColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaTRNAsSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -198,7 +295,7 @@ export const bacteriaTRNATableColumns = (handleDetailClick) => [
     }
 ]
 
-export const bacteriaCRISPRCasColumns = (handleDetailClick) => [
+export const bacteriaCRISPRCasColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Bacteria ID',
         dataIndex: ['cas', 'bacteria_id'],
@@ -273,7 +370,7 @@ export const bacteriaCRISPRCasColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaCRISPRCasSystemsSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -281,7 +378,7 @@ export const bacteriaCRISPRCasColumns = (handleDetailClick) => [
     }
 ]
 
-export const bacteriaAntiCRISPRAnnotationColumns = (handleDetailClick) => [
+export const bacteriaAntiCRISPRAnnotationColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Bacteria ID',
         dataIndex: 'bacteria_id',
@@ -350,7 +447,7 @@ export const bacteriaAntiCRISPRAnnotationColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaAntiCRISPRAnnotationsSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -358,7 +455,7 @@ export const bacteriaAntiCRISPRAnnotationColumns = (handleDetailClick) => [
     }
 ]
 
-export const bacteriaSecondaryMetaboliteColumns = (handleDetailClick) =>  [
+export const bacteriaSecondaryMetaboliteColumns = (handleDetailClick, getSingleFileURL) =>  [
     {
         title: 'Bacteria ID',
         dataIndex: 'bacteria_id',
@@ -439,7 +536,7 @@ export const bacteriaSecondaryMetaboliteColumns = (handleDetailClick) =>  [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaSecondaryMetabolitesSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -447,7 +544,7 @@ export const bacteriaSecondaryMetaboliteColumns = (handleDetailClick) =>  [
     }
 ]
 
-export const bacteriaSignalPeptideColumns = (handleDetailClick) => [
+export const bacteriaSignalPeptideColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Bacteria ID',
         dataIndex: 'bacteria_id',
@@ -497,7 +594,7 @@ export const bacteriaSignalPeptideColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaSignalPeptidesSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -505,7 +602,7 @@ export const bacteriaSignalPeptideColumns = (handleDetailClick) => [
     }
 ]
 
-export const bacteriaVirulenceFactorColumns = (handleDetailClick) => [
+export const bacteriaVirulenceFactorColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Bacteria ID',
         dataIndex: 'bacteria_id',
@@ -555,7 +652,7 @@ export const bacteriaVirulenceFactorColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaVirulenceFactorsSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -563,11 +660,10 @@ export const bacteriaVirulenceFactorColumns = (handleDetailClick) => [
     }
 ]
 
-export const bacteriaAntibioticResistanceColumns = (handleDetailClick) => [
+export const bacteriaAntibioticResistanceColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Bacteria ID',
         dataIndex: 'bacteria_id',
-        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -575,7 +671,6 @@ export const bacteriaAntibioticResistanceColumns = (handleDetailClick) => [
     {
         title: 'Contig ID',
         dataIndex: 'contig_id',
-        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='geekblue'/>
@@ -583,7 +678,6 @@ export const bacteriaAntibioticResistanceColumns = (handleDetailClick) => [
     {
         title: 'Protein ID',
         dataIndex: 'protein_id',
-        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='gold'/>
@@ -619,7 +713,7 @@ export const bacteriaAntibioticResistanceColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaAntibioticResistancesSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>
@@ -627,11 +721,10 @@ export const bacteriaAntibioticResistanceColumns = (handleDetailClick) => [
     }
 ]
 
-export const bacteriaTransmembraneHelicesColumns = (handleDetailClick) => [
+export const bacteriaTransmembraneHelicesColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Bacteria ID',
         dataIndex: 'bacteria_id',
-        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -639,7 +732,6 @@ export const bacteriaTransmembraneHelicesColumns = (handleDetailClick) => [
     {
         title: 'Contig ID',
         dataIndex: 'contig_id',
-        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='geekblue'/>
@@ -647,7 +739,6 @@ export const bacteriaTransmembraneHelicesColumns = (handleDetailClick) => [
     {
         title: 'Protein ID',
         dataIndex: 'protein_id',
-        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='gold'/>
@@ -665,13 +756,11 @@ export const bacteriaTransmembraneHelicesColumns = (handleDetailClick) => [
     {
         title: 'Number of predicted TMHs',
         dataIndex: 'predicted_tmh_count',
-        sorter: true,
         align: 'center'
     },
     {
         title: 'Length',
         dataIndex: 'length',
-        sorter: true,
         align: 'center'
     },
     {
@@ -683,7 +772,7 @@ export const bacteriaTransmembraneHelicesColumns = (handleDetailClick) => [
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
                 <DownloadButton
-                    downloadUrl={getArchaeaTransmembraneHelicesSingleFileURL}
+                    downloadUrl={getSingleFileURL}
                     id={record.id}
                 />
             </Stack>

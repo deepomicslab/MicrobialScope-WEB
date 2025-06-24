@@ -23,7 +23,7 @@ const MicrobeScopeFooter = () => (
                     </Stack>
                     <Stack direction="row" spacing={1} sx={{ fontSize: '16px', alignItems: 'center' }}>
                         <UserOutlined/>
-                        <Span>Profile: <a href="" target="_blank">xxx</a></Span>
+                        <Span>Profile: <a href="https://scholars.cityu.edu.hk/en/persons/shuaicli" target="_blank">LI Shuai Cheng</a></Span>
                     </Stack>
                 </Stack>
             </Grid>

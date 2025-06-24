@@ -33,28 +33,28 @@ const COGCategoryOptionWrapper = ({ option }) => (
 )
 
 export const getArchaeaProteinsFilterItems = (filterOptions, selected, setSelected) => [
-    {
-        key: 'strand',
-        label: 'Strand',
-        children: <FilterCheckBox
-            name='strand'
-            options={filterOptions['strand']}
-            selected={selected}
-            setSelected={setSelected}
-            formatFn={strandFormatFn}
-        />
-    },
-    {
-        key: 'cog_category',
-        label: 'COG Category',
-        children: <FilterCheckBox
-            name='cog_category'
-            options={filterOptions['cog_category']}
-            selected={selected}
-            setSelected={setSelected}
-            OptionWrapper={COGCategoryOptionWrapper}
-        />
-    }
+    // {
+    //     key: 'strand',
+    //     label: 'Strand',
+    //     children: <FilterCheckBox
+    //         name='strand'
+    //         options={filterOptions['strand']}
+    //         selected={selected}
+    //         setSelected={setSelected}
+    //         formatFn={strandFormatFn}
+    //     />
+    // },
+    // {
+    //     key: 'cog_category',
+    //     label: 'COG Category',
+    //     children: <FilterCheckBox
+    //         name='cog_category'
+    //         options={filterOptions['cog_category']}
+    //         selected={selected}
+    //         setSelected={setSelected}
+    //         OptionWrapper={COGCategoryOptionWrapper}
+    //     />
+    // }
 ]
 
 export const getArchaeaTRNAsFilterItems = (filterOptions, selected, setSelected) => [
@@ -132,51 +132,54 @@ export const getArchaeaSignalPeptidesFilterItems = (filterOptions, selected, set
     }
 ]
 
-export const getArchaeaVirulenceFactorsFilterItems = (filterOptions, selected, setSelected) => [
-    {
-        key: 'vf_category',
-        label: 'Vfcategory',
-        children: <FilterCheckBox
-            name='vf_category'
-            options={filterOptions['vf_category']}
-            selected={selected}
-            setSelected={setSelected}
-        />
-    }
-]
+export const getArchaeaVirulenceFactorsFilterItems = (filterOptions, selected, setSelected) =>
+    Object.keys(filterOptions).length !== 0 ? ([
+        {
+            key: 'vf_category',
+            label: 'Vfcategory',
+            children: <FilterCheckBox
+                name='vf_category'
+                options={filterOptions['vf_category']}
+                selected={selected}
+                setSelected={setSelected}
+            />
+        }
+    ]) : (
+        []
+    )
 
 export const getArchaeaAntibioticResistancesFilterItems = (filterOptions, selected, setSelected) => [
-    {
-        key: 'cutoff',
-        label: 'Cut Off',
-        children: <FilterCheckBox
-            name='cutoff'
-            options={filterOptions['cutoff']}
-            selected={selected}
-            setSelected={setSelected}
-        />
-    },
-    {
-        key: 'drug_class',
-        label: 'Drug Class',
-        children: <FilterCheckBox
-            name='drug_class'
-            options={filterOptions['drug_class']}
-            selected={selected}
-            setSelected={setSelected}
-        />
-    }
+    // {
+    //     key: 'cutoff',
+    //     label: 'Cut Off',
+    //     children: <FilterCheckBox
+    //         name='cutoff'
+    //         options={filterOptions['cutoff']}
+    //         selected={selected}
+    //         setSelected={setSelected}
+    //     />
+    // },
+    // {
+    //     key: 'drug_class',
+    //     label: 'Drug Class',
+    //     children: <FilterCheckBox
+    //         name='drug_class'
+    //         options={filterOptions['drug_class']}
+    //         selected={selected}
+    //         setSelected={setSelected}
+    //     />
+    // }
 ]
 
 export const getArchaeaTransmembraneHelicesFilterItems = (filterOptions, selected, setSelected) => [
-    {
-        key: 'predicted_tmh_count',
-        label: 'Number of predicted TMHs',
-        children: <FilterCheckBox
-            name='predicted_tmh_count'
-            options={filterOptions['predicted_tmh_count']}
-            selected={selected}
-            setSelected={setSelected}
-        />
-    }
+    // {
+    //     key: 'predicted_tmh_count',
+    //     label: 'Number of predicted TMHs',
+    //     children: <FilterCheckBox
+    //         name='predicted_tmh_count'
+    //         options={filterOptions['predicted_tmh_count']}
+    //         selected={selected}
+    //         setSelected={setSelected}
+    //     />
+    // }
 ]

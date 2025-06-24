@@ -193,7 +193,7 @@ export const archaeaConfig = {
                 endpointFilter: getArchaeaCRISPRCasSystemsFilterOptionsURL,
                 endpointSingleDownload: getArchaeaCRISPRCasSystemsSingleFileURL,
                 endpointBatchDownload: postArchaeaCRISPRCasSystemsBatchDownloadURL,
-                modalDetail: (record) => <CRISPRCasSystemModalDetailDescriptions record={record}/>,
+                modalDetail: (record, microbe) => <CRISPRCasSystemModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <CRISPRCasSystemModalDetailTitle/>,
                 searchBarFields: ArchaeaCRISPRSearchBarConfig
             },
@@ -205,7 +205,7 @@ export const archaeaConfig = {
                 endpointFilter: getArchaeaAntiCRISPRAnnotationsFilterOptionsURL,
                 endpointSingleDownload: getArchaeaAntiCRISPRAnnotationsSingleFileURL,
                 endpointBatchDownload: postArchaeaAntiCRISPRAnnotationsBatchDownloadURL,
-                modalDetail: (record) => <AntiCRISPRAnnotationModalDetailDescriptions record={record}/>,
+                modalDetail: (record, microbe) => <AntiCRISPRAnnotationModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <AntiCRISPRAnnotationModalDetailTitle/>,
                 searchBarFields: ArchaeaAntiCRISPRSearchBarConfig
             },
@@ -217,7 +217,7 @@ export const archaeaConfig = {
                 endpointFilter: getArchaeaSecondaryMetabolitesFilterOptionsURL,
                 endpointSingleDownload: getArchaeaSecondaryMetabolitesSingleFileURL,
                 endpointBatchDownload: postArchaeaSecondaryMetabolitesBatchDownloadURL,
-                modalDetail: (record) => <SecondaryMetabolitesModalDetailDescriptions record={record}/>,
+                modalDetail: (record, microbe) => <SecondaryMetabolitesModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <SecondaryMetabolitesModalDetailTitle/>,
                 searchBarFields: ArchaeaSecondaryMetabolitesSearchBarConfig
             },
@@ -229,7 +229,7 @@ export const archaeaConfig = {
                 endpointFilter: getArchaeaSignalPeptidesFilterOptionsURL,
                 endpointSingleDownload: getArchaeaSignalPeptidesSingleFileURL,
                 endpointBatchDownload: postArchaeaSignalPeptidesBatchDownloadURL,
-                modalDetail: (record) => <SignalPeptideModalDetailDescriptions record={record}/>,
+                modalDetail: (record, microbe) => <SignalPeptideModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <SignalPeptideModalDetailTitle/>,
                 searchBarFields: ArchaeaSignalPeptideSearchBarConfig
             },
@@ -241,7 +241,7 @@ export const archaeaConfig = {
                 endpointFilter: getArchaeaVirulenceFactorsFilterOptionsURL,
                 endpointSingleDownload: getArchaeaVirulenceFactorsSingleFileURL,
                 endpointBatchDownload: postArchaeaVirulenceFactorsBatchDownloadURL,
-                modalDetail: (record) => <VirulenceFactorModalDetailDescriptions record={record}/>,
+                modalDetail: (record, microbe) => <VirulenceFactorModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <VirulenceFactorModalDetailTitle/>,
                 searchBarFields: ArchaeaVirulenceFactorSearchBarConfig
             },
@@ -253,7 +253,7 @@ export const archaeaConfig = {
                 endpointFilter: getArchaeaAntibioticResistancesFilterOptionsURL,
                 endpointSingleDownload: getArchaeaAntibioticResistancesSingleFileURL,
                 endpointBatchDownload: postArchaeaAntibioticResistancesBatchDownloadURL,
-                modalDetail: (record) => <AntibioticResistanceGeneModalDetailDescriptions record={record}/>,
+                modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <AntibioticResistanceGeneModalDetailTitle/>,
                 searchBarFields: ArchaeaAntibioticResistanceSearchBarConfig
             },
@@ -265,7 +265,7 @@ export const archaeaConfig = {
                 endpointFilter: getArchaeaTransmembraneHelicesFilterOptionsURL,
                 endpointSingleDownload: getArchaeaTransmembraneHelicesSingleFileURL,
                 endpointBatchDownload: postArchaeaTransmembraneHelicesBatchDownloadURL,
-                modalDetail: (record) => <TransmembraneHelicesModalDetailDescriptions record={record}/>,
+                modalDetail: (record, microbe) => <TransmembraneHelicesModalDetailDescriptions record={record} microbe={microbe}/>,
                 modalTitle: <TransmembraneHelicesModalDetailTitle/>,
                 searchBarFields: ArchaeaTransmembraneHelicesSearchBarConfig
             }

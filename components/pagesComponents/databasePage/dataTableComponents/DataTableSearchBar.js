@@ -21,7 +21,7 @@ const DataTableSearchBar = ({
 }) => {
     const { microbe, magStatus, dataType } = useDatabaseContext()
     const [localSearchText, setLocalSearchText] = useState({
-        field: 'archaea_id',
+        field: fieldMap[microbe],
         value: ''
     })
 
@@ -38,17 +38,17 @@ const DataTableSearchBar = ({
 
     const onClear = () => {
         handleSearContentChange({
-            field: 'archaea_id',
+            field: fieldMap[microbe],
             value: ''
         })
     }
 
     useEffect(() => {
         setLocalSearchText({
-            field: 'archaea_id',
+            field: fieldMap[microbe],
             value: searchContent.value
         })
-    }, [searchContent.value])
+    }, [microbe, searchContent.value])
 
     return (
         <Stack direction="row" spacing={2}>
@@ -309,5 +309,12 @@ const SwitchCard = memo(
         )
     }
 )
+
+export const fieldMap = {
+    archaea: 'archaea_id',
+    bacteria: 'bacteria_id',
+    fungi: 'fungi_id',
+    viruses: 'viruses_id',
+}
 
 export default DataTableSearchBar

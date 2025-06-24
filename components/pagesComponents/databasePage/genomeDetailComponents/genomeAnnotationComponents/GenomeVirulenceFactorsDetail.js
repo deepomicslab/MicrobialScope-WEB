@@ -161,7 +161,7 @@ const GenomeVirulenceFactorsDetail = ({ fastaDetail, proteins }) => {
                                     overflowX: 'auto'
                                 }}
                             >
-                                <VirulenceFactorModalDetailDescriptions record={selectedRecord}/>
+                                <VirulenceFactorModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>
                         </DraggableModal>
                     </>

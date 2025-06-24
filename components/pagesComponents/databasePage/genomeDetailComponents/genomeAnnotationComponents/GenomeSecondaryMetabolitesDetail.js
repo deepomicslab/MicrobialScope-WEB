@@ -164,7 +164,7 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
                                     overflowX: 'auto'
                                 }}
                             >
-                                <SecondaryMetabolitesModalDetailDescriptions record={selectedRecord}/>
+                                <SecondaryMetabolitesModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>
                         </DraggableModal>
                     </>

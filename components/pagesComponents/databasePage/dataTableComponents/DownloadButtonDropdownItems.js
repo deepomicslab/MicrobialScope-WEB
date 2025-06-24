@@ -1,9 +1,17 @@
-import { Box, Stack } from "@mui/system"
+import { Box } from "@mui/system"
 import { postDownloadBatchFile } from "@/dataFetch/post"
-import { Span } from "@/components/styledComponents/styledHTMLTags"
-import { LinkOutlined } from "@ant-design/icons"
 
-export const buildDownloadDropdownItems = (selectedRowInfo, filterOptions, total, openMessage, url, allowFileTypes) => {
+export const buildDownloadDropdownItems = (
+    selectedRowInfo,
+    filterOptions,
+    total,
+    openMessage,
+    url,
+    allowFileTypes,
+    microbe,
+    magStatus,
+    dataType
+) => {
     const buildDownloadChildren = (downloadType) => {
         return allowFileTypes.map(
             ({ key, label }) => ({
@@ -12,22 +20,27 @@ export const buildDownloadDropdownItems = (selectedRowInfo, filterOptions, total
                     <Box
                         onClick={
                             () => {
-                                openMessage()
-                                postDownloadBatchFile(
-                                    url,
-                                    {
-                                        downloadType: downloadType,
-                                        fileType: key,
-                                        payload: downloadType === 'selected' ? selectedRowInfo.rowKeys : filterOptions
-                                    }
-                                )
+                                if (selectedRowInfo.rowKeys.length > 100) {
+                                    openMessage(false)
+                                } else {
+                                    openMessage(true)
+                                    postDownloadBatchFile(
+                                        url,
+                                        {
+                                            downloadType: downloadType,
+                                            fileType: key,
+                                            payload: downloadType === 'selected' ? selectedRowInfo.rowKeys : filterOptions,
+                                            microbe: microbe,
+                                            magStatus: magStatus,
+                                        }
+                                    )
+                                }
                             }
                         }
                     >
                         {label}
                     </Box>
-                ),
-                disabled: key !== 'meta'
+                )
             })
         )
     }
@@ -42,27 +55,6 @@ export const buildDownloadDropdownItems = (selectedRowInfo, filterOptions, total
             ),
             children: buildDownloadChildren('selected'),
             disabled: selectedRowInfo.rowKeys.length === 0
-        },
-        {
-            key: '2',
-            label: (
-                <Box>
-                    Download Filtered
-                    ({Object.values(filterOptions).some(arr => Array.isArray(arr) && arr.length > 0) ? total : 0})
-                </Box>
-            ),
-            children: buildDownloadChildren('filtered'),
-            disabled: !Object.values(filterOptions).some(arr => Array.isArray(arr) && arr.length > 0)
-        },
-        {
-            key: '3',
-            label: (
-                <Stack direction='row' spacing={0.5}>
-                    <Span>Download All</Span>
-                    <LinkOutlined/>
-                </Stack>
-            ),
-            disabled: true
         }
     ]
 }

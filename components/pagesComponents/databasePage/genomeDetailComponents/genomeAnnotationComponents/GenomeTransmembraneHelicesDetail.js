@@ -15,15 +15,10 @@ import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import { StyledTable } from "@/components/styledComponents/styledAntdTable"
 import { Button } from "antd"
 import ResponsiveVisualizationContainer from "@/components/Visualization/containers/ResponsiveVisualizationContainer"
-import AnnotatedSignalPeptideMapViz
-    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedSignalPeptideMapViz"
 import DraggableModal from "@/components/feedbackComponents/modals/DraggableModal"
 import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
-import {
-    SignalPeptideModalDetailDescriptions
-} from "@/components/pagesComponents/databasePage/dataModalDetailComponents/SignalPeptideModalDetailComponents"
 import {
     TransmembraneHelicesModalDetailDescriptions
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/TransmembraneHelicesModalDetailComponents"
@@ -166,7 +161,7 @@ const GenomeTransmembraneHelicesDetail = ({ fastaDetail, proteins }) => {
                                     overflowX: 'auto'
                                 }}
                             >
-                                <TransmembraneHelicesModalDetailDescriptions record={selectedRecord}/>
+                                <TransmembraneHelicesModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>
                         </DraggableModal>
                     </>

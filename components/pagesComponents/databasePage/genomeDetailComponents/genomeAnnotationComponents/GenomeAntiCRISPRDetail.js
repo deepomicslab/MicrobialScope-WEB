@@ -161,7 +161,7 @@ const GenomeAntiCRISPRDetail = ({ fastaDetail, proteins }) => {
                                     overflowX: 'auto'
                                 }}
                             >
-                                <AntiCRISPRAnnotationModalDetailDescriptions record={selectedRecord}/>
+                                <AntiCRISPRAnnotationModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>
                         </DraggableModal>
                     </>

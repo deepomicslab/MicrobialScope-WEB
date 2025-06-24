@@ -22,7 +22,7 @@ const Microbes = () => {
     }
 
     return (
-        <Stack>
+        <Stack sx={{ px: '24px' }}>
             <MicrobeBarChartComponent data={data}/>
             <MicrobeTable data={data}/>
         </Stack>

@@ -4,6 +4,7 @@ import { Box, Stack } from "@mui/system"
 import { downloadSingleFile } from "@/dataFetch/get"
 import { Span } from "@/components/styledComponents/styledHTMLTags"
 import Link from "next/link"
+import { useDatabaseContext } from "@/components/context/DatabaseContext"
 
 export const DetailButton = ({ handleClick }) => (
     <Tooltip title='View Details'>
@@ -17,52 +18,72 @@ export const DetailButton = ({ handleClick }) => (
     </Tooltip>
 )
 
-const buildDownloadButtonDropdownItems = (downloadUrl, id) => [
-    {
-        key: '1',
-        label: (
-            <Box
-                onClick={
-                    () => downloadSingleFile(
-                        `${downloadUrl}?id=${id}&type=meta`
-                    )
-                }
-            >
-                Download Meta
-            </Box>
-        )
-    },
-    {
-        key: '2',
-        label: (
-            <Box>
-                Download FASTA
-            </Box>
-        ),
-        disabled: true,
-    },
-    {
-        key: '3',
-        label: (
-            <Box>
-                Download GBK
-            </Box>
-        ),
-        disabled: true,
-    },
-    {
-        key: '4',
-        label: (
-            <Box>
-                Download GFF3
-            </Box>
-        ),
-        disabled: true,
-    }
-]
+const buildDownloadButtonDropdownItems = (downloadUrl, id, dataType) => dataType === 'genomes' ? (
+    [
+        {
+            key: '1',
+            label: (
+                <Box
+                    onClick={
+                        () => downloadSingleFile(
+                            `${downloadUrl}?id=${id}&type=meta`
+                        )
+                    }
+                >
+                    Download Meta
+                </Box>
+            )
+        },
+        {
+            key: '2',
+            label: (
+                <Box>
+                    Download FASTA
+                </Box>
+            ),
+            disabled: true,
+        },
+        {
+            key: '3',
+            label: (
+                <Box>
+                    Download GBK
+                </Box>
+            ),
+            disabled: true,
+        },
+        {
+            key: '4',
+            label: (
+                <Box>
+                    Download GFF3
+                </Box>
+            ),
+            disabled: true,
+        }
+    ]
+) : (
+    [
+        {
+            key: '1',
+            label: (
+                <Box
+                    onClick={
+                        () => downloadSingleFile(
+                            `${downloadUrl}?id=${id}&type=meta`
+                        )
+                    }
+                >
+                    Download Meta
+                </Box>
+            )
+        },
+    ]
+)
 
 export const DownloadButton = ({ downloadUrl, id }) => {
-    const items = buildDownloadButtonDropdownItems(downloadUrl, id)
+    const { dataType } = useDatabaseContext()
+    const items = buildDownloadButtonDropdownItems(downloadUrl, id, dataType)
 
     return (
         <Dropdown menu={{ items }} placement='bottomRight' arrow>

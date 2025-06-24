@@ -3,12 +3,8 @@ import { Flex } from "antd"
 import { A, Img, Span } from "@/components/styledComponents/styledHTMLTags"
 import { useRouter } from "next/router"
 import {
-    BookOutlined, CloudDownloadOutlined,
-    DatabaseOutlined,
-    DownloadOutlined,
-    ExperimentOutlined, FileTextOutlined,
-    HomeOutlined,
-    MailOutlined
+    CloudDownloadOutlined, FileTextOutlined,
+    HomeOutlined, MailOutlined
 } from "@ant-design/icons"
 import MicrobialIcon from "@/components/icons/Microbial"
 import DatabaseIcon from "@/components/icons/Database"
@@ -91,7 +87,7 @@ const menuItems = [
                 key: 'proteins',
                 label: 'Proteins',
                 link: '/database/proteins'
-            },{
+            }, {
                 key: 'tRNAs',
                 label: 'tRNAs',
                 link: '/database/tRNAs'
@@ -136,19 +132,19 @@ const menuItems = [
     {
         key: 'download',
         label: 'Download',
-        icon: <CloudDownloadOutlined style={{ fontSize: '20px' }} />,
+        icon: <CloudDownloadOutlined style={{ fontSize: '20px' }}/>,
         link: '/download'
     },
     {
         key: 'tutorial',
         label: 'Tutorial',
-        icon: <FileTextOutlined style={{ fontSize: '20px' }} />,
+        icon: <FileTextOutlined style={{ fontSize: '20px' }}/>,
         link: '/tutorial'
     },
     {
         key: 'contactUs',
         label: 'Contact us',
-        icon: <MailOutlined style={{ fontSize: '20px' }} />,
+        icon: <MailOutlined style={{ fontSize: '20px' }}/>,
         link: '/contact'
     }
 ]

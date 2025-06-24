@@ -23,61 +23,69 @@ export const VirulenceFactorModalDetailTitle = () => (
 const { TextArea } = Input
 
 export const VirulenceFactorModalDetailDescriptions = ({ record, microbe }) => {
-    const items = buildItems(record, microbe)
+    const items = microbe !== 'fungi' ? buildItems(record, microbe) : buildFungiItems(record, microbe)
 
     return (
         <Stack spacing={2}>
             <Descriptions bordered items={items} column={2}/>
-            <Stack>
-                <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
-                    Product
-                </Title>
-                <TextArea
-                    value={record['product'] === 'nan' ? '---' : record['product']}
-                    readOnly
-                    rows={1}
-                />
-            </Stack>
-            <Stack>
-                <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
-                    Characteristics
-                </Title>
-                <TextArea
-                    value={record['characteristics'] === 'nan' ? '---' : record['characteristics']}
-                    readOnly
-                    rows={3}
-                />
-            </Stack>
-            <Stack>
-                <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
-                    Structure
-                </Title>
-                <TextArea
-                    value={record['structure'] === 'nan' ? '---' : record['structure']}
-                    readOnly
-                    rows={3}
-                />
-            </Stack>
-            <Stack>
-                <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
-                    Function
-                </Title>
-                <TextArea
-                    value={record['function'] === 'nan' ? '---' : record['function']}
-                    readOnly
-                    rows={3}
-                />
-            </Stack>
-            <Stack>
-                <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
-                    Mechanism
-                </Title>
-                <TextArea
-                    value={record['mechanism'] === 'nan' ? '---' : record['mechanism']}
-                    readOnly
-                    rows={3}
-                />
-            </Stack>
+            {
+                microbe === 'fungi' ? (
+                    <FungiTextField record={record} />
+                ) : (
+                    <>
+                        <Stack>
+                            <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                                Product
+                            </Title>
+                            <TextArea
+                                value={record['product'] === 'nan' ? '---' : record['product']}
+                                readOnly
+                                rows={1}
+                            />
+                        </Stack>
+                        <Stack>
+                            <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                                Characteristics
+                            </Title>
+                            <TextArea
+                                value={record['characteristics'] === 'nan' ? '---' : record['characteristics']}
+                                readOnly
+                                rows={3}
+                            />
+                        </Stack>
+                        <Stack>
+                            <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                                Structure
+                            </Title>
+                            <TextArea
+                                value={record['structure'] === 'nan' ? '---' : record['structure']}
+                                readOnly
+                                rows={3}
+                            />
+                        </Stack>
+                        <Stack>
+                            <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                                Function
+                            </Title>
+                            <TextArea
+                                value={record['function'] === 'nan' ? '---' : record['function']}
+                                readOnly
+                                rows={3}
+                            />
+                        </Stack>
+                        <Stack>
+                            <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                                Mechanism
+                            </Title>
+                            <TextArea
+                                value={record['mechanism'] === 'nan' ? '---' : record['mechanism']}
+                                readOnly
+                                rows={3}
+                            />
+                        </Stack>
+                    </>
+                )
+            }
             <Stack>
                 <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
                     Sequence
@@ -159,6 +167,89 @@ const buildItems = (record, microbe) => [
         children: record['vfc_id'],
     }
 ]
+
+const buildFungiItems = (record, microbe) => [
+    {
+        key: microbeMap[microbe].key,
+        label: microbeMap[microbe].label,
+        children: <BasicChip value={record[microbeMap[microbe].value]} color="volcano"/>,
+    },
+    {
+        key: 'contigId',
+        label: 'Contig ID',
+        children: <BasicChip value={record['contig_id']} color="geekblue" />,
+    },
+    {
+        key: 'proteinId',
+        label: 'Protein ID',
+        children: <BasicChip value={record['protein_id']} color="gold" />,
+    },
+    {
+        key: 'vfDatabase',
+        label: 'VF Database',
+        children: record['vf_database'],
+    },
+    {
+        key: 'uniProtId',
+        label: 'Uni Prot ID',
+        children:record['uni_prot_id'],
+    },
+    {
+        key: 'identity',
+        label: 'Identity',
+        children: record['identity'],
+    },
+    {
+        key: 'evalue',
+        label: 'E-value',
+        children: record['e_value'],
+    },
+    {
+        key: 'geneSymbol',
+        label: 'Gene Symbol',
+        children: record['gene_symbol'],
+    },
+    {
+        key: 'organism',
+        label: 'Organism',
+        children: record['organism'],
+    },
+    {
+        key: 'taxonomyId',
+        label: 'Taxonomy Id',
+        children: record['taxonomy_id']
+    },
+    {
+        key: 'diseaseKey',
+        label: 'Disease Key',
+        children: record['disease_key']
+    }
+]
+
+const FungiTextField = ({record}) => (
+    <>
+        <Stack>
+            <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                Disease Host
+            </Title>
+            <TextArea
+                value={record['disease_host'] === 'nan' ? '---' : record['disease_host']}
+                readOnly
+                rows={1}
+            />
+        </Stack>
+        <Stack>
+            <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                Disease
+            </Title>
+            <TextArea
+                value={record['disease'] === 'nan' ? '---' : record['disease']}
+                readOnly
+                rows={3}
+            />
+        </Stack>
+    </>
+)
 
 const microbeMap = {
     archaea: {

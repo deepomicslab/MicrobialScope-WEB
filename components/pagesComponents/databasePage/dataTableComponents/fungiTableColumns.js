@@ -1,20 +1,20 @@
-import { Stack } from "@mui/system"
-import { Progress, Tag, Tooltip, Typography } from "antd"
-import Link from "next/link"
 import {
-    AntibioticResistanceDrugClassChips,
-    ArchaeaIDChips, BasicChip, COGCategoryChips,
-    DetailButton, DownloadButton, StrandChip
+    AntibioticResistanceDrugClassChips, ArchaeaIDChips,
+    BasicChip,
+    COGCategoryChips, DetailButton, DownloadButton, StrandChip
 } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
+import Link from "next/link"
+import { Progress, Tag, Tooltip, Typography } from "antd"
+import { Stack } from "@mui/system"
 
-export const archaeaTableColumns = (handleDetailClick, getSingleFileURL) => [
+export const fungiTableColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
+        title: 'Fungi ID',
+        dataIndex: 'fungi_id',
         sorter: true,
         fixed: 'left',
         align: 'center',
-        render: value => <ArchaeaIDChips archaeaIds={value}/>
+        render: (value) => <ArchaeaIDChips archaeaIds={value}/>
     },
     {
         title: 'Organism Name',
@@ -121,10 +121,10 @@ export const archaeaTableColumns = (handleDetailClick, getSingleFileURL) => [
     }
 ]
 
-export const archaeaProteinTableColumns = (handleDetailClick, getSingleFileURL) => [
+export const fungiProteinTableColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
+        title: 'Fungi ID',
+        dataIndex: 'fungi_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -222,11 +222,10 @@ export const archaeaProteinTableColumns = (handleDetailClick, getSingleFileURL) 
     }
 ]
 
-export const archaeaTRNATableColumns = (handleDetailClick, getSingleFileURL) => [
+export const fungiTRNATableColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
+        title: 'Fungi ID',
+        dataIndex: 'fungi_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -295,171 +294,10 @@ export const archaeaTRNATableColumns = (handleDetailClick, getSingleFileURL) => 
     }
 ]
 
-export const archaeaCRISPRCasColumns = (handleDetailClick, getSingleFileURL) => [
+export const fungiSecondaryMetaboliteColumns = (handleDetailClick, getSingleFileURL) =>  [
     {
-        title: 'Archaea ID',
-        dataIndex: ['cas', 'archaea_id'],
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='volcano'/>
-    },
-    {
-        title: 'Contig ID',
-        dataIndex: ['cas', 'contig_id'],
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='geekblue'/>
-    },
-    {
-        title: 'Cas ID',
-        dataIndex: ['cas', 'cas_id'],
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='gold'/>
-    },
-    {
-        title: 'CRISPR ID',
-        dataIndex: 'crispr_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='purple'/>
-    },
-    {
-        title: 'CRISPR Subtype',
-        dataIndex: 'crispr_subtype',
-        align: 'center'
-    },
-    {
-        title: 'Cas Subtype',
-        dataIndex: ['cas', 'cas_subtype'],
-        align: 'center',
-        render: (value) => value.join(' or ')
-    },
-    {
-        title: 'CRISPR-Cas Consenus Prediction',
-        dataIndex: 'consensus_prediction',
-        align: 'center'
-    },
-    {
-        title: 'CRISPR Start',
-        dataIndex: 'crispr_start',
-        sorter: true,
-        align: 'center',
-    },
-    {
-        title: 'CRISPR End',
-        dataIndex: 'crispr_end',
-        sorter: true,
-        align: 'center'
-    },
-    {
-        title: 'Consensus Repeat Sequence',
-        dataIndex: 'repeat_sequence',
-        align: 'center'
-    },
-    {
-        title: 'Action',
-        key: 'operation',
-        fixed: 'right',
-        align: 'center',
-        render: (_, record) => (
-            <Stack direction="row" spacing={2} justifyContent='center'>
-                <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
-            </Stack>
-        )
-    }
-]
-
-export const archaeaAntiCRISPRAnnotationColumns = (handleDetailClick, getSingleFileURL) => [
-    {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='volcano'/>
-    },
-    {
-        title: 'Contig ID',
-        dataIndex: 'contig_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='geekblue'/>
-    },
-    {
-        title: 'Protein ID',
-        dataIndex: 'protein_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='gold'/>
-    },
-    {
-        title: 'Position',
-        dataIndex: 'position',
-        align: 'center'
-    },
-    {
-        title: 'Classification',
-        dataIndex: 'classification',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='purple' />
-    },
-    {
-        title: 'Start',
-        dataIndex: 'start',
-        sorter: true,
-        align: 'center'
-    },
-    {
-        title: 'End',
-        dataIndex: 'end',
-        sorter: true,
-        align: 'center'
-    },
-    {
-        title: 'Strand',
-        dataIndex: 'strand',
-        align: 'center',
-        render: (value) => <StrandChip strand={value} />
-    },
-    {
-        title: 'aa Length',
-        dataIndex: 'aa_length',
-        sorter: true,
-        align: 'center',
-    },
-    {
-        title: 'Action',
-        key: 'operation',
-        fixed: 'right',
-        align: 'center',
-        render: (_, record) => (
-            <Stack direction="row" spacing={2} justifyContent='center'>
-                <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
-            </Stack>
-        )
-    }
-]
-
-export const archaeaSecondaryMetaboliteColumns = (handleDetailClick, getSingleFileURL) =>  [
-    {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
+        title: 'Fungi ID',
+        dataIndex: 'fungi_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -544,11 +382,10 @@ export const archaeaSecondaryMetaboliteColumns = (handleDetailClick, getSingleFi
     }
 ]
 
-export const archaeaSignalPeptideColumns = (handleDetailClick, getSingleFileURL) => [
+export const fungiSignalPeptideColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
+        title: 'Fungi ID',
+        dataIndex: 'fungi_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -602,11 +439,10 @@ export const archaeaSignalPeptideColumns = (handleDetailClick, getSingleFileURL)
     }
 ]
 
-export const archaeaVirulenceFactorColumns = (handleDetailClick, getSingleFileURL) => [
+export const fungiVirulenceFactorColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
+        title: 'Fungi ID',
+        dataIndex: 'fungi_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -638,12 +474,6 @@ export const archaeaVirulenceFactorColumns = (handleDetailClick, getSingleFileUR
         )
     },
     {
-        title: 'Vfcategory',
-        dataIndex: 'vf_category',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='purple'/>
-    },
-    {
         title: 'Action',
         key: 'operation',
         fixed: 'right',
@@ -660,10 +490,10 @@ export const archaeaVirulenceFactorColumns = (handleDetailClick, getSingleFileUR
     }
 ]
 
-export const archaeaAntibioticResistanceColumns = (handleDetailClick, getSingleFileURL) => [
+export const fungiAntibioticResistanceColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
+        title: 'Fungi ID',
+        dataIndex: 'fungi_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -721,10 +551,10 @@ export const archaeaAntibioticResistanceColumns = (handleDetailClick, getSingleF
     }
 ]
 
-export const archaeaTransmembraneHelicesColumns = (handleDetailClick, getSingleFileURL) => [
+export const fungiTransmembraneHelicesColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
+        title: 'Fungi ID',
+        dataIndex: 'fungi_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>

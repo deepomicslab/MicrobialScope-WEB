@@ -4,36 +4,31 @@ import FilterCollapse from "@/components/pagesComponents/databasePage/dataFilter
 import useSWR from "swr"
 import {
     fetcher,
-    getArchaeaProteinsFilterOptionsURL,
-    getArchaeaProteinsSingleFileURL,
 } from "@/dataFetch/get"
 import { LoadingView } from "@/components/stateViews/LoadingView"
 import { ErrorView } from "@/components/stateViews/ErrorView"
 import { useCallback, useState } from "react"
-import {
-    postArchaeaProteinsBatchDownloadURL,
-    postArchaeaProteinsURL,
-} from "@/dataFetch/post"
-import {
-    archaeaProteinTableColumns
-} from "@/components/pagesComponents/databasePage/dataTableComponents/archaeaTableColumns"
-import {
-    getArchaeaProteinsFilterItems,
-} from "@/components/pagesComponents/databasePage/dataFilterComponents/FilterItems"
 import DataTableContainer from "@/components/pagesComponents/databasePage/dataTableComponents/DataTableContainer"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
 import DraggableModal from "@/components/feedbackComponents/modals/DraggableModal"
 import { useRouter } from "next/router"
 import MemoTableSplitterLayout from "@/components/layout/TableSplitterLayout"
-import {
-    ProteinModalDetailDescriptions, ProteinModalDetailTitle
-} from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
 import { DatabaseDetailModalContext } from "@/components/context/DatabaseDetailModalContext"
-import {
-    ArchaeaProteinSearchBarConfig,
-} from "@/components/pagesComponents/databasePage/databaseConfigs/searchBarConfig"
 import { archaeaConfig } from "@/components/pagesComponents/databasePage/databaseConfigs/archaeaConfig"
 import { bacteriaConfig } from "@/components/pagesComponents/databasePage/databaseConfigs/bacteriaConfig"
+import { fungiConfig } from "@/components/pagesComponents/databasePage/databaseConfigs/fungiConfig"
+import { virusesConfig } from "@/components/pagesComponents/databasePage/databaseConfigs/virusesConfig"
+
+const shouldShowLoading = (microbe, dataType) => {
+    const invalidCombinations = [
+        { microbe: 'fungi', dataType: 'CRISPRCasSystems' },
+        { microbe: 'fungi', dataType: 'antiCRISPRProteins' },
+        { microbe: 'viruses', dataType: 'secondaryMetabolites' },
+        { microbe: 'viruses', dataType: 'signalPeptides' }
+    ];
+
+    return invalidCombinations.some(item => item.microbe === microbe && item.dataType === dataType);
+};
 
 const DatabaseContentWrapper = () => {
     const { microbe, magStatus, dataType } = useDatabaseContext()
@@ -41,9 +36,9 @@ const DatabaseContentWrapper = () => {
         data: filterOptions,
         isLoading,
         error
-    } = useSWR(DATABASECONFIG[microbe][magStatus][dataType]['endpointFilter'], fetcher)
+    } = useSWR(DATABASECONFIG?.[microbe]?.[magStatus]?.[dataType]?.['endpointFilter'], fetcher)
 
-    if (isLoading) {
+    if (shouldShowLoading(microbe, dataType) || isLoading) {
         return <LoadingView containerSx={{ height: '80vh', marginTop: '40px' }}/>
     }
 
@@ -143,7 +138,9 @@ export const initSelected = (filterOptions, defaultMicrobe = 'Archaea') => {
 
 export const DATABASECONFIG = {
     ...archaeaConfig,
-    ...bacteriaConfig
+    ...bacteriaConfig,
+    ...fungiConfig,
+    ...virusesConfig
 }
 
 export const annotationToMicrobeMap = {

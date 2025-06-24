@@ -161,7 +161,7 @@ const GenomeTRNAsDetail = ({ fastaDetail, proteins }) => {
                                     overflowX: 'auto'
                                 }}
                             >
-                                <TRNAModalDetailDescriptions record={selectedRecord}/>
+                                <TRNAModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>
                         </DraggableModal>
                     </>

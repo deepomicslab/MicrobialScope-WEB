@@ -166,7 +166,7 @@ const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
                                     overflowX: 'auto'
                                 }}
                             >
-                                <CRISPRCasSystemModalDetailDescriptions record={selectedRecord}/>
+                                <CRISPRCasSystemModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>
                         </DraggableModal>
                     </>

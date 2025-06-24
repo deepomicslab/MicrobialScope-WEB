@@ -1,20 +1,20 @@
-import { Stack } from "@mui/system"
-import { Progress, Tag, Tooltip, Typography } from "antd"
-import Link from "next/link"
 import {
-    AntibioticResistanceDrugClassChips,
-    ArchaeaIDChips, BasicChip, COGCategoryChips,
-    DetailButton, DownloadButton, StrandChip
+    AntibioticResistanceDrugClassChips, ArchaeaIDChips,
+    BasicChip,
+    COGCategoryChips, DetailButton, DownloadButton, StrandChip
 } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
+import Link from "next/link"
+import { Progress, Tag, Tooltip, Typography } from "antd"
+import { Stack } from "@mui/system"
 
-export const archaeaTableColumns = (handleDetailClick, getSingleFileURL) => [
+export const virusesTableColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
+        title: 'Viruses ID',
+        dataIndex: 'viruses_id',
         sorter: true,
         fixed: 'left',
         align: 'center',
-        render: value => <ArchaeaIDChips archaeaIds={value}/>
+        render: (value) => <ArchaeaIDChips archaeaIds={value}/>
     },
     {
         title: 'Organism Name',
@@ -121,10 +121,10 @@ export const archaeaTableColumns = (handleDetailClick, getSingleFileURL) => [
     }
 ]
 
-export const archaeaProteinTableColumns = (handleDetailClick, getSingleFileURL) => [
+export const virusesProteinTableColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
+        title: 'Viruses ID',
+        dataIndex: 'viruses_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -222,11 +222,10 @@ export const archaeaProteinTableColumns = (handleDetailClick, getSingleFileURL) 
     }
 ]
 
-export const archaeaTRNATableColumns = (handleDetailClick, getSingleFileURL) => [
+export const virusesTRNATableColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
+        title: 'Viruses ID',
+        dataIndex: 'viruses_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -295,11 +294,10 @@ export const archaeaTRNATableColumns = (handleDetailClick, getSingleFileURL) => 
     }
 ]
 
-export const archaeaCRISPRCasColumns = (handleDetailClick, getSingleFileURL) => [
+export const virusesCRISPRCasColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: ['cas', 'archaea_id'],
-        sorter: true,
+        title: 'Viruses ID',
+        dataIndex: 'viruses_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -378,11 +376,10 @@ export const archaeaCRISPRCasColumns = (handleDetailClick, getSingleFileURL) => 
     }
 ]
 
-export const archaeaAntiCRISPRAnnotationColumns = (handleDetailClick, getSingleFileURL) => [
+export const virusesAntiCRISPRAnnotationColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
+        title: 'Viruses ID',
+        dataIndex: 'viruses_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -455,158 +452,10 @@ export const archaeaAntiCRISPRAnnotationColumns = (handleDetailClick, getSingleF
     }
 ]
 
-export const archaeaSecondaryMetaboliteColumns = (handleDetailClick, getSingleFileURL) =>  [
+export const virusesVirulenceFactorColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='volcano'/>
-    },
-    {
-        title: 'Contig ID',
-        dataIndex: 'contig_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='geekblue'/>
-    },
-    {
-        title: 'Region',
-        dataIndex: 'region',
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='gold'/>
-    },
-    {
-        title: 'Source',
-        dataIndex: 'source',
-        align: 'center',
-        render: (value) => (
-            <Link href='https://antismash.secondarymetabolites.org/#!/download' target='_blank'>
-                {value}
-            </Link>
-        )
-    },
-    {
-        title: 'Similarity',
-        dataIndex: 'similarity',
-        align: 'center',
-        width: '200px',
-        render: value => {
-            const isInvalid = value === '-'
-
-            return (
-                <Progress
-                    percent={isInvalid ? 0 : parseFloat(value.replace('%', ''))}
-                    size="small"
-                    format={() => (isInvalid ? '--%' : value)}
-                    strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }}
-                />
-            )
-        }
-    },
-    {
-        title: 'Type',
-        dataIndex: 'type',
-        align: 'center',
-        render: (values) => (
-            values.map(
-                value => <Tag key={value} color='purple'>{value}</Tag>
-            )
-        )
-    },
-    {
-        title: 'Start',
-        dataIndex: 'start',
-        align: 'center'
-    },
-    {
-        title: 'End',
-        dataIndex: 'end',
-        align: 'center'
-    },
-    {
-        title: 'Action',
-        key: 'operation',
-        fixed: 'right',
-        align: 'center',
-        render: (_, record) => (
-            <Stack direction="row" spacing={2} justifyContent='center'>
-                <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
-            </Stack>
-        )
-    }
-]
-
-export const archaeaSignalPeptideColumns = (handleDetailClick, getSingleFileURL) => [
-    {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='volcano'/>
-    },
-    {
-        title: 'Contig ID',
-        dataIndex: 'contig_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='geekblue'/>
-    },
-    {
-        title: 'Protein ID',
-        dataIndex: 'protein_id',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='gold'/>
-    },
-    {
-        title: 'Source',
-        dataIndex: 'source',
-        align: 'center',
-        render: (value) => (
-            <Link href='https://dtu.biolib.com/SignalP-6' target='_blank'>
-                {value}
-            </Link>
-        )
-    },
-    {
-        title: 'Prediction',
-        dataIndex: 'prediction',
-        align: 'center',
-        render: (value) => <BasicChip value={value} color='purple'/>
-    },
-    {
-        title: 'Action',
-        key: 'operation',
-        fixed: 'right',
-        align: 'center',
-        render: (_, record) => (
-            <Stack direction="row" spacing={2} justifyContent='center'>
-                <DetailButton handleClick={() => handleDetailClick(record)}/>
-                <DownloadButton
-                    downloadUrl={getSingleFileURL}
-                    id={record.id}
-                />
-            </Stack>
-        )
-    }
-]
-
-export const archaeaVirulenceFactorColumns = (handleDetailClick, getSingleFileURL) => [
-    {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
-        sorter: true,
+        title: 'Viruses ID',
+        dataIndex: 'viruses_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -660,10 +509,10 @@ export const archaeaVirulenceFactorColumns = (handleDetailClick, getSingleFileUR
     }
 ]
 
-export const archaeaAntibioticResistanceColumns = (handleDetailClick, getSingleFileURL) => [
+export const virusesAntibioticResistanceColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
+        title: 'Viruses ID',
+        dataIndex: 'viruses_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -721,10 +570,10 @@ export const archaeaAntibioticResistanceColumns = (handleDetailClick, getSingleF
     }
 ]
 
-export const archaeaTransmembraneHelicesColumns = (handleDetailClick, getSingleFileURL) => [
+export const virusesTransmembraneHelicesColumns = (handleDetailClick, getSingleFileURL) => [
     {
-        title: 'Archaea ID',
-        dataIndex: 'archaea_id',
+        title: 'Viruses ID',
+        dataIndex: 'viruses_id',
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
