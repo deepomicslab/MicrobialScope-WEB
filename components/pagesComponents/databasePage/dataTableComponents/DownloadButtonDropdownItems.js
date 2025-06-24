@@ -30,7 +30,7 @@ export const buildDownloadDropdownItems = (
                                             downloadType: downloadType,
                                             fileType: key,
                                             payload: downloadType === 'selected' ? buildPayload(dataType, selectedRowInfo) : filterOptions,
-                                            microbe: microbe,
+                                            microbe: microbeMap[microbe],
                                             magStatus: magStatus,
                                             dataType: dataType
                                         }
@@ -66,4 +66,11 @@ const buildPayload = (dataType, selectedRowInfo) => {
     } else {
         return selectedRowInfo.rowKeys
     }
+}
+
+const microbeMap = {
+    archaea: 'Archaea',
+    bacteria: 'Bacteria',
+    fungi: 'Fungi',
+    viruses: 'Viruses',
 }
