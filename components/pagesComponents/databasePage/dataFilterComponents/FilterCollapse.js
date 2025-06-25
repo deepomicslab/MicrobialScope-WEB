@@ -104,7 +104,7 @@ const MicrobeRadio = ({}) => {
 }
 
 const MAGStatusRadio = ({}) => {
-    const {magStatus, setMagStatus, dataType} = useDatabaseContext()
+    const {magStatus, setMagStatus} = useDatabaseContext()
 
     const handleChange = (e) => {
         setMagStatus(e.target.value)
@@ -114,15 +114,15 @@ const MAGStatusRadio = ({}) => {
         <Radio.Group name='magStatus' onChange={handleChange} value={magStatus}>
             <Stack>
                 {
-                    ['MAG', 'unMAG'].map((option, index) => (
-                        <Radio value={option} key={index}>
+                    [{ label: 'MAG', value: 'MAG' }, { label: 'Monoisolate', value: 'unMAG' }].map((option, index) => (
+                        <Radio value={option.value} key={index}>
                             <Typography.Text
                                 ellipsis={true}
                                 style={{
                                     maxWidth: '200px'
                                 }}
                             >
-                                {option}
+                                {option.label}
                             </Typography.Text>
                         </Radio>
                     ))

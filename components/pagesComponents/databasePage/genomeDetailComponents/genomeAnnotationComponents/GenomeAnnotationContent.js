@@ -3,14 +3,15 @@ import useSWR from "swr"
 import { fetcher } from "@/dataFetch/get"
 import { LoadingView } from "@/components/stateViews/LoadingView"
 import { ErrorView } from "@/components/stateViews/ErrorView"
-import { Stack } from "@mui/system"
+import { Box, Stack } from "@mui/system"
 import {
     GENOMEDETAILCONFIG
 } from "@/components/pagesComponents/databasePage/genomeDetailComponents/GenomeDetailContent"
-import { Card, Select, Typography } from "antd"
+import { Card, Select, Spin, Typography } from "antd"
 import { useEffect, useMemo, useState } from "react"
-import { H6 } from "@/components/styledComponents/styledHTMLTags"
-import GenomeProteinsDetail from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeProteinsDetail"
+import { H6, Span } from "@/components/styledComponents/styledHTMLTags"
+import GenomeProteinsDetail
+    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeProteinsDetail"
 import GenomeTRNAsDetail
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeTRNAsDetail"
 import GenomeSecondaryMetabolitesDetail
@@ -62,7 +63,28 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
     }, [fastaInfo])
 
     if (isLoading || !fastaDetail || proteinsIsLoading) {
-        return <LoadingView containerSx={{ height: '80vh', marginTop: '40px' }}/>
+        return (
+            <LoadingView containerSx={{ height: '80vh', marginTop: '40px' }}>
+                <Spin
+                    tip={
+                        <Stack sx={{ fontSize: '20px' }} spacing={1}>
+                            <Span>Loading Genome FASTA sequences...</Span>
+                            <Span
+                                sx={{
+                                    fontSize: '20px',
+                                    color: '#FF4D4F'
+                                }}
+                            >
+                                This may take some time depending on the sequence length. Please be patient.
+                            </Span>
+                        </Stack>
+                    }
+                    size="large"
+                >
+                    <Box sx={{ padding: '50px', width: '800px' }}></Box>
+                </Spin>
+            </LoadingView>
+        )
     }
 
     if (error || proteinsError) {
@@ -102,7 +124,7 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
                 </Stack>
                 {
                     proteins.length !== 0 &&
-                    <GenomeProteinsDetail fastaDetail={fastaDetail} proteins={proteins} />
+                    <GenomeProteinsDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
                 {
                     proteins.length !== 0 && genomeDetail['trna_count'] !== 0 &&

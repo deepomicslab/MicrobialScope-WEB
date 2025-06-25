@@ -2,7 +2,7 @@ import axios from "axios"
 import { postUnMAGArchaeaAntiCRISPRAnnotationsURL } from "@/dataFetch/post"
 
 export const fetcher = async url => {
-    const res = await axios.get(url, {timeout: 60000});
+    const res = await axios.get(url, {timeout: 600000});
     return res.data;
 }
 
