@@ -114,7 +114,7 @@ const MAGStatusRadio = ({}) => {
         <Radio.Group name='magStatus' onChange={handleChange} value={magStatus}>
             <Stack>
                 {
-                    [{ label: 'MAG', value: 'MAG' }, { label: 'Monoisolate', value: 'unMAG' }].map((option, index) => (
+                    [{ label: 'Monoisolate', value: 'unMAG' }, { label: 'MAG', value: 'MAG' }].map((option, index) => (
                         <Radio value={option.value} key={index}>
                             <Typography.Text
                                 ellipsis={true}

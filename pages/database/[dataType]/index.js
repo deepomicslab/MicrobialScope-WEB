@@ -10,7 +10,7 @@ const MicrobeDataList = () => {
     const { dataType } = query
 
     const [microbe, setMicrobe] = useState('archaea')
-    const [magStatus, setMagStatus] = useState('MAG')
+    const [magStatus, setMagStatus] = useState('unMAG')
     const [keyword, setKeyword] = useState('')
 
     useEffect(() => {
