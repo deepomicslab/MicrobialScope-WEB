@@ -87,9 +87,9 @@ export const postBacteriaGenomesBatchDownloadURL = `${apiPrefix}/bacteria/genome
 export const postUnMAGBacteriaGenomesBatchDownloadURL = `${apiPrefix}/bacteria/genome_batch_download_unmag`
 
 // Bacteria Proteins URLs
-export const postBacteriaProteinsURL = `${apiPrefix}/bacteria/proteins`
+export const postBacteriaProteinsURL = `https://microbialapi.deepomics.org/api/largetable/bacteria_protein_list/`
 export const postUnMAGBacteriaProteinsURL = `${apiPrefix}/bacteria/proteins_unmag`
-export const postBacteriaProteinsBatchDownloadURL = `${apiPrefix}/bacteria/protein_batch_download`
+export const postBacteriaProteinsBatchDownloadURL = `https://microbialapi.deepomics.org/api/largetable/download_large_table_meta_data/`
 export const postUnMAGBacteriaProteinsBatchDownloadURL = `${apiPrefix}/bacteria/protein_batch_download_unmag`
 
 // Bacteria tRNAs URLs
@@ -129,15 +129,15 @@ export const postBacteriaVirulenceFactorsBatchDownloadURL = `${apiPrefix}/bacter
 export const postUnMAGBacteriaVirulenceFactorsBatchDownloadURL = `${apiPrefix}/bacteria/virulence_factor_batch_download_unmag`
 
 // Bacteria Antibiotic Resistances URLs
-export const postBacteriaAntibioticResistancesURL = `${apiPrefix}/bacteria/antibiotic_resistances`
+export const postBacteriaAntibioticResistancesURL = `https://microbialapi.deepomics.org/api/largetable/bacteria_arg_list/`
 export const postUnMAGBacteriaAntibioticResistancesURL = `${apiPrefix}/bacteria/antibiotic_resistances_unmag`
-export const postBacteriaAntibioticResistancesBatchDownloadURL = `${apiPrefix}/bacteria/antibiotic_resistance_batch_download`
+export const postBacteriaAntibioticResistancesBatchDownloadURL = `https://microbialapi.deepomics.org/api/largetable/download_large_table_meta_data/`
 export const postUnMAGBacteriaAntibioticResistancesBatchDownloadURL = `${apiPrefix}/bacteria/antibiotic_resistance_batch_download_unmag`
 
 // Bacteria Transmembrane Helices URLs
-export const postBacteriaTransmembraneHelicesURL = `${apiPrefix}/bacteria/transmembrane_helices`
+export const postBacteriaTransmembraneHelicesURL = `https://microbialapi.deepomics.org/api/largetable/bacteria_tmh_list/`
 export const postUnMAGBacteriaTransmembraneHelicesURL = `${apiPrefix}/bacteria/transmembrane_helices_unmag`
-export const postBacteriaTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/bacteria/transmembrane_helice_batch_download`
+export const postBacteriaTransmembraneHelicesBatchDownloadURL = `https://microbialapi.deepomics.org/api/largetable/download_large_table_meta_data/`
 export const postUnMAGBacteriaTransmembraneHelicesBatchDownloadURL = `${apiPrefix}/bacteria/transmembrane_helice_batch_download_unmag`
 
 

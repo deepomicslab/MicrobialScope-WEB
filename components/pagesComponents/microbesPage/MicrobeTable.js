@@ -80,77 +80,77 @@ const columns = [
         dataIndex: 'genomes',
         key: 'genomes',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
-    {
-        title: <TitleWithTooltip title='Taxonomies' info='info'/>,
-        dataIndex: 'taxonomies',
-        key: 'taxonomies',
-        align: 'center',
-        render: (value) => value === 0 ? '--' : value
-    },
+    // {
+    //     title: <TitleWithTooltip title='Taxonomies' info='info'/>,
+    //     dataIndex: 'taxonomies',
+    //     key: 'taxonomies',
+    //     align: 'center',
+    //     render: (value) => value === 0 ? '--' : value
+    // },
     {
         title: <TitleWithTooltip title='Proteins' info='info'/>,
         dataIndex: 'proteins',
         key: 'proteins',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: <TitleWithTooltip title='tRNAs' info='info'/>,
         dataIndex: 'tRNAs',
         key: 'tRNAs',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: <TitleWithTooltip title='CRISPR/Cas Systems' info='info'/>,
         dataIndex: 'CRISPRCasSystems',
         key: 'CRISPRCasSystems',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: <TitleWithTooltip title='Anti-CRISPR' info='info'/>,
         dataIndex: 'antiCRISPR',
         key: 'antiCRISPR',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: <TitleWithTooltip title='Secondary Metabolites' info='info'/>,
         dataIndex: 'secondaryMetabolites',
         key: 'secondaryMetabolites',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: <TitleWithTooltip title='Signal Peptides' info='info'/>,
         dataIndex: 'signalPeptides',
         key: 'signalPeptides',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: <TitleWithTooltip title='Virulence Factors' info='info'/>,
         dataIndex: 'virulenceFactors',
         key: 'virulenceFactors',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: <TitleWithTooltip title='Antibiotic Resistance Genes' info='info'/>,
         dataIndex: 'antibioticResistanceGenes',
         key: 'antibioticResistanceGenes',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: <TitleWithTooltip title='Transmembrane Proteins' info='info'/>,
         dataIndex: 'transmembraneProteins',
         key: 'transmembraneProteins',
         align: 'center',
-        render: (value) => value === 0 ? '--' : value
+        render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
         title: 'Action',
@@ -179,22 +179,6 @@ const microbeValueMap = {
 
 const extractTableData = (data) => [
     {
-        key: 'MAGArchaea',
-        microbeType: 'Archaea',
-        assemblyType: 'MAG',
-        genomes: data['MAGArchaeaCount'],
-        taxonomies: data['MAGArchaeaTaxonomyCount'],
-        proteins: data['MAGArchaeaProteinCount'],
-        tRNAs: data['MAGArchaeaTrnaCount'],
-        CRISPRCasSystems: data['MAGArchaeaCRISPRCount'],
-        antiCRISPR: data['MAGArchaeaAntiCRISPRAnnotationCount'],
-        secondaryMetabolites: data['MAGArchaeaSecondaryMetaboliteRegionCount'],
-        signalPeptides: data['MAGArchaeaSignalPeptidePredictionCount'],
-        virulenceFactors: data['MAGArchaeaVirulenceFactorCount'],
-        antibioticResistanceGenes: data['MAGArchaeaAntibioticResistanceCount'],
-        transmembraneProteins: data['MAGArchaeaTransmembraneHelicesCount']
-    },
-    {
         key: 'unMAGArchaea',
         microbeType: 'Archaea',
         assemblyType: 'unMAG',
@@ -211,20 +195,20 @@ const extractTableData = (data) => [
         transmembraneProteins: data['unMAGArchaeaTransmembraneHelicesCount']
     },
     {
-        key: 'MAGBacteria',
-        microbeType: 'Bacteria',
+        key: 'MAGArchaea',
+        microbeType: 'Archaea',
         assemblyType: 'MAG',
-        genomes: data['MAGBacteriaCount'],
-        taxonomies: data['MAGBacteriaTaxonomyCount'],
-        proteins: data['MAGBacteriaProteinCount'],
-        tRNAs: data['MAGBacteriaTrnaCount'],
-        CRISPRCasSystems: data['MAGBacteriaCRISPRCount'],
-        antiCRISPR: data['MAGBacteriaAntiCRISPRAnnotationCount'],
-        secondaryMetabolites: data['MAGBacteriaSecondaryMetaboliteRegionCount'],
-        signalPeptides: data['MAGBacteriaSignalPeptidePredictionCount'],
-        virulenceFactors: data['MAGBacteriaVirulenceFactorCount'],
-        antibioticResistanceGenes: data['MAGBacteriaAntibioticResistanceCount'],
-        transmembraneProteins: data['MAGBacteriaTransmembraneHelicesCount']
+        genomes: data['MAGArchaeaCount'],
+        taxonomies: data['MAGArchaeaTaxonomyCount'],
+        proteins: data['MAGArchaeaProteinCount'],
+        tRNAs: data['MAGArchaeaTrnaCount'],
+        CRISPRCasSystems: data['MAGArchaeaCRISPRCount'],
+        antiCRISPR: data['MAGArchaeaAntiCRISPRAnnotationCount'],
+        secondaryMetabolites: data['MAGArchaeaSecondaryMetaboliteRegionCount'],
+        signalPeptides: data['MAGArchaeaSignalPeptidePredictionCount'],
+        virulenceFactors: data['MAGArchaeaVirulenceFactorCount'],
+        antibioticResistanceGenes: data['MAGArchaeaAntibioticResistanceCount'],
+        transmembraneProteins: data['MAGArchaeaTransmembraneHelicesCount']
     },
     {
         key: 'unMAGBacteria',
@@ -243,20 +227,20 @@ const extractTableData = (data) => [
         transmembraneProteins: data['unMAGBacteriaTransmembraneHelicesCount']
     },
     {
-        key: 'MAGFungi',
-        microbeType: 'Fungi',
+        key: 'MAGBacteria',
+        microbeType: 'Bacteria',
         assemblyType: 'MAG',
-        genomes: data['MAGFungiCount'],
-        taxonomies: data['MAGFungiTaxonomyCount'],
-        proteins: data['MAGFungiProteinCount'],
-        tRNAs: data['MAGFungiTrnaCount'],
-        CRISPRCasSystems: 0,
-        antiCRISPR: 0,
-        secondaryMetabolites: data['MAGFungiSecondaryMetaboliteRegionCount'],
-        signalPeptides: data['MAGFungiSignalPeptidePredictionCount'],
-        virulenceFactors: data['MAGFungiVirulenceFactorCount'],
-        antibioticResistanceGenes: data['MAGFungiAntibioticResistanceCount'],
-        transmembraneProteins: data['MAGFungiTransmembraneHelicesCount']
+        genomes: data['MAGBacteriaCount'],
+        taxonomies: data['MAGBacteriaTaxonomyCount'],
+        proteins: data['MAGBacteriaProteinCount'],
+        tRNAs: data['MAGBacteriaTrnaCount'],
+        CRISPRCasSystems: data['MAGBacteriaCRISPRCount'],
+        antiCRISPR: data['MAGBacteriaAntiCRISPRAnnotationCount'],
+        secondaryMetabolites: data['MAGBacteriaSecondaryMetaboliteRegionCount'],
+        signalPeptides: data['MAGBacteriaSignalPeptidePredictionCount'],
+        virulenceFactors: data['MAGBacteriaVirulenceFactorCount'],
+        antibioticResistanceGenes: data['MAGBacteriaAntibioticResistanceCount'],
+        transmembraneProteins: data['MAGBacteriaTransmembraneHelicesCount']
     },
     {
         key: 'unMAGFungi',
@@ -275,20 +259,20 @@ const extractTableData = (data) => [
         transmembraneProteins: data['unMAGFungiTransmembraneHelicesCount']
     },
     {
-        key: 'MAGViruses',
-        microbeType: 'Viruses',
+        key: 'MAGFungi',
+        microbeType: 'Fungi',
         assemblyType: 'MAG',
-        genomes: data['MAGVirusesCount'],
-        taxonomies: data['MAGVirusesTaxonomyCount'],
-        proteins: data['MAGVirusesProteinCount'],
-        tRNAs: data['MAGVirusesTrnaCount'],
-        CRISPRCasSystems: data['MAGVirusesCRISPRCount'],
-        antiCRISPR: data['MAGVirusesAntiCRISPRAnnotationCount'],
-        secondaryMetabolites: 0,
-        signalPeptides: 0,
-        virulenceFactors: data['MAGVirusesVirulenceFactorCount'],
-        antibioticResistanceGenes: data['MAGVirusesAntibioticResistanceCount'],
-        transmembraneProteins: data['MAGVirusesTransmembraneHelicesCount']
+        genomes: data['MAGFungiCount'],
+        taxonomies: data['MAGFungiTaxonomyCount'],
+        proteins: data['MAGFungiProteinCount'],
+        tRNAs: data['MAGFungiTrnaCount'],
+        CRISPRCasSystems: 0,
+        antiCRISPR: 0,
+        secondaryMetabolites: data['MAGFungiSecondaryMetaboliteRegionCount'],
+        signalPeptides: data['MAGFungiSignalPeptidePredictionCount'],
+        virulenceFactors: data['MAGFungiVirulenceFactorCount'],
+        antibioticResistanceGenes: data['MAGFungiAntibioticResistanceCount'],
+        transmembraneProteins: data['MAGFungiTransmembraneHelicesCount']
     },
     {
         key: 'unMAGViruses',
@@ -305,7 +289,23 @@ const extractTableData = (data) => [
         virulenceFactors: data['unMAGVirusesVirulenceFactorCount'],
         antibioticResistanceGenes: data['unMAGVirusesAntibioticResistanceCount'],
         transmembraneProteins: data['unMAGVirusesTransmembraneHelicesCount']
-    }
+    },
+    {
+        key: 'MAGViruses',
+        microbeType: 'Viruses',
+        assemblyType: 'MAG',
+        genomes: data['MAGVirusesCount'],
+        taxonomies: data['MAGVirusesTaxonomyCount'],
+        proteins: data['MAGVirusesProteinCount'],
+        tRNAs: data['MAGVirusesTrnaCount'],
+        CRISPRCasSystems: data['MAGVirusesCRISPRCount'],
+        antiCRISPR: data['MAGVirusesAntiCRISPRAnnotationCount'],
+        secondaryMetabolites: 0,
+        signalPeptides: 0,
+        virulenceFactors: data['MAGVirusesVirulenceFactorCount'],
+        antibioticResistanceGenes: data['MAGVirusesAntibioticResistanceCount'],
+        transmembraneProteins: data['MAGVirusesTransmembraneHelicesCount']
+    },
 ]
 
 export default MicrobeTable
