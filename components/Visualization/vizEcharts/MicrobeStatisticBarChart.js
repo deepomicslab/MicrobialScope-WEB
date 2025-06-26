@@ -213,7 +213,7 @@ const buildSeries = (data) => {
                     groupId: 'unMAGArchaea'
                 },
                 {
-                    value: data['unMAGArchaeaCount'],
+                    value: data['unMAGBacteriaCount'],
                     name: 'unMAG Bacteria',
                     groupId: 'unMAGBacteria'
                 },
