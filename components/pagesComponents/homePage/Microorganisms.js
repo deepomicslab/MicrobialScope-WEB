@@ -95,7 +95,7 @@ const Microorganisms = ({ statistic }) => {
                                 }
                                 value={microbe.count}
                                 valueStyle={{
-                                    fontSize: '18px',
+                                    fontSize: '32px',
                                     fontWeight: 'bold',
                                     color: '#6b7280',
                                 }}

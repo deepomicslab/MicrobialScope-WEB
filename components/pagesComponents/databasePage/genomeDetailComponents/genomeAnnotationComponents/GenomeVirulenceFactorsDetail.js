@@ -160,6 +160,7 @@ const GenomeVirulenceFactorsDetail = ({ fastaDetail, proteins }) => {
                                     maxHeight: '75vh',
                                     overflowX: 'auto'
                                 }}
+                                key={selectedRecord?.['id']}
                             >
                                 <VirulenceFactorModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>

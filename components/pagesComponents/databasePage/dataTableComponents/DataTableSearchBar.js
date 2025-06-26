@@ -19,7 +19,8 @@ const DataTableSearchBar = ({
     searchContent,
     handleSearContentChange
 }) => {
-    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const { dataTableState, dataType } = useDatabaseContext()
+    const { microbe, magStatus } = dataTableState
     const [localSearchText, setLocalSearchText] = useState({
         field: fieldMap[microbe],
         value: ''
@@ -33,14 +34,11 @@ const DataTableSearchBar = ({
     }
 
     const onSearch = () => {
-        handleSearContentChange(localSearchText)
+        handleSearContentChange(localSearchText.value)
     }
 
     const onClear = () => {
-        handleSearContentChange({
-            field: fieldMap[microbe],
-            value: ''
-        })
+        handleSearContentChange('')
     }
 
     useEffect(() => {
@@ -150,7 +148,8 @@ const TableSearchFieldSwitchList = ({
 
 const SwitchContainer = ({ columnVisibilityMap, setColumnVisibilityMap, setColumns }) => {
     const { handleDetailClick } = useDatabaseDetailModalContext()
-    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const { dataTableState, dataType } = useDatabaseContext()
+    const { microbe, magStatus } = dataTableState
 
     const handleSwitchChange = useCallback((value) => {
         setColumnVisibilityMap(prevMap => {

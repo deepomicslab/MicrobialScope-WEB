@@ -160,6 +160,7 @@ const GenomeTRNAsDetail = ({ fastaDetail, proteins }) => {
                                     maxHeight: '75vh',
                                     overflowX: 'auto'
                                 }}
+                                key={selectedRecord?.['id']}
                             >
                                 <TRNAModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>

@@ -1,6 +1,6 @@
 import { Box, Grid, Stack } from "@mui/system"
 import { A, H6, Img, Span } from "@/components/styledComponents/styledHTMLTags"
-import { Card } from "antd"
+import { Avatar, Card } from "antd"
 import {
     BankOutlined,
     BookOutlined,
@@ -22,7 +22,7 @@ const ContactContent = ({}) => {
 const ContactBody = () => {
     return (
         <Grid container spacing={2} sx={{ marginTop: '64px', marginBottom: '48px' }}>
-            <Grid size={4} offset={1.5}>
+            <Grid size={5} offset={0.5}>
                 <TeamIntroduction/>
             </Grid>
             <Grid size={6} offset={0.5}>
@@ -49,16 +49,17 @@ const TeamIntroduction = () => {
                 sx={{
                     border: '1px solid #0000001F',
                     borderRadius: '10px',
-                    padding: '40px 36px'
+                    padding: '40px 40px'
                 }}
             >
                 <Stack spacing={1} sx={{ alignItems: 'center', paddingTop: '36px' }}>
-                    <Box sx={{ fontSize: '20px', textAlign: 'justify', lineHeight: '48px' }}>
+                    <Box sx={{ fontSize: '24px', textAlign: 'justify', lineHeight: '48px' }}>
                         We are a diverse team of talented research assistants, Ph.D. candidates, and assistant
                         investigators, led by Prof. LI Shuai Cheng at the City University of Hong Kong and Prof. CHEN Yu
                         at the Shenzhen Institute of Advanced Technology. Our team comprises individuals with extensive
                         molecular biology, bioinformatics, and computer science expertise. If you have any inquiries or
-                        require further information, please feel free to reach out to us at <A sx={{ cursor: 'text' }}>shuaicli@gmail.com</A> or
+                        require further information, please feel free to reach out to us at <A
+                        sx={{ cursor: 'text' }}>shuaicli@gmail.com</A> or
                         <A sx={{ cursor: 'text' }}> yu.chen@siat.ac.cn</A>
                     </Box>
                 </Stack>
@@ -67,7 +68,7 @@ const TeamIntroduction = () => {
     )
 }
 
-const AuthorsCard = ({ name, email, char, colorIndex = 0 }) => {
+const AuthorsCard = ({ name, src, alt }) => {
     const colors = [
         '#f56a00', '#7265e6', '#ffbf00', '#00a2ae',
         "#FF5733", "#33FF57", "#5733FF", "#FF33A1",
@@ -83,21 +84,34 @@ const AuthorsCard = ({ name, email, char, colorIndex = 0 }) => {
                 fontSize: '18px',
             }}
         >
+            <Stack alignItems="center" spacing={1}>
+                <Avatar
+                    size={150}
+                    icon={
+                        <Img
+                            src={src}
+                            alt={alt}
+                            sx={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                borderRadius: '50%'
+                            }}
+                        />
+                    }
+                />
+                <Stack spacing={1}>
+                    <Stack direction="row" spacing={1}>
+                        <UserOutlined/>
+                        <Span sx={{ fontWeight: '600' }}>{name}</Span>
+                    </Stack>
+                </Stack>
+            </Stack>
             {/*<Stack sx={{ alignItems: 'center', paddingBottom: '12px' }}>*/}
             {/*    <Avatar style={{ backgroundColor: colors[colorIndex], verticalAlign: 'middle' }} size={56}>*/}
             {/*        {char}*/}
             {/*    </Avatar>*/}
             {/*</Stack>*/}
-            <Stack spacing={1}>
-                <Stack direction="row" spacing={1}>
-                    <UserOutlined/>
-                    <Span sx={{ fontWeight: '600' }}>{name}</Span>
-                </Stack>
-                <Stack direction="row" spacing={1}>
-                    <MailOutlined/>
-                    <Span>{email}</Span>
-                </Stack>
-            </Stack>
         </Card>
     )
 }
@@ -109,31 +123,31 @@ const Authors = () => {
             <Stack spacing={5.5}>
                 <Grid container spacing={4} sx={{ fontSize: '20px' }}>
                     <Grid size={6}>
-                        <AuthorsCard name="LI Shuai Cheng" email="xxxxxxx@cityu.edu.hk" char="Z" colorIndex={1}/>
+                        <AuthorsCard name="LI Shuai Cheng" src={'/lsc.jpg'} alt="LI Shuai Cheng"/>
                     </Grid>
                     <Grid size={6}>
-                        <AuthorsCard name="CHEN Yu" email="xxxxxxx@cityu.edu.hk" char="Z" colorIndex={1}/>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={4} sx={{ fontSize: '20px' }}>
-                    <Grid size={6}>
-                        <AuthorsCard name="Feng Xikang" email="xxxxxxx@cityu.edu.hk" char="C" colorIndex={3}/>
-                    </Grid>
-                    <Grid size={6}>
-                        <AuthorsCard name="Li Yinhu" email="xxxxxxx@cityu.edu.hk" char="Z" colorIndex={3}/>
+                        <AuthorsCard name="CHEN Yu" src={'/cy.png'} alt='CHEN Yu'/>
                     </Grid>
                 </Grid>
                 <Grid container spacing={4} sx={{ fontSize: '20px' }}>
                     <Grid size={6}>
-                        <AuthorsCard name="ZHENG Jieyi" email="xxxxxxx@cityu.edu.hk" char="G" colorIndex={9}/>
+                        <AuthorsCard name="Feng Xikang" src={'/fxk.png'} alt='Feng Xikang'/>
                     </Grid>
                     <Grid size={6}>
-                        <AuthorsCard name="Chen Xuhua" email="xxxxxxx@cityu.edu.hk" char="F" colorIndex={4}/>
+                        <AuthorsCard name="Li Yinhu" src={'/lyh.png'} alt='Li Yinhu'/>
                     </Grid>
                 </Grid>
                 <Grid container spacing={4} sx={{ fontSize: '20px' }}>
                     <Grid size={6}>
-                        <AuthorsCard name="YANG Shuo" email="xxxxxxx@cityu.edu.hk" char="J" colorIndex={8}/>
+                        <AuthorsCard name="ZHENG Jieyi" src={'/zjy.png'} alt='ZHENG Jieyi'/>
+                    </Grid>
+                    <Grid size={6}>
+                        <AuthorsCard name="Chen Xuhua" src={'/cxh.png'} alt='Chen Xuhua'/>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={4} sx={{ fontSize: '20px' }}>
+                    <Grid size={6}>
+                        <AuthorsCard name="YANG Shuo" src={'/ys.png'} alt='YANG Shuo'/>
                     </Grid>
                 </Grid>
             </Stack>

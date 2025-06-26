@@ -5,6 +5,8 @@ import { Button, Tag } from "antd"
 import { ArrowRightOutlined, EyeOutlined } from "@ant-design/icons"
 import { TitleWithTooltip } from "@/components/pagesComponents/sharedComponents/sharedTableComponents"
 
+const webPrefix = process.env.NEXT_PUBLIC_WEB_URL
+
 const MicrobeTable = ({ data }) => {
     const dataSource = extractTableData(data)
 
@@ -156,7 +158,7 @@ const columns = [
         fixed: 'right',
         align: 'center',
         render: (_, record) => (
-            <Link href={`http://localhost:3000/database/genomes?microbe=${microbeValueMap[record['microbeType']]}&mag=${record['assemblyType']}`}>
+            <Link href={`${webPrefix}/database/genomes?microbe=${microbeValueMap[record['microbeType']]}&mag=${record['assemblyType']}`}>
                 <OverviewButton/>
             </Link>
         )

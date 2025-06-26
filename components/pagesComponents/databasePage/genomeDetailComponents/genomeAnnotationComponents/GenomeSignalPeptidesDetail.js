@@ -160,6 +160,7 @@ const GenomeSignalPeptidesDetail = ({ fastaDetail, proteins }) => {
                                     maxHeight: '75vh',
                                     overflowX: 'auto'
                                 }}
+                                key={selectedRecord?.['id']}
                             >
                                 <SignalPeptideModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>

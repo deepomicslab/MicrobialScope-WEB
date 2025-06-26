@@ -7,7 +7,7 @@ import {
 } from "@/dataFetch/get"
 import { LoadingView } from "@/components/stateViews/LoadingView"
 import { ErrorView } from "@/components/stateViews/ErrorView"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import DataTableContainer from "@/components/pagesComponents/databasePage/dataTableComponents/DataTableContainer"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
 import DraggableModal from "@/components/feedbackComponents/modals/DraggableModal"
@@ -31,7 +31,9 @@ const shouldShowLoading = (microbe, dataType) => {
 };
 
 const DatabaseContentWrapper = () => {
-    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const { dataTableState, dataType } = useDatabaseContext()
+    const { microbe, magStatus } = dataTableState
+
     const {
         data: filterOptions,
         isLoading,
@@ -55,7 +57,8 @@ const DatabaseContentWrapper = () => {
 }
 
 const DatabaseContent = ({ filterOptions }) => {
-    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const { dataTableState, dataType } = useDatabaseContext()
+    const { microbe, magStatus } = dataTableState
     const router = useRouter()
     const [selectedFilterOptions, setSelectedFilterOptions] = useState(initSelected(filterOptions))
     const [showLeft, setShowLeft] = useState(true)
@@ -116,6 +119,7 @@ const DatabaseContent = ({ filterOptions }) => {
                             scrollbarColor: '#eaeaea transparent',
                             scrollbarGutter: 'stable'
                         }}
+                        key={selectedRecord?.['id']}
                     >
                         {DATABASECONFIG[microbe][magStatus][dataType].modalDetail(selectedRecord, microbe)}
                     </Box>

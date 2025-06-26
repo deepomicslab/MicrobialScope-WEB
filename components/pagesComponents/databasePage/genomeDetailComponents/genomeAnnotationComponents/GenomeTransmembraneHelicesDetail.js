@@ -160,6 +160,7 @@ const GenomeTransmembraneHelicesDetail = ({ fastaDetail, proteins }) => {
                                     maxHeight: '75vh',
                                     overflowX: 'auto'
                                 }}
+                                key={selectedRecord?.['id']}
                             >
                                 <TransmembraneHelicesModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>

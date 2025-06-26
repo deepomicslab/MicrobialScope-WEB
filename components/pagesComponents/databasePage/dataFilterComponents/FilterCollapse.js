@@ -11,7 +11,8 @@ import {
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
 
 const FilterCollapse = ({ filterOptions, selectedFilterOptions, setSelectedFilterOptions }) => {
-    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const { dataTableState, dataType } = useDatabaseContext()
+    const { microbe, magStatus } = dataTableState
     const [activeKey, setActiveKey] = useState(['microbe', 'magStatus'])
 
     const items = [
@@ -75,10 +76,11 @@ const DefaultOptionWrapper = ({ option }) => (
 )
 
 const MicrobeRadio = ({}) => {
-    const { microbe, setMicrobe, dataType } = useDatabaseContext()
+    const { dataTableState, dataType, updateMicrobe } = useDatabaseContext()
+    const { microbe } = dataTableState
 
     const handleChange = (e) => {
-        setMicrobe(e.target.value)
+        updateMicrobe(e.target.value)
     }
 
     return (
@@ -104,10 +106,11 @@ const MicrobeRadio = ({}) => {
 }
 
 const MAGStatusRadio = ({}) => {
-    const {magStatus, setMagStatus} = useDatabaseContext()
+    const {dataTableState, updateMagStatus} = useDatabaseContext()
+    const {magStatus} = dataTableState
 
     const handleChange = (e) => {
-        setMagStatus(e.target.value)
+        updateMagStatus(e.target.value)
     }
 
     return (

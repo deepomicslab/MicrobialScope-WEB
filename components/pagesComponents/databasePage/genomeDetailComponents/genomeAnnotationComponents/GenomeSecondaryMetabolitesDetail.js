@@ -163,6 +163,7 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
                                     maxHeight: '75vh',
                                     overflowX: 'auto'
                                 }}
+                                key={selectedRecord?.['id']}
                             >
                                 <SecondaryMetabolitesModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>

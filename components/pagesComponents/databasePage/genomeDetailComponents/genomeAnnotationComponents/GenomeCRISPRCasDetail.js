@@ -165,6 +165,7 @@ const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
                                     maxHeight: '75vh',
                                     overflowX: 'auto'
                                 }}
+                                key={selectedRecord?.['id']}
                             >
                                 <CRISPRCasSystemModalDetailDescriptions record={selectedRecord} microbe={microbe}/>
                             </Box>

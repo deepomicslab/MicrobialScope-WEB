@@ -27,12 +27,12 @@ const microbeOptions = [
 
 const magOptions = [
     {
-        value: 'MAG',
-        label: 'MAG'
-    },
-    {
         value: 'unMAG',
         label: 'Monoisolate'
+    },
+    {
+        value: 'MAG',
+        label: 'MAG'
     }
 ]
 
@@ -40,7 +40,7 @@ const Introduction = () => {
     const router = useRouter()
     const [homeSearchValue, setHomeSearchValue] = useState({
         microbeField: 'archaea',
-        magField: 'MAG',
+        magField: 'unMAG',
         keyword: ''
     })
 

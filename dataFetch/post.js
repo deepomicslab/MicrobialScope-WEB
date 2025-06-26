@@ -17,7 +17,7 @@ export const postDownloadBatchFile = (url, data, showMessage) => {
     document.body.removeChild(form)
 }
 
-const apiPrefix = process.env.NEXT_PUBLIC_API_URL
+export const apiPrefix = process.env.NEXT_PUBLIC_API_URL
 
 // Archaea Genomes URLs
 export const postArchaeaGenomesURL = `${apiPrefix}/archaea/genomes`

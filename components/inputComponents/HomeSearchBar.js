@@ -13,7 +13,7 @@ const HomeSearchBar = ({
     placeholder = 'Enter keyword',
     searchTip = ''
 }) => {
-    const { microbeField = 'archaea', magField = 'MAG', keyword = '' } = value
+    const { microbeField = 'archaea', magField = 'unMAG', keyword = '' } = value
 
     const triggerChange = (changed) => {
         if (onChange) {

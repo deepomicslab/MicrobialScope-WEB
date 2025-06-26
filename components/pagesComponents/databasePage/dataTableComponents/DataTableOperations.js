@@ -103,7 +103,8 @@ const SplitterControlButton = ({ showLeft, setShowLeft }) => {
 }
 
 const DownloadButton = ({ selectedRowInfo, selectedFilterOptions, total }) => {
-    const { microbe, magStatus, dataType } = useDatabaseContext()
+    const { dataTableState, dataType } = useDatabaseContext()
+    const { microbe, magStatus } = dataTableState
     const url = DATABASECONFIG[microbe][magStatus][dataType]['endpointBatchDownload']
 
     const openLoadingMessage = (state) => {

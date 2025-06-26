@@ -153,7 +153,7 @@ const FunctionalStatistic = ({ statistic }) => {
                                         title={
                                             <Span sx={{
                                                 fontWeight: 600,
-                                                fontSize: '16px',
+                                                fontSize: '20px',
                                                 color: '#000',
                                                 marginBottom: '2px'
                                             }}>
@@ -162,7 +162,7 @@ const FunctionalStatistic = ({ statistic }) => {
                                         }
                                         value={functionalStatistic.count}
                                         valueStyle={{
-                                            fontSize: '18px',
+                                            fontSize: '24px',
                                             fontWeight: 'bold',
                                             color: '#6b7280',
                                         }}
