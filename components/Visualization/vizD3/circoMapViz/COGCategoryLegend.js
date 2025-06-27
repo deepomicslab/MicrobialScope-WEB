@@ -13,7 +13,7 @@ const COGCategoryLegend = ({ COGCategories, transform, toolTipRef }) => {
     return (
         <g transform={`translate(${transform[0]}, ${transform[1]})`}>
             {
-                [...COGCategories, 'Multiply'].map((category, i) => (
+                [...COGCategories, 'Multiply', 'Unknown'].map((category, i) => (
                     <g key={i}>
                         <rect
                             x={calculateRectX(i)}

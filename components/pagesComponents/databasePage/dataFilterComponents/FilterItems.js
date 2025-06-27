@@ -8,7 +8,7 @@ export const getArchaeaFilterItems = (filterOptions, selected, setSelected) => [
         label: 'Assembly Level',
         children: <FilterCheckBox
             name='assembly_level'
-            options={filterOptions['assembly_level']}
+            options={filterOptions['assembly_level'].filter(key => key !== 'Contig, Complete Genome')}
             selected={selected}
             setSelected={setSelected}
         />

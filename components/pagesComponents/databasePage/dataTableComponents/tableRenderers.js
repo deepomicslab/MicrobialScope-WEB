@@ -18,7 +18,7 @@ export const DetailButton = ({ handleClick }) => (
     </Tooltip>
 )
 
-const buildDownloadButtonDropdownItems = (downloadUrl, id, dataType) => dataType === 'genomes' ? (
+const buildDownloadButtonDropdownItems = (downloadUrl, id, dataType, microbe, magStatus) => dataType === 'genomes' ? (
     [
         {
             key: '1',
@@ -61,6 +61,7 @@ const buildDownloadButtonDropdownItems = (downloadUrl, id, dataType) => dataType
                     Download GBK
                 </Box>
             ),
+            disabled: microbe === 'bacteria' && magStatus === 'unMAG'
         },
         {
             key: '4',
@@ -75,6 +76,7 @@ const buildDownloadButtonDropdownItems = (downloadUrl, id, dataType) => dataType
                     Download GFF3
                 </Box>
             ),
+            disabled: microbe === 'bacteria' && magStatus === 'unMAG'
         }
     ]
 ) : (
@@ -97,8 +99,9 @@ const buildDownloadButtonDropdownItems = (downloadUrl, id, dataType) => dataType
 )
 
 export const DownloadButton = ({ downloadUrl, id }) => {
-    const { dataType } = useDatabaseContext()
-    const items = buildDownloadButtonDropdownItems(downloadUrl, id, dataType)
+    const { dataType, dataTableState } = useDatabaseContext()
+    const { microbe, magStatus } = dataTableState
+    const items = buildDownloadButtonDropdownItems(downloadUrl, id, dataType, microbe, magStatus)
 
     return (
         <Dropdown menu={{ items }} placement='bottomRight' arrow>
