@@ -1,35 +1,100 @@
 import { useDetailPageTutorialStore } from "@/stores/DetailPageTutorialStore"
 import { useCallback, useEffect, useState } from "react"
-import { Button, Modal, Steps, Typography } from "antd"
+import { Button, Image, Modal, Steps, Typography } from "antd"
 import { Box, Grid, Stack } from "@mui/system"
 
 const { Title, Paragraph } = Typography;
 const { Step } = Steps;
 
+const OverviewGenomeInfoContent = ({}) => (
+    <>
+        <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Overview Genome Info</Title>
+        <Paragraph style={{ fontSize: '20px' }}>You will find information such as the organism name, taxonomic ID,
+            assembly level, and total sequence
+            length. This gives you a general overview of the genome and its characteristics, helping you understand the
+            context before delving deeper into specific analyses.</Paragraph>
+        <Image src='/OverviewGenomeInfo.png' alt='OverviewGenomeInfo.png'/>
+    </>
+)
+
+const SelectContigContent = ({}) => (
+    <>
+        <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Select Contig</Title>
+        <Paragraph style={{ fontSize: '20px' }}>The Contig Selector allows you to choose a contig from the available
+            list. Each contig represents a segment of the genome that has been sequenced. After selecting a contig, you
+            will be able to view detailed sequence-specific features and annotations related to that particular
+            segment.</Paragraph>
+        <Image src='/SelectContig.png' alt='SelectContig.png'/>
+    </>
+)
+
+const ExploreAnnotationsInfoContent = ({}) => (
+    <>
+        <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Explore Annotations Info</Title>
+        <Paragraph style={{ fontSize: '20px' }}>Protein annotations provide insights into the functions of various genes
+            and their respective products. Here, you will learn how to navigate the Protein List and understand various
+            columns like Protein ID, Start/End positions, Function Prediction Source, and COG Category.</Paragraph>
+        <Image src='/ExploreAnnotationsInfo.gif' alt='ExploreAnnotationsInfo.gif'/>
+    </>
+)
+
+const InteractWithVisualization = ({}) => (
+    <>
+        <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Interact With
+            Visualization</Title>
+        <Paragraph style={{ fontSize: '20px' }}>
+            You can interact with a visualized protein map to get a clearer,
+            graphical representation of the genomic annotations.The Annotated Map visualizes the selected
+            contig&apos;s features, showing gene positions, GC content, and potential functional elements like
+            transmembrane helices and CRISPR-Cas systems.
+        </Paragraph>
+        <Paragraph style={{ fontSize: '20px' }}>
+            <strong>The AreaPlot</strong> at the bottom of the visualization serves as a zoom control. You can hover over the plot and
+            adjust the zoom level by interacting with it:
+        </Paragraph>
+        <ul style={{ fontSize: '20px' }}>
+            <li><strong>Zoom in/out</strong> by moving your mouse wheel over the AreaPlot.</li>
+            <li><strong>Drag horizontally</strong> within the AreaPlot to shift the focus of the genomic view.</li>
+        </ul>
+        <Image src='/InteractWithVisualization.gif' alt='InteractWithVisualization.gif'/>
+    </>
+)
+
+const DownloadVisualizationChart = ({}) => (
+    <>
+        <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Download Visualization
+            Chart</Title>
+        <Paragraph style={{ fontSize: '20px' }}>You can download both SVG and PNG versions of the annotated protein
+            map.</Paragraph>
+        <Image src='/DownloadVisualizationChart.gif' alt='DownloadVisualizationChart.gif'/>
+    </>
+)
+
+
 const tutorialSteps = [
     {
-        title: 'Step 1: Introduction',
-        content: 'This is an introduction to the tutorial. Here you will learn about the basics of using the system.',
+        title: 'Step 1: Overview Genome Info',
+        content: <OverviewGenomeInfoContent/>
     },
     {
-        title: 'Step 2: First Task',
-        content: 'In this step, we will guide you through performing your first task.',
+        title: 'Step 2: Select Contig',
+        content: <SelectContigContent/>
     },
     {
-        title: 'Step 3: Advanced Features',
-        content: 'This step explains the advanced features you can use to enhance your experience.',
+        title: 'Step 3: Explore Annotations Info',
+        content: <ExploreAnnotationsInfoContent/>
     },
     {
-        title: 'Step 4: Review',
-        content: 'In this step, we review everything we have covered so far.',
+        title: 'Step 4: Interact With Visualization',
+        content: <InteractWithVisualization/>
     },
     {
-        title: 'Step 5: Completion',
-        content: 'You are all set! Now you can start using the system on your own.',
+        title: 'Step 5: Download Visualization Chart',
+        content: <DownloadVisualizationChart/>
     },
 ]
 
-const TutorialModal = ({  }) => {
+const TutorialModal = ({}) => {
     const { hasSeenTutorial, setHasSeenTutorial } = useDetailPageTutorialStore(state => state)
     const [current, setCurrent] = useState(0)
     const [tutorialContent, setTutorialContent] = useState('')
@@ -52,7 +117,12 @@ const TutorialModal = ({  }) => {
             setCurrent(current - 1);
             updateTutorialContent(current - 1)
         }
-    };
+    }
+
+    const onStepClick = (current) => {
+        setCurrent(current)
+        updateTutorialContent(current)
+    }
 
     const handleModalClose = () => {
         setCurrent(0)
@@ -75,7 +145,7 @@ const TutorialModal = ({  }) => {
 
     return (
         <Modal
-            title="Tutorial"
+            title={<Title level={2} style={{ margin: 0, marginTop: '8px' }}>Genome Detail Tutorial</Title>}
             open={visible}
             onCancel={handleModalClose}
             footer={[
@@ -94,26 +164,31 @@ const TutorialModal = ({  }) => {
                     </Button>
                 )
             ]}
-            width='1200px'
+            width='80%'
             centered
         >
-            <Grid container>
-                <Grid item size={3}>
+            <Grid container sx={{ py: '12px' }}>
+                <Grid item size={2.5}>
                     <Steps
                         progressDot
                         current={current}
-                        onChange={(newCurrent) => setCurrent(newCurrent)}
+                        onChange={onStepClick}
                         direction="vertical"
                         items={tutorialSteps.map((step) => ({
                             title: step.title,
-                            description: step.content,
+                            // description: step.content,
                         }))}
                     />
                 </Grid>
-                <Grid item size={8} offset={1}>
-                    <Box>
-                        <Title level={4}>Tutorial Content</Title>
-                        <Paragraph>{tutorialContent}</Paragraph>
+                <Grid item size={9} offset={0.5}>
+                    <Box
+                        sx={{
+                            height: '75vh',
+                            maxHeight: '75vh',
+                            overflow: 'auto'
+                        }}
+                    >
+                        {tutorialContent}
                     </Box>
                 </Grid>
             </Grid>
