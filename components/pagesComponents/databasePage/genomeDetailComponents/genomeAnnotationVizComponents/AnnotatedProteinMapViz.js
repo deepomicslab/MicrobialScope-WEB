@@ -16,37 +16,7 @@ import ContigVizInfos
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/ContigVizInfos"
 import GCLegend from "@/components/Visualization/vizD3/circoMapViz/GCLegend"
 import COGCategoryLegend from "@/components/Visualization/vizD3/circoMapViz/COGCategoryLegend"
-
-const AnnotatedProteinsMapVizConfig = {
-    areaPlotWindowSize: 5000,
-    circular: {
-        height: 720
-    },
-    areaPlot: {
-        height: 160,
-        width: 900
-    },
-    axis: {
-        radius: 160
-    },
-    gcSkew: {
-        windowSize: 500,
-        bandWidth: 80,
-        gcContentStyle: { color: '#367dd6', name: 'GC Content' },
-        skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
-        skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
-    },
-    protein: {
-        radius: 330,
-        arrowWidth: 20
-    },
-    GCLegend: {
-        gap: 30
-    },
-    COGCategoryLegend: {
-        mt: 20
-    }
-}
+import ProteinProductLabelArc from "@/components/Visualization/vizD3/circoMapViz/ProteinProductLabelArc"
 
 const AnnotatedProteinMapViz = forwardRef(({ fastaDetail, proteins }, ref)=> {
     const { width } = useContainerSize()
@@ -58,9 +28,42 @@ const AnnotatedProteinMapViz = forwardRef(({ fastaDetail, proteins }, ref)=> {
 
     const svgWidth = width < 1280 ? 1280 : width
 
+    const AnnotatedProteinsMapVizConfig = useMemo(() => ({
+        areaPlotWindowSize: 5000,
+        circular: {
+            height: 720
+        },
+        areaPlot: {
+            height: 160,
+            width: 900
+        },
+        axis: {
+            radius: 120
+        },
+        gcSkew: {
+            windowSize: fastaDetail?.length > 200000 ? 500 : 20,
+            bandWidth: 80,
+            gcContentStyle: { color: '#367dd6', name: 'GC Content' },
+            skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
+            skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
+        },
+        protein: {
+            radius: 290,
+            arrowWidth: 20
+        },
+        GCLegend: {
+            gap: 30
+        },
+        COGCategoryLegend: {
+            mt: 20
+        },
+        productLabel: {
+            radius: 335
+        },
+    }), [fastaDetail?.length])
     const [cx, cy] = useMemo(
         () => [svgWidth / 2, AnnotatedProteinsMapVizConfig.circular.height / 2],
-        [svgWidth]
+        [AnnotatedProteinsMapVizConfig.circular.height, svgWidth]
     )
     const radicalScale = useMemo(() => {
         return d3.scaleLinear()
@@ -69,7 +72,7 @@ const AnnotatedProteinMapViz = forwardRef(({ fastaDetail, proteins }, ref)=> {
     }, [radicalDomain])
     const GCSkew = useMemo(() => {
         return analyzeGCSkew(fastaDetail.sequence, AnnotatedProteinsMapVizConfig.gcSkew.windowSize);
-    }, [fastaDetail.sequence])
+    }, [AnnotatedProteinsMapVizConfig.gcSkew.windowSize, fastaDetail.sequence])
     const COGCategories = useMemo(() => {
         const uniqueCogs = new Set()
 
@@ -192,6 +195,21 @@ const AnnotatedProteinMapViz = forwardRef(({ fastaDetail, proteins }, ref)=> {
                         arrowWidth={AnnotatedProteinsMapVizConfig.protein.arrowWidth}
                         toolTipRef={toolTipRef}
                     />
+                    {
+                        radicalDomain[1] - radicalDomain[0] < 25000 ? (
+                            <ProteinProductLabelArc
+                                cx={cx}
+                                cy={cy}
+                                radicalScale={radicalScale}
+                                radius={AnnotatedProteinsMapVizConfig.productLabel.radius}
+                                proteinRadius={AnnotatedProteinsMapVizConfig.protein.radius}
+                                proteins={proteins}
+                                toolTipRef={toolTipRef}
+                            />
+                        ) : (
+                            <></>
+                        )
+                    }
                     <AreaPlot
                         width={AnnotatedProteinsMapVizConfig.areaPlot.width}
                         height={AnnotatedProteinsMapVizConfig.areaPlot.height}

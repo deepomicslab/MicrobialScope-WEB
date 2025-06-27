@@ -19,9 +19,6 @@ import DraggableModal from "@/components/feedbackComponents/modals/DraggableModa
 import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
-import {
-    TRNAModalDetailDescriptions
-} from "@/components/pagesComponents/databasePage/dataModalDetailComponents/TRNAModalDetailDescriptionsComponents"
 import AnnotatedSecondaryMetabolitesMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedSecondaryMetabolitesMapViz"
 import {
@@ -88,11 +85,11 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                Secondary Metabolites Annotation
+                                Secondary Metabolite Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    Secondary Metabolites List
+                                    Secondary Metabolite List
                                 </H6>
                                 <StyledTable
                                     columns={columns}
@@ -104,7 +101,7 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
                             <Stack spacing={2}>
                                 <Stack direction='row' spacing={6} alignItems="center">
                                     <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                        Annotated Secondary Metabolites Map
+                                        Annotated Secondary Metabolite Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
                                         <Button

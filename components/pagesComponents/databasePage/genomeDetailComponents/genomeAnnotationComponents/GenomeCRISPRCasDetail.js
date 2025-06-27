@@ -15,15 +15,10 @@ import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import { StyledTable } from "@/components/styledComponents/styledAntdTable"
 import { Button } from "antd"
 import ResponsiveVisualizationContainer from "@/components/Visualization/containers/ResponsiveVisualizationContainer"
-import AnnotatedTRNAMapViz
-    from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedTRNAMapViz"
 import DraggableModal from "@/components/feedbackComponents/modals/DraggableModal"
 import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
-import {
-    TRNAModalDetailDescriptions
-} from "@/components/pagesComponents/databasePage/dataModalDetailComponents/TRNAModalDetailDescriptionsComponents"
 import {
     CRISPRCasSystemModalDetailDescriptions
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/CRISPRCasSystemModalDetailComponents"
@@ -90,11 +85,11 @@ const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                CRISPR/Cas Systems Annotation
+                                CRISPR/Cas System Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    CRISPR/Cas Systems List
+                                    CRISPR/Cas System List
                                 </H6>
                                 <StyledTable
                                     columns={columns}
@@ -106,7 +101,7 @@ const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
                             <Stack spacing={2}>
                                 <Stack direction='row' spacing={6} alignItems="center">
                                     <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                        Annotated CRISPR/Cas Systems Map
+                                        Annotated CRISPR/Cas System Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
                                         <Button

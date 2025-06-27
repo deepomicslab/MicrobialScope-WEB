@@ -85,11 +85,11 @@ const GenomeVirulenceFactorsDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                Virulence Factors Annotation
+                                Virulence Factor Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    Virulence Factors List
+                                    Virulence Factor List
                                 </H6>
                                 <StyledTable
                                     columns={columns}

@@ -148,7 +148,7 @@ export const bacteriaConfig = {
     'bacteria': {
         'MAG': {
             'genomes': {
-                title: 'Bacteria Genomes',
+                title: 'Genome',
                 columns: bacteriaTableColumns,
                 filterItems: getArchaeaFilterItems,
                 endpointList: postBacteriaGenomesURL,
@@ -160,7 +160,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaGenomeSearchBarConfig
             },
             'proteins': {
-                title: 'Bacteria Proteins',
+                title: 'Protein',
                 columns: bacteriaProteinTableColumns,
                 filterItems: getArchaeaProteinsFilterItems,
                 endpointList: postBacteriaProteinsURL,
@@ -172,7 +172,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Bacteria tRNAs',
+                title: 'tRNA & tmRNA',
                 columns: bacteriaTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postBacteriaTRNAsURL,
@@ -184,7 +184,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaTRNASearchBarConfig
             },
             'CRISPRCasSystems': {
-                title: 'CRISPR/Cas Systems',
+                title: 'CRISPR/Cas System',
                 columns: bacteriaCRISPRCasColumns,
                 filterItems: getArchaeaCRISPRCasSystemsFilterItems,
                 endpointList: postBacteriaCRISPRCasSystemsURL,
@@ -196,7 +196,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Proteins',
+                title: 'Anti-CRISPR Protein',
                 columns: bacteriaAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postBacteriaAntiCRISPRAnnotationsURL,
@@ -208,7 +208,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolites',
+                title: 'Secondary Metabolite',
                 columns: bacteriaSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postBacteriaSecondaryMetabolitesURL,
@@ -220,7 +220,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaSecondaryMetabolitesSearchBarConfig
             },
             'signalPeptides': {
-                title: 'Signal Peptides',
+                title: 'Signal Peptide',
                 columns: bacteriaSignalPeptideColumns,
                 filterItems: getArchaeaSignalPeptidesFilterItems,
                 endpointList: postBacteriaSignalPeptidesURL,
@@ -232,7 +232,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaSignalPeptideSearchBarConfig
             },
             'virulenceFactors': {
-                title: 'Virulence Factors',
+                title: 'Virulence Factor',
                 columns: bacteriaVirulenceFactorColumns,
                 filterItems: getArchaeaVirulenceFactorsFilterItems,
                 endpointList: postBacteriaVirulenceFactorsURL,
@@ -244,7 +244,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
-                title: 'Antibiotic Resistance Genes',
+                title: 'Antibiotic Resistance Gene',
                 columns: bacteriaAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
                 endpointList: postBacteriaAntibioticResistancesURL,
@@ -256,7 +256,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
-                title: 'Transmembrane Helices',
+                title: 'Transmembrane Protein',
                 columns: bacteriaTransmembraneHelicesColumns,
                 filterItems: getArchaeaTransmembraneHelicesFilterItems,
                 endpointList: postBacteriaTransmembraneHelicesURL,
@@ -270,7 +270,7 @@ export const bacteriaConfig = {
         },
         'unMAG': {
             'genomes': {
-                title: 'Bacteria Genomes',
+                title: 'Genome',
                 columns: bacteriaTableColumns,
                 filterItems: getArchaeaFilterItems,
                 endpointList: postUnMAGBacteriaGenomesURL,
@@ -282,7 +282,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaGenomeSearchBarConfig
             },
             'proteins': {
-                title: 'Bacteria Proteins',
+                title: 'Protein',
                 columns: bacteriaProteinTableColumns,
                 filterItems: getArchaeaProteinsFilterItems,
                 endpointList: postUnMAGBacteriaProteinsURL,
@@ -294,7 +294,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Bacteria tRNAs',
+                title: 'tRNA & tmRNA',
                 columns: bacteriaTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postUnMAGBacteriaTRNAsURL,
@@ -306,7 +306,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaTRNASearchBarConfig
             },
             'CRISPRCasSystems': {
-                title: 'CRISPR/Cas Systems',
+                title: 'CRISPR/Cas System',
                 columns: bacteriaCRISPRCasColumns,
                 filterItems: getArchaeaCRISPRCasSystemsFilterItems,
                 endpointList: postUnMAGBacteriaCRISPRCasSystemsURL,
@@ -318,7 +318,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Proteins',
+                title: 'Anti-CRISPR Protein',
                 columns: bacteriaAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postUnMAGBacteriaAntiCRISPRAnnotationsURL,
@@ -330,7 +330,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolites',
+                title: 'Secondary Metabolite',
                 columns: bacteriaSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postUnMAGBacteriaSecondaryMetabolitesURL,
@@ -342,7 +342,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaSecondaryMetabolitesSearchBarConfig
             },
             'signalPeptides': {
-                title: 'Signal Peptides',
+                title: 'Signal Peptide',
                 columns: bacteriaSignalPeptideColumns,
                 filterItems: getArchaeaSignalPeptidesFilterItems,
                 endpointList: postUnMAGBacteriaSignalPeptidesURL,
@@ -354,7 +354,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaSignalPeptideSearchBarConfig
             },
             'virulenceFactors': {
-                title: 'Virulence Factors',
+                title: 'Virulence Factor',
                 columns: bacteriaVirulenceFactorColumns,
                 filterItems: getArchaeaVirulenceFactorsFilterItems,
                 endpointList: postUnMAGBacteriaVirulenceFactorsURL,
@@ -366,7 +366,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
-                title: 'Antibiotic Resistance Genes',
+                title: 'Antibiotic Resistance Gene',
                 columns: bacteriaAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
                 endpointList: postUnMAGBacteriaAntibioticResistancesURL,
@@ -378,7 +378,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
-                title: 'Transmembrane Helices',
+                title: 'Transmembrane Protein',
                 columns: bacteriaTransmembraneHelicesColumns,
                 filterItems: getArchaeaTransmembraneHelicesFilterItems,
                 endpointList: postUnMAGBacteriaTransmembraneHelicesURL,

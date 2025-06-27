@@ -25,7 +25,8 @@ export const COGDict = {
     Q: { color: '#e9e3b4', abbr: 'Q', name: 'Secondary metabolites biosynthesis, transport and catabolism' },
     R: { color: '#f39b6d', abbr: 'R', name: 'General function prediction only' },
     S: { color: '#68534d', abbr: 'S', name: 'Function unknown' },
-    Multiply: { color: '#FFFFFF', name: 'Multiply COG Categories' }
+    Multiply: { color: '#FFFFFF', name: 'Multiply COG Categories' },
+    Unknown: { color: '#000000', name: 'Unknown' }
 }
 
 export const extractProteinsArrowData = (
@@ -40,7 +41,27 @@ export const extractProteinsArrowData = (
             strand: p['strand'],
             cog: p['cog_category'],
             product: p['product'],
-            color: p['cog_category'].length !== 1 ? '#FFFFFF' : COGDict[p['cog_category']].color,
+            color: getCOGColor(p),
         })
     )
+}
+
+export const getCOGColor = (p) => {
+    const cog = p?.cog_category;
+
+    if (!cog) return '#000000'
+
+    if (Array.isArray(cog)) {
+        if (cog.length > 1) return '#FFFFFF'
+
+        if (!COGDict[cog[0]]) return '#000000'
+
+        return COGDict[cog[0]].color || '#000000'
+    }
+
+    if (typeof cog === 'string') {
+        return COGDict[cog]?.color || '#000000';
+    }
+
+    return '#000000'
 }

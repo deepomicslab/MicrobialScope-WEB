@@ -16,7 +16,7 @@ export const TRNAModalDetailTitle = () => (
         }}
     >
         <Title level={3} style={{ margin: 0, fontWeight: 600, color: '#333', pointerEvents: 'none' }}>
-            tRNA Detail
+            tRNA & tmRNA Detail
         </Title>
     </Box>
 )

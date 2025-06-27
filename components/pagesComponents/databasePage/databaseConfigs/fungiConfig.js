@@ -72,14 +72,6 @@ import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
 import {
-    ArchaeaAntibioticResistanceSearchBarConfig,
-    ArchaeaGenomeSearchBarConfig,
-    ArchaeaProteinSearchBarConfig,
-    ArchaeaSecondaryMetabolitesSearchBarConfig,
-    ArchaeaSignalPeptideSearchBarConfig,
-    ArchaeaTransmembraneHelicesSearchBarConfig,
-    ArchaeaTRNASearchBarConfig,
-    ArchaeaVirulenceFactorSearchBarConfig,
     FungiAntibioticResistanceSearchBarConfig, FungiGenomeSearchBarConfig, FungiProteinSearchBarConfig,
     FungiSecondaryMetabolitesSearchBarConfig,
     FungiSignalPeptideSearchBarConfig,
@@ -123,7 +115,7 @@ export const fungiConfig = {
     'fungi': {
         'MAG': {
             'genomes': {
-                title: 'Fungi Genomes',
+                title: 'Genome',
                 columns: fungiTableColumns,
                 filterItems: getArchaeaFilterItems,
                 endpointList: postFungiGenomesURL,
@@ -135,7 +127,7 @@ export const fungiConfig = {
                 searchBarFields: FungiGenomeSearchBarConfig
             },
             'proteins': {
-                title: 'Fungi Proteins',
+                title: 'Protein',
                 columns: fungiProteinTableColumns,
                 filterItems: getArchaeaProteinsFilterItems,
                 endpointList: postFungiProteinsURL,
@@ -147,7 +139,7 @@ export const fungiConfig = {
                 searchBarFields: FungiProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Fungi tRNAs',
+                title: 'tRNA & tmRNA',
                 columns: fungiTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postFungiTRNAsURL,
@@ -159,7 +151,7 @@ export const fungiConfig = {
                 searchBarFields: FungiTRNASearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolites',
+                title: 'Secondary Metabolite',
                 columns: fungiSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postFungiSecondaryMetabolitesURL,
@@ -171,7 +163,7 @@ export const fungiConfig = {
                 searchBarFields: FungiSecondaryMetabolitesSearchBarConfig
             },
             'signalPeptides': {
-                title: 'Signal Peptides',
+                title: 'Signal Peptide',
                 columns: fungiSignalPeptideColumns,
                 filterItems: getArchaeaSignalPeptidesFilterItems,
                 endpointList: postFungiSignalPeptidesURL,
@@ -183,7 +175,7 @@ export const fungiConfig = {
                 searchBarFields: FungiSignalPeptideSearchBarConfig
             },
             'virulenceFactors': {
-                title: 'Virulence Factors',
+                title: 'Virulence Factor',
                 columns: fungiVirulenceFactorColumns,
                 filterItems: getArchaeaVirulenceFactorsFilterItems,
                 endpointList: postFungiVirulenceFactorsURL,
@@ -195,7 +187,7 @@ export const fungiConfig = {
                 searchBarFields: FungiVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
-                title: 'Antibiotic Resistance Genes',
+                title: 'Antibiotic Resistance Gene',
                 columns: fungiAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
                 endpointList: postFungiAntibioticResistancesURL,
@@ -207,7 +199,7 @@ export const fungiConfig = {
                 searchBarFields: FungiAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
-                title: 'Transmembrane Helices',
+                title: 'Transmembrane Protein',
                 columns: fungiTransmembraneHelicesColumns,
                 filterItems: getArchaeaTransmembraneHelicesFilterItems,
                 endpointList: postFungiTransmembraneHelicesURL,
@@ -221,7 +213,7 @@ export const fungiConfig = {
         },
         'unMAG': {
             'genomes': {
-                title: 'Fungi Genomes',
+                title: 'Genome',
                 columns: fungiTableColumns,
                 filterItems: getArchaeaFilterItems,
                 endpointList: postUnMAGFungiGenomesURL,
@@ -233,7 +225,7 @@ export const fungiConfig = {
                 searchBarFields: FungiGenomeSearchBarConfig
             },
             'proteins': {
-                title: 'Fungi Proteins',
+                title: 'Protein',
                 columns: fungiProteinTableColumns,
                 filterItems: getArchaeaProteinsFilterItems,
                 endpointList: postUnMAGFungiProteinsURL,
@@ -245,7 +237,7 @@ export const fungiConfig = {
                 searchBarFields: FungiProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Fungi tRNAs',
+                title: 'tRNA & tmRNA',
                 columns: fungiTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postUnMAGFungiTRNAsURL,
@@ -257,7 +249,7 @@ export const fungiConfig = {
                 searchBarFields: FungiTRNASearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolites',
+                title: 'Secondary Metabolite',
                 columns: fungiSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postUnMAGFungiSecondaryMetabolitesURL,
@@ -269,7 +261,7 @@ export const fungiConfig = {
                 searchBarFields: FungiSecondaryMetabolitesSearchBarConfig
             },
             'signalPeptides': {
-                title: 'Signal Peptides',
+                title: 'Signal Peptide',
                 columns: fungiSignalPeptideColumns,
                 filterItems: getArchaeaSignalPeptidesFilterItems,
                 endpointList: postUnMAGFungiSignalPeptidesURL,
@@ -281,7 +273,7 @@ export const fungiConfig = {
                 searchBarFields: FungiSignalPeptideSearchBarConfig
             },
             'virulenceFactors': {
-                title: 'Virulence Factors',
+                title: 'Virulence Factor',
                 columns: fungiVirulenceFactorColumns,
                 filterItems: getArchaeaVirulenceFactorsFilterItems,
                 endpointList: postUnMAGFungiVirulenceFactorsURL,
@@ -293,7 +285,7 @@ export const fungiConfig = {
                 searchBarFields: FungiVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
-                title: 'Antibiotic Resistance Genes',
+                title: 'Antibiotic Resistance Gene',
                 columns: fungiAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
                 endpointList: postUnMAGFungiAntibioticResistancesURL,
@@ -305,7 +297,7 @@ export const fungiConfig = {
                 searchBarFields: FungiAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
-                title: 'Transmembrane Helices',
+                title: 'Transmembrane Protein',
                 columns: fungiTransmembraneHelicesColumns,
                 filterItems: getArchaeaTransmembraneHelicesFilterItems,
                 endpointList: postUnMAGFungiTransmembraneHelicesURL,

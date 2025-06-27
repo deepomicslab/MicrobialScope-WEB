@@ -85,11 +85,11 @@ const GenomeSignalPeptidesDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                Signal Peptides Annotation
+                                Signal Peptide Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    Signal Peptides List
+                                    Signal Peptide List
                                 </H6>
                                 <StyledTable
                                     columns={columns}

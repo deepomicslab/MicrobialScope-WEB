@@ -37,29 +37,44 @@ const buildDownloadButtonDropdownItems = (downloadUrl, id, dataType) => dataType
         {
             key: '2',
             label: (
-                <Box>
+                <Box
+                    onClick={
+                        () => downloadSingleFile(
+                            `${downloadUrl}?id=${id}&type=fasta`
+                        )
+                    }
+                >
                     Download FASTA
                 </Box>
-            ),
-            disabled: true,
+            )
         },
         {
             key: '3',
             label: (
-                <Box>
+                <Box
+                    onClick={
+                        () => downloadSingleFile(
+                            `${downloadUrl}?id=${id}&type=gbk`
+                        )
+                    }
+                >
                     Download GBK
                 </Box>
             ),
-            disabled: true,
         },
         {
             key: '4',
             label: (
-                <Box>
+                <Box
+                    onClick={
+                        () => downloadSingleFile(
+                            `${downloadUrl}?id=${id}&type=gff3`
+                        )
+                    }
+                >
                     Download GFF3
                 </Box>
             ),
-            disabled: true,
         }
     ]
 ) : (

@@ -127,6 +127,15 @@ const AreaPlot = ({
             className='ProteinAreaPlot'
             transform={`translate(${transform[0]}, ${transform[1]})`}
         >
+            <g
+                transform={`translate(-40, ${height / 2}) rotate(-90)`}
+            >
+                <text
+                    textAnchor='middle'
+                >
+                    {title}
+                </text>
+            </g>
             <g ref={xAxisRef} transform={`translate(0, ${height})`}></g>
             <g ref={yAxisRef}></g>
             <path

@@ -18,41 +18,6 @@ import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
 import { Box } from "@mui/system"
 import SecondaryMetabolitesArc from "@/components/Visualization/vizD3/circoMapViz/SecondaryMetabolitesArc"
 
-const MapVizConfig = {
-    areaPlotWindowSize: 5000,
-    circular: {
-        height: 720
-    },
-    areaPlot: {
-        height: 160,
-        width: 900
-    },
-    axis: {
-        radius: 140
-    },
-    gcSkew: {
-        windowSize: 500,
-        bandWidth: 80,
-        gcContentStyle: { color: '#367dd6', name: 'GC Content' },
-        skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
-        skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
-    },
-    protein: {
-        radius: 310,
-        arrowWidth: 20
-    },
-    secondaryMetabolites: {
-        radius: 335,
-        arrowWidth: 20
-    },
-    GCLegend: {
-        gap: 30
-    },
-    COGCategoryLegend: {
-        mt: 20
-    }
-}
-
 const AnnotatedSecondaryMetabolitesMapViz = forwardRef(({ fastaDetail, proteins, secondaryMetabolites }, ref) => {
     const { width } = useContainerSize()
     const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
@@ -63,9 +28,43 @@ const AnnotatedSecondaryMetabolitesMapViz = forwardRef(({ fastaDetail, proteins,
 
     const svgWidth = width < 1280 ? 1280 : width
 
+    const MapVizConfig = useMemo(() => ({
+        areaPlotWindowSize: 5000,
+        circular: {
+            height: 720
+        },
+        areaPlot: {
+            height: 160,
+            width: 900
+        },
+        axis: {
+            radius: 140
+        },
+        gcSkew: {
+            windowSize: fastaDetail?.length > 200000 ? 500 : 20,
+            bandWidth: 80,
+            gcContentStyle: { color: '#367dd6', name: 'GC Content' },
+            skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
+            skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
+        },
+        protein: {
+            radius: 310,
+            arrowWidth: 20
+        },
+        secondaryMetabolites: {
+            radius: 335,
+            arrowWidth: 20
+        },
+        GCLegend: {
+            gap: 30
+        },
+        COGCategoryLegend: {
+            mt: 20
+        }
+    }), [fastaDetail?.length])
     const [cx, cy] = useMemo(
         () => [svgWidth / 2, MapVizConfig.circular.height / 2],
-        [svgWidth]
+        [MapVizConfig.circular.height, svgWidth]
     )
     const radicalScale = useMemo(() => {
         return d3.scaleLinear()
@@ -74,7 +73,7 @@ const AnnotatedSecondaryMetabolitesMapViz = forwardRef(({ fastaDetail, proteins,
     }, [radicalDomain])
     const GCSkew = useMemo(() => {
         return analyzeGCSkew(fastaDetail.sequence, MapVizConfig.gcSkew.windowSize);
-    }, [fastaDetail.sequence])
+    }, [MapVizConfig.gcSkew.windowSize, fastaDetail.sequence])
     const COGCategories = useMemo(() => {
         const uniqueCogs = new Set()
 

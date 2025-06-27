@@ -101,6 +101,7 @@ import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import { useDatabaseGenomeDetailContext } from "@/components/context/DatabaseGenomeDetailContext"
 import GenomeAnnotationContent
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeAnnotationContent"
+import TutorialModal from "@/components/feedbackComponents/modals/TutorialModal"
 
 const GenomeDetailContent = ({}) => {
     const { microbe, magStatus, genomeId } = useDatabaseGenomeDetailContext()
@@ -138,6 +139,7 @@ const GenomeDetailContent = ({}) => {
                 <Descriptions bordered items={genomeDescriptionItems} column={2}/>
             </Box>
             <GenomeAnnotationContent genomeDetail={genomeDetail}/>
+            <TutorialModal/>
         </Stack>
     )
 }

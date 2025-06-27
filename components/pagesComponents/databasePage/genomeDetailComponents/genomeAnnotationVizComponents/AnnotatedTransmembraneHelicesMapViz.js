@@ -12,47 +12,11 @@ import CircularAxis from "@/components/Visualization/vizD3/circoMapViz/CircularA
 import GCContentArc from "@/components/Visualization/vizD3/circoMapViz/GCContentArc"
 import GCSkewArc from "@/components/Visualization/vizD3/circoMapViz/GCSkewArc"
 import ProteinArc from "@/components/Visualization/vizD3/circoMapViz/ProteinArc"
-import SignalPeptideArc from "@/components/Visualization/vizD3/circoMapViz/SignalPeptideArc"
 import AreaPlot from "@/components/Visualization/vizD3/circoMapViz/AreaPlot"
 import COGCategoryLegend from "@/components/Visualization/vizD3/circoMapViz/COGCategoryLegend"
 import { createPortal } from "react-dom"
 import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
 import TransmembraneHelicesArc from "@/components/Visualization/vizD3/circoMapViz/TransmembraneHelicesArc"
-
-const MapVizConfig = {
-    areaPlotWindowSize: 5000,
-    circular: {
-        height: 720
-    },
-    areaPlot: {
-        height: 160,
-        width: 900
-    },
-    axis: {
-        radius: 140
-    },
-    gcSkew: {
-        windowSize: 500,
-        bandWidth: 80,
-        gcContentStyle: { color: '#367dd6', name: 'GC Content' },
-        skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
-        skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
-    },
-    protein: {
-        radius: 310,
-        arrowWidth: 20
-    },
-    transmembraneHelices: {
-        radius: 335,
-        arrowWidth: 20
-    },
-    GCLegend: {
-        gap: 30
-    },
-    COGCategoryLegend: {
-        mt: 20
-    }
-}
 
 const flattenHelicesWithGenomePosition = (transmembraneHelices, proteinList) => {
     const proteinMap = new Map()
@@ -75,7 +39,7 @@ const flattenHelicesWithGenomePosition = (transmembraneHelices, proteinList) => 
             tmh.helices.forEach(helix => {
                 let genomeStart, genomeEnd
 
-                if (strand === '+') {
+                if (strand === 0) {
                     genomeStart = pStart + helix.start - 1
                     genomeEnd = pStart + helix.end - 1
                 } else {
@@ -111,9 +75,43 @@ const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins,
 
     const svgWidth = width < 1280 ? 1280 : width
 
+    const MapVizConfig = useMemo(() => ({
+        areaPlotWindowSize: 5000,
+        circular: {
+            height: 720
+        },
+        areaPlot: {
+            height: 160,
+            width: 900
+        },
+        axis: {
+            radius: 140
+        },
+        gcSkew: {
+            windowSize: fastaDetail?.length > 200000 ? 500 : 20,
+            bandWidth: 80,
+            gcContentStyle: { color: '#367dd6', name: 'GC Content' },
+            skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
+            skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
+        },
+        protein: {
+            radius: 310,
+            arrowWidth: 20
+        },
+        transmembraneHelices: {
+            radius: 335,
+            arrowWidth: 20
+        },
+        GCLegend: {
+            gap: 30
+        },
+        COGCategoryLegend: {
+            mt: 20
+        }
+    }), [fastaDetail?.length])
     const [cx, cy] = useMemo(
         () => [svgWidth / 2, MapVizConfig.circular.height / 2],
-        [svgWidth]
+        [MapVizConfig.circular.height, svgWidth]
     )
     const radicalScale = useMemo(() => {
         return d3.scaleLinear()
@@ -122,7 +120,7 @@ const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins,
     }, [radicalDomain])
     const GCSkew = useMemo(() => {
         return analyzeGCSkew(fastaDetail.sequence, MapVizConfig.gcSkew.windowSize);
-    }, [fastaDetail.sequence])
+    }, [MapVizConfig.gcSkew.windowSize, fastaDetail.sequence])
     const COGCategories = useMemo(() => {
         const uniqueCogs = new Set()
 

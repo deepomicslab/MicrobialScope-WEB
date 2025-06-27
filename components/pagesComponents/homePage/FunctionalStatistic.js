@@ -20,7 +20,7 @@ const buildFunctionalStatistics = (statistic) => [
             statistic['MAGVirusesProteinCount'] + statistic['unMAGVirusesProteinCount']
     },
     {
-        name: 'tRNA',
+        name: 'tRNA & tmRNA',
         icon: '/tRNA.png',
         type: 'tRNAs',
         color: '#F4F6F8',
@@ -30,7 +30,7 @@ const buildFunctionalStatistics = (statistic) => [
             statistic['MAGVirusesTrnaCount'] + statistic['unMAGVirusesTrnaCount']
     },
     {
-        name: 'CRISPR-CAS',
+        name: 'CRISPR/Cas System',
         icon: '/CRISPR-CAS.png',
         type: 'CRISPRCasSystems',
         color: '#F6F4F8',
@@ -39,7 +39,7 @@ const buildFunctionalStatistics = (statistic) => [
             statistic['MAGVirusesCRISPRCount'] + statistic['unMAGVirusesCRISPRCount']
     },
     {
-        name: 'Anti-CRISPR',
+        name: 'Anti-CRISPR Protein',
         icon: '/anti-CRISPR.png',
         type: 'antiCRISPRProteins',
         color: '#FDF4F0',
@@ -76,7 +76,7 @@ const buildFunctionalStatistics = (statistic) => [
             statistic['MAGVirusesVirulenceFactorCount'] + statistic['unMAGVirusesVirulenceFactorCount']
     },
     {
-        name: 'Antibiotic Resistance',
+        name: 'Antibiotic Resistance Gene',
         icon: '/Antibiotic_resistance.png',
         type: 'antibioticResistanceGenes',
         color: '#FFFBEA',
@@ -86,7 +86,7 @@ const buildFunctionalStatistics = (statistic) => [
             statistic['MAGVirusesAntibioticResistanceCount'] + statistic['unMAGVirusesAntibioticResistanceCount']
     },
     {
-        name: 'Transmembrane Helices',
+        name: 'Transmembrane Protein',
         icon: '/Transmembrane.png',
         type: 'transmembraneHelices',
         color: '#F1F8F6',

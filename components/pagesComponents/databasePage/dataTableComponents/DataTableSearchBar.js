@@ -53,7 +53,7 @@ const DataTableSearchBar = ({
             <Stack direction="row" spacing={1} alignItems="center" sx={{ fontSize: '20px' }}>
                 <Span>TOTAL OF </Span>
                 <Statistic value={dataCount} valueStyle={{ fontSize: '20px', fontWeight: 700 }}/>
-                <Span> {dataType.toUpperCase()}</Span>
+                <Span> {DATABASECONFIG[microbe][magStatus][dataType]['title'].toUpperCase()}</Span>
             </Stack>
             <Stack direction="row" spacing={1}>
                 <Space.Compact>

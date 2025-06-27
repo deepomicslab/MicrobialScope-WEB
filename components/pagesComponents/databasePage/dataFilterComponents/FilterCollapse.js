@@ -23,7 +23,7 @@ const FilterCollapse = ({ filterOptions, selectedFilterOptions, setSelectedFilte
         },
         {
             key: 'magStatus',
-            label: 'MAG Status',
+            label: 'Assembly Type',
             children: <MAGStatusRadio/>
         },
         ...DATABASECONFIG[microbe][magStatus][dataType]['filterItems'](
@@ -152,7 +152,13 @@ export const FilterCheckBox = ({
 
     return (
         <Checkbox.Group name={name} onChange={handelChange} value={selected[name]}>
-            <Stack>
+            <Stack
+                sx={{
+                    width: '250px',
+                    maxHeight: '200px',
+                    overflowX: 'auto'
+                }}
+            >
                 {
                     options.map(
                         (option, index) =>

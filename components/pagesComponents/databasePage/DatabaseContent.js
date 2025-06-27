@@ -115,9 +115,9 @@ const DatabaseContent = ({ filterOptions }) => {
                             py: '12px',
                             maxHeight: '75vh',
                             overflowX: 'auto',
-                            scrollbarWidth: 'thin',
-                            scrollbarColor: '#eaeaea transparent',
-                            scrollbarGutter: 'stable'
+                            // scrollbarWidth: 'thin',
+                            // scrollbarColor: '#eaeaea transparent',
+                            // scrollbarGutter: 'stable'
                         }}
                         key={selectedRecord?.['id']}
                     >

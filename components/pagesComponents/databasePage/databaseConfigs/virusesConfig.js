@@ -123,7 +123,7 @@ export const virusesConfig = {
     'viruses': {
         'MAG': {
             'genomes': {
-                title: 'Viruses Genomes',
+                title: 'Genome',
                 columns: virusesTableColumns,
                 filterItems: getArchaeaFilterItems,
                 endpointList: postVirusesGenomesURL,
@@ -135,7 +135,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesGenomeSearchBarConfig
             },
             'proteins': {
-                title: 'Viruses Proteins',
+                title: 'Protein',
                 columns: virusesProteinTableColumns,
                 filterItems: getArchaeaProteinsFilterItems,
                 endpointList: postVirusesProteinsURL,
@@ -147,7 +147,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Viruses tRNAs',
+                title: 'tRNA & tmRNA',
                 columns: virusesTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postVirusesTRNAsURL,
@@ -159,7 +159,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesTRNASearchBarConfig
             },
             'CRISPRCasSystems': {
-                title: 'CRISPR/Cas Systems',
+                title: 'CRISPR/Cas System',
                 columns: virusesCRISPRCasColumns,
                 filterItems: getArchaeaCRISPRCasSystemsFilterItems,
                 endpointList: postVirusesCRISPRCasSystemsURL,
@@ -171,7 +171,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Proteins',
+                title: 'Anti-CRISPR Protein',
                 columns: virusesAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postVirusesAntiCRISPRAnnotationsURL,
@@ -183,7 +183,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesAntiCRISPRSearchBarConfig
             },
             'virulenceFactors': {
-                title: 'Virulence Factors',
+                title: 'Virulence Factor',
                 columns: virusesVirulenceFactorColumns,
                 filterItems: getArchaeaVirulenceFactorsFilterItems,
                 endpointList: postVirusesVirulenceFactorsURL,
@@ -195,7 +195,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
-                title: 'Antibiotic Resistance Genes',
+                title: 'Antibiotic Resistance Gene',
                 columns: virusesAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
                 endpointList: postVirusesAntibioticResistancesURL,
@@ -207,7 +207,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
-                title: 'Transmembrane Helices',
+                title: 'Transmembrane Protein',
                 columns: virusesTransmembraneHelicesColumns,
                 filterItems: getArchaeaTransmembraneHelicesFilterItems,
                 endpointList: postVirusesTransmembraneHelicesURL,
@@ -221,7 +221,7 @@ export const virusesConfig = {
         },
         'unMAG': {
             'genomes': {
-                title: 'Viruses Genomes',
+                title: 'Genome',
                 columns: virusesTableColumns,
                 filterItems: getArchaeaFilterItems,
                 endpointList: postUnMAGVirusesGenomesURL,
@@ -233,7 +233,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesGenomeSearchBarConfig
             },
             'proteins': {
-                title: 'Viruses Proteins',
+                title: 'Protein',
                 columns: virusesProteinTableColumns,
                 filterItems: getArchaeaProteinsFilterItems,
                 endpointList: postUnMAGVirusesProteinsURL,
@@ -245,7 +245,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Viruses tRNAs',
+                title: 'tRNA & tmRNA',
                 columns: virusesTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postUnMAGVirusesTRNAsURL,
@@ -257,7 +257,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesTRNASearchBarConfig
             },
             'CRISPRCasSystems': {
-                title: 'CRISPR/Cas Systems',
+                title: 'CRISPR/Cas System',
                 columns: virusesCRISPRCasColumns,
                 filterItems: getArchaeaCRISPRCasSystemsFilterItems,
                 endpointList: postUnMAGVirusesCRISPRCasSystemsURL,
@@ -269,7 +269,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Proteins',
+                title: 'Anti-CRISPR Protein',
                 columns: virusesAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postUnMAGVirusesAntiCRISPRAnnotationsURL,
@@ -281,7 +281,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesAntiCRISPRSearchBarConfig
             },
             'virulenceFactors': {
-                title: 'Virulence Factors',
+                title: 'Virulence Factor',
                 columns: virusesVirulenceFactorColumns,
                 filterItems: getArchaeaVirulenceFactorsFilterItems,
                 endpointList: postUnMAGVirusesVirulenceFactorsURL,
@@ -293,7 +293,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
-                title: 'Antibiotic Resistance Genes',
+                title: 'Antibiotic Resistance Gene',
                 columns: virusesAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
                 endpointList: postUnMAGVirusesAntibioticResistancesURL,
@@ -305,7 +305,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
-                title: 'Transmembrane Helices',
+                title: 'Transmembrane Protein',
                 columns: virusesTransmembraneHelicesColumns,
                 filterItems: getArchaeaTransmembraneHelicesFilterItems,
                 endpointList: postUnMAGVirusesTransmembraneHelicesURL,

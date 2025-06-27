@@ -33,7 +33,8 @@
     "react-draggable": "^4.4.6",
     "react-intersection-observer": "^9.16.0",
     "sass": "^1.89.2",
-    "swr": "^2.3.3"
+    "swr": "^2.3.3",
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
     "eslint": "^8",

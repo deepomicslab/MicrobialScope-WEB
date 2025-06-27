@@ -85,11 +85,11 @@ const GenomeTransmembraneHelicesDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                Transmembrane Helices Annotation
+                                Transmembrane Protein Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    Transmembrane Helices List
+                                    Transmembrane Protein List
                                 </H6>
                                 <StyledTable
                                     columns={columns}
@@ -101,7 +101,7 @@ const GenomeTransmembraneHelicesDetail = ({ fastaDetail, proteins }) => {
                             <Stack spacing={2}>
                                 <Stack direction='row' spacing={6} alignItems="center">
                                     <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                        Annotated Transmembrane Helices Map
+                                        Annotated Transmembrane Protein Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
                                         <Button

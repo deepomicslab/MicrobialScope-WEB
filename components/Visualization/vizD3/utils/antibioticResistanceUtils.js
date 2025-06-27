@@ -170,6 +170,10 @@ const argTypeDict = {
     'Multiply': {
         name: 'Multiply',
         color: '#ffffff'
+    },
+    'Unknown': {
+        name: 'Unknown',
+        color: '#000000'
     }
 }
 
@@ -189,9 +193,16 @@ export const extractAntibioticResistanceArrowData = (antibioticResistance) => {
 }
 
 const getDrugClassType = (drugClass) => {
-    if (Array.isArray(drugClass) && drugClass.length > 1) {
-        return argTypeDict['Multiply'].color
+    console.log(drugClass)
+    if (Array.isArray(drugClass)) {
+        if (drugClass.length === 0) {
+            return argTypeDict['Unknown'].color
+        }
+
+        if (drugClass.length > 1) {
+            return argTypeDict['Multiply'].color
+        }
     }
 
-    return argTypeDict[drugClass].color
+    return argTypeDict[drugClass[0]] ? argTypeDict[drugClass[0]].color : '#000000'
 }

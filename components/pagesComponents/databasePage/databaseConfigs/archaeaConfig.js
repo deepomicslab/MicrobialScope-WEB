@@ -150,7 +150,7 @@ export const archaeaConfig = {
     'archaea': {
         'MAG': {
             'genomes': {
-                title: 'Archaea Genomes',
+                title: 'Genome',
                 columns: archaeaTableColumns,
                 filterItems: getArchaeaFilterItems,
                 endpointList: postArchaeaGenomesURL,
@@ -162,7 +162,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaGenomeSearchBarConfig
             },
             'proteins': {
-                title: 'Archaea Proteins',
+                title: 'Protein',
                 columns: archaeaProteinTableColumns,
                 filterItems: getArchaeaProteinsFilterItems,
                 endpointList: postArchaeaProteinsURL,
@@ -174,7 +174,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Archaea tRNAs',
+                title: 'tRNA & tmRNA',
                 columns: archaeaTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postArchaeaTRNAsURL,
@@ -186,7 +186,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaTRNASearchBarConfig
             },
             'CRISPRCasSystems': {
-                title: 'CRISPR/Cas Systems',
+                title: 'CRISPR/Cas System',
                 columns: archaeaCRISPRCasColumns,
                 filterItems: getArchaeaCRISPRCasSystemsFilterItems,
                 endpointList: postArchaeaCRISPRCasSystemsURL,
@@ -198,7 +198,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Proteins',
+                title: 'Anti-CRISPR Protein',
                 columns: archaeaAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postArchaeaAntiCRISPRAnnotationsURL,
@@ -210,7 +210,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolites',
+                title: 'Secondary Metabolite',
                 columns: archaeaSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postArchaeaSecondaryMetabolitesURL,
@@ -222,7 +222,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaSecondaryMetabolitesSearchBarConfig
             },
             'signalPeptides': {
-                title: 'Signal Peptides',
+                title: 'Signal Peptide',
                 columns: archaeaSignalPeptideColumns,
                 filterItems: getArchaeaSignalPeptidesFilterItems,
                 endpointList: postArchaeaSignalPeptidesURL,
@@ -234,7 +234,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaSignalPeptideSearchBarConfig
             },
             'virulenceFactors': {
-                title: 'Virulence Factors',
+                title: 'Virulence Factor',
                 columns: archaeaVirulenceFactorColumns,
                 filterItems: getArchaeaVirulenceFactorsFilterItems,
                 endpointList: postArchaeaVirulenceFactorsURL,
@@ -246,7 +246,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
-                title: 'Antibiotic Resistance Genes',
+                title: 'Antibiotic Resistance Gene',
                 columns: archaeaAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
                 endpointList: postArchaeaAntibioticResistancesURL,
@@ -258,7 +258,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
-                title: 'Transmembrane Helices',
+                title: 'Transmembrane Protein',
                 columns: archaeaTransmembraneHelicesColumns,
                 filterItems: getArchaeaTransmembraneHelicesFilterItems,
                 endpointList: postArchaeaTransmembraneHelicesURL,
@@ -272,7 +272,7 @@ export const archaeaConfig = {
         },
         'unMAG': {
             'genomes': {
-                title: 'Archaea Genomes',
+                title: 'Genome',
                 columns: archaeaTableColumns,
                 filterItems: getArchaeaFilterItems,
                 endpointList: postUnMAGArchaeaGenomesURL,
@@ -284,7 +284,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaGenomeSearchBarConfig
             },
             'proteins': {
-                title: 'Archaea Proteins',
+                title: 'Protein',
                 columns: archaeaProteinTableColumns,
                 filterItems: getArchaeaProteinsFilterItems,
                 endpointList: postUnMAGArchaeaProteinsURL,
@@ -296,7 +296,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaProteinSearchBarConfig
             },
             'tRNAs': {
-                title: 'Archaea tRNAs',
+                title: 'tRNA & tmRNA',
                 columns: archaeaTRNATableColumns,
                 filterItems: getArchaeaTRNAsFilterItems,
                 endpointList: postUnMAGArchaeaTRNAsURL,
@@ -308,7 +308,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaTRNASearchBarConfig
             },
             'CRISPRCasSystems': {
-                title: 'CRISPR/Cas Systems',
+                title: 'CRISPR/Cas System',
                 columns: archaeaCRISPRCasColumns,
                 filterItems: getArchaeaCRISPRCasSystemsFilterItems,
                 endpointList: postUnMAGArchaeaCRISPRCasSystemsURL,
@@ -320,7 +320,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Proteins',
+                title: 'Anti-CRISPR Protein',
                 columns: archaeaAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postUnMAGArchaeaAntiCRISPRAnnotationsURL,
@@ -332,7 +332,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolites',
+                title: 'Secondary Metabolite',
                 columns: archaeaSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postUnMAGArchaeaSecondaryMetabolitesURL,
@@ -344,7 +344,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaSecondaryMetabolitesSearchBarConfig
             },
             'signalPeptides': {
-                title: 'Signal Peptides',
+                title: 'Signal Peptide',
                 columns: archaeaSignalPeptideColumns,
                 filterItems: getArchaeaSignalPeptidesFilterItems,
                 endpointList: postUnMAGArchaeaSignalPeptidesURL,
@@ -356,7 +356,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaSignalPeptideSearchBarConfig
             },
             'virulenceFactors': {
-                title: 'Virulence Factors',
+                title: 'Virulence Factor',
                 columns: archaeaVirulenceFactorColumns,
                 filterItems: getArchaeaVirulenceFactorsFilterItems,
                 endpointList: postUnMAGArchaeaVirulenceFactorsURL,
@@ -368,7 +368,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaVirulenceFactorSearchBarConfig
             },
             'antibioticResistanceGenes': {
-                title: 'Antibiotic Resistance Genes',
+                title: 'Antibiotic Resistance Gene',
                 columns: archaeaAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
                 endpointList: postUnMAGArchaeaAntibioticResistancesURL,
@@ -380,7 +380,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaAntibioticResistanceSearchBarConfig
             },
             'transmembraneHelices': {
-                title: 'Transmembrane Helices',
+                title: 'Transmembrane Protein',
                 columns: archaeaTransmembraneHelicesColumns,
                 filterItems: getArchaeaTransmembraneHelicesFilterItems,
                 endpointList: postUnMAGArchaeaTransmembraneHelicesURL,

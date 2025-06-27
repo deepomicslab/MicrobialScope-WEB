@@ -112,10 +112,10 @@ export const virusesTableColumns = (handleDetailClick, getSingleFileURL) => [
         render: (_, record) => (
             <Stack direction="row" spacing={2} justifyContent='center'>
                 <DetailButton handleClick={() => handleDetailClick(record)}/>
-                {/*<DownloadButton*/}
-                {/*    downloadUrl={getSingleFileURL}*/}
-                {/*    id={record.id}*/}
-                {/*/>*/}
+                <DownloadButton
+                    downloadUrl={getSingleFileURL}
+                    id={record.id}
+                />
             </Stack>
         )
     }

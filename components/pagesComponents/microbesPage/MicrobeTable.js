@@ -76,7 +76,7 @@ const columns = [
         render: assemblyType => <AssemblyTypeChip assemblyType={assemblyType}/>
     },
     {
-        title: <TitleWithTooltip title='Genomes' info='info'/> ,
+        title: <TitleWithTooltip title='Genome' info='info'/> ,
         dataIndex: 'genomes',
         key: 'genomes',
         align: 'center',
@@ -90,63 +90,63 @@ const columns = [
     //     render: (value) => value === 0 ? '--' : value
     // },
     {
-        title: <TitleWithTooltip title='Proteins' info='info'/>,
+        title: <TitleWithTooltip title='Protein' info='info'/>,
         dataIndex: 'proteins',
         key: 'proteins',
         align: 'center',
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='tRNAs' info='info'/>,
+        title: <TitleWithTooltip title='tRNA & tmRNA' info='info'/>,
         dataIndex: 'tRNAs',
         key: 'tRNAs',
         align: 'center',
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='CRISPR/Cas Systems' info='info'/>,
+        title: <TitleWithTooltip title='CRISPR/Cas System' info='info'/>,
         dataIndex: 'CRISPRCasSystems',
         key: 'CRISPRCasSystems',
         align: 'center',
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='Anti-CRISPR' info='info'/>,
+        title: <TitleWithTooltip title='Anti-CRISPR Protein' info='info'/>,
         dataIndex: 'antiCRISPR',
         key: 'antiCRISPR',
         align: 'center',
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='Secondary Metabolites' info='info'/>,
+        title: <TitleWithTooltip title='Secondary Metabolite' info='info'/>,
         dataIndex: 'secondaryMetabolites',
         key: 'secondaryMetabolites',
         align: 'center',
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='Signal Peptides' info='info'/>,
+        title: <TitleWithTooltip title='Signal Peptide' info='info'/>,
         dataIndex: 'signalPeptides',
         key: 'signalPeptides',
         align: 'center',
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='Virulence Factors' info='info'/>,
+        title: <TitleWithTooltip title='Virulence Factor' info='info'/>,
         dataIndex: 'virulenceFactors',
         key: 'virulenceFactors',
         align: 'center',
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='Antibiotic Resistance Genes' info='info'/>,
+        title: <TitleWithTooltip title='Antibiotic Resistance Gene' info='info'/>,
         dataIndex: 'antibioticResistanceGenes',
         key: 'antibioticResistanceGenes',
         align: 'center',
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='Transmembrane Proteins' info='info'/>,
+        title: <TitleWithTooltip title='Transmembrane Protein' info='info'/>,
         dataIndex: 'transmembraneProteins',
         key: 'transmembraneProteins',
         align: 'center',

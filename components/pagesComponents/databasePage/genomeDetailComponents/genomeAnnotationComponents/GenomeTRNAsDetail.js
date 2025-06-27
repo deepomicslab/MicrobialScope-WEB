@@ -85,11 +85,11 @@ const GenomeTRNAsDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                tRNA Annotation
+                                tRNA & tmRNA Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    tRNAs List
+                                    tRNA & tmRNA List
                                 </H6>
                                 <StyledTable
                                     columns={columns}
@@ -101,7 +101,7 @@ const GenomeTRNAsDetail = ({ fastaDetail, proteins }) => {
                             <Stack spacing={2}>
                                 <Stack direction='row' spacing={6} alignItems="center">
                                     <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                        Annotated tRNA Map
+                                        Annotated tRNA & tmRNA Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
                                         <Button

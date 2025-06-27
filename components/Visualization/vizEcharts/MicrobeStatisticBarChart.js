@@ -163,7 +163,7 @@ const getOptions = (data) =>{
         legend: {
             show: true,
             top: 'bottom',
-            data: ['MAG', 'Monoisolate'],
+            data: ['Monoisolate', 'MAG'],
             itemGap: 20
         },
         tooltip: {
@@ -180,41 +180,6 @@ const getOptions = (data) =>{
 
 const buildSeries = (data) => {
     return [
-        {
-            type: 'bar',
-            name: 'MAG',
-            id: 'MAG',
-            itemStyle: {
-                color: '#253D56'
-            },
-            barMaxWidth: '20%',
-            data: [
-                {
-                    value: data['MAGArchaeaCount'],
-                    name: 'MAG Archaea',
-                    groupId: 'MAGArchaea'
-                },
-                {
-                    value: data['MAGBacteriaCount'],
-                    name: 'MAG Bacteria',
-                    groupId: 'MAGBacteria'
-                },
-                {
-                    value: data['MAGFungiCount'],
-                    name: 'MAG Fungi',
-                    groupId: 'MAGFungi'
-                },
-                {
-                    value: data['MAGVirusesCount'],
-                    name: 'MAG Viruses',
-                    groupId: 'MAGViruses'
-                }
-            ],
-            universalTransition: {
-                enabled: true,
-                divideShape: 'clone'
-            }
-        },
         {
             type: 'bar',
             name: 'Monoisolate',
@@ -250,6 +215,41 @@ const buildSeries = (data) => {
                 enabled: true,
                 divideShape: 'clone'
             }
+        },
+        {
+            type: 'bar',
+            name: 'MAG',
+            id: 'MAG',
+            itemStyle: {
+                color: '#253D56'
+            },
+            barMaxWidth: '20%',
+            data: [
+                {
+                    value: data['MAGArchaeaCount'],
+                    name: 'MAG Archaea',
+                    groupId: 'MAGArchaea'
+                },
+                {
+                    value: data['MAGBacteriaCount'],
+                    name: 'MAG Bacteria',
+                    groupId: 'MAGBacteria'
+                },
+                {
+                    value: data['MAGFungiCount'],
+                    name: 'MAG Fungi',
+                    groupId: 'MAGFungi'
+                },
+                {
+                    value: data['MAGVirusesCount'],
+                    name: 'MAG Viruses',
+                    groupId: 'MAGViruses'
+                }
+            ],
+            universalTransition: {
+                enabled: true,
+                divideShape: 'clone'
+            }
         }
     ]
 }
@@ -274,14 +274,14 @@ const buildDrillDownData = (data) => {
             data: [
                 // ['Taxonomy', data['MAGArchaeaTaxonomyCount']],
                 ['Protein', data['MAGArchaeaProteinCount']],
-                ['tRNA', data['MAGArchaeaTrnaCount']],
-                ['CRISPR/Cas Systems', data['MAGArchaeaCRISPRCount']],
-                ['Anti-CRISPR', data['MAGArchaeaAntiCRISPRAnnotationCount']],
-                ['Secondary Metabolites', data['MAGArchaeaSecondaryMetaboliteRegionCount']],
-                ['Signal Peptides', data['MAGArchaeaSignalPeptidePredictionCount']],
-                ['Virulence Factors', data['MAGArchaeaVirulenceFactorCount']],
-                ['Antibiotic Resistance Genes', data['MAGArchaeaAntibioticResistanceCount']],
-                ['Transmembrane Proteins', data['MAGArchaeaTransmembraneHelicesCount']]
+                ['tRNA & tmRNA', data['MAGArchaeaTrnaCount']],
+                ['CRISPR/Cas System', data['MAGArchaeaCRISPRCount']],
+                ['Anti-CRISPR Protein', data['MAGArchaeaAntiCRISPRAnnotationCount']],
+                ['Secondary Metabolite', data['MAGArchaeaSecondaryMetaboliteRegionCount']],
+                ['Signal Peptide', data['MAGArchaeaSignalPeptidePredictionCount']],
+                ['Virulence Factor', data['MAGArchaeaVirulenceFactorCount']],
+                ['Antibiotic Resistance Gene', data['MAGArchaeaAntibioticResistanceCount']],
+                ['Transmembrane Protein', data['MAGArchaeaTransmembraneHelicesCount']]
             ]
         },
         {
@@ -289,14 +289,14 @@ const buildDrillDownData = (data) => {
             data: [
                 // ['Taxonomy', data['MAGBacteriaTaxonomyCount']],
                 ['Protein', data['MAGBacteriaProteinCount']],
-                ['tRNA', data['MAGBacteriaTrnaCount']],
-                ['CRISPR/Cas Systems', data['MAGBacteriaCRISPRCount']],
-                ['Anti-CRISPR', data['MAGBacteriaAntiCRISPRAnnotationCount']],
-                ['Secondary Metabolites', data['MAGBacteriaSecondaryMetaboliteRegionCount']],
-                ['Signal Peptides', data['MAGBacteriaSignalPeptidePredictionCount']],
-                ['Virulence Factors', data['MAGBacteriaVirulenceFactorCount']],
-                ['Antibiotic Resistance Genes', data['MAGBacteriaAntibioticResistanceCount']],
-                ['Transmembrane Proteins', data['MAGBacteriaTransmembraneHelicesCount']]
+                ['tRNA & tmRNA', data['MAGBacteriaTrnaCount']],
+                ['CRISPR/Cas System', data['MAGBacteriaCRISPRCount']],
+                ['Anti-CRISPR Protein', data['MAGBacteriaAntiCRISPRAnnotationCount']],
+                ['Secondary Metabolite', data['MAGBacteriaSecondaryMetaboliteRegionCount']],
+                ['Signal Peptide', data['MAGBacteriaSignalPeptidePredictionCount']],
+                ['Virulence Factor', data['MAGBacteriaVirulenceFactorCount']],
+                ['Antibiotic Resistance Gene', data['MAGBacteriaAntibioticResistanceCount']],
+                ['Transmembrane Protein', data['MAGBacteriaTransmembraneHelicesCount']]
             ]
         },
         {
@@ -304,12 +304,12 @@ const buildDrillDownData = (data) => {
             data: [
                 // ['Taxonomy', data['MAGFungiTaxonomyCount']],
                 ['Protein', data['MAGFungiProteinCount']],
-                ['tRNA', data['MAGFungiTrnaCount']],
-                ['Secondary Metabolites', data['MAGFungiSecondaryMetaboliteRegionCount']],
-                ['Signal Peptides', data['MAGFungiSignalPeptidePredictionCount']],
-                ['Virulence Factors', data['MAGFungiVirulenceFactorCount']],
-                ['Antibiotic Resistance Genes', data['MAGFungiAntibioticResistanceCount']],
-                ['Transmembrane Proteins', data['MAGFungiTransmembraneHelicesCount']]
+                ['tRNA & tmRNA', data['MAGFungiTrnaCount']],
+                ['Secondary Metabolite', data['MAGFungiSecondaryMetaboliteRegionCount']],
+                ['Signal Peptide', data['MAGFungiSignalPeptidePredictionCount']],
+                ['Virulence Factor', data['MAGFungiVirulenceFactorCount']],
+                ['Antibiotic Resistance Gene', data['MAGFungiAntibioticResistanceCount']],
+                ['Transmembrane Protein', data['MAGFungiTransmembraneHelicesCount']]
             ]
         },
         {
@@ -317,12 +317,12 @@ const buildDrillDownData = (data) => {
             data: [
                 // ['Taxonomy', data['MAGVirusesTaxonomyCount']],
                 ['Protein', data['MAGVirusesProteinCount']],
-                ['tRNA', data['MAGVirusesTrnaCount']],
-                ['CRISPR/Cas Systems', data['MAGVirusesCRISPRCount']],
-                ['Anti-CRISPR', data['MAGVirusesAntiCRISPRAnnotationCount']],
-                ['Virulence Factors', data['MAGVirusesVirulenceFactorCount']],
-                ['Antibiotic Resistance Genes', data['MAGVirusesAntibioticResistanceCount']],
-                ['Transmembrane Proteins', data['MAGVirusesTransmembraneHelicesCount']]
+                ['tRNA & tmRNA', data['MAGVirusesTrnaCount']],
+                ['CRISPR/Cas System', data['MAGVirusesCRISPRCount']],
+                ['Anti-CRISPR Protein', data['MAGVirusesAntiCRISPRAnnotationCount']],
+                ['Virulence Factor', data['MAGVirusesVirulenceFactorCount']],
+                ['Antibiotic Resistance Gene', data['MAGVirusesAntibioticResistanceCount']],
+                ['Transmembrane Protein', data['MAGVirusesTransmembraneHelicesCount']]
             ]
         },
         {
@@ -330,14 +330,14 @@ const buildDrillDownData = (data) => {
             data: [
                 // ['Taxonomy', data['unMAGArchaeaTaxonomyCount']],
                 ['Protein', data['unMAGArchaeaProteinCount']],
-                ['tRNA', data['unMAGArchaeaTrnaCount']],
-                ['CRISPR/Cas Systems', data['unMAGArchaeaCRISPRCount']],
-                ['Anti-CRISPR', data['unMAGArchaeaAntiCRISPRAnnotationCount']],
-                ['Secondary Metabolites', data['unMAGArchaeaSecondaryMetaboliteRegionCount']],
-                ['Signal Peptides', data['unMAGArchaeaSignalPeptidePredictionCount']],
-                ['Virulence Factors', data['unMAGArchaeaVirulenceFactorCount']],
-                ['Antibiotic Resistance Genes', data['unMAGArchaeaAntibioticResistanceCount']],
-                ['Transmembrane Proteins', data['unMAGArchaeaTransmembraneHelicesCount']]
+                ['tRNA & tmRNA', data['unMAGArchaeaTrnaCount']],
+                ['CRISPR/Cas System', data['unMAGArchaeaCRISPRCount']],
+                ['Anti-CRISPR Protein', data['unMAGArchaeaAntiCRISPRAnnotationCount']],
+                ['Secondary Metabolite', data['unMAGArchaeaSecondaryMetaboliteRegionCount']],
+                ['Signal Peptide', data['unMAGArchaeaSignalPeptidePredictionCount']],
+                ['Virulence Factor', data['unMAGArchaeaVirulenceFactorCount']],
+                ['Antibiotic Resistance Gene', data['unMAGArchaeaAntibioticResistanceCount']],
+                ['Transmembrane Protein', data['unMAGArchaeaTransmembraneHelicesCount']]
             ]
         },
         {
@@ -345,14 +345,14 @@ const buildDrillDownData = (data) => {
             data: [
                 // ['Taxonomy', data['unMAGBacteriaTaxonomyCount']],
                 ['Protein', data['unMAGBacteriaProteinCount']],
-                ['tRNA', data['unMAGBacteriaTrnaCount']],
-                ['CRISPR/Cas Systems', data['unMAGBacteriaCRISPRCount']],
-                ['Anti-CRISPR', data['unMAGBacteriaAntiCRISPRAnnotationCount']],
-                ['Secondary Metabolites', data['unMAGBacteriaSecondaryMetaboliteRegionCount']],
-                ['Signal Peptides', data['unMAGBacteriaSignalPeptidePredictionCount']],
-                ['Virulence Factors', data['unMAGBacteriaVirulenceFactorCount']],
-                ['Antibiotic Resistance Genes', data['unMAGBacteriaAntibioticResistanceCount']],
-                ['Transmembrane Proteins', data['unMAGBacteriaTransmembraneHelicesCount']]
+                ['tRNA & tmRNA', data['unMAGBacteriaTrnaCount']],
+                ['CRISPR/Cas System', data['unMAGBacteriaCRISPRCount']],
+                ['Anti-CRISPR Protein', data['unMAGBacteriaAntiCRISPRAnnotationCount']],
+                ['Secondary Metabolite', data['unMAGBacteriaSecondaryMetaboliteRegionCount']],
+                ['Signal Peptide', data['unMAGBacteriaSignalPeptidePredictionCount']],
+                ['Virulence Factor', data['unMAGBacteriaVirulenceFactorCount']],
+                ['Antibiotic Resistance Gene', data['unMAGBacteriaAntibioticResistanceCount']],
+                ['Transmembrane Protein', data['unMAGBacteriaTransmembraneHelicesCount']]
             ]
         },
         {
@@ -360,12 +360,12 @@ const buildDrillDownData = (data) => {
             data: [
                 // ['Taxonomy', data['unMAGFungiTaxonomyCount']],
                 ['Protein', data['unMAGFungiProteinCount']],
-                ['tRNA', data['unMAGFungiTrnaCount']],
-                ['Secondary Metabolites', data['unMAGFungiSecondaryMetaboliteRegionCount']],
-                ['Signal Peptides', data['unMAGFungiSignalPeptidePredictionCount']],
-                ['Virulence Factors', data['unMAGFungiVirulenceFactorCount']],
-                ['Antibiotic Resistance Genes', data['unMAGFungiAntibioticResistanceCount']],
-                ['Transmembrane Proteins', data['unMAGFungiTransmembraneHelicesCount']]
+                ['tRNA & tmRNA', data['unMAGFungiTrnaCount']],
+                ['Secondary Metabolite', data['unMAGFungiSecondaryMetaboliteRegionCount']],
+                ['Signal Peptide', data['unMAGFungiSignalPeptidePredictionCount']],
+                ['Virulence Factor', data['unMAGFungiVirulenceFactorCount']],
+                ['Antibiotic Resistance Gene', data['unMAGFungiAntibioticResistanceCount']],
+                ['Transmembrane Protein', data['unMAGFungiTransmembraneHelicesCount']]
             ]
         },
         {
@@ -373,12 +373,12 @@ const buildDrillDownData = (data) => {
             data: [
                 // ['Taxonomy', data['unMAGVirusesTaxonomyCount']],
                 ['Protein', data['unMAGVirusesProteinCount']],
-                ['tRNA', data['unMAGVirusesTrnaCount']],
-                ['CRISPR/Cas Systems', data['unMAGVirusesCRISPRCount']],
-                ['Anti-CRISPR', data['unMAGVirusesAntiCRISPRAnnotationCount']],
-                ['Virulence Factors', data['unMAGVirusesVirulenceFactorCount']],
-                ['Antibiotic Resistance Genes', data['unMAGVirusesAntibioticResistanceCount']],
-                ['Transmembrane Proteins', data['unMAGVirusesTransmembraneHelicesCount']]
+                ['tRNA & tmRNA', data['unMAGVirusesTrnaCount']],
+                ['CRISPR/Cas System', data['unMAGVirusesCRISPRCount']],
+                ['Anti-CRISPR Protein', data['unMAGVirusesAntiCRISPRAnnotationCount']],
+                ['Virulence Factor', data['unMAGVirusesVirulenceFactorCount']],
+                ['Antibiotic Resistance Gene', data['unMAGVirusesAntibioticResistanceCount']],
+                ['Transmembrane Protein', data['unMAGVirusesTransmembraneHelicesCount']]
             ]
         },
     ]

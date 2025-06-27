@@ -16,7 +16,7 @@ export const TransmembraneHelicesModalDetailTitle = () => (
         }}
     >
         <Title level={3} style={{ margin: 0, fontWeight: 600, color: '#333', pointerEvents: 'none' }}>
-            Transmembrane Helices Detail
+            Transmembrane Protein Detail
         </Title>
     </Box>
 )

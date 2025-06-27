@@ -1,7 +1,6 @@
 import { useMemo } from "react"
 import { extractTransmembraneHelixArrowData } from "@/components/Visualization/vizD3/utils/transmembraneHelicesUtils"
 import {
-    buildArrowPath,
     buildCircularPath,
     buildSegmentPath
 } from "@/components/Visualization/vizD3/utils/cicularPathUtils"

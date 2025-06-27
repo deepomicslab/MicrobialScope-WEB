@@ -14,6 +14,6 @@ export const extractTransmembraneHelixArrowData = (helicesList) => {
         proteinEnd: helix.protein_end,
         strand: helix.strand,
         type: helix.position,
-        color: colorMap[helix.position] || '#CCCCCC'
+        color: colorMap?.[helix.position] || '#CCCCCC'
     }))
 }

@@ -80,51 +80,51 @@ const menuItems = [
         children: [
             {
                 key: 'genomes',
-                label: 'Genomes',
+                label: 'Genome',
                 link: '/database/genomes'
             },
             {
                 key: 'proteins',
-                label: 'Proteins',
+                label: 'Protein',
                 link: '/database/proteins'
             }, {
                 key: 'tRNAs',
-                label: 'tRNAs',
+                label: 'tRNA & tmRNA',
                 link: '/database/tRNAs'
             },
             {
                 key: 'CRISPRCasSystems',
-                label: 'CRISPR/Cas Systems',
+                label: 'CRISPR/Cas System',
                 link: '/database/CRISPRCasSystems'
             },
             {
                 key: 'antiCRISPRProteinsList',
-                label: 'Anti-CRISPR Proteins',
+                label: 'Anti-CRISPR Protein',
                 link: '/database/antiCRISPRProteins'
             },
             {
                 key: 'secondaryMetabolites',
-                label: 'Secondary Metabolites',
+                label: 'Secondary Metabolite',
                 link: '/database/secondaryMetabolites'
             },
             {
                 key: 'signalPeptides',
-                label: 'Signal Peptides',
+                label: 'Signal Peptide',
                 link: '/database/signalPeptides'
             },
             {
                 key: 'virulenceFactorsList',
-                label: 'Virulence Factors',
+                label: 'Virulence Factor',
                 link: '/database/virulenceFactors'
             },
             {
                 key: 'antibioticResistanceGenes',
-                label: 'Antibiotic Resistance Genes',
+                label: 'Antibiotic Resistance Gene',
                 link: '/database/antibioticResistanceGenes'
             },
             {
                 key: 'transmembraneHelices',
-                label: 'Transmembrane Helices',
+                label: 'Transmembrane Protein',
                 link: '/database/transmembraneHelices'
             }
         ]

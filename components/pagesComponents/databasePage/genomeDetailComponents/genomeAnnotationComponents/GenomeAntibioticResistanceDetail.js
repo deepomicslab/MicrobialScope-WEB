@@ -85,11 +85,11 @@ const GenomeAntibioticResistanceDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                Antibiotic Resistance Genes Annotation
+                                Antibiotic Resistance Gene Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    Antibiotic Resistance Genes List
+                                    Antibiotic Resistance Gene List
                                 </H6>
                                 <StyledTable
                                     columns={columns}

@@ -58,7 +58,11 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
 
     useEffect(() => {
         if (fastaInfo && Array.isArray(fastaInfo) && fastaInfo.length > 0) {
-            setSelectedContig(prev => prev || fastaInfo[0]['contig'])
+            const longestContig = fastaInfo.reduce((maxContig, currentContig) => {
+                return (currentContig.length > maxContig.length) ? currentContig : maxContig;
+            })
+
+            setSelectedContig(prev => prev || longestContig?.['contig'])
         }
     }, [fastaInfo])
 
