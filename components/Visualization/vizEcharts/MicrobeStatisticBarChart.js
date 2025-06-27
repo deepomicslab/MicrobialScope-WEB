@@ -18,7 +18,6 @@ const MicrobeStatisticBarChart = ({ data }) => {
         const drillDownData = buildDrillDownData(data)
 
         chartInstanceRef.current.on('click', function (event) {
-            console.log(event.data)
             if (event.data) {
                 let subData = drillDownData.find(function (data) {
                     return data.dataGroupId === event.data.groupId
@@ -47,12 +46,19 @@ const MicrobeStatisticBarChart = ({ data }) => {
                             }
                         },
                         yAxis: {
-                            name: 'Count',
+                            type: 'log',
+                            name: 'Count (Log Scale)',
                             nameLocation: 'middle',
                             nameTextStyle: {
-                                padding: [0, 0, 20, 0],
+                                padding: [0, 0, 40, 0],
                                 fontWeight: 'bold'
-                            }
+                            },
+                            axisLabel: {
+                                formatter: function (value) {
+                                    return dynamicFormat(value)
+                                }
+                            },
+                            min: 1
                         },
                         title: {
                             text: `${event.data.name} Statistics`,
@@ -128,24 +134,36 @@ const getOptions = (data) =>{
             }
         },
         yAxis: {
-            name: 'Genome Count',
+            type: 'log',
+            name: 'Genome Count (Log Scale)',
             nameLocation: 'middle',
             nameTextStyle: {
-                padding: [0, 0, 20, 0],
+                padding: [0, 0, 40, 0],
                 fontWeight: 'bold'
-            }
+            },
+            axisLabel: {
+                formatter: function (value) {
+                    return dynamicFormat(value)
+                }
+            },
+            min: 1
         },
         title: {
             text: 'Microorganism Statistics',
+            subtext: 'Click on a bar to view specific Assembly Level Microbe Annotations Count',
             left: 'center',
             textStyle: {
                 fontSize: 24
+            },
+            subtextStyle: {
+                fontSize: 16,
+                color: '#888'
             }
         },
         legend: {
             show: true,
             top: 'bottom',
-            data: ['MAG', 'unMAG'],
+            data: ['MAG', 'Monoisolate'],
             itemGap: 20
         },
         tooltip: {
@@ -199,8 +217,8 @@ const buildSeries = (data) => {
         },
         {
             type: 'bar',
-            name: 'unMAG',
-            id: 'unMAG',
+            name: 'Monoisolate',
+            id: 'Monoisolate',
             itemStyle: {
                 color: '#A12D44'
             },
@@ -209,22 +227,22 @@ const buildSeries = (data) => {
             data: [
                 {
                     value: data['unMAGArchaeaCount'],
-                    name: 'unMAG Archaea',
+                    name: 'Monoisolate Archaea',
                     groupId: 'unMAGArchaea'
                 },
                 {
                     value: data['unMAGBacteriaCount'],
-                    name: 'unMAG Bacteria',
+                    name: 'Monoisolate Bacteria',
                     groupId: 'unMAGBacteria'
                 },
                 {
                     value: data['unMAGFungiCount'],
-                    name: 'unMAG Fungi',
+                    name: 'Monoisolate Fungi',
                     groupId: 'unMAGFungi'
                 },
                 {
                     value: data['unMAGVirusesCount'],
-                    name: 'unMAG Viruses',
+                    name: 'Monoisolate Viruses',
                     groupId: 'unMAGViruses'
                 }
             ],
@@ -236,12 +254,25 @@ const buildSeries = (data) => {
     ]
 }
 
+function dynamicFormat(value) {
+    if (value >= 1e9) {
+        return (value / 1e9).toFixed(1) + 'B';
+    } else if (value >= 1e6) {
+        return (value / 1e6).toFixed(1) + 'M';
+    } else if (value >= 1e3) {
+        return (value / 1e3).toFixed(1) + 'K';
+    } else {
+        return value.toLocaleString()
+    }
+}
+
+
 const buildDrillDownData = (data) => {
     return [
         {
             dataGroupId: 'MAGArchaea',
             data: [
-                ['Taxonomy', data['MAGArchaeaTaxonomyCount']],
+                // ['Taxonomy', data['MAGArchaeaTaxonomyCount']],
                 ['Protein', data['MAGArchaeaProteinCount']],
                 ['tRNA', data['MAGArchaeaTrnaCount']],
                 ['CRISPR/Cas Systems', data['MAGArchaeaCRISPRCount']],
@@ -256,7 +287,7 @@ const buildDrillDownData = (data) => {
         {
             dataGroupId: 'MAGBacteria',
             data: [
-                ['Taxonomy', data['MAGBacteriaTaxonomyCount']],
+                // ['Taxonomy', data['MAGBacteriaTaxonomyCount']],
                 ['Protein', data['MAGBacteriaProteinCount']],
                 ['tRNA', data['MAGBacteriaTrnaCount']],
                 ['CRISPR/Cas Systems', data['MAGBacteriaCRISPRCount']],
@@ -271,7 +302,7 @@ const buildDrillDownData = (data) => {
         {
             dataGroupId: 'MAGFungi',
             data: [
-                ['Taxonomy', data['MAGFungiTaxonomyCount']],
+                // ['Taxonomy', data['MAGFungiTaxonomyCount']],
                 ['Protein', data['MAGFungiProteinCount']],
                 ['tRNA', data['MAGFungiTrnaCount']],
                 ['Secondary Metabolites', data['MAGFungiSecondaryMetaboliteRegionCount']],
@@ -284,7 +315,7 @@ const buildDrillDownData = (data) => {
         {
             dataGroupId: 'MAGViruses',
             data: [
-                ['Taxonomy', data['MAGVirusesTaxonomyCount']],
+                // ['Taxonomy', data['MAGVirusesTaxonomyCount']],
                 ['Protein', data['MAGVirusesProteinCount']],
                 ['tRNA', data['MAGVirusesTrnaCount']],
                 ['CRISPR/Cas Systems', data['MAGVirusesCRISPRCount']],
@@ -297,7 +328,7 @@ const buildDrillDownData = (data) => {
         {
             dataGroupId: 'unMAGArchaea',
             data: [
-                ['Taxonomy', data['unMAGArchaeaTaxonomyCount']],
+                // ['Taxonomy', data['unMAGArchaeaTaxonomyCount']],
                 ['Protein', data['unMAGArchaeaProteinCount']],
                 ['tRNA', data['unMAGArchaeaTrnaCount']],
                 ['CRISPR/Cas Systems', data['unMAGArchaeaCRISPRCount']],
@@ -312,7 +343,7 @@ const buildDrillDownData = (data) => {
         {
             dataGroupId: 'unMAGBacteria',
             data: [
-                ['Taxonomy', data['unMAGBacteriaTaxonomyCount']],
+                // ['Taxonomy', data['unMAGBacteriaTaxonomyCount']],
                 ['Protein', data['unMAGBacteriaProteinCount']],
                 ['tRNA', data['unMAGBacteriaTrnaCount']],
                 ['CRISPR/Cas Systems', data['unMAGBacteriaCRISPRCount']],
@@ -327,7 +358,7 @@ const buildDrillDownData = (data) => {
         {
             dataGroupId: 'unMAGFungi',
             data: [
-                ['Taxonomy', data['unMAGFungiTaxonomyCount']],
+                // ['Taxonomy', data['unMAGFungiTaxonomyCount']],
                 ['Protein', data['unMAGFungiProteinCount']],
                 ['tRNA', data['unMAGFungiTrnaCount']],
                 ['Secondary Metabolites', data['unMAGFungiSecondaryMetaboliteRegionCount']],
@@ -340,7 +371,7 @@ const buildDrillDownData = (data) => {
         {
             dataGroupId: 'unMAGViruses',
             data: [
-                ['Taxonomy', data['unMAGVirusesTaxonomyCount']],
+                // ['Taxonomy', data['unMAGVirusesTaxonomyCount']],
                 ['Protein', data['unMAGVirusesProteinCount']],
                 ['tRNA', data['unMAGVirusesTrnaCount']],
                 ['CRISPR/Cas Systems', data['unMAGVirusesCRISPRCount']],

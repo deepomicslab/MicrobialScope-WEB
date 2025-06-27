@@ -6,7 +6,7 @@ const MicrobeBarChartComponent = ({ data }) => {
     return (
         <ResponsiveVisualizationContainer
             containerSx={{
-                height: '400px',
+                height: '500px',
                 width: '100%',
                 marginTop: '40px'
             }}

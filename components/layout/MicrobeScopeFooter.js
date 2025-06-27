@@ -19,7 +19,7 @@ const MicrobeScopeFooter = () => (
                     </Stack>
                     <Stack direction="row" spacing={1} sx={{ fontSize: '16px', alignItems: 'center' }}>
                         <MailOutlined/>
-                        <Span>Email: shuaicli@gmail.com</Span>
+                        <Span>Email: shuaicli@cityu.edu.hk</Span>
                     </Stack>
                     <Stack direction="row" spacing={1} sx={{ fontSize: '16px', alignItems: 'center' }}>
                         <UserOutlined/>

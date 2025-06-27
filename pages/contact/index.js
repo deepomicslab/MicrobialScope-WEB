@@ -59,7 +59,7 @@ const TeamIntroduction = () => {
                         at the Shenzhen Institute of Advanced Technology. Our team comprises individuals with extensive
                         molecular biology, bioinformatics, and computer science expertise. If you have any inquiries or
                         require further information, please feel free to reach out to us at <A
-                        sx={{ cursor: 'text' }}>shuaicli@gmail.com</A> or
+                        sx={{ cursor: 'text' }}>shuaicli@cityu.edu.hk</A> or
                         <A sx={{ cursor: 'text' }}> yu.chen@siat.ac.cn</A>
                     </Box>
                 </Stack>
