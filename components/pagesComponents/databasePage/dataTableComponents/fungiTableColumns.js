@@ -226,6 +226,7 @@ export const fungiTRNATableColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Fungi ID',
         dataIndex: 'fungi_id',
+        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -298,6 +299,7 @@ export const fungiSecondaryMetaboliteColumns = (handleDetailClick, getSingleFile
     {
         title: 'Fungi ID',
         dataIndex: 'fungi_id',
+        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -386,6 +388,7 @@ export const fungiSignalPeptideColumns = (handleDetailClick, getSingleFileURL) =
     {
         title: 'Fungi ID',
         dataIndex: 'fungi_id',
+        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -443,6 +446,7 @@ export const fungiVirulenceFactorColumns = (handleDetailClick, getSingleFileURL)
     {
         title: 'Fungi ID',
         dataIndex: 'fungi_id',
+        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>

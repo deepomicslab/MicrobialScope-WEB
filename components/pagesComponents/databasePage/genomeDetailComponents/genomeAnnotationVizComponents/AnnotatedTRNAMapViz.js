@@ -213,7 +213,7 @@ const AnnotatedTRNAMapViz = forwardRef(({ fastaDetail, proteins, tRNAs }, ref) =
                         onDomainChange={setRadicalDomain}
                         data={tRNAs}
                         windowSize={MapVizConfig.areaPlotWindowSize}
-                        title='tRNAs/5kb'
+                        title='tRNAs & tmRNAs/5kb'
                         toolTipRef={toolTipRef}
                     />
                     <COGCategoryLegend

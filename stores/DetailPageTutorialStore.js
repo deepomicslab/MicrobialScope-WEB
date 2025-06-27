@@ -6,6 +6,7 @@ export const useDetailPageTutorialStore = create(
         (set) => ({
             hasSeenTutorial: false,
             setHasSeenTutorial: () => set({ hasSeenTutorial: true }),
+            resetTutorialState: () => set({ hasSeenTutorial: false }),
         }),
         {
             name: 'tutorial-state',

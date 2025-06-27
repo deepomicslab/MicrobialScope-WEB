@@ -183,7 +183,7 @@ export const ProteinModalDetailDescriptions = ({ record, microbe }) => {
                     width: '100%',
                     height: 480,
                     position: 'relative',
-                    mt: '125px'
+                    mt: '12px'
                 }}
             >
                 <MolStarWrapper proteinId={record['protein_id']} sequence={record['sequence']}/>

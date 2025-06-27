@@ -226,6 +226,7 @@ export const virusesTRNATableColumns = (handleDetailClick, getSingleFileURL) => 
     {
         title: 'Viruses ID',
         dataIndex: 'viruses_id',
+        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -297,7 +298,8 @@ export const virusesTRNATableColumns = (handleDetailClick, getSingleFileURL) => 
 export const virusesCRISPRCasColumns = (handleDetailClick, getSingleFileURL) => [
     {
         title: 'Viruses ID',
-        dataIndex: 'viruses_id',
+        dataIndex: ['cas', 'viruses_id'],
+        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -380,6 +382,7 @@ export const virusesAntiCRISPRAnnotationColumns = (handleDetailClick, getSingleF
     {
         title: 'Viruses ID',
         dataIndex: 'viruses_id',
+        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>
@@ -456,6 +459,7 @@ export const virusesVirulenceFactorColumns = (handleDetailClick, getSingleFileUR
     {
         title: 'Viruses ID',
         dataIndex: 'viruses_id',
+        sorter: true,
         fixed: 'left',
         align: 'center',
         render: (value) => <BasicChip value={value} color='volcano'/>

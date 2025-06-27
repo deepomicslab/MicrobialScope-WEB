@@ -96,15 +96,18 @@ import {
 import {
     buildArchaeaGenomeDetailItems
 } from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeDescriptionColumns"
-import { Descriptions, Typography } from "antd"
+import { Button, Descriptions, Typography } from "antd"
 import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import { useDatabaseGenomeDetailContext } from "@/components/context/DatabaseGenomeDetailContext"
 import GenomeAnnotationContent
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationComponents/GenomeAnnotationContent"
 import TutorialModal from "@/components/feedbackComponents/modals/TutorialModal"
+import { useDetailPageTutorialStore } from "@/stores/DetailPageTutorialStore"
+import { BookOutlined } from "@ant-design/icons"
 
 const GenomeDetailContent = ({}) => {
     const { microbe, magStatus, genomeId } = useDatabaseGenomeDetailContext()
+    const { resetTutorialState } = useDetailPageTutorialStore()
 
     const {
         data: genomeDetail,
@@ -125,17 +128,31 @@ const GenomeDetailContent = ({}) => {
     return (
         <Stack spacing={4}>
             <Box>
-                <H6
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    spacing={6}
                     sx={{
-                        fontSize: '36px',
-                        mt: '12px',
-                        mb: '36px',
                         borderBottom: '2px solid #e0e0e0',
-                        paddingBottom: '12px',
+                        mb: '36px',
+                        paddingBottom: '12px'
                     }}
                 >
-                    {GENOMEDETAILCONFIG[microbe][magStatus]['title']}
-                </H6>
+                    <H6
+                        sx={{
+                            fontSize: '36px',
+                        }}
+                    >
+                        {GENOMEDETAILCONFIG[microbe][magStatus]['title']}
+                    </H6>
+                    <Button
+                        type='primary'
+                        icon={<BookOutlined />}
+                        onClick={resetTutorialState}
+                    >
+                        View Tutorial
+                    </Button>
+                </Stack>
                 <Descriptions bordered items={genomeDescriptionItems} column={2}/>
             </Box>
             <GenomeAnnotationContent genomeDetail={genomeDetail}/>

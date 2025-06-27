@@ -263,7 +263,7 @@ const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins,
                         onDomainChange={setRadicalDomain}
                         data={transmembraneHelicesViz}
                         windowSize={MapVizConfig.areaPlotWindowSize}
-                        title='Signal Peptides/5kb'
+                        title='Transmembrane Proteins/5kb'
                         toolTipRef={toolTipRef}
                     />
                     <COGCategoryLegend

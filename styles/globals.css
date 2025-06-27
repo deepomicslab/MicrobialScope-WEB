@@ -4,3 +4,12 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.msp-layout-top,
+.msp-layout-left,
+.msp-layout-right,
+.msp-layout-bottom,
+.msp-viewport-controls
+{
+  display: none;
+}

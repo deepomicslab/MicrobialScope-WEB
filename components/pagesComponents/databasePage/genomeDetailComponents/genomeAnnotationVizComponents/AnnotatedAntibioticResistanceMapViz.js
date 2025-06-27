@@ -231,7 +231,7 @@ const AnnotatedAntibioticResistanceMapViz = forwardRef(({ fastaDetail, proteins,
                         onDomainChange={setRadicalDomain}
                         data={antibioticResistanceViz}
                         windowSize={MapVizConfig.areaPlotWindowSize}
-                        title='Signal Peptides/5kb'
+                        title='Antibiotic Resistance Genes/5kb'
                         toolTipRef={toolTipRef}
                     />
                     <COGCategoryLegend

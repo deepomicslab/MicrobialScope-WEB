@@ -13,11 +13,11 @@ const Focus = ({}) => {
             </Title>
             <Stack alignItems="center" spacing={2}>
                 <Image
-                    src='/Figure1.png'
+                    src='/Figure1.svg'
                     width='80%'
                 />
                 <Image
-                    src='/Figure2.png'
+                    src='/Figure2.svg'
                     width='80%'
                 />
             </Stack>
