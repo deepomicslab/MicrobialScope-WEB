@@ -123,31 +123,31 @@ const Authors = () => {
             <Stack spacing={5.5}>
                 <Grid container spacing={4} sx={{ fontSize: '20px' }}>
                     <Grid size={6}>
-                        <AuthorsCard name="LI Shuai Cheng" src={'/lsc.jpg'} alt="LI Shuai Cheng"/>
+                        <AuthorsCard name="Shuai Cheng Li" src={'/lsc.jpg'} alt="Shuai Cheng Li"/>
                     </Grid>
                     <Grid size={6}>
-                        <AuthorsCard name="CHEN Yu" src={'/cy.png'} alt='CHEN Yu'/>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={4} sx={{ fontSize: '20px' }}>
-                    <Grid size={6}>
-                        <AuthorsCard name="Feng Xikang" src={'/fxk.png'} alt='Feng Xikang'/>
-                    </Grid>
-                    <Grid size={6}>
-                        <AuthorsCard name="Li Yinhu" src={'/lyh.png'} alt='Li Yinhu'/>
+                        <AuthorsCard name="Yu Chen" src={'/cy.png'} alt='Yu Chen'/>
                     </Grid>
                 </Grid>
                 <Grid container spacing={4} sx={{ fontSize: '20px' }}>
                     <Grid size={6}>
-                        <AuthorsCard name="ZHENG Jieyi" src={'/zjy.png'} alt='ZHENG Jieyi'/>
+                        <AuthorsCard name="Xikang Feng" src={'/fxk.png'} alt='Xikang Feng'/>
                     </Grid>
                     <Grid size={6}>
-                        <AuthorsCard name="Chen Xuhua" src={'/cxh.png'} alt='Chen Xuhua'/>
+                        <AuthorsCard name="Yinhu Li" src={'/lyh.png'} alt='Yinhu Li'/>
                     </Grid>
                 </Grid>
                 <Grid container spacing={4} sx={{ fontSize: '20px' }}>
                     <Grid size={6}>
-                        <AuthorsCard name="YANG Shuo" src={'/ys.png'} alt='YANG Shuo'/>
+                        <AuthorsCard name="Jieyi Zheng" src={'/zjy.png'} alt='Jieyi Zheng'/>
+                    </Grid>
+                    <Grid size={6}>
+                        <AuthorsCard name="Xuhua Chen" src={'/cxh.png'} alt='Xuhua Chen'/>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={4} sx={{ fontSize: '20px' }}>
+                    <Grid size={6}>
+                        <AuthorsCard name="Shuo Yang" src={'/ys.png'} alt='Shuo Yang'/>
                     </Grid>
                 </Grid>
             </Stack>

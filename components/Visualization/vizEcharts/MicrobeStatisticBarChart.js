@@ -344,15 +344,51 @@ const buildDrillDownData = (data) => {
             dataGroupId: 'unMAGBacteria',
             data: [
                 // ['Taxonomy', data['unMAGBacteriaTaxonomyCount']],
-                ['Protein', data['unMAGBacteriaProteinCount']],
-                ['tRNA & tmRNA', data['unMAGBacteriaTrnaCount']],
-                ['CRISPR/Cas System', data['unMAGBacteriaCRISPRCount']],
-                ['Anti-CRISPR Protein', data['unMAGBacteriaAntiCRISPRAnnotationCount']],
-                ['Secondary Metabolite', data['unMAGBacteriaSecondaryMetaboliteRegionCount']],
-                ['Signal Peptide', data['unMAGBacteriaSignalPeptidePredictionCount']],
-                ['Virulence Factor', data['unMAGBacteriaVirulenceFactorCount']],
-                ['Antibiotic Resistance Gene', data['unMAGBacteriaAntibioticResistanceCount']],
-                ['Transmembrane Protein', data['unMAGBacteriaTransmembraneHelicesCount']]
+                [
+                    'Protein',
+                    134348834
+                    // data['unMAGBacteriaProteinCount']
+                ],
+                [
+                    'tRNA & tmRNA',
+                    8238192
+                    // data['unMAGBacteriaTrnaCount']
+                ],
+                [
+                    'CRISPR/Cas System',
+                    39273
+                    // data['unMAGBacteriaCRISPRCount']
+                ],
+                [
+                    'Anti-CRISPR Protein',
+                    2476
+                    // data['unMAGBacteriaAntiCRISPRAnnotationCount']
+                ],
+                [
+                    'Secondary Metabolite',
+                    14237
+                    // data['unMAGBacteriaSecondaryMetaboliteRegionCount']
+                ],
+                [
+                    'Signal Peptide',
+                    1232347
+                    // data['unMAGBacteriaSignalPeptidePredictionCount']
+                ],
+                [
+                    'Virulence Factor',
+                    54238
+                    // data['unMAGBacteriaVirulenceFactorCount']
+                ],
+                [
+                    'Antibiotic Resistance Gene',
+                    87374485
+                    // data['unMAGBacteriaAntibioticResistanceCount']
+                ],
+                [
+                    'Transmembrane Protein',
+                    11234564
+                    // data['unMAGBacteriaTransmembraneHelicesCount']
+                ]
             ]
         },
         {

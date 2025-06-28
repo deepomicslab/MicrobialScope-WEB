@@ -162,6 +162,38 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
                     proteins.length !== 0 && genomeDetail['tmh_count'] !== 0 &&
                     <GenomeTransmembraneHelicesDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
+                {
+                    (
+                        genomeDetail['protein_count'] === 0 && genomeDetail['trna_count'] === 0 &&
+                        genomeDetail['crispr_count'] === 0 && genomeDetail['anti_crispr_count'] === 0 &&
+                        genomeDetail['secondary_metabolite_count'] === 0 &&
+                        genomeDetail['signal_peptide_count'] === 0 &&
+                        genomeDetail['virulence_factor_count'] === 0 &&
+                        genomeDetail['arg_count'] === 0 && genomeDetail['tmh_count'] === 0
+                    ) ? (
+                        <Stack
+                            sx={{
+                                fontSize: '24px',
+                                height: '60vh',
+                                border: '1px solid rgb(224, 224, 224)',
+                                borderRadius: '20px',
+                                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                            }}
+                            alignItems="center"
+                            justifyContent="center"
+                            spacing={1}
+                        >
+                            <Box sx={{ textAlign: 'center' }}>
+                                This genome has no available annotation data.
+                            </Box>
+                            <Box sx={{ textAlign: 'center' }}>
+                                As a result, visualizations such as the Annotated Protein Map, tRNA & tmRNA Map, Secondary Metabolite Map, etc., are currently unavailable.
+                            </Box>
+                        </Stack>
+                    ) : (
+                        <></>
+                    )
+                }
             </Stack>
         </>
     )
