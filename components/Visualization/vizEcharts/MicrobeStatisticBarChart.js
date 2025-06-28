@@ -47,7 +47,7 @@ const MicrobeStatisticBarChart = ({ data }) => {
                         },
                         yAxis: {
                             type: 'log',
-                            name: 'Count (Log 10)',
+                            name: 'Count',
                             nameLocation: 'middle',
                             nameTextStyle: {
                                 padding: [0, 0, 40, 0],
@@ -135,7 +135,7 @@ const getOptions = (data) =>{
         },
         yAxis: {
             type: 'log',
-            name: 'Genome Count (Log 10)',
+            name: 'Genome Count',
             nameLocation: 'middle',
             nameTextStyle: {
                 padding: [0, 0, 40, 0],
