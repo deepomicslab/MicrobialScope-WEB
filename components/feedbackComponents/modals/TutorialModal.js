@@ -21,9 +21,8 @@ const SelectContigContent = ({}) => (
     <>
         <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Select Contig</Title>
         <Paragraph style={{ fontSize: '20px' }}>The Contig Selector allows you to choose a contig from the available
-            list. Each contig represents a segment of the genome that has been sequenced. After selecting a contig, you
-            will be able to view detailed sequence-specific features and annotations related to that particular
-            segment.</Paragraph>
+            list. After selecting a contig, you will be able to view detailed sequence-specific features and
+            annotations related to that particular segment.</Paragraph>
         <Image src='/SelectContig.png' alt='SelectContig.png'/>
     </>
 )
@@ -31,9 +30,12 @@ const SelectContigContent = ({}) => (
 const ExploreAnnotationsInfoContent = ({}) => (
     <>
         <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Explore Annotations Info</Title>
-        <Paragraph style={{ fontSize: '20px' }}>Protein annotations provide insights into the functions of various genes
-            and their respective products. Here, you will learn how to navigate the Protein List and understand various
-            columns like Protein ID, Start/End positions, Function Prediction Source, and COG Category.</Paragraph>
+        <Paragraph style={{ fontSize: '20px' }}>
+            Genomic annotations provide insights into the functions of various genomic elements, including proteins,
+            tRNAs & tmRNAs, secondary metabolites, etc. Here, you will learn how to explore different annotation tables
+            and understand key information such as feature positions, prediction sources, and biological
+            functions.
+        </Paragraph>
         <Image src='/ExploreAnnotationsInfo.gif' alt='ExploreAnnotationsInfo.gif'/>
     </>
 )
@@ -43,13 +45,14 @@ const InteractWithVisualization = ({}) => (
         <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Interact With
             Visualization</Title>
         <Paragraph style={{ fontSize: '20px' }}>
-            You can interact with a visualized protein map to get a clearer,
+            You can interact with a visualized annotations map to get a clearer,
             graphical representation of the genomic annotations.The Annotated Map visualizes the selected
             contig&apos;s features, showing gene positions, GC content, and potential functional elements like
-            transmembrane helices and CRISPR-Cas systems.
+            transmembrane proteins and CRISPR-Cas systems.
         </Paragraph>
         <Paragraph style={{ fontSize: '20px' }}>
-            <strong>The AreaPlot</strong> at the bottom of the visualization serves as a zoom control. You can hover over the plot and
+            <strong>The AreaPlot</strong> at the bottom of the visualization serves as a zoom control. You can hover
+            over the plot and
             adjust the zoom level by interacting with it:
         </Paragraph>
         <ul style={{ fontSize: '20px' }}>
@@ -64,8 +67,13 @@ const DownloadVisualizationChart = ({}) => (
     <>
         <Title level={4} style={{ margin: 0, marginBottom: '8px', fontSize: '32px' }}>Download Visualization
             Chart</Title>
-        <Paragraph style={{ fontSize: '20px' }}>You can download both SVG and PNG versions of the annotated protein
-            map.</Paragraph>
+        <Paragraph style={{ fontSize: '20px' }}>
+            You can download both SVG and PNG versions of the annotated protein map.
+        </Paragraph>
+        <Paragraph style={{ fontSize: '20px' }}>
+            <strong>In the Annotated Protein Map,</strong> when the current window size is smaller than 25,000 bp, product names of
+            annotated proteins will be displayed directly on the map for easier interpretation.
+        </Paragraph>
         <Image src='/DownloadVisualizationChart.gif' alt='DownloadVisualizationChart.gif'/>
     </>
 )

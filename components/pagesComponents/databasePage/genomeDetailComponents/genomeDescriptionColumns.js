@@ -133,7 +133,7 @@ export const buildArchaeaGenomeDetailItems = (genomeDetail, microbe) => [
     },
     {
         key: 'tmh_count',
-        label: '# of Transmembrane Helices',
+        label: '# of Transmembrane Proteins',
         children: genomeDetail['tmh_count']
     },
 ]
