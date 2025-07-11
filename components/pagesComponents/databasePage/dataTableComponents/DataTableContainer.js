@@ -43,8 +43,12 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
     const [columns, setColumns] = useState([])
     const [filterTrigger, setFilterTrigger] = useState(0)
 
-    const handleSearContentChange = (newSearchContent) => {
-        updateSearchContent(newSearchContent)
+    const handleSearchFieldChange = (newField) => {
+        updateSearchContent({ field: newField })
+    }
+
+    const handleSearchValueChange = (value) => {
+        updateSearchContent({ value: value });
     }
 
     const fetchData = useCallback((
@@ -172,7 +176,8 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
                 setColumns={setColumns}
                 selectedFilterOptions={selectedFilterOptions}
                 searchContent={searchContent}
-                handleSearContentChange={handleSearContentChange}
+                handleSearchValueChange={handleSearchValueChange}
+                handelSearchFieldChange={handleSearchFieldChange}
             />
             <DataTable
                 columns={columns}

@@ -3,8 +3,9 @@ import { Flex } from "antd"
 import { A, Img, Span } from "@/components/styledComponents/styledHTMLTags"
 import { useRouter } from "next/router"
 import {
+    BarChartOutlined,
     CloudDownloadOutlined, FileTextOutlined,
-    HomeOutlined, MailOutlined
+    HomeOutlined, MailOutlined, ProfileOutlined
 } from "@ant-design/icons"
 import MicrobialIcon from "@/components/icons/Microbial"
 import DatabaseIcon from "@/components/icons/Database"
@@ -128,6 +129,18 @@ const menuItems = [
                 link: '/database/transmembraneHelices'
             }
         ]
+    },
+    {
+        key: 'analysis',
+        label: 'Analysis',
+        icon: <BarChartOutlined style={{ fontSize: '20px' }}/>,
+        link: '/analysis'
+    },
+    {
+        key: 'workspace',
+        label: 'Workspace',
+        icon: <ProfileOutlined style={{ fontSize: '20px' }}/>,
+        link: '/workspace'
     },
     {
         key: 'download',

@@ -2,8 +2,7 @@ import { useRouter } from "next/router"
 import { LoadingView } from "@/components/stateViews/LoadingView"
 import DatabaseContent from "@/components/pagesComponents/databasePage/DatabaseContent"
 import { DatabaseContext } from "@/components/context/DatabaseContext"
-import { useEffect, useState } from "react"
-import { fieldMap } from "@/components/pagesComponents/databasePage/dataTableComponents/DataTableSearchBar"
+import { useState } from "react"
 
 const MicrobeDataListWrapper = () => {
     const router = useRouter()
@@ -23,7 +22,7 @@ const MicrobeDataList = ({ query }) => {
         microbe: query.microbe || 'archaea',
         magStatus: query.mag || 'unMAG',
         searchContent: {
-            field: fieldMap[query.microbe || 'archaea'],
+            field: getSearchField(query.microbe, query.searchField),
             value: query.keyword || ''
         }
     })
@@ -46,13 +45,13 @@ const MicrobeDataList = ({ query }) => {
         }))
     }
 
-    const updateSearchContent = (newValue) => {
+    const updateSearchContent = (newPartial) => {
         setDataTableStatus((prevState) => ({
             ...prevState,
             searchContent: {
                 ...prevState.searchContent,
-                value: newValue
-            }
+                ...newPartial,
+            },
         }))
     }
 
@@ -65,6 +64,21 @@ const MicrobeDataList = ({ query }) => {
             <DatabaseContent/>
         </DatabaseContext.Provider>
     )
+}
+
+export const getSearchField = (microbe, searchField) => {
+    if (searchField === 'microbial_id') {
+        return fieldMap[microbe || 'archaea']
+    } else {
+        return searchField
+    }
+}
+
+export const fieldMap = {
+    archaea: 'archaea_id',
+    bacteria: 'bacteria_id',
+    fungi: 'fungi_id',
+    viruses: 'viruses_id',
 }
 
 export default MicrobeDataListWrapper

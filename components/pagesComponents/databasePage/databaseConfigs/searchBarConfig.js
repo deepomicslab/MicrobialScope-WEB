@@ -3,6 +3,10 @@ export const ArchaeaGenomeSearchBarConfig = [
     {
         value: 'archaea_id',
         label: 'Archaea ID'
+    },
+    {
+        value: 'species',
+        label: 'Species'
     }
 ]
 
@@ -75,6 +79,10 @@ export const BacteriaGenomeSearchBarConfig = [
     {
         value: 'bacteria_id',
         label: 'Bacteria ID'
+    },
+    {
+        value: 'species',
+        label: 'Species'
     }
 ]
 
@@ -147,6 +155,10 @@ export const FungiGenomeSearchBarConfig = [
     {
         value: 'fungi_id',
         label: 'Fungi ID'
+    },
+    {
+        value: 'species',
+        label: 'Species'
     }
 ]
 
@@ -205,6 +217,10 @@ export const VirusesGenomeSearchBarConfig = [
     {
         value: 'viruses_id',
         label: 'Viruses ID'
+    },
+    {
+        value: 'species',
+        label: 'Species'
     }
 ]
 

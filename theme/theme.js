@@ -4,9 +4,6 @@ const theme = {
         colorBorderSecondary: '#e0e0e0'
     },
     components: {
-        Menu: {
-            itemPaddingInline: 24
-        }
     }
 }
 

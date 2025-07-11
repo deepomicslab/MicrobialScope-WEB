@@ -26,7 +26,8 @@ const DataTableOperations = ({
     setColumns,
     selectedFilterOptions,
     searchContent,
-    handleSearContentChange
+    handleSearchValueChange,
+    handelSearchFieldChange
 }) => {
     return (
         <Stack direction="row" justifyContent="space-between">
@@ -45,7 +46,8 @@ const DataTableOperations = ({
                 showAllColumns={showAllColumns}
                 setColumns={setColumns}
                 searchContent={searchContent}
-                handleSearContentChange={handleSearContentChange}
+                handleSearchValueChange={handleSearchValueChange}
+                handelSearchFieldChange={handelSearchFieldChange}
             />
         </Stack>
     )

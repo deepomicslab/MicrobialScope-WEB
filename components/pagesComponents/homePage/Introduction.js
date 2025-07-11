@@ -36,11 +36,23 @@ const magOptions = [
     }
 ]
 
+const searchFieldOptions = [
+    {
+        value: 'microbial_id',
+        label: 'Microbial ID'
+    },
+    {
+        value: 'species',
+        label: 'Species'
+    }
+]
+
 const Introduction = () => {
     const router = useRouter()
     const [homeSearchValue, setHomeSearchValue] = useState({
         microbeField: 'archaea',
         magField: 'unMAG',
+        searchField: 'microbial_id',
         keyword: ''
     })
 
@@ -48,8 +60,8 @@ const Introduction = () => {
         setHomeSearchValue(newValue)
     }
 
-    const handleSearch = ({ microbeField, magField, keyword }) => {
-        router.push(`/database/genomes?microbe=${microbeField}&mag=${magField}&keyword=${keyword}`)
+    const handleSearch = ({ microbeField, magField, keyword, searchField }) => {
+        router.push(`/database/genomes?microbe=${microbeField}&mag=${magField}&keyword=${keyword}&searchField=${searchField}`)
     }
 
     return (
@@ -102,6 +114,7 @@ const Introduction = () => {
                         onSearch={handleSearch}
                         microbeOptions={microbeOptions}
                         magOptions={magOptions}
+                        searchFieldOptions={searchFieldOptions}
                         size='large'
                         placeholder='Enter Microbial ID'
                         searchTip='eg. GCA_000025685.1, GCF_000006805.1, GCF_000025685.1, GCF_004799605.1'

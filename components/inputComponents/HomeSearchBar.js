@@ -9,11 +9,12 @@ const HomeSearchBar = ({
     onSearch,
     microbeOptions,
     magOptions,
+    searchFieldOptions,
     size = 'middle',
     placeholder = 'Enter keyword',
     searchTip = ''
 }) => {
-    const { microbeField = 'archaea', magField = 'unMAG', keyword = '' } = value
+    const { microbeField = 'archaea', magField = 'unMAG', searchField = 'microbial_id', keyword = '' } = value
 
     const triggerChange = (changed) => {
         if (onChange) {
@@ -22,7 +23,7 @@ const HomeSearchBar = ({
     }
 
     const handleSearch = () => {
-        onSearch?.({ microbeField, magField, keyword })
+        onSearch?.({ microbeField, magField, keyword, searchField })
     }
 
     return (
@@ -39,6 +40,13 @@ const HomeSearchBar = ({
                 options={magOptions}
                 style={{ width: 200 }}
                 onChange={(val) => triggerChange({ magField: val })}
+                size={size}
+            />
+            <Select
+                value={searchField}
+                options={searchFieldOptions}
+                style={{ width: 200 }}
+                onChange={(val) => triggerChange({ searchField: val })}
                 size={size}
             />
             <Box

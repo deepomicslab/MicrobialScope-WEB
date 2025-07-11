@@ -8,6 +8,7 @@ import { useDrag, useDrop } from "react-dnd"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
 import { DATABASECONFIG } from "@/components/pagesComponents/databasePage/DatabaseContent"
 import { useDatabaseDetailModalContext } from "@/components/context/DatabaseDetailModalContext"
+import { getSearchField } from "@/pages/database/[dataType]"
 
 const DataTableSearchBar = ({
     dataCount,
@@ -17,12 +18,13 @@ const DataTableSearchBar = ({
     showAllColumns,
     setColumns,
     searchContent,
-    handleSearContentChange
+    handleSearchValueChange,
+    handelSearchFieldChange
 }) => {
     const { dataTableState, dataType } = useDatabaseContext()
     const { microbe, magStatus } = dataTableState
     const [localSearchText, setLocalSearchText] = useState({
-        field: fieldMap[microbe],
+        field: getSearchField(microbe, searchContent.field),
         value: ''
     })
 
@@ -34,19 +36,20 @@ const DataTableSearchBar = ({
     }
 
     const onSearch = () => {
-        handleSearContentChange(localSearchText.value)
+        handleSearchValueChange(localSearchText.value)
+        handelSearchFieldChange(localSearchText.field)
     }
 
     const onClear = () => {
-        handleSearContentChange('')
+        handleSearchValueChange('')
     }
 
     useEffect(() => {
         setLocalSearchText({
-            field: fieldMap[microbe],
+            field: getSearchField(microbe, searchContent.field),
             value: searchContent.value
         })
-    }, [microbe, searchContent.value])
+    }, [microbe, searchContent.field, searchContent.value])
 
     return (
         <Stack direction="row" spacing={2}>
@@ -308,12 +311,5 @@ const SwitchCard = memo(
         )
     }
 )
-
-export const fieldMap = {
-    archaea: 'archaea_id',
-    bacteria: 'bacteria_id',
-    fungi: 'fungi_id',
-    viruses: 'viruses_id',
-}
 
 export default DataTableSearchBar
