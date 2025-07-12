@@ -1,12 +1,12 @@
 import { Stack } from "@mui/system"
-import ActionButtonGroup from "@/components/pagesComponents/analysisPage/ActionButtonGroup"
-import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/AnalysisAlert"
-import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/AnalysisSubmitCard"
-import { Typography } from 'antd'
+import { Typography } from "antd"
+import ActionButtonGroup from "@/components/pagesComponents/analysisPage/shared/ActionButtonGroup"
+import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/shared/AnalysisAlert"
+import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
 
-const { Title } = Typography
+const { Title, Paragraph, Text, Link } = Typography
 
-const VFandARGModule = ({}) => {
+const ORFModule = ({}) => {
     const onRunDemo = () => {
         console.log('Run Demo!')
     }
@@ -17,10 +17,6 @@ const VFandARGModule = ({}) => {
 
     const onHelp = () => {
         console.log('Help!')
-    }
-
-    const onReportBug = () => {
-        console.log('Report Bug!')
     }
 
     return (
@@ -38,7 +34,7 @@ const VFandARGModule = ({}) => {
                     borderBottom: '1px solid rgb(211, 211, 211)'
                 }}
             >
-                Virulent Factor & Antibiotic Resistance Gene Detection
+                ORF prediction & Protein classification
             </Title>
             <ActionButtonGroup
                 onRunDemo={onRunDemo}
@@ -51,4 +47,5 @@ const VFandARGModule = ({}) => {
     )
 }
 
-export default VFandARGModule
+
+export default ORFModule

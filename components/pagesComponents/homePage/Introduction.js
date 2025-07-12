@@ -116,8 +116,6 @@ const Introduction = () => {
                         magOptions={magOptions}
                         searchFieldOptions={searchFieldOptions}
                         size='large'
-                        placeholder='Enter Microbial ID'
-                        searchTip='eg. GCA_000025685.1, GCF_000006805.1, GCF_000025685.1, GCF_004799605.1'
                     />
                 </Box>
 

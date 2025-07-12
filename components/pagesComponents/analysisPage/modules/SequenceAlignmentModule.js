@@ -1,12 +1,13 @@
 import { Stack } from "@mui/system"
+import ActionButtonGroup from "@/components/pagesComponents/analysisPage/shared/ActionButtonGroup"
+import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/shared/AnalysisAlert"
+import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
 import { Typography } from "antd"
-import ActionButtonGroup from "@/components/pagesComponents/analysisPage/ActionButtonGroup"
-import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/AnalysisAlert"
-import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/AnalysisSubmitCard"
+import { Span } from "@/components/styledComponents/styledHTMLTags"
 
 const { Title, Paragraph, Text, Link } = Typography
 
-const ORFModule = ({}) => {
+const SequenceAlignmentModule = ({}) => {
     const onRunDemo = () => {
         console.log('Run Demo!')
     }
@@ -17,10 +18,6 @@ const ORFModule = ({}) => {
 
     const onHelp = () => {
         console.log('Help!')
-    }
-
-    const onReportBug = () => {
-        console.log('Report Bug!')
     }
 
     return (
@@ -38,7 +35,7 @@ const ORFModule = ({}) => {
                     borderBottom: '1px solid rgb(211, 211, 211)'
                 }}
             >
-                ORF prediction & Protein classification
+                Sequence Alignment
             </Title>
             <ActionButtonGroup
                 onRunDemo={onRunDemo}
@@ -46,10 +43,19 @@ const ORFModule = ({}) => {
                 onHelp={onHelp}
             />
             <AnalysisBasicAlert/>
-            <AnalysisSubmitCard/>
+            <AnalysisSubmitCard uploadTip={<UploadTip/>}/>
         </Stack>
     )
 }
 
+const UploadTip = () => (
+    <AnalysisBasicAlert
+        info={
+            <Span sx={{ fontSize: '16px' }}>
+                The number of sequences uploaded to perform sequence alignment must be <Span sx={{ color: 'red' }}>at least two</Span>.
+            </Span>
+        }
+    />
+)
 
-export default ORFModule
+export default SequenceAlignmentModule

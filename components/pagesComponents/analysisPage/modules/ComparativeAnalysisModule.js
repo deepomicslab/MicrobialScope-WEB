@@ -1,12 +1,13 @@
 import { Stack } from "@mui/system"
-import ActionButtonGroup from "@/components/pagesComponents/analysisPage/ActionButtonGroup"
-import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/AnalysisAlert"
-import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/AnalysisSubmitCard"
+import ActionButtonGroup from "@/components/pagesComponents/analysisPage/shared/ActionButtonGroup"
+import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/shared/AnalysisAlert"
+import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
 import { Typography } from "antd"
+import { Span } from "@/components/styledComponents/styledHTMLTags"
 
 const { Title } = Typography
 
-const TPModule = ({}) => {
+const ComparativeAnalysisModule = ({}) => {
     const onRunDemo = () => {
         console.log('Run Demo!')
     }
@@ -17,10 +18,6 @@ const TPModule = ({}) => {
 
     const onHelp = () => {
         console.log('Help!')
-    }
-
-    const onReportBug = () => {
-        console.log('Report Bug!')
     }
 
     return (
@@ -38,7 +35,7 @@ const TPModule = ({}) => {
                     borderBottom: '1px solid rgb(211, 211, 211)'
                 }}
             >
-                Transmembrane Protein Annotation
+                Comparative Analysis
             </Title>
             <ActionButtonGroup
                 onRunDemo={onRunDemo}
@@ -46,9 +43,19 @@ const TPModule = ({}) => {
                 onHelp={onHelp}
             />
             <AnalysisBasicAlert/>
-            <AnalysisSubmitCard/>
+            <AnalysisSubmitCard uploadTip={<UploadTip/>}/>
         </Stack>
     )
 }
 
-export default TPModule
+const UploadTip = () => (
+    <AnalysisBasicAlert
+        info={
+            <Span sx={{ fontSize: '16px' }}>
+                The number of sequences uploaded to construct comparative tree must be <Span sx={{ color: 'red' }}>at least three</Span>.
+            </Span>
+        }
+    />
+)
+
+export default ComparativeAnalysisModule

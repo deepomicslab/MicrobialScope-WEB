@@ -1,11 +1,12 @@
 import { Box } from "@mui/system"
-import { BranchesOutlined, BugOutlined, ColumnHeightOutlined, PartitionOutlined } from "@ant-design/icons"
 import { ConfigProvider, Menu } from "antd"
 import { useState } from "react"
-import ORFModule from "@/components/pagesComponents/analysisPage/ORFModule"
-import TRNAModule from "@/components/pagesComponents/analysisPage/TRNAModule"
-import VFandARGModule from "@/components/pagesComponents/analysisPage/VFandARGModule"
-import TPModule from "@/components/pagesComponents/analysisPage/TPModule"
+import ORFModule from "@/components/pagesComponents/analysisPage/modules/ORFModule"
+import TRNAModule from "@/components/pagesComponents/analysisPage/modules/TRNAModule"
+import VFandARGModule from "@/components/pagesComponents/analysisPage/modules/VFandARGModule"
+import TPModule from "@/components/pagesComponents/analysisPage/modules/TPModule"
+import SequenceAlignmentModule from "@/components/pagesComponents/analysisPage/modules/SequenceAlignmentModule"
+import ComparativeAnalysisModule from "@/components/pagesComponents/analysisPage/modules/ComparativeAnalysisModule"
 
 const customTheme = {
     components: {
@@ -30,6 +31,10 @@ const Analysis = ({}) => {
                 return <VFandARGModule/>
             case "transmembrane":
                 return <TPModule/>
+            case "alignment":
+                return <SequenceAlignmentModule/>
+            case "comparative":
+                return <ComparativeAnalysisModule/>
             default:
                 return null
         }
@@ -56,17 +61,23 @@ const Analysis = ({}) => {
                         onClick={({ key }) => setSelectedKey(key)}
                         style={{ borderRight: 'none' }}
                     >
-                        <Menu.Item key="orf" icon={<PartitionOutlined/>}>
+                        <Menu.Item key="orf">
                             ORF prediction & Protein classification
                         </Menu.Item>
-                        <Menu.Item key="trna" icon={<BranchesOutlined/>}>
+                        <Menu.Item key="trna">
                             tRNA & tmRNA Prediction
                         </Menu.Item>
-                        <Menu.Item key="vf" icon={<BugOutlined/>}>
+                        <Menu.Item key="vf">
                             Virulent Factor & ARG Detection
                         </Menu.Item>
-                        <Menu.Item key="transmembrane" icon={<ColumnHeightOutlined/>}>
+                        <Menu.Item key="transmembrane">
                             Transmembrane Protein Annotation
+                        </Menu.Item>
+                        <Menu.Item key="alignment">
+                            Sequence Alignment
+                        </Menu.Item>
+                        <Menu.Item key="comparative">
+                            Comparative Analysis
                         </Menu.Item>
                     </Menu>
                 </ConfigProvider>

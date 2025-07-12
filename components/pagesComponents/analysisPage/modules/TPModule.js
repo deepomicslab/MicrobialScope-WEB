@@ -1,12 +1,12 @@
-import ActionButtonGroup from "@/components/pagesComponents/analysisPage/ActionButtonGroup"
-import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/AnalysisAlert"
-import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/AnalysisSubmitCard"
 import { Stack } from "@mui/system"
+import ActionButtonGroup from "@/components/pagesComponents/analysisPage/shared/ActionButtonGroup"
+import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/shared/AnalysisAlert"
+import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
 import { Typography } from "antd"
 
 const { Title } = Typography
 
-const TRNAModule = ({}) => {
+const TPModule = ({}) => {
     const onRunDemo = () => {
         console.log('Run Demo!')
     }
@@ -38,7 +38,7 @@ const TRNAModule = ({}) => {
                     borderBottom: '1px solid rgb(211, 211, 211)'
                 }}
             >
-                tRNA & tmRNA prediction
+                Transmembrane Protein Annotation
             </Title>
             <ActionButtonGroup
                 onRunDemo={onRunDemo}
@@ -51,4 +51,4 @@ const TRNAModule = ({}) => {
     )
 }
 
-export default TRNAModule
+export default TPModule

@@ -11,10 +11,11 @@ const HomeSearchBar = ({
     magOptions,
     searchFieldOptions,
     size = 'middle',
-    placeholder = 'Enter keyword',
-    searchTip = ''
 }) => {
     const { microbeField = 'archaea', magField = 'unMAG', searchField = 'microbial_id', keyword = '' } = value
+
+    const searchTip = searchField === 'microbial_id' ? 'eg. GCA_000025685.1, GCF_000006805.1, GCF_000025685.1, GCF_004799605.1' : 'eg. Haloferax volcanii, Sulfolobus acidocaldarius, Pyrococcus furiosus, Methanosarcina mazei'
+    const placeholder = searchField === 'microbial_id' ? 'Enter Microbial ID' : 'Enter Species'
 
     const triggerChange = (changed) => {
         if (onChange) {

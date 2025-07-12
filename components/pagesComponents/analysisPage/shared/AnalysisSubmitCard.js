@@ -1,25 +1,53 @@
 import { Box, Stack } from "@mui/system"
-import { Alert, Button, Card, Select, Upload, Typography } from "antd"
-import { UploadOutlined } from "@ant-design/icons"
+import { Alert, Button, Card, Select, Upload, Typography, message } from "antd"
+import { FileOutlined, UploadOutlined } from "@ant-design/icons"
 import { useState } from "react"
+import { A } from "@/components/styledComponents/styledHTMLTags"
 
 const { Title } = Typography
 
 const microbialOptions = [
     { label: 'Archaea', value: 'archaea' },
     { label: 'Bacteria', value: 'bacteria' },
-    { label: 'Virus', value: 'virus' }
+    { label: 'Fungi', value: 'fungi' },
+    { label: 'Viruses', value: 'viruses' }
 ]
 
-const AnalysisSubmitCard = ({
+const MAX_FILE_SIZE_MB = 10
+const ALLOWED_EXTENSIONS = ['.fasta', '.fa', '.fna']
 
+const isValidFile = (file, messageApi) => {
+    console.log(file)
+    const ext = file.name.slice(file.name.lastIndexOf('.')).toLowerCase()
+    const isAllowed = ALLOWED_EXTENSIONS.includes(ext)
+    const isSizeValid = file.size / 1024 / 1024 < MAX_FILE_SIZE_MB
+
+    if (!isAllowed) {
+        messageApi.error(`File type not allowed. Must be: ${ALLOWED_EXTENSIONS.join(', ')}`)
+    }
+    if (!isSizeValid) {
+        messageApi.error('File size must be under 10MB.')
+    }
+
+    return isAllowed && isSizeValid
+}
+
+const AnalysisSubmitCard = ({
+    uploadTip = null,
+    demoFilePath = '/demoData/GCA_000006805.1.fna'
 }) => {
     const [microbialType, setMicrobialType] = useState(null)
     const [fileList, setFileList] = useState([])
     const [submitted, setSubmitted] = useState(false)
+    const [messageApi, contextHolder] = message.useMessage()
+
+    const handleBeforeUpload = (file) => {
+        return isValidFile(file, messageApi) ? false : Upload.LIST_IGNORE
+    }
 
     const handleFileChange = ({ fileList: newList }) => {
-        setFileList(newList)
+        const trimmedList = newList.slice(-1)
+        setFileList(trimmedList)
     }
 
     const handleSubmit = () => {
@@ -57,13 +85,27 @@ const AnalysisSubmitCard = ({
                 </Box>
 
                 <Box>
-                    <Title level={3} style={{ marginBottom: 16, marginTop: 12 }}>
-                        2. Upload Sequence File
-                    </Title>
-                    <Box>
+                    <Stack
+                        direction="row"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <Title level={3} style={{ marginBottom: 16, marginTop: 12 }}>
+                            2. Upload Sequence File
+                        </Title>
+                        <Button
+                            type='primary'
+                            icon={<FileOutlined/>}
+                            href={demoFilePath}
+                        >
+                            See Example FASTA
+                        </Button>
+                    </Stack>
+                    <Stack spacing={2}>
+                        {uploadTip}
                         <Upload.Dragger
-                            accept=".fasta,.fa"
-                            beforeUpload={() => false}
+                            accept=".fasta,.fa, .fna"
+                            beforeUpload={handleBeforeUpload}
                             multiple={false}
                             fileList={fileList}
                             onChange={handleFileChange}
@@ -82,7 +124,7 @@ const AnalysisSubmitCard = ({
                                 Only .fasta / .fa / .fna formats. File should be under 10MB.
                             </p>
                         </Upload.Dragger>
-                    </Box>
+                    </Stack>
                 </Box>
 
                 {submitted && (!microbialType || fileList.length === 0) && (
@@ -99,6 +141,7 @@ const AnalysisSubmitCard = ({
                     </Button>
                 </Box>
             </Stack>
+            {contextHolder}
         </Card>
     )
 }
