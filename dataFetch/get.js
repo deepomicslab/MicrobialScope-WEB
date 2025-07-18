@@ -14,6 +14,10 @@ export const downloadSingleFile = (fileUrl) => {
 
 const apiPrefix = process.env.NEXT_PUBLIC_API_URL
 
+// Analysis URLs
+export const getAnalysisTasks = `https://microbialapi.deepomics.org/api/analysis/task_list/`
+export const getAnalysisTaskDetail = `https://microbialapi.deepomics.org/api/analysis/view_task_detail/`
+
 // Microbe URLs
 export const getMicrobeStatisticsURL = `${apiPrefix}/microbe/microbe_statistics`
 export const getProteinCIFURL = `${apiPrefix}/microbe/protein_cif`

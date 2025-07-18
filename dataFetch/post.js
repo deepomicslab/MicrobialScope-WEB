@@ -19,6 +19,9 @@ export const postDownloadBatchFile = (url, data, showMessage) => {
 
 export const apiPrefix = process.env.NEXT_PUBLIC_API_URL
 
+// Analysis URLs
+export const postAnalysisRunDemoURL = `https://microbialapi.deepomics.org/api/analysis/submit_task/`
+
 // Archaea Genomes URLs
 export const postArchaeaGenomesURL = `${apiPrefix}/archaea/genomes`
 export const postUnMAGArchaeaGenomesURL = `${apiPrefix}/archaea/genomes_unmag`

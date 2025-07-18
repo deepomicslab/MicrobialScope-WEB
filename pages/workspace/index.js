@@ -1,6 +1,12 @@
 import { Button, Input, Space, Table, Tag, Typography } from "antd"
 import { Box, Stack } from "@mui/system"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import useSWR, { mutate } from "swr"
+import { fetcher, getAnalysisTasks } from "@/dataFetch/get"
+import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
+import { LoadingView } from "@/components/stateViews/LoadingView"
+import { ErrorView } from "@/components/stateViews/ErrorView"
+import { ReloadOutlined } from "@ant-design/icons"
 
 const { Search } = Input
 const { Title, Text } = Typography
@@ -20,44 +26,61 @@ const mockData = [
 const columns = [
     {
         title: 'Task ID',
-        dataIndex: 'taskId',
+        dataIndex: 'id',
         key: 'taskId',
         align: 'center',
+        sorter: (a, b) => a.id - b.id
     },
     {
         title: 'Task Name',
-        dataIndex: 'taskName',
+        dataIndex: 'name',
         key: 'taskName',
-        align: 'center',
+        align: 'center'
     },
     {
         title: 'Analysis Type',
-        dataIndex: 'analysisType',
+        dataIndex: 'analysis_type',
         key: 'analysisType',
         align: 'center',
+        filters: [
+            { text: 'ORF prediction & Protein classification', value: 'ORF prediction & Protein classification' },
+        ],
+        onFilter: (value, record) => record['analysis_type'] === value
     },
     {
         title: 'Microbial Type',
-        dataIndex: 'microbialType',
+        dataIndex: 'microbial_type',
         key: 'microbialType',
         align: 'center',
+        filters: [
+            { text: 'Archaea', value: 'Archaea' },
+            { text: 'Bacteria', value: 'Bacteria' },
+            { text: 'Fungi', value: 'Fungi' },
+            { text: 'Viruses', value: 'Viruses' },
+        ],
+        onFilter: (value, record) => record['microbial_type'] === value
     },
     {
         title: 'Status',
         dataIndex: 'status',
         key: 'status',
         align: 'center',
-        sorter: true,
+        filters: [
+            { text: 'Success', value: 'Success' },
+            { text: 'Running', value: 'Running' },
+            { text: 'Failed', value: 'Failed' },
+        ],
+        onFilter: (value, record) => record.status === value,
         render: (text) => (
             <Tag color={text === 'Success' ? 'blue' : 'orange'}>{text}</Tag>
-        ),
+        )
     },
     {
         title: 'Created Time',
-        dataIndex: 'createdTime',
+        dataIndex: 'created_at',
         key: 'createdTime',
         align: 'center',
-        sorter: true,
+        sorter: (a, b) => new Date(a['created_at']) - new Date(b['created_at'])
     },
     {
         title: 'Actions',
@@ -72,13 +95,59 @@ const columns = [
                     task log
                 </Button>
             </Space>
-        ),
+        )
     },
 ]
 
-const Workspace = ({}) => {
+const WorkspaceWrapper = ({}) => {
+    const [userId, setUserId] = useState(null)
+
+    useEffect(() => {
+        const id = getOrCreateUserId()
+        setUserId(id)
+    }, [])
+
+    const {
+        data,
+        isLoading,
+        error
+    } = useSWR(
+        userId ? `${getAnalysisTasks}?userid=${userId}` : null,
+        fetcher
+    )
+
+    if (!userId || isLoading) {
+        return <LoadingView containerSx={{ height: '80vh', marginTop: '40px' }}/>
+    }
+
+    if (error) {
+        return <ErrorView containerSx={{ height: '80vh', marginTop: '40px' }}/>
+    }
+
+    return <Workspace tableData={data.results} userId={userId}/>
+}
+
+const Workspace = ({ tableData, userId }) => {
     const [taskId, setTaskId] = useState('')
-    const [tableData, setTableData] = useState(mockData)
+    const [refreshing, setRefreshing] = useState(false)
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 10,
+        showSizeChanger: true,
+        showQuickJumper: true,
+    })
+
+    const handleRefresh = async () => {
+        setRefreshing(true)
+        await mutate(`${getAnalysisTasks}?userid=${userId}`)
+        setRefreshing(false)
+    }
+
+    const handleTableChange = (pagination) => {
+        setPagination({
+            ...pagination,
+        });
+    }
 
     return (
         <Box
@@ -118,7 +187,7 @@ const Workspace = ({}) => {
                     alignItems="center"
                 >
                     <Title level={2}>Submitted Task(s)</Title>
-                    <Button type="primary">
+                    <Button type="primary" onClick={handleRefresh} icon={<ReloadOutlined />}>
                         Refresh Status
                     </Button>
                 </Stack>
@@ -135,15 +204,13 @@ const Workspace = ({}) => {
                 <Table
                     columns={columns}
                     dataSource={tableData}
-                    pagination={{
-                        pageSize: 30,
-                        showSizeChanger: true,
-                        showQuickJumper: true,
-                    }}
+                    loading={refreshing}
+                    pagination={pagination}
+                    onChange={handleTableChange}
                 />
             </Box>
         </Box>
     )
 }
 
-export default Workspace
+export default WorkspaceWrapper

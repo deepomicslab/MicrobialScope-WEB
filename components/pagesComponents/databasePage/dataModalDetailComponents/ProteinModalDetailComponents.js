@@ -5,6 +5,7 @@ import {
     COGCategoryChips
 } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
 import dynamic from "next/dynamic"
+import MolstarViewer from "@/components/pagesComponents/MolStarComponents/MolstarViewer"
 
 const MolStarWrapper = dynamic(() => import('@/components/pagesComponents/MolStarComponents/MolStarWrapper'), {
     ssr: false,
@@ -186,7 +187,8 @@ export const ProteinModalDetailDescriptions = ({ record, microbe }) => {
                     mt: '12px'
                 }}
             >
-                <MolStarWrapper proteinId={record['protein_id']} sequence={record['sequence']}/>
+                {/*<MolStarWrapper proteinId={record['protein_id']} sequence={record['sequence']}/>*/}
+                <MolstarViewer proteinId={record['protein_id']} sequence={record['sequence']}/>
             </Box>
         </>
 

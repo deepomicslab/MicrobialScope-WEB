@@ -8,8 +8,8 @@ body {
 .msp-layout-top,
 .msp-layout-left,
 .msp-layout-right,
-.msp-layout-bottom,
-.msp-viewport-controls
+.msp-layout-bottom
+/*.msp-viewport-controls*/
 {
   display: none;
 }

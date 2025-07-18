@@ -4,16 +4,19 @@ import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/sh
 import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
 import { Typography } from "antd"
 import { Span } from "@/components/styledComponents/styledHTMLTags"
+import { useRouter } from "next/router"
 
 const { Title, Paragraph, Text, Link } = Typography
 
 const SequenceAlignmentModule = ({}) => {
+    const router = useRouter()
+
     const onRunDemo = () => {
         console.log('Run Demo!')
     }
 
     const onViewResult = () => {
-        console.log('View Result!')
+        router.push('/analysis/result/sequence_alignment/1')
     }
 
     const onHelp = () => {

@@ -1,23 +1,23 @@
 import { Box, Stack } from "@mui/system"
 import { Alert, Button, Card, Select, Upload, Typography, message } from "antd"
-import { FileOutlined, UploadOutlined } from "@ant-design/icons"
+import { UploadOutlined } from "@ant-design/icons"
 import { useState } from "react"
-import { A } from "@/components/styledComponents/styledHTMLTags"
+import { DropdownDownloadDemoButton } from "@/components/pagesComponents/analysisPage/shared/DropdownButtons"
+import { useGlobalMessage } from "@/components/context/MessageContext"
 
 const { Title } = Typography
 
 const microbialOptions = [
-    { label: 'Archaea', value: 'archaea' },
-    { label: 'Bacteria', value: 'bacteria' },
-    { label: 'Fungi', value: 'fungi' },
-    { label: 'Viruses', value: 'viruses' }
+    { label: 'Archaea', value: 'Archaea' },
+    { label: 'Bacteria', value: 'Bacteria' },
+    { label: 'Fungi', value: 'Fungi' },
+    { label: 'Viruses', value: 'Viruses' }
 ]
 
-const MAX_FILE_SIZE_MB = 10
+const MAX_FILE_SIZE_MB = 20
 const ALLOWED_EXTENSIONS = ['.fasta', '.fa', '.fna']
 
 const isValidFile = (file, messageApi) => {
-    console.log(file)
     const ext = file.name.slice(file.name.lastIndexOf('.')).toLowerCase()
     const isAllowed = ALLOWED_EXTENSIONS.includes(ext)
     const isSizeValid = file.size / 1024 / 1024 < MAX_FILE_SIZE_MB
@@ -26,7 +26,7 @@ const isValidFile = (file, messageApi) => {
         messageApi.error(`File type not allowed. Must be: ${ALLOWED_EXTENSIONS.join(', ')}`)
     }
     if (!isSizeValid) {
-        messageApi.error('File size must be under 10MB.')
+        messageApi.error('File size must be under 20MB.')
     }
 
     return isAllowed && isSizeValid
@@ -34,12 +34,12 @@ const isValidFile = (file, messageApi) => {
 
 const AnalysisSubmitCard = ({
     uploadTip = null,
-    demoFilePath = '/demoData/GCA_000006805.1.fna'
+    onSubmit
 }) => {
     const [microbialType, setMicrobialType] = useState(null)
     const [fileList, setFileList] = useState([])
     const [submitted, setSubmitted] = useState(false)
-    const [messageApi, contextHolder] = message.useMessage()
+    const messageApi = useGlobalMessage()
 
     const handleBeforeUpload = (file) => {
         return isValidFile(file, messageApi) ? false : Upload.LIST_IGNORE
@@ -53,12 +53,8 @@ const AnalysisSubmitCard = ({
     const handleSubmit = () => {
         if (!microbialType || fileList.length === 0) {
             setSubmitted(true)
-            return
         }
-        console.log('Submit:', {
-            microbialType,
-            file: fileList[0],
-        })
+        onSubmit(microbialType, fileList)
     }
 
     return (
@@ -93,13 +89,7 @@ const AnalysisSubmitCard = ({
                         <Title level={3} style={{ marginBottom: 16, marginTop: 12 }}>
                             2. Upload Sequence File
                         </Title>
-                        <Button
-                            type='primary'
-                            icon={<FileOutlined/>}
-                            href={demoFilePath}
-                        >
-                            See Example FASTA
-                        </Button>
+                        <DropdownDownloadDemoButton/>
                     </Stack>
                     <Stack spacing={2}>
                         {uploadTip}
@@ -121,7 +111,7 @@ const AnalysisSubmitCard = ({
                             </p>
                             <p className="ant-upload-text">Click or drag file to upload</p>
                             <p className="ant-upload-hint">
-                                Only .fasta / .fa / .fna formats. File should be under 10MB.
+                                Only .fasta / .fa / .fna formats. File should be under 20MB.
                             </p>
                         </Upload.Dragger>
                     </Stack>
@@ -141,7 +131,6 @@ const AnalysisSubmitCard = ({
                     </Button>
                 </Box>
             </Stack>
-            {contextHolder}
         </Card>
     )
 }
