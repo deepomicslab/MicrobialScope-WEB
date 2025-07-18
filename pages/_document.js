@@ -4,7 +4,16 @@ import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 const MyDocument = () => (
     <Html lang="en">
-        <Head />
+        <Head>
+            <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/pdbe-molstar@3.3.0/build/pdbe-molstar-light.css"
+            />
+            <script
+                src="https://cdn.jsdelivr.net/npm/pdbe-molstar@3.3.0/build/pdbe-molstar-plugin.js"
+                defer
+            />
+        </Head>
         <body>
         <Main />
         <NextScript />

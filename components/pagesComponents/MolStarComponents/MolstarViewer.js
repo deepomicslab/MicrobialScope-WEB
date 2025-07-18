@@ -32,76 +32,52 @@ import { getProteinCIFURL } from "@/dataFetch/get"
 
 const MolstarViewer = ({ proteinId, sequence, options = {} }) => {
     const viewerRef = useRef(null);
-    const [isScriptReady, setIsScriptReady] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const initializeViewer = async () => {
-        if (window.PDBeMolstarPlugin && viewerRef.current) {
-            setIsLoading(true);
-            setError(null);
+        if (!viewerRef.current) return
 
-            try {
-                const viewerInstance = new window.PDBeMolstarPlugin();
+        if (!isLoading) setIsLoading(true)
+        setError(null);
 
-                // 构建自定义数据 URL
-                const customDataUrl = `${getProteinCIFURL}?proteinId=${proteinId}&sequence=${encodeURIComponent(sequence)}`;
-
-                const defaultOptions = {
-                    // 使用自定义数据源
-                    customData: {
-                        url: customDataUrl,
-                        format: 'mmcif', // 或 'pdb'，取决于你的数据格式
-                        binary: false
-                    },
-
-                    // 样式设置
-                    bgColor: 'white',
-                    alphafoldView: true,
-                    hideCanvasControls: ['selection', 'animation'],
-                    visualStyle: 'cartoon',
-
-                    // 其他选项
-                    ...options
-                };
-
-                await viewerInstance.render(viewerRef.current, defaultOptions);
-
-                // 应用颜色方案
-                setTimeout(() => {
-                    applyColorScheme(viewerInstance);
-                }, 2000);
-
-                setIsLoading(false);
-            } catch (err) {
-                setError('Failed to load protein structure');
-                setIsLoading(false);
-                console.error('Error loading custom data:', err);
-            }
-        }
-    };
-
-    const applyColorScheme = (viewerInstance) => {
         try {
-            if (viewerInstance.visual && viewerInstance.visual.update) {
-                viewerInstance.visual.update({
-                    polymer: {
-                        type: 'cartoon',
-                        color: { name: 'secondary-structure' },
-                        size: { name: 'uniform' }
-                    }
-                });
-            }
-        } catch (error) {
-            console.log('Color scheme not applied, using default');
+            viewerRef.current.innerHTML = ''
+
+            const viewerInstance = new window.PDBeMolstarPlugin()
+
+            // 构建自定义数据 URL
+            const customDataUrl = `${getProteinCIFURL}?proteinId=${proteinId}&sequence=${encodeURIComponent(sequence)}`;
+
+            const defaultOptions = {
+                customData: {
+                    url: customDataUrl,
+                    format: 'mmcif',
+                    binary: false
+                },
+
+                bgColor: 'white',
+                alphafoldView: true,
+                hideCanvasControls: ['selection', 'animation'],
+                visualStyle: 'cartoon',
+
+                ...options
+            };
+
+            await viewerInstance.render(viewerRef.current, defaultOptions);
+        } catch (err) {
+            setError('Failed to load protein structure')
+            console.error('Error loading custom data:', err)
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        if (isScriptReady && proteinId && sequence) {
-            initializeViewer();
-        }
-    }, [isScriptReady, proteinId, sequence]);
+        if (!window.PDBeMolstarPlugin) return
+
+        initializeViewer()
+    }, [proteinId, sequence])
 
     if (error) {
         return (
@@ -123,20 +99,7 @@ const MolstarViewer = ({ proteinId, sequence, options = {} }) => {
 
     return (
         <>
-            <link
-                rel="stylesheet"
-                type="text/css"
-                href="https://cdn.jsdelivr.net/npm/pdbe-molstar@3.3.0/build/pdbe-molstar-light.css"
-            />
-
-            <Script
-                src="https://cdn.jsdelivr.net/npm/pdbe-molstar@3.3.0/build/pdbe-molstar-plugin.js"
-                strategy="afterInteractive"
-                onLoad={() => setIsScriptReady(true)}
-                onError={(e) => console.error('Failed to load PDBe Molstar script:', e)}
-            />
-
-            {(!isScriptReady || isLoading) && (
+            { isLoading && (
                 <div style={{
                     width: '100%',
                     height: '600px',
@@ -163,7 +126,7 @@ const MolstarViewer = ({ proteinId, sequence, options = {} }) => {
                 style={{
                     width: '100%',
                     height: '600px',
-                    display: (isScriptReady && !isLoading) ? 'block' : 'none',
+                    display: !isLoading ? 'block' : 'none',
                     border: '1px solid #ddd',
                     borderRadius: '4px',
                     backgroundColor: 'white'

@@ -188,7 +188,11 @@ export const ProteinModalDetailDescriptions = ({ record, microbe }) => {
                 }}
             >
                 {/*<MolStarWrapper proteinId={record['protein_id']} sequence={record['sequence']}/>*/}
-                <MolstarViewer proteinId={record['protein_id']} sequence={record['sequence']}/>
+                <MolstarViewer
+                    proteinId={record['protein_id']}
+                    sequence={record['sequence']}
+                    // key={`${record[microbeMap[microbe].value]}_${record['contig_id']}_${record['protein_id']}`}
+                />
             </Box>
         </>
 
