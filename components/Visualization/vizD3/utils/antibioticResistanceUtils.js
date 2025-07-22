@@ -192,8 +192,20 @@ export const extractAntibioticResistanceArrowData = (antibioticResistance) => {
     )
 }
 
+export const extractAnalysisAntibioticResistanceArrowData = (antibioticResistance) => {
+    return antibioticResistance.map(
+        ar => ({
+            id: ar.id,
+            name: ar['Protein_id'],
+            start: ar.start,
+            end: ar.end,
+            strand: ar.strand,
+            color: '#D32F2F'
+        })
+    )
+}
+
 const getDrugClassType = (drugClass) => {
-    console.log(drugClass)
     if (Array.isArray(drugClass)) {
         if (drugClass.length === 0) {
             return argTypeDict['Unknown'].color

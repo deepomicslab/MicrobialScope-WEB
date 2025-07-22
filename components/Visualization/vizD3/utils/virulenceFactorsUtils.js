@@ -11,3 +11,16 @@ export const extractVirulenceFactorData = (virulenceFactor) => {
         })
     );
 }
+
+export const extractAnalysisVirulenceFactorData = (virulenceFactor) => {
+    return virulenceFactor.map(
+        ar => ({
+            id: ar.id,
+            name: ar['Protein_id'],
+            start: ar.start,
+            end: ar.end,
+            strand: ar.strand,
+            color: '#FF6347'
+        })
+    );
+}

@@ -11,3 +11,14 @@ export const VirulenceFactorTooltipTemplate = (virulenceFactor) => {
         </TooltipWrapper>
     )
 }
+
+export const AnalysisVirulenceFactorTooltipTemplate = (virulenceFactor) => {
+    return (
+        <TooltipWrapper>
+            <TooltipHeader headerName={virulenceFactor.name}/>
+            <TooltipItem groupName='Start' groupValue={virulenceFactor.start}/>
+            <TooltipItem groupName='End' groupValue={virulenceFactor.end}/>
+            <TooltipItem groupName='Starnd' groupValue={virulenceFactor.strand === 0 ? 'Forward' : 'Reverse'}/>
+        </TooltipWrapper>
+    )
+}

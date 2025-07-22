@@ -1,7 +1,9 @@
 import { useRouter } from "next/router"
 import { Box } from "@mui/system"
-import { Span } from "@/components/styledComponents/styledHTMLTags"
 import ORFResult from "@/components/pagesComponents/analysisPage/results/ORFResult"
+import TRNAResult from "@/components/pagesComponents/analysisPage/results/TRNAResult"
+import VFandARGResult from "@/components/pagesComponents/analysisPage/results/VFandARGResult"
+import TPResult from "@/components/pagesComponents/analysisPage/results/TPResult"
 
 const TaskDetail = ({}) => {
     const router = useRouter()
@@ -12,11 +14,11 @@ const TaskDetail = ({}) => {
             case "orf":
                 return <ORFResult taskId={taskId}/>
             case "trna":
-                return <></>
+                return <TRNAResult taskId={taskId}/>
             case "vf":
-                return <></>
+                return <VFandARGResult taskId={taskId}/>
             case "transmembrane":
-                return <></>
+                return <TPResult taskId={taskId}/>
             case "alignment":
                 return <></>
             case "comparative":

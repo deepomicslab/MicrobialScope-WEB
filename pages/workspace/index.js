@@ -2,28 +2,17 @@ import { Button, Input, Space, Table, Tag, Typography } from "antd"
 import { Box, Stack } from "@mui/system"
 import { useEffect, useState } from "react"
 import useSWR, { mutate } from "swr"
-import { fetcher, getAnalysisTasks } from "@/dataFetch/get"
+import { fetcher, getAnalysisTasksURL } from "@/dataFetch/get"
 import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
 import { LoadingView } from "@/components/stateViews/LoadingView"
 import { ErrorView } from "@/components/stateViews/ErrorView"
 import { ReloadOutlined } from "@ant-design/icons"
+import { useRouter } from "next/router"
 
 const { Search } = Input
 const { Title, Text } = Typography
 
-const mockData = [
-    {
-        key: '1',
-        taskId: '2313',
-        taskName: 'ORF prediction & Protein classification 2313',
-        analysisType: 'ORF prediction & Protein classification',
-        microbialType: 'Archaea',
-        status: 'Success',
-        createdTime: '2025-07-07 11:42:02',
-    },
-]
-
-const columns = [
+const getTaskTableColumns = (handleViewResult) => [
     {
         title: 'Task ID',
         dataIndex: 'id',
@@ -88,10 +77,17 @@ const columns = [
         align: 'center',
         render: (_, record) => (
             <Space size='middle'>
-                <Button type="primary" style={{ background: '#3f51b5' }}>
+                <Button
+                    type="primary"
+                    disabled={record['status'] !== 'Success'}
+                    onClick={() => handleViewResult(record)}
+                >
                     view result
                 </Button>
-                <Button type="primary" style={{ background: '#00838f' }}>
+                <Button
+                    type="default"
+                    disabled={record['status'] !== 'Success'}
+                >
                     task log
                 </Button>
             </Space>
@@ -112,7 +108,7 @@ const WorkspaceWrapper = ({}) => {
         isLoading,
         error
     } = useSWR(
-        userId ? `${getAnalysisTasks}?userid=${userId}` : null,
+        userId ? `${getAnalysisTasksURL}?userid=${userId}` : null,
         fetcher
     )
 
@@ -137,9 +133,11 @@ const Workspace = ({ tableData, userId }) => {
         showQuickJumper: true,
     })
 
+    const router = useRouter()
+
     const handleRefresh = async () => {
         setRefreshing(true)
-        await mutate(`${getAnalysisTasks}?userid=${userId}`)
+        await mutate(`${getAnalysisTasksURL}?userid=${userId}`)
         setRefreshing(false)
     }
 
@@ -148,6 +146,16 @@ const Workspace = ({ tableData, userId }) => {
             ...pagination,
         });
     }
+
+    const handleViewResult = (record) => {
+        if (record['analysis_type'] === 'ORF prediction & Protein classification') {
+            router.push(`/analysis/result/orf/${record['id']}`)
+        }
+
+        return null
+    }
+
+    const columns = getTaskTableColumns(handleViewResult)
 
     return (
         <Box

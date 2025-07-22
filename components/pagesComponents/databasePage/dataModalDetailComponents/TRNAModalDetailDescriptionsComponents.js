@@ -103,3 +103,56 @@ const microbeMap = {
         value: 'viruses_id'
     }
 }
+
+export const AnalysisTRNAModalDetailDescriptions = ({ record }) => {
+    const items = buildAnalysisItems(record)
+
+    return (
+        <Stack spacing={2}>
+            <Descriptions bordered items={items} column={2}/>
+            <TextArea
+                value={record['seq']}
+                readOnly
+                rows={8}
+            />
+        </Stack>
+    )
+}
+
+const buildAnalysisItems = (record) => [
+    {
+        key: 'tRNAId',
+        label: 'tRNA ID',
+        children: <BasicChip value={record['trna_id']} color='gold'/>
+    },
+    {
+        key: 'tRNAType',
+        label: 'tRNA Type',
+        children: <BasicChip value={record['trnatype']} color='purple'/>,
+    },
+    {
+        key: 'microbialID',
+        label: 'Microbial ID',
+        children: <BasicChip value={record['phage_accid']} color="volcano"/>,
+    },
+    {
+        key: 'strand',
+        label: 'Strand',
+        children: <StrandChip strand={record['strand']} />
+    },
+    {
+        key: 'length',
+        label: 'Length',
+        children: record['length']
+    },
+    {
+        key: 'start',
+        label: 'Start',
+        children: record['start']
+    },
+    {
+        key: 'end',
+        label: 'End',
+        children: record['end']
+    }
+]

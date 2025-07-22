@@ -285,3 +285,86 @@ const microbeMap = {
         value: 'viruses_id'
     }
 }
+
+export const AnalysisProteinModalDetailDescriptions = ({ record }) => {
+    const items = buildAnalysisProteinItems(record)
+
+    return (
+        <>
+            <Stack spacing={2}>
+                <Descriptions bordered items={items} column={2}/>
+                <Stack>
+                    <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                        Product
+                    </Title>
+                    <TextArea
+                        value={record['Protein_product']}
+                        readOnly
+                        rows={1}
+                    />
+                </Stack>
+                <Stack>
+                    <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                        Sequence
+                    </Title>
+                    <TextArea
+                        value={record['sequence']}
+                        readOnly
+                        rows={3}
+                    />
+                </Stack>
+            </Stack>
+            <Box
+                sx={{
+                    width: '100%',
+                    height: 480,
+                    position: 'relative',
+                    mt: '12px'
+                }}
+            >
+                <MolstarViewer
+                    proteinId={record['Protein_id']}
+                    sequence={record['sequence']?.replace(/\*/g, '')}
+                />
+            </Box>
+        </>
+    )
+}
+
+const buildAnalysisProteinItems = (record) => [
+    {
+        key: 'proteinId',
+        label: 'Protein ID',
+        children: <BasicChip value={record['Protein_id']} color="gold"/>,
+    },
+    {
+        key: 'cogCategory',
+        label: 'COG Category',
+        children: <COGCategoryChips COGCategories={record['cog_category']}/>,
+    },
+    {
+        key: 'orfPredictionSource',
+        label: 'ORF Prediction Source',
+        children: 'Prodigal:2.6'
+    },
+    {
+        key: 'functionPredictionSource',
+        label: 'Function Prediction Source',
+        children: record['protein_function_prediction_source']
+    },
+    {
+        key: 'start',
+        label: 'Start',
+        children: record['Start_location'],
+    },
+    {
+        key: 'end',
+        label: 'End',
+        children: record['Stop_location'],
+    },
+    {
+        key: 'strand',
+        label: 'Strand',
+        children: record['Strand'],
+    }
+]

@@ -15,8 +15,14 @@ export const downloadSingleFile = (fileUrl) => {
 const apiPrefix = process.env.NEXT_PUBLIC_API_URL
 
 // Analysis URLs
-export const getAnalysisTasks = `https://microbialapi.deepomics.org/api/analysis/task_list/`
-export const getAnalysisTaskDetail = `https://microbialapi.deepomics.org/api/analysis/view_task_detail/`
+export const getAnalysisTasksURL = `https://microbialapi.deepomics.org/api/analysis/task_list/`
+export const getAnalysisTaskDetailURL = `https://microbialapi.deepomics.org/api/analysis/view_task_detail/`
+export const getAnalysisTaskResultURL = `https://microbialapi.deepomics.org/api/analysis/view_task_result/`
+export const getAnalysisTaskLogURL = `https://microbialapi.deepomics.org/api/analysis/view_task_log/`
+export const getAnalysisOutputFileURL = `https://microbialapi.deepomics.org/api/analysis/download_task_result_output_file/`
+export const getAnalysisSequenceProteinsURL = `https://microbialapi.deepomics.org/api/analysis/view_task_result_proteins/`
+export const getAnalysisSequenceFASTAURL = `https://microbialapi.deepomics.org/api/analysis/view_task_result_plasmid_fasta/`
+export const getAnalysisTaskModuleResultURL = `https://microbialapi.deepomics.org/api/analysis/view_task_result_modules/`
 
 // Microbe URLs
 export const getMicrobeStatisticsURL = `${apiPrefix}/microbe/microbe_statistics`

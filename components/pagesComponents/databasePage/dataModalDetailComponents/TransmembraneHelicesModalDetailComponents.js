@@ -143,3 +143,101 @@ const microbeMap = {
         value: 'viruses_id'
     }
 }
+
+export const AnalysisTransmembraneHelicesModalDetailDescriptions = ({ record }) => {
+    const items = buildAnalysisItems(record)
+
+    return (
+        <Stack spacing={2}>
+            <Descriptions bordered items={items} column={2}/>
+        </Stack>
+    )
+}
+
+const buildAnalysisItems = (record) => [
+    {
+        key: 'proteinId',
+        label: 'Protein ID',
+        children: <BasicChip value={record['Protein_id']} color="gold"/>,
+    },
+    {
+        key: 'microbialId',
+        label: 'Microbial ID',
+        children: <BasicChip value={record['Phage_Acession_ID']} color="gold"/>,
+    },
+    {
+        key: 'length',
+        label: 'Length',
+        children: record['Length'],
+    },
+    {
+        key: 'predictedTmhCount',
+        label: 'Number of predicted TMHs',
+        children: record['predictedTMHsNumber'],
+    },
+    {
+        key: 'expNumberOfAAsinTMHs',
+        label: 'Exp number of AAs in TMHs',
+        children: record['ExpnumberofAAsinTMHs'],
+    },
+    {
+        key: 'expNumberFirst60AAs',
+        label: 'Exp number, first 60 AAs',
+        children: record['Expnumberfirst60AAs'],
+    },
+    {
+        key: 'totalProbOfN-in',
+        label: 'Total prob of N-in',
+        children: record['TotalprobofNin']
+    },
+    {
+        key: 'POSSIBLEN-termSignalSequence',
+        label: 'POSSIBLE N-term signal sequence',
+        children: record['POSSIBLENterm']
+    },
+    {
+        key: 'insideSource',
+        label: 'Inside Source',
+        children: <BasicChip value={record['insidesource']} color="purple"/>,
+    },
+    {
+        key: 'insideStart',
+        label: 'Inside Start',
+        children: record['insidestart']
+    },
+    {
+        key: 'InsideEnd',
+        label: 'Inside End',
+        children: record['insideend']
+    },
+    {
+        key: 'TMHelixSource',
+        label: 'TM Helix Source',
+        children: record['TMhelixsource']
+    },
+    {
+        key: 'TMHelixStart',
+        label: 'TM Helix Start',
+        children: record['TMhelixstart']
+    },
+    {
+        key: 'TMHelixEnd',
+        label: 'TM Helix End',
+        children: record['TMhelixend']
+    },
+    {
+        key: 'OutsideSource',
+        label: 'Outside Source',
+        children: record['outsidesource']
+    },
+    {
+        key: 'OutsideStart',
+        label: 'Outside Start',
+        children: record['outsidestart']
+    },
+    {
+        key: 'OutsideEnd',
+        label: 'Outside End',
+        children: record['outsideend']
+    }
+]

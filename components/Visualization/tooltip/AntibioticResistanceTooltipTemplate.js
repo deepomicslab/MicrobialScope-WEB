@@ -12,3 +12,13 @@ export const AntibioticResistanceTooltipTemplate = (antibioticResistance) => {
         </TooltipWrapper>
     )
 }
+export const AnalysisAntibioticResistanceTooltipTemplate = (antibioticResistance) => {
+    return (
+        <TooltipWrapper>
+            <TooltipHeader headerName={antibioticResistance.name}/>
+            <TooltipItem groupName='Start' groupValue={antibioticResistance.start}/>
+            <TooltipItem groupName='End' groupValue={antibioticResistance.end}/>
+            <TooltipItem groupName='Starnd' groupValue={antibioticResistance.strand === 0 ? 'Forward' : 'Reverse'}/>
+        </TooltipWrapper>
+    )
+}

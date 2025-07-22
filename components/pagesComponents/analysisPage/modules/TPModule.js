@@ -3,24 +3,77 @@ import ActionButtonGroup from "@/components/pagesComponents/analysisPage/shared/
 import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/shared/AnalysisAlert"
 import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
 import { Typography } from "antd"
+import { useGlobalMessage } from "@/components/context/MessageContext"
+import { useRouter } from "next/router"
+import axios from "axios"
+import { postAnalysisRunDemoURL } from "@/dataFetch/post"
+import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
 
 const { Title } = Typography
 
 const TPModule = ({}) => {
+    const messageApi = useGlobalMessage()
+    const router = useRouter()
+
     const onRunDemo = () => {
-        console.log('Run Demo!')
+        axios.post(postAnalysisRunDemoURL, {
+            modulelist: '{"annotation":true,"quality":false,"host":false,"lifestyle":false,"trna":false,"anticrispr":false,"transmembrane":true,"terminator":false}',
+            rundemo: 'true',
+            analysistype: 'Transmembrane Protein Annotation',
+            userid: getOrCreateUserId(),
+            inputtype: 'upload',
+            microbialtype: 'Archaea'
+        }).then(({ data }) => {
+            if (data.status === 'Success') {
+                messageApi.open({
+                    type: 'success',
+                    content: data.message
+                })
+
+                router.push('/workspace')
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: data.message,
+                })
+            }
+        })
     }
 
     const onViewResult = () => {
-        console.log('View Result!')
+        router.push('/analysis/result/transmembrane/11')
     }
 
     const onHelp = () => {
         console.log('Help!')
     }
 
-    const onReportBug = () => {
-        console.log('Report Bug!')
+    const onSubmit = (microbialType, fileList) => {
+        const formData = new FormData()
+
+        formData.append('modulelist', '{"annotation":true,"quality":false,"host":false,"lifestyle":false,"trna":false,"anticrispr":false,"transmembrane":true,"terminator":false}')
+        formData.append('rundemo', 'false')
+        formData.append('analysistype', 'Transmembrane Protein Annotation')
+        formData.append('userid', getOrCreateUserId())
+        formData.append('inputtype', 'upload')
+        formData.append('microbialtype', microbialType)
+        formData.append('submitfile', fileList[0].originFileObj)
+
+        axios.post(postAnalysisRunDemoURL, formData).then(({ data }) => {
+            if (data.status === 'Success') {
+                messageApi.open({
+                    type: 'success',
+                    content: data.message
+                })
+
+                router.push('/workspace')
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: data.message,
+                })
+            }
+        })
     }
 
     return (
@@ -46,7 +99,9 @@ const TPModule = ({}) => {
                 onHelp={onHelp}
             />
             <AnalysisBasicAlert/>
-            <AnalysisSubmitCard/>
+            <AnalysisSubmitCard
+                onSubmit={onSubmit}
+            />
         </Stack>
     )
 }
