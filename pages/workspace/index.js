@@ -150,6 +150,12 @@ const Workspace = ({ tableData, userId }) => {
     const handleViewResult = (record) => {
         if (record['analysis_type'] === 'ORF prediction & Protein classification') {
             router.push(`/analysis/result/orf/${record['id']}`)
+        } else if (record['analysis_type'] === 'tRNA & tmRNA gene annotation') {
+            router.push(`/analysis/result/trna/${record['id']}`)
+        } else if (record['analysis_type'] === 'Virulent Factor & Antimicrobial Resistance Gene Detection') {
+            router.push(`/analysis/result/vf/${record['id']}`)
+        } else if (record['analysis_type'] === 'Transmembrane Protein Annotation') {
+            router.push(`/analysis/result/transmembrane/${record['id']}`)
         }
 
         return null

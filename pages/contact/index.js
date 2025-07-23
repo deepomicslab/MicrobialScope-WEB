@@ -56,11 +56,11 @@ const TeamIntroduction = () => {
                     <Box sx={{ fontSize: '24px', textAlign: 'justify', lineHeight: '48px' }}>
                         We are a diverse team of talented research assistants, Ph.D. candidates, and assistant
                         investigators, led by Prof. LI Shuai Cheng at the City University of Hong Kong and Prof. CHEN Yu
-                        at the Shenzhen Institute of Advanced Technology. Our team comprises individuals with extensive
-                        molecular biology, bioinformatics, and computer science expertise. If you have any inquiries or
-                        require further information, please feel free to reach out to us at <A
-                        sx={{ cursor: 'text' }}>shuaicli@cityu.edu.hk</A> or
-                        <A sx={{ cursor: 'text' }}> yu.chen@siat.ac.cn</A>
+                        at the Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences. Our team
+                        comprises individuals with extensive molecular biology, bioinformatics, and computer science
+                        expertise. If you have any inquiries or require further information, please feel free to reach
+                        out to us at <A sx={{ cursor: 'text' }}>shuaicli@cityu.edu.hk</A> or<A
+                        sx={{ cursor: 'text' }}> yu.chen@siat.ac.cn</A>
                     </Box>
                 </Stack>
             </Stack>

@@ -23,6 +23,7 @@ export const getAnalysisOutputFileURL = `https://microbialapi.deepomics.org/api/
 export const getAnalysisSequenceProteinsURL = `https://microbialapi.deepomics.org/api/analysis/view_task_result_proteins/`
 export const getAnalysisSequenceFASTAURL = `https://microbialapi.deepomics.org/api/analysis/view_task_result_plasmid_fasta/`
 export const getAnalysisTaskModuleResultURL = `https://microbialapi.deepomics.org/api/analysis/view_task_result_modules/`
+export const getAnalysisTaskTreeURL = `https://microbialapi.deepomics.org/api/analysis/view_task_result_tree/`
 
 // Microbe URLs
 export const getMicrobeStatisticsURL = `${apiPrefix}/microbe/microbe_statistics`

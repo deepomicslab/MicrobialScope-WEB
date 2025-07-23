@@ -1,12 +1,14 @@
 import { Box } from "@mui/system"
 import { ConfigProvider, Menu } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ORFModule from "@/components/pagesComponents/analysisPage/modules/ORFModule"
 import TRNAModule from "@/components/pagesComponents/analysisPage/modules/TRNAModule"
 import VFandARGModule from "@/components/pagesComponents/analysisPage/modules/VFandARGModule"
 import TPModule from "@/components/pagesComponents/analysisPage/modules/TPModule"
 import SequenceAlignmentModule from "@/components/pagesComponents/analysisPage/modules/SequenceAlignmentModule"
 import ComparativeAnalysisModule from "@/components/pagesComponents/analysisPage/modules/ComparativeAnalysisModule"
+import { useRouter } from "next/router"
+import { LoadingView } from "@/components/stateViews/LoadingView"
 
 const customTheme = {
     components: {
@@ -18,23 +20,67 @@ const customTheme = {
     }
 }
 
-const Analysis = ({}) => {
-    const [selectedKey, setSelectedKey] = useState("orf")
+const menuItems = [
+    {
+        key: 'orf',
+        label: 'ORF prediction & Protein classification',
+    },
+    {
+        key: 'trna',
+        label: 'tRNA & tmRNA Prediction',
+    },
+    {
+        key: 'vf',
+        label: 'Virulent Factor & ARG Detection',
+    },
+    {
+        key: 'transmembrane',
+        label: 'Transmembrane Protein Annotation',
+    },
+    {
+        key: 'alignment',
+        label: 'Sequence Alignment',
+    },
+    {
+        key: 'comparative',
+        label: 'Comparative Analysis',
+    },
+]
+
+
+const AnalysisWrapper = () => {
+    const [hasMounted, setHasMounted] = useState(false)
+    const { query, isReady } = useRouter()
+
+    useEffect(() => {
+        setHasMounted(true)
+    }, [])
+
+    if (!hasMounted || !isReady) {
+        return <LoadingView />
+    }
+
+    return <Analysis initModule={query.module || 'orf'} />
+}
+
+// Main Analysis Component that receives selectedKey as a prop
+const Analysis = ({ initModule }) => {
+    const [selectedKey, setSelectedKey] = useState(initModule)
 
     const renderContent = () => {
         switch (selectedKey) {
             case "orf":
-                return <ORFModule/>
+                return <ORFModule />
             case "trna":
-                return <TRNAModule/>
+                return <TRNAModule />
             case "vf":
-                return <VFandARGModule/>
+                return <VFandARGModule />
             case "transmembrane":
-                return <TPModule/>
+                return <TPModule />
             case "alignment":
-                return <SequenceAlignmentModule/>
+                return <SequenceAlignmentModule />
             case "comparative":
-                return <ComparativeAnalysisModule/>
+                return <ComparativeAnalysisModule />
             default:
                 return null
         }
@@ -60,34 +106,16 @@ const Analysis = ({}) => {
                         selectedKeys={[selectedKey]}
                         onClick={({ key }) => setSelectedKey(key)}
                         style={{ borderRight: 'none' }}
-                    >
-                        <Menu.Item key="orf">
-                            ORF prediction & Protein classification
-                        </Menu.Item>
-                        <Menu.Item key="trna">
-                            tRNA & tmRNA Prediction
-                        </Menu.Item>
-                        <Menu.Item key="vf">
-                            Virulent Factor & ARG Detection
-                        </Menu.Item>
-                        <Menu.Item key="transmembrane">
-                            Transmembrane Protein Annotation
-                        </Menu.Item>
-                        <Menu.Item key="alignment">
-                            Sequence Alignment
-                        </Menu.Item>
-                        <Menu.Item key="comparative">
-                            Comparative Analysis
-                        </Menu.Item>
-                    </Menu>
+                        items={menuItems}
+                    />
                 </ConfigProvider>
             </Box>
 
             <Box flex={1} p={3} overflow="auto">
-                { renderContent() }
+                {renderContent()}
             </Box>
         </Box>
     )
 }
 
-export default Analysis
+export default AnalysisWrapper

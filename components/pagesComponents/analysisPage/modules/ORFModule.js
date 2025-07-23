@@ -4,7 +4,7 @@ import ActionButtonGroup from "@/components/pagesComponents/analysisPage/shared/
 import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/shared/AnalysisAlert"
 import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
 import axios from "axios"
-import { postAnalysisRunDemoURL } from "@/dataFetch/post"
+import { postAnalysisAnnotationTaskURL } from "@/dataFetch/post"
 import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
 import { useGlobalMessage } from "@/components/context/MessageContext"
 import { useRouter } from "next/router"
@@ -16,7 +16,7 @@ const ORFModule = ({}) => {
     const router = useRouter()
 
     const onRunDemo = () => {
-        axios.post(postAnalysisRunDemoURL, {
+        axios.post(postAnalysisAnnotationTaskURL, {
             modulelist: '{"annotation":true}',
             rundemo: 'true',
             analysistype: 'ORF prediction & Protein classification',
@@ -59,7 +59,7 @@ const ORFModule = ({}) => {
         formData.append('microbialtype', microbialType)
         formData.append('submitfile', fileList[0].originFileObj)
 
-        axios.post(postAnalysisRunDemoURL, formData).then(({ data }) => {
+        axios.post(postAnalysisAnnotationTaskURL, formData).then(({ data }) => {
             if (data.status === 'Success') {
                 messageApi.open({
                     type: 'success',

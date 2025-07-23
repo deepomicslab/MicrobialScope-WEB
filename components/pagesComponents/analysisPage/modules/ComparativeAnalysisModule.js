@@ -4,20 +4,77 @@ import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/sh
 import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
 import { Typography } from "antd"
 import { Span } from "@/components/styledComponents/styledHTMLTags"
+import { useGlobalMessage } from "@/components/context/MessageContext"
+import { useRouter } from "next/router"
+import axios from "axios"
+import { postAnalysisClusterTaskURL } from "@/dataFetch/post"
+import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
 
 const { Title } = Typography
 
 const ComparativeAnalysisModule = ({}) => {
+    const messageApi = useGlobalMessage()
+    const router = useRouter()
+
     const onRunDemo = () => {
-        console.log('Run Demo!')
+        axios.post(postAnalysisClusterTaskURL, {
+            modulelist: '{"tree":true}',
+            rundemo: 'true',
+            analysistype: 'Comparative Tree Construction',
+            userid: getOrCreateUserId(),
+            inputtype: 'upload',
+            microbialtype: 'Archaea'
+        }).then(({ data }) => {
+            if (data.status === 'Success') {
+                messageApi.open({
+                    type: 'success',
+                    content: data.message
+                })
+
+                router.push('/workspace')
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: data.message,
+                })
+            }
+        })
     }
 
     const onViewResult = () => {
-        console.log('View Result!')
+        router.push('/analysis/result/comparative/27')
     }
 
     const onHelp = () => {
         console.log('Help!')
+    }
+
+    const onSubmit = (microbialType, fileList) => {
+        const formData = new FormData()
+
+        formData.append('modulelist', '{"tree":true}')
+        formData.append('rundemo', 'false')
+        formData.append('analysistype', 'Comparative Tree Construction')
+        formData.append('userid', getOrCreateUserId())
+        formData.append('inputtype', 'upload')
+        formData.append('microbialtype', microbialType)
+        formData.append('submitfile', fileList[0].originFileObj)
+
+        axios.post(postAnalysisClusterTaskURL, formData).then(({ data }) => {
+            if (data.status === 'Success') {
+                messageApi.open({
+                    type: 'success',
+                    content: data.message
+                })
+
+                router.push('/workspace')
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: data.message,
+                })
+            }
+        })
     }
 
     return (
@@ -43,7 +100,10 @@ const ComparativeAnalysisModule = ({}) => {
                 onHelp={onHelp}
             />
             <AnalysisBasicAlert/>
-            <AnalysisSubmitCard uploadTip={<UploadTip/>}/>
+            <AnalysisSubmitCard
+                uploadTip={<UploadTip/>}
+                onSubmit={onSubmit}
+            />
         </Stack>
     )
 }

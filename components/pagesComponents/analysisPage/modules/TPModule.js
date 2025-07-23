@@ -6,7 +6,7 @@ import { Typography } from "antd"
 import { useGlobalMessage } from "@/components/context/MessageContext"
 import { useRouter } from "next/router"
 import axios from "axios"
-import { postAnalysisRunDemoURL } from "@/dataFetch/post"
+import { postAnalysisAnnotationTaskURL } from "@/dataFetch/post"
 import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
 
 const { Title } = Typography
@@ -16,7 +16,7 @@ const TPModule = ({}) => {
     const router = useRouter()
 
     const onRunDemo = () => {
-        axios.post(postAnalysisRunDemoURL, {
+        axios.post(postAnalysisAnnotationTaskURL, {
             modulelist: '{"annotation":true,"quality":false,"host":false,"lifestyle":false,"trna":false,"anticrispr":false,"transmembrane":true,"terminator":false}',
             rundemo: 'true',
             analysistype: 'Transmembrane Protein Annotation',
@@ -59,7 +59,7 @@ const TPModule = ({}) => {
         formData.append('microbialtype', microbialType)
         formData.append('submitfile', fileList[0].originFileObj)
 
-        axios.post(postAnalysisRunDemoURL, formData).then(({ data }) => {
+        axios.post(postAnalysisAnnotationTaskURL, formData).then(({ data }) => {
             if (data.status === 'Success') {
                 messageApi.open({
                     type: 'success',

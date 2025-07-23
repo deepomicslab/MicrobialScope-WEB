@@ -4,6 +4,8 @@ import ORFResult from "@/components/pagesComponents/analysisPage/results/ORFResu
 import TRNAResult from "@/components/pagesComponents/analysisPage/results/TRNAResult"
 import VFandARGResult from "@/components/pagesComponents/analysisPage/results/VFandARGResult"
 import TPResult from "@/components/pagesComponents/analysisPage/results/TPResult"
+import SequenceAlignmentResult from "@/components/pagesComponents/analysisPage/results/SequenceAlignmentResult"
+import ComparativeAnalysisResult from "@/components/pagesComponents/analysisPage/results/ComparativeAnalysisResult"
 
 const TaskDetail = ({}) => {
     const router = useRouter()
@@ -20,9 +22,9 @@ const TaskDetail = ({}) => {
             case "transmembrane":
                 return <TPResult taskId={taskId}/>
             case "alignment":
-                return <></>
+                return <SequenceAlignmentResult taskId={taskId}/>
             case "comparative":
-                return <></>
+                return <ComparativeAnalysisResult taskId={taskId}/>
             default:
                 return null
         }

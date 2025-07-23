@@ -5,22 +5,76 @@ import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared
 import { Typography } from "antd"
 import { Span } from "@/components/styledComponents/styledHTMLTags"
 import { useRouter } from "next/router"
+import { useGlobalMessage } from "@/components/context/MessageContext"
+import axios from "axios"
+import { postAnalysisClusterTaskURL } from "@/dataFetch/post"
+import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
 
 const { Title, Paragraph, Text, Link } = Typography
 
 const SequenceAlignmentModule = ({}) => {
+    const messageApi = useGlobalMessage()
     const router = useRouter()
 
     const onRunDemo = () => {
-        console.log('Run Demo!')
+        axios.post(postAnalysisClusterTaskURL, {
+            modulelist: '{"annotation":true,"alignment":true}',
+            rundemo: 'true',
+            analysistype: 'Sequence Alignment',
+            userid: getOrCreateUserId(),
+            inputtype: 'upload',
+            microbialtype: 'Archaea'
+        }).then(({ data }) => {
+            if (data.status === 'Success') {
+                messageApi.open({
+                    type: 'success',
+                    content: data.message
+                })
+
+                router.push('/workspace')
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: data.message,
+                })
+            }
+        })
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/sequence_alignment/1')
+        router.push('/analysis/result/alignment/13')
     }
 
     const onHelp = () => {
         console.log('Help!')
+    }
+
+    const onSubmit = (microbialType, fileList) => {
+        const formData = new FormData()
+
+        formData.append('modulelist', '{"annotation":true,"alignment":true}')
+        formData.append('rundemo', 'false')
+        formData.append('analysistype', 'Sequence Alignment')
+        formData.append('userid', getOrCreateUserId())
+        formData.append('inputtype', 'upload')
+        formData.append('microbialtype', microbialType)
+        formData.append('submitfile', fileList[0].originFileObj)
+
+        axios.post(postAnalysisClusterTaskURL, formData).then(({ data }) => {
+            if (data.status === 'Success') {
+                messageApi.open({
+                    type: 'success',
+                    content: data.message
+                })
+
+                router.push('/workspace')
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: data.message,
+                })
+            }
+        })
     }
 
     return (
@@ -46,7 +100,10 @@ const SequenceAlignmentModule = ({}) => {
                 onHelp={onHelp}
             />
             <AnalysisBasicAlert/>
-            <AnalysisSubmitCard uploadTip={<UploadTip/>}/>
+            <AnalysisSubmitCard
+                uploadTip={<UploadTip/>}
+                onSubmit={onSubmit}
+            />
         </Stack>
     )
 }
