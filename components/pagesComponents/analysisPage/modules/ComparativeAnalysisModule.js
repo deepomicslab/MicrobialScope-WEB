@@ -49,7 +49,7 @@ const ComparativeAnalysisModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/comparative/27')
+        router.push('/analysis/result/comparative/36')
     }
 
     const onHelp = () => {

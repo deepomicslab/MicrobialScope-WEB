@@ -48,7 +48,7 @@ const TRNAModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/trna/8')
+        router.push('/analysis/result/trna/32')
     }
 
     const onHelp = () => {

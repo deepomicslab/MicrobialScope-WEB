@@ -48,7 +48,7 @@ const VFandARGModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/vf/10')
+        router.push('/analysis/result/vf/33')
     }
 
     const onHelp = () => {
