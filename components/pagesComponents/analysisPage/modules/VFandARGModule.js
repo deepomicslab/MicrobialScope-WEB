@@ -2,27 +2,32 @@ import { Stack } from "@mui/system"
 import ActionButtonGroup from "@/components/pagesComponents/analysisPage/shared/ActionButtonGroup"
 import { AnalysisBasicAlert } from "@/components/pagesComponents/analysisPage/shared/AnalysisAlert"
 import AnalysisSubmitCard from "@/components/pagesComponents/analysisPage/shared/AnalysisSubmitCard"
-import { Typography } from 'antd'
+import { Spin, Typography } from 'antd'
 import { useGlobalMessage } from "@/components/context/MessageContext"
 import { useRouter } from "next/router"
 import axios from "axios"
 import { postAnalysisAnnotationTaskURL } from "@/dataFetch/post"
 import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
+import { useState } from "react"
 
 const { Title } = Typography
 
 const VFandARGModule = ({}) => {
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
     const messageApi = useGlobalMessage()
     const router = useRouter()
 
     const onRunDemo = () => {
+        setIsSubmitting(true)
+
         axios.post(postAnalysisAnnotationTaskURL, {
             modulelist: '{"annotation":true,"arvf":true}',
             rundemo: 'true',
             analysistype: 'Virulent Factor & Antimicrobial Resistance Gene Detection',
             userid: getOrCreateUserId(),
             inputtype: 'upload',
-            microbialtype: 'Archaea'
+            microbialtype: 'Bacteria'
         }).then(({ data }) => {
             if (data.status === 'Success') {
                 messageApi.open({
@@ -37,6 +42,8 @@ const VFandARGModule = ({}) => {
                     content: data.message,
                 })
             }
+        }).finally(() => {
+            setIsSubmitting(false)
         })
     }
 
@@ -49,6 +56,8 @@ const VFandARGModule = ({}) => {
     }
 
     const onSubmit = (microbialType, fileList) => {
+        setIsSubmitting(true)
+
         const formData = new FormData()
 
         formData.append('modulelist', '{"annotation":true,"arvf":true}')
@@ -73,36 +82,50 @@ const VFandARGModule = ({}) => {
                     content: data.message,
                 })
             }
+        }).finally(() => {
+            setIsSubmitting(false)
         })
     }
 
     return (
-        <Stack
-            sx={{
-                px: '12px'
+        <Spin
+            spinning={isSubmitting}
+            tip="Submitting, please wait..."
+            size="large"
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: 'calc(100vh - 180px)',
             }}
-            spacing={2}
         >
-            <Title
-                level={2}
-                style={{
-                    marginTop: '12px',
-                    paddingBottom: '12px',
-                    borderBottom: '1px solid rgb(211, 211, 211)'
+            <Stack
+                sx={{
+                    px: '12px'
                 }}
+                spacing={2}
             >
-                Virulent Factor & Antibiotic Resistance Gene Detection
-            </Title>
-            <ActionButtonGroup
-                onRunDemo={onRunDemo}
-                onViewResult={onViewResult}
-                onHelp={onHelp}
-            />
-            <AnalysisBasicAlert/>
-            <AnalysisSubmitCard
-                onSubmit={onSubmit}
-            />
-        </Stack>
+                <Title
+                    level={2}
+                    style={{
+                        marginTop: '12px',
+                        paddingBottom: '12px',
+                        borderBottom: '1px solid rgb(211, 211, 211)'
+                    }}
+                >
+                    Virulent Factor & Antibiotic Resistance Gene Detection
+                </Title>
+                <ActionButtonGroup
+                    onRunDemo={onRunDemo}
+                    onViewResult={onViewResult}
+                    onHelp={onHelp}
+                />
+                <AnalysisBasicAlert/>
+                <AnalysisSubmitCard
+                    onSubmit={onSubmit}
+                />
+            </Stack>
+        </Spin>
     )
 }
 

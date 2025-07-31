@@ -1,18 +1,20 @@
-import { Button, Input, Space, Table, Tag, Typography } from "antd"
+import { Button, Input, Modal, Space, Table, Tag, Typography } from "antd"
 import { Box, Stack } from "@mui/system"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import useSWR, { mutate } from "swr"
-import { fetcher, getAnalysisTasksURL } from "@/dataFetch/get"
+import { fetcher, getAnalysisTaskLogURL, getAnalysisTasksURL } from "@/dataFetch/get"
 import { getOrCreateUserId } from "@/components/utils/UserIdUtils"
 import { LoadingView } from "@/components/stateViews/LoadingView"
 import { ErrorView } from "@/components/stateViews/ErrorView"
-import { ReloadOutlined } from "@ant-design/icons"
+import { FileTextOutlined, ReloadOutlined } from "@ant-design/icons"
 import { useRouter } from "next/router"
+import { Span } from "@/components/styledComponents/styledHTMLTags"
+import { LogContentWrapper } from "@/components/pagesComponents/analysisPage/shared/AnalysisResultTaskDetail"
 
 const { Search } = Input
 const { Title, Text } = Typography
 
-const getTaskTableColumns = (handleViewResult) => [
+const getTaskTableColumns = (handleViewResult, handleOpenLogModal) => [
     {
         title: 'Task ID',
         dataIndex: 'id',
@@ -84,16 +86,52 @@ const getTaskTableColumns = (handleViewResult) => [
                 >
                     view result
                 </Button>
-                <Button
-                    type="default"
-                    disabled={record['status'] !== 'Success'}
-                >
-                    task log
-                </Button>
+                <TaskLogButton record={record} onOpen={handleOpenLogModal} />
             </Space>
         )
     },
 ]
+
+const moduleNameMap = {
+    'ORF prediction & Protein classification': 'annotation',
+    'tRNA & tmRNA gene annotation': 'trna',
+    'Virulent Factor & Antimicrobial Resistance Gene Detection': 'arvf',
+    'Transmembrane Protein Annotation': 'transmembrane',
+    'Sequence Alignment': 'alignment',
+    'Comparative Tree Construction': 'tree'
+}
+
+const TaskLogButton = ({ record, onOpen }) => {
+    return (
+        <Button
+            type="default"
+            icon={<FileTextOutlined />}
+            onClick={() => onOpen(record)}
+        >
+            Task Log
+        </Button>
+    )
+}
+
+const LogContentWrapperWithDataFetch = ({ record }) => {
+    const {
+        data: taskLog,
+        isLoading: isLoadingTaskLog,
+        error: errorTaskLog
+    } = useSWR(`${getAnalysisTaskLogURL}?taskid=${record['id']}&moudlename=${moduleNameMap[record['analysis_type']]}`, fetcher)
+
+    if (isLoadingTaskLog) {
+        return <LoadingView containerSx={{ height: '50vh', marginTop: '40px' }}/>
+    }
+
+    if (errorTaskLog) {
+        return <ErrorView containerSx={{ height: '50vh', marginTop: '40px' }}/>
+    }
+
+    return (
+        <LogContentWrapper logContent={taskLog['task_log'] + taskLog['task_error']}/>
+    )
+}
 
 const WorkspaceWrapper = ({}) => {
     const [userId, setUserId] = useState(null)
@@ -120,10 +158,10 @@ const WorkspaceWrapper = ({}) => {
         return <ErrorView containerSx={{ height: '80vh', marginTop: '40px' }}/>
     }
 
-    return <Workspace tableData={data.results} userId={userId}/>
+    return <Workspace tasks={data.results} userId={userId}/>
 }
 
-const Workspace = ({ tableData, userId }) => {
+const Workspace = ({ tasks, userId }) => {
     const [taskId, setTaskId] = useState('')
     const [refreshing, setRefreshing] = useState(false)
     const [pagination, setPagination] = useState({
@@ -132,6 +170,12 @@ const Workspace = ({ tableData, userId }) => {
         showSizeChanger: true,
         showQuickJumper: true,
     })
+    const [logModalVisible, setLogModalVisible] = useState(false)
+    const [selectedRecord, setSelectedRecord] = useState(null)
+
+    const tableData = useMemo(() => {
+        return tasks.filter(task => task.id.toString().includes(taskId))
+    }, [taskId, tasks])
 
     const router = useRouter()
 
@@ -156,12 +200,26 @@ const Workspace = ({ tableData, userId }) => {
             router.push(`/analysis/result/vf/${record['id']}`)
         } else if (record['analysis_type'] === 'Transmembrane Protein Annotation') {
             router.push(`/analysis/result/transmembrane/${record['id']}`)
+        } else if (record['analysis_type'] === 'Sequence Alignment') {
+            router.push(`/analysis/result/alignment/${record['id']}`)
+        } else if (record['analysis_type'] === 'Comparative Tree Construction') {
+            router.push(`/analysis/result/comparative/${record['id']}`)
         }
 
         return null
     }
 
-    const columns = getTaskTableColumns(handleViewResult)
+    const handleOpenLogModal = (record) => {
+        setSelectedRecord(record)
+        setLogModalVisible(true)
+    }
+
+    const handleCloseLogModal = () => {
+        setLogModalVisible(false)
+        setSelectedRecord(null)
+    }
+
+    const columns = getTaskTableColumns(handleViewResult, handleOpenLogModal)
 
     return (
         <Box
@@ -177,10 +235,6 @@ const Workspace = ({ tableData, userId }) => {
                     size="large"
                     value={taskId}
                     onChange={(e) => setTaskId(e.target.value)}
-                    onSearch={() => {
-                        // TODO: implement search logic
-                        console.log('Searching for task ID:', taskId);
-                    }}
                     style={{ width: 600 }}
                 />
                 <Text>
@@ -223,6 +277,24 @@ const Workspace = ({ tableData, userId }) => {
                     onChange={handleTableChange}
                 />
             </Box>
+
+            <Modal
+                open={logModalVisible}
+                onCancel={handleCloseLogModal}
+                footer={null}
+                title={
+                    <Stack direction="row" spacing={0.5} alignItems="center">
+                        <FileTextOutlined style={{ fontSize: 20 }} />
+                        <Span sx={{ fontWeight: 'bold', fontSize: 24 }}>Task Log</Span>
+                    </Stack>
+                }
+                width="60%"
+                centered
+            >
+                {selectedRecord && (
+                    <LogContentWrapperWithDataFetch record={selectedRecord} />
+                )}
+            </Modal>
         </Box>
     )
 }

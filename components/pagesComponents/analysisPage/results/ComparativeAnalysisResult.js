@@ -10,16 +10,17 @@ import BoldLabel from "@/components/pagesComponents/analysisPage/shared/BoldLabe
 import DownloadOutputResult, {
     TaskOutputDownloadButton
 } from "@/components/pagesComponents/analysisPage/shared/DownloadOutputResult"
-import { Progress } from "antd"
+import { Button, Progress } from "antd"
 import SubmittedMicrobialSequences from "@/components/pagesComponents/analysisPage/shared/SubmittedMicrobialSequences"
 import parseNewick from "@/components/utils/newick"
 import * as d3 from "d3"
-import { useEffect, useMemo, useRef } from "react"
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from "react"
 import ResponsiveVisualizationContainer from "@/components/Visualization/containers/ResponsiveVisualizationContainer"
 import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import { createPortal } from "react-dom"
 import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
 import { TooltipHeader, TooltipItem, TooltipWrapper } from "@/components/Visualization/tooltip/BasicTooltipTemplate"
+import { downloadSvg, downloadSvgAsPng } from "@/components/Visualization/vizD3/utils/svgExportUtils"
 
 const getComparativeAnalysisOutputItems = (uploadPath) => [
     {
@@ -102,20 +103,21 @@ const parseNewickTree = (newickTreeString, innerRadius) => {
 
     setRadius(root, root.data.length = 0, innerRadius / maxLength(root))
 
-    setDistanceToRoot(root)
+    // setDistanceToRoot(root)
 
     return root
 }
 
-const setDistanceToRoot = (node, parentDistance = 0) => {
-    node.data.distanceToRoot = parentDistance + node.data.length;
-
-    if (node.children) {
-        node.children.forEach(child => {
-            setDistanceToRoot(child, node.data.distanceToRoot);
-        })
-    }
-}
+// const setDistanceToRoot = (node, parentDistance = 0) => {
+//     const branchLength = node.data.length || 0; // 防止 undefined
+//     node.data.distanceToRoot = parentDistance + branchLength;
+//
+//     if (Array.isArray(node.children) && node.children.length > 0) {
+//         node.children.forEach(child => {
+//             setDistanceToRoot(child, node.data.distanceToRoot);
+//         });
+//     }
+// }
 
 function linkStep(startAngle, startRadius, endAngle, endRadius) {
     const c0 = Math.cos(startAngle = (startAngle - 90) / 180 * Math.PI);
@@ -153,17 +155,18 @@ const TreeNodeTooltipTemplate = (treeNode) => {
                     <></>
                 )
             }
-            <TooltipItem groupName='Distance To Root' groupValue={treeNode.data.distanceToRoot}/>
+            <TooltipItem groupName='Distance To Root' groupValue={treeNode.data.length}/>
         </TooltipWrapper>
     )
 }
 
-const ComparativeTreeVisualization = ({ tree }) => {
+const ComparativeTreeVisualization = forwardRef(({ tree }, ref) => {
     const svgWidth = 920
     const svgHeight = 920
     const outerRadius = svgWidth / 2
     const innerRadius = outerRadius - 170
 
+    const svgRef = useRef(null)
     const gLinksRef = useRef(null)
     const gNodesRef = useRef(null)
     const gTextsRef = useRef(null)
@@ -223,9 +226,21 @@ const ComparativeTreeVisualization = ({ tree }) => {
             .on('pointerout', hideTooltip)
     }, [innerRadius, leaves])
 
+    useImperativeHandle(ref, () => ({
+        downloadSvg: () => {
+            if (!svgRef.current) return
+            downloadSvg(svgRef.current, `Comparative_tree.svg`)
+        },
+        downloadPng: () => {
+            if (!svgRef.current) return
+            downloadSvgAsPng(svgRef.current, `Comparative_tree.png`, 2)
+        }
+    }))
+
     return (
         <Stack alignItems="center">
             <svg
+                ref={svgRef}
                 width={svgWidth}
                 height={svgHeight}
                 viewBox={[-outerRadius, -outerRadius, svgWidth, svgWidth]}
@@ -269,21 +284,38 @@ const ComparativeTreeVisualization = ({ tree }) => {
             {createPortal(<CustomTooltip ref={toolTipRef}/>, document.body)}
         </Stack>
     )
-}
+})
+
+ComparativeTreeVisualization.displayName = 'ComparativeTreeVisualization'
 
 const ComparativeTreeVisualizationWrapper = ({ tree }) => {
+    const vizRef = useRef(null)
 
     return (
         <Stack>
-            <H6 sx={{
-                fontSize: '36px',
-                mt: '12px',
-                mb: '36px',
-                borderBottom: '2px solid #e0e0e0',
-                paddingBottom: '12px',
-            }}>
-                Comparative Tree
-            </H6>
+            <Stack direction='row' spacing={2} alignItems="center" sx={{ paddingBottom: '32px', }}>
+                <H6 sx={{
+                    fontSize: '24px',
+                    m: '0px',
+                    fontWeight: 500
+                }}>
+                    Comparative Tree
+                </H6>
+                <Stack direction='row' spacing={2}>
+                    <Button
+                        type="primary"
+                        onClick={() => vizRef.current?.downloadSvg()}
+                    >
+                        Download SVG Chart
+                    </Button>
+                    <Button
+                        type="primary"
+                        onClick={() => vizRef.current?.downloadPng()}
+                    >
+                        Download PNG Chart
+                    </Button>
+                </Stack>
+            </Stack>
             <ResponsiveVisualizationContainer
                 containerSx={{
                     minHeight: '920px',
@@ -303,7 +335,7 @@ const ComparativeTreeVisualizationWrapper = ({ tree }) => {
                     },
                 }}
             >
-                <ComparativeTreeVisualization tree={tree}/>
+                <ComparativeTreeVisualization tree={tree} ref={vizRef}/>
             </ResponsiveVisualizationContainer>
         </Stack>
     )

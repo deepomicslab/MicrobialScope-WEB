@@ -84,7 +84,7 @@ const TaskLogButtonWithModal = ({ taskLog }) => {
     )
 }
 
-const LogContentWrapper = ({ logContent }) => {
+export const LogContentWrapper = ({ logContent }) => {
     const cleanedLog = logContent.replace(/\u001b\[[0-9;]*m/g, '')
 
     return (

@@ -15,7 +15,11 @@ export const LoadingView = ({ width, height, containerSx, children }) => (
             children ?
                 children
                 :
-                <Spin tip="Loading" size="large"/>
+                <div style={{ width: '100%', textAlign: 'center' }}>
+                    <Spin tip="Loading" size="large">
+                        <div style={{ paddingTop: 20 }}/>
+                    </Spin>
+                </div>
         }
     </Stack>
 )

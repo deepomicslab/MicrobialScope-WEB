@@ -22,7 +22,7 @@ const MicrobeDataList = ({ query }) => {
         microbe: query.microbe || 'archaea',
         magStatus: query.mag || 'unMAG',
         searchContent: {
-            field: getSearchField(query.microbe, query.searchField),
+            field: getSearchField(query.microbe, query.searchField ? query.searchField : 'microbial_id'),
             value: query.keyword || ''
         }
     })

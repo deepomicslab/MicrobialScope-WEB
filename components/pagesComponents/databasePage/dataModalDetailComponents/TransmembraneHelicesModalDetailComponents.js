@@ -150,6 +150,17 @@ export const AnalysisTransmembraneHelicesModalDetailDescriptions = ({ record }) 
     return (
         <Stack spacing={2}>
             <Descriptions bordered items={items} column={2}/>
+            <Stack>
+                <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                    Helices
+                </Title>
+                <StyledTable
+                    rowKey='id'
+                    columns={helicesTableColumns}
+                    dataSource={record['helices']}
+                    pagination={{ defaultPageSize: 5 }}
+                />
+            </Stack>
         </Stack>
     )
 }
@@ -189,55 +200,5 @@ const buildAnalysisItems = (record) => [
         key: 'totalProbOfN-in',
         label: 'Total prob of N-in',
         children: record['TotalprobofNin']
-    },
-    {
-        key: 'POSSIBLEN-termSignalSequence',
-        label: 'POSSIBLE N-term signal sequence',
-        children: record['POSSIBLENterm']
-    },
-    {
-        key: 'insideSource',
-        label: 'Inside Source',
-        children: <BasicChip value={record['insidesource']} color="purple"/>,
-    },
-    {
-        key: 'insideStart',
-        label: 'Inside Start',
-        children: record['insidestart']
-    },
-    {
-        key: 'InsideEnd',
-        label: 'Inside End',
-        children: record['insideend']
-    },
-    {
-        key: 'TMHelixSource',
-        label: 'TM Helix Source',
-        children: record['TMhelixsource']
-    },
-    {
-        key: 'TMHelixStart',
-        label: 'TM Helix Start',
-        children: record['TMhelixstart']
-    },
-    {
-        key: 'TMHelixEnd',
-        label: 'TM Helix End',
-        children: record['TMhelixend']
-    },
-    {
-        key: 'OutsideSource',
-        label: 'Outside Source',
-        children: record['outsidesource']
-    },
-    {
-        key: 'OutsideStart',
-        label: 'Outside Start',
-        children: record['outsidestart']
-    },
-    {
-        key: 'OutsideEnd',
-        label: 'Outside End',
-        children: record['outsideend']
     }
 ]
