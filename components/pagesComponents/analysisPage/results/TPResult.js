@@ -536,7 +536,7 @@ const SequenceTPsMap = ({ fastaDetail, proteins, tps }) => {
                     m: '0px',
                     fontWeight: 500
                 }}>
-                    Annotated Transmembrane Proteins Map
+                    Annotated Transmembrane Protein Map
                 </H6>
                 <Stack direction='row' spacing={2}>
                     <Button

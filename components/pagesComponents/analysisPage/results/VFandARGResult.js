@@ -602,7 +602,7 @@ const SequenceARGTable = ({args}) => (
             paddingBottom: '32px',
             fontWeight: 500
         }}>
-            Annotated Virulence Factor List
+            Annotated Antibiotic Resistance Gene List
         </H6>
         <StyledTable
             columns={sequenceARGsTableColumns}
