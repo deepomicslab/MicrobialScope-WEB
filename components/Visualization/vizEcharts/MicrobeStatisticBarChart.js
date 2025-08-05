@@ -82,7 +82,7 @@ const MicrobeStatisticBarChart = ({ data }) => {
                                 }),
                                 barMaxWidth: '50%',
                                 itemStyle: {
-                                    color: event.data.name.startsWith('MAG') ? '#253D56' : '#A12D44'
+                                    color: event.data.name.startsWith('MAG') ? '#F28E2B' : '#4E79A7'
                                 },
                                 universalTransition: {
                                     enabled: true,
@@ -185,7 +185,7 @@ const buildSeries = (data) => {
             name: 'Monoisolate',
             id: 'Monoisolate',
             itemStyle: {
-                color: '#A12D44'
+                color: '#4E79A7'
             },
             barMaxWidth: '20%',
             barGap: '15%',
@@ -221,7 +221,7 @@ const buildSeries = (data) => {
             name: 'MAG',
             id: 'MAG',
             itemStyle: {
-                color: '#253D56'
+                color: '#F28E2B'
             },
             barMaxWidth: '20%',
             data: [
@@ -346,48 +346,48 @@ const buildDrillDownData = (data) => {
                 // ['Taxonomy', data['unMAGBacteriaTaxonomyCount']],
                 [
                     'Protein',
-                    134348834
-                    // data['unMAGBacteriaProteinCount']
+                    // 134348834
+                    data['unMAGBacteriaProteinCount']
                 ],
                 [
                     'tRNA & tmRNA',
-                    8238192
-                    // data['unMAGBacteriaTrnaCount']
+                    // 8238192
+                    data['unMAGBacteriaTrnaCount']
                 ],
                 [
                     'CRISPR/Cas System',
-                    39273
-                    // data['unMAGBacteriaCRISPRCount']
+                    // 39273
+                    data['unMAGBacteriaCRISPRCount']
                 ],
                 [
                     'Anti-CRISPR Protein',
-                    2476
-                    // data['unMAGBacteriaAntiCRISPRAnnotationCount']
+                    // 2476
+                    data['unMAGBacteriaAntiCRISPRAnnotationCount']
                 ],
                 [
                     'Secondary Metabolite',
-                    14237
-                    // data['unMAGBacteriaSecondaryMetaboliteRegionCount']
+                    // 14237
+                    data['unMAGBacteriaSecondaryMetaboliteRegionCount']
                 ],
                 [
                     'Signal Peptide',
-                    1232347
-                    // data['unMAGBacteriaSignalPeptidePredictionCount']
+                    // 1232347
+                    data['unMAGBacteriaSignalPeptidePredictionCount']
                 ],
                 [
                     'Virulence Factor',
-                    54238
-                    // data['unMAGBacteriaVirulenceFactorCount']
+                    // 54238
+                    data['unMAGBacteriaVirulenceFactorCount']
                 ],
                 [
                     'Antibiotic Resistance Gene',
-                    87374485
-                    // data['unMAGBacteriaAntibioticResistanceCount']
+                    // 87374485
+                    data['unMAGBacteriaAntibioticResistanceCount']
                 ],
                 [
                     'Transmembrane Protein',
-                    11234564
-                    // data['unMAGBacteriaTransmembraneHelicesCount']
+                    // 11234564
+                    data['unMAGBacteriaTransmembraneHelicesCount']
                 ]
             ]
         },
