@@ -40,7 +40,7 @@ const LogoAndTitle = () => (
                 width: '56px'
             }}
         />
-        <Span sx={{ fontSize: '24px', fontWeight: 700 }}>MicorbialScope</Span>
+        <Span sx={{ fontSize: '24px', fontWeight: 700 }}>MicrobialScope</Span>
     </A>
 )
 
@@ -100,7 +100,7 @@ const menuItems = [
             },
             {
                 key: 'antiCRISPRProteinsList',
-                label: 'Anti-CRISPR Protein',
+                label: 'Anti-CRISPR Element',
                 link: '/database/antiCRISPRProteins'
             },
             {

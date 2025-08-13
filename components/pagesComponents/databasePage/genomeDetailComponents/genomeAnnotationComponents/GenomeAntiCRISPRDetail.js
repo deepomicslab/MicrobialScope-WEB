@@ -85,11 +85,11 @@ const GenomeAntiCRISPRDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                Anti-CRISPR Protein Annotation
+                                Anti-CRISPR Element Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    Anti-CRISPR Protein List
+                                    Anti-CRISPR Element List
                                 </H6>
                                 <StyledTable
                                     columns={columns}
@@ -101,7 +101,7 @@ const GenomeAntiCRISPRDetail = ({ fastaDetail, proteins }) => {
                             <Stack spacing={2}>
                                 <Stack direction='row' spacing={6} alignItems="center">
                                     <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                        Annotated Anti-CRISPR Protein Map
+                                        Annotated Anti-CRISPR Element Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
                                         <Button

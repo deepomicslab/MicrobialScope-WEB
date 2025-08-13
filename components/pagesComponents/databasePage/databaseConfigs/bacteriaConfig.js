@@ -196,7 +196,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Protein',
+                title: 'Anti-CRISPR Element',
                 columns: bacteriaAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postBacteriaAntiCRISPRAnnotationsURL,
@@ -318,7 +318,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Protein',
+                title: 'Anti-CRISPR Element',
                 columns: bacteriaAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postUnMAGBacteriaAntiCRISPRAnnotationsURL,

@@ -14,6 +14,12 @@ const microbialOptions = [
     { label: 'Viruses', value: 'Viruses' }
 ]
 
+const microbialOptionsWithoutFungi = [
+    { label: 'Archaea', value: 'Archaea' },
+    { label: 'Bacteria', value: 'Bacteria' },
+    { label: 'Viruses', value: 'Viruses' }
+]
+
 const MAX_FILE_SIZE_MB = 20
 const ALLOWED_EXTENSIONS = ['.fasta', '.fa', '.fna']
 
@@ -34,12 +40,16 @@ const isValidFile = (file, messageApi) => {
 
 const AnalysisSubmitCard = ({
     uploadTip = null,
-    onSubmit
+    onSubmit,
+    isContainFungi=false,
+    href
 }) => {
     const [microbialType, setMicrobialType] = useState(null)
     const [fileList, setFileList] = useState([])
     const [submitted, setSubmitted] = useState(false)
     const messageApi = useGlobalMessage()
+
+    const options = isContainFungi ? microbialOptions : microbialOptionsWithoutFungi
 
     const handleBeforeUpload = (file) => {
         return isValidFile(file, messageApi) ? false : Upload.LIST_IGNORE
@@ -73,7 +83,7 @@ const AnalysisSubmitCard = ({
                     </Title>
                     <Select
                         placeholder="Choose a microbial type"
-                        options={microbialOptions}
+                        options={options}
                         value={microbialType}
                         onChange={setMicrobialType}
                         style={{ width: 300 }}
@@ -89,7 +99,7 @@ const AnalysisSubmitCard = ({
                         <Title level={3} style={{ marginBottom: 16, marginTop: 12 }}>
                             2. Upload Sequence File
                         </Title>
-                        <DropdownDownloadDemoButton/>
+                        <DropdownDownloadDemoButton href={href}/>
                     </Stack>
                     <Stack spacing={2}>
                         {uploadTip}

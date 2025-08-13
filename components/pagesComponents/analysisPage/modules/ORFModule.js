@@ -24,10 +24,10 @@ const ORFModule = ({}) => {
         axios.post(postAnalysisAnnotationTaskURL, {
             modulelist: '{"annotation":true}',
             rundemo: 'true',
-            analysistype: 'ORF prediction & Protein classification',
+            analysistype: 'ORF Prediction & Protein Classification',
             userid: getOrCreateUserId(),
             inputtype: 'upload',
-            microbialtype: 'Fungi'
+            microbialtype: 'Bacteria'
         }).then(({ data }) => {
             if (data.status === 'Success') {
                 messageApi.open({
@@ -62,7 +62,7 @@ const ORFModule = ({}) => {
 
         formData.append('modulelist', '{"annotation":true}')
         formData.append('rundemo', 'false')
-        formData.append('analysistype', 'ORF prediction & Protein classification')
+        formData.append('analysistype', 'ORF Prediction & Protein Classification')
         formData.append('userid', getOrCreateUserId())
         formData.append('inputtype', 'upload')
         formData.append('microbialtype', microbialType)
@@ -113,7 +113,7 @@ const ORFModule = ({}) => {
                         borderBottom: '1px solid rgb(211, 211, 211)'
                     }}
                 >
-                    ORF prediction & Protein classification
+                    ORF Prediction & Protein Classification
                 </Title>
                 <ActionButtonGroup
                     onRunDemo={onRunDemo}
@@ -123,6 +123,7 @@ const ORFModule = ({}) => {
                 <AnalysisBasicAlert/>
                 <AnalysisSubmitCard
                     onSubmit={onSubmit}
+                    href='/demoData/GCA_000010385.1.fna'
                 />
             </Stack>
         </Spin>

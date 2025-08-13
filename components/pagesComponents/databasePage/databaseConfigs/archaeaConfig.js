@@ -198,7 +198,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Protein',
+                title: 'Anti-CRISPR Element',
                 columns: archaeaAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postArchaeaAntiCRISPRAnnotationsURL,
@@ -320,7 +320,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Protein',
+                title: 'Anti-CRISPR Element',
                 columns: archaeaAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postUnMAGArchaeaAntiCRISPRAnnotationsURL,

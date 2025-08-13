@@ -39,7 +39,7 @@ const buildFunctionalStatistics = (statistic) => [
             statistic['MAGVirusesCRISPRCount'] + statistic['unMAGVirusesCRISPRCount']
     },
     {
-        name: 'Anti-CRISPR Protein',
+        name: 'Anti-CRISPR Element',
         icon: '/anti-CRISPR.png',
         type: 'antiCRISPRProteins',
         color: '#FDF4F0',

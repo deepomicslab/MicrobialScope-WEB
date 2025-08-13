@@ -27,7 +27,7 @@ const TPModule = ({}) => {
             analysistype: 'Transmembrane Protein Annotation',
             userid: getOrCreateUserId(),
             inputtype: 'upload',
-            microbialtype: 'Fungi'
+            microbialtype: 'Bacteria'
         }).then(({ data }) => {
             if (data.status === 'Success') {
                 messageApi.open({
@@ -123,6 +123,7 @@ const TPModule = ({}) => {
                 <AnalysisBasicAlert/>
                 <AnalysisSubmitCard
                     onSubmit={onSubmit}
+                    href='/demoData/GCA_000010385.1.fna'
                 />
             </Stack>
         </Spin>

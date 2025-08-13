@@ -42,8 +42,6 @@ Click ``Detail`` button to access the detailed profiles of the selected proteins
 
 <div align=center><img src="./DB_figures/protein2.png" width="1000"></div> 
 
-<div align=center><img src="./DB_figures/protein3.png" width="1000"></div> 
-
 ### tRNA & tmRNA
 <div align=center><img src="./DB_figures/trna1.png" width="1000"></div>
 
@@ -70,16 +68,16 @@ Click ``Detail`` button to access the detailed profiles of the selected CRISPR/C
 
 <div align=center><img src="./DB_figures/crispr2.png" width="1000"></div>
 
-### Anti-CRISPR Protein
+### Anti-CRISPR Element
 <div align=center><img src="./DB_figures/anticrispr1.png" width="1000"></div>
 
-The ``Anti-CRISPR Protein`` interface delivers comprehensive characterization of microbial anti-CRISPR proteins. 
+The ``Anti-CRISPR Element`` interface delivers comprehensive characterization of microbial anti-CRISPR elements. 
 
-+ Detail: Access the basic information of the chosen anti-CRISPR proteins.
++ Detail: Access the basic information of the chosen anti-CRISPR elements.
 + Filter: Filter for specific conditions based on user needs.
-+ Download: Download details of selected anti-CRISPR proteins.
++ Download: Download details of selected anti-CRISPR elements.
 
-Click ``Detail`` button to access the detailed profiles of the selected CRISPR/Cas systems.
+Click ``Detail`` button to access the detailed profiles of the selected anti-CRISPR elements.
 
 <div align=center><img src="./DB_figures/anticrispr2.png" width="1000"></div>
 

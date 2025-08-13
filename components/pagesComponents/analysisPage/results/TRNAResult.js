@@ -238,7 +238,7 @@ const SequenceTRNATable = ({ trnas }) => {
                     paddingBottom: '32px',
                     fontWeight: 500
                 }}>
-                    Annotated TRNA List
+                    Annotated tRNA & tmRNA List
                 </H6>
                 <StyledTable
                     columns={columns}
@@ -463,7 +463,7 @@ const SequenceTRNAsMap = ({ fastaDetail, trnas }) => {
                     m: '0px',
                     fontWeight: 500
                 }}>
-                    Annotated TRNA Map
+                    Annotated tRNA & tmRNA Map
                 </H6>
                 <Stack direction='row' spacing={2}>
                     <Button

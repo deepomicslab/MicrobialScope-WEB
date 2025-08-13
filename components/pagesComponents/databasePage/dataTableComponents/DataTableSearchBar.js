@@ -28,8 +28,6 @@ const DataTableSearchBar = ({
         value: ''
     })
 
-    console.log(localSearchText)
-
     const handleSearchTextChange = (changed) => {
         setLocalSearchText(prev => ({
             ...prev,

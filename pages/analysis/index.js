@@ -23,7 +23,7 @@ const customTheme = {
 const menuItems = [
     {
         key: 'orf',
-        label: 'ORF prediction & Protein classification',
+        label: 'ORF Prediction & Protein Classification',
     },
     {
         key: 'trna',
@@ -31,7 +31,7 @@ const menuItems = [
     },
     {
         key: 'vf',
-        label: 'Virulent Factor & ARG Detection',
+        label: 'Virulence Factor & Antibiotic Resistance Gene Detection',
     },
     {
         key: 'transmembrane',

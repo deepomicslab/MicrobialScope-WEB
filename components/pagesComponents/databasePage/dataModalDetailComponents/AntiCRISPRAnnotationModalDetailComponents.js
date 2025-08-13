@@ -15,7 +15,7 @@ export const AntiCRISPRAnnotationModalDetailTitle = () => (
         }}
     >
         <Title level={3} style={{ margin: 0, fontWeight: 600, color: '#333', pointerEvents: 'none' }}>
-            Anti-CRISPR Protein Detail
+            Anti-CRISPR Element Detail
         </Title>
     </Box>
 )

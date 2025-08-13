@@ -171,7 +171,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Protein',
+                title: 'Anti-CRISPR Element',
                 columns: virusesAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postVirusesAntiCRISPRAnnotationsURL,
@@ -269,7 +269,7 @@ export const virusesConfig = {
                 searchBarFields: VirusesCRISPRSearchBarConfig
             },
             'antiCRISPRProteins': {
-                title: 'Anti-CRISPR Protein',
+                title: 'Anti-CRISPR Element',
                 columns: virusesAntiCRISPRAnnotationColumns,
                 filterItems: getArchaeaAntiCRISPRAnnotationsFilterItems,
                 endpointList: postUnMAGVirusesAntiCRISPRAnnotationsURL,

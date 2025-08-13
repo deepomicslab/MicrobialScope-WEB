@@ -45,20 +45,19 @@ import COGCategoryLegend from "@/components/Visualization/vizD3/circoMapViz/COGC
 import { createPortal } from "react-dom"
 import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
 import AnalysisVirulenceFactorsArc from "@/components/Visualization/vizD3/circoMapViz/AnalysisVirulenceFactorsArc"
-import AntibioticResistanceArc from "@/components/Visualization/vizD3/circoMapViz/AntibioticResistanceArc"
 import AnalysisAntibioticResistanceArc
     from "@/components/Visualization/vizD3/circoMapViz/AnalysisAntibioticResistanceArc"
 
 const getVFAndARGOutputItems = (uploadPath) => [
     {
         key: '1',
-        label: <BoldLabel text='antimicrobial_resistance_gene_results.tsv'/>,
+        label: <BoldLabel text='ARG_results.tsv'/>,
         children: <TaskOutputDownloadButton uploadPath={uploadPath}
                                             filePath='/rawdata/arvf/antimicrobial_resistance_gene_result/antimicrobial_resistance_gene_results.tsv'/>
     },
     {
         key: '2',
-        label: <BoldLabel text='virulent_factor_results.tsv'/>,
+        label: <BoldLabel text='VF_results.tsv'/>,
         children: <TaskOutputDownloadButton uploadPath={uploadPath}
                                             filePath='/rawdata/arvf/virulence_factor_result/virulent_factor_results.tsv'/>
     }

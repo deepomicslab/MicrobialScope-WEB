@@ -11,13 +11,62 @@ const timelineItems = [
         dot: <CalendarOutlined style={{ fontSize: '20px' }}/>,
         children: (
             <>
-                <Title level={4} style={{ marginBottom: 8 }}>Version 1.1 (2025.7.24)</Title>
+                <Title level={4} style={{ marginBottom: 8 }}>Version 1.2 (2025.7.23)</Title>
                 <ul style={{ paddingLeft: '20px', margin: 0 }}>
-                    <li>Add <strong>&quot;ORF prediction & Protein classification&quot;</strong>, <strong>&quot;tRNA &
-                        tmRNA prediction&quot;</strong>, <strong>&quot;Virulent Factor & Antibiotic Resistance Gene
-                        Detection&quot;</strong>, <strong>&quot;Transmembrane Protein
-                        Annotation&quot;</strong>, <strong>&quot;Sequence
-                        Alignment&quot;</strong>, <strong>&quot;Comparative Analysis&quot;</strong> Analysis Modules.
+                    <li>
+                        <strong>New Analysis Modules.</strong> We&apos;ve expanded our analytical capabilities with new
+                        modules allowing users to upload and analyze their own data. New features include:
+                        <ul>
+                            <li>
+                                ORF Prediction & Protein Classification
+                            </li>
+                            <li>
+                                tRNA & tmRNA Prediction
+                            </li>
+                            <li>
+                                Virulence Factor & Antibiotic Resistance Gene Detecion
+                            </li>
+                            <li>
+                                Transmembrane Protein Annotation
+                            </li>
+                            <li>
+                                Sequence Alignment
+                            </li>
+                            <li>
+                                Comparative Analysis
+                            </li>
+                        </ul>
+                        All modules generate interactive visualizations and downloadable results.
+                    </li>
+                </ul>
+            </>
+        )
+    },
+    {
+        color: 'blue',
+        dot: <CalendarOutlined style={{ fontSize: '20px' }}/>,
+        children: (
+            <>
+                <Title level={4} style={{ marginBottom: 8 }}>Version 1.1 (2025.6.30)</Title>
+                <ul style={{ paddingLeft: '20px', margin: 0 }}>
+                    <li>
+                        <strong>Interactive Visualization Features.</strong> Our new interactive genomic annotation
+                        visualization enables intuitive exploration of genomic features. You can now:
+                        <ul>
+                            <li>
+                                Zoom in/out using mouse wheel
+                            </li>
+                            <li>
+                                Navigate through regions by horizontal dragging
+                            </li>
+                            <li>
+                                Download visualization charts in SVG and PNG formats
+                            </li>
+                            <li>
+                                View protein product names directly on the map when viewing regions smaller than 25,000
+                                bp
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </>
@@ -28,10 +77,10 @@ const timelineItems = [
         dot: <CalendarOutlined style={{ fontSize: '20px' }}/>,
         children: (
             <>
-                <Title level={4} style={{ marginBottom: 8 }}>Version 1.0 (2025.6.30)</Title>
+                <Title level={4} style={{ marginBottom: 8 }}>Version 1.0 (2025.5.1)</Title>
                 <ul style={{ paddingLeft: '20px', margin: 0 }}>
                     <li>
-                        <strong>MicrobialScope</strong> has been released. Welcome to use!
+                        MicrobialScope has been released. Welcome to use!
                     </li>
                 </ul>
             </>
@@ -42,7 +91,7 @@ const timelineItems = [
 const News = () => {
     return (
         <Card
-            title={<Title level={3}>NEWS</Title>}
+            title={<Title level={3}>MicrobialScope Release News</Title>}
             style={{
                 borderRadius: '8px',
                 boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',

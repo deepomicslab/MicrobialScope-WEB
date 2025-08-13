@@ -24,10 +24,10 @@ const TRNAModule = ({}) => {
         axios.post(postAnalysisAnnotationTaskURL, {
             modulelist: '{"annotation":false,"quality":false,"host":false,"lifestyle":false,"trna":true,"anticrispr":false,"transmembrane":false,"terminator":false}',
             rundemo: 'true',
-            analysistype: 'tRNA & tmRNA gene annotation',
+            analysistype: 'tRNA & tmRNA Prediction',
             userid: getOrCreateUserId(),
             inputtype: 'upload',
-            microbialtype: 'Fungi'
+            microbialtype: 'Bacteria'
         }).then(({ data }) => {
             if (data.status === 'Success') {
                 messageApi.open({
@@ -62,7 +62,7 @@ const TRNAModule = ({}) => {
 
         formData.append('modulelist', '{"annotation":false,"quality":false,"host":false,"lifestyle":false,"trna":true,"anticrispr":false,"transmembrane":false,"terminator":false}')
         formData.append('rundemo', 'false')
-        formData.append('analysistype', 'tRNA & tmRNA gene annotation')
+        formData.append('analysistype', 'tRNA & tmRNA Prediction')
         formData.append('userid', getOrCreateUserId())
         formData.append('inputtype', 'upload')
         formData.append('microbialtype', microbialType)
@@ -113,7 +113,7 @@ const TRNAModule = ({}) => {
                         borderBottom: '1px solid rgb(211, 211, 211)'
                     }}
                 >
-                    tRNA & tmRNA prediction
+                    tRNA & tmRNA Prediction
                 </Title>
                 <ActionButtonGroup
                     onRunDemo={onRunDemo}
@@ -123,6 +123,7 @@ const TRNAModule = ({}) => {
                 <AnalysisBasicAlert/>
                 <AnalysisSubmitCard
                     onSubmit={onSubmit}
+                    href='/demoData/GCA_000010385.1.fna'
                 />
             </Stack>
         </Spin>

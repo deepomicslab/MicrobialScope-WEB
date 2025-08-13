@@ -50,7 +50,7 @@ import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
 const getTPOutputItems = (uploadPath) => [
     {
         key: '1',
-        label: <BoldLabel text='result.txt'/>,
+        label: <BoldLabel text='tmhmm.txt'/>,
         children: <TaskOutputDownloadButton uploadPath={uploadPath} filePath='/rawdata/transmembrane/result.txt'/>
     },
     {

@@ -150,9 +150,6 @@ export const FilterCheckBox = ({
         }))
     }
 
-    console.log(options)
-    console.log(selected)
-
     return (
         <Checkbox.Group name={name} onChange={handelChange} value={selected[name]}>
             <Stack

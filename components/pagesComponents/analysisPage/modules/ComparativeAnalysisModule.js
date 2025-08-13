@@ -125,6 +125,8 @@ const ComparativeAnalysisModule = ({}) => {
                 <AnalysisSubmitCard
                     uploadTip={<UploadTip/>}
                     onSubmit={onSubmit}
+                    isContainFungi={true}
+                    href='/demoData/alignments.fna'
                 />
             </Stack>
         </Spin>

@@ -24,7 +24,7 @@ const VFandARGModule = ({}) => {
         axios.post(postAnalysisAnnotationTaskURL, {
             modulelist: '{"annotation":true,"arvf":true}',
             rundemo: 'true',
-            analysistype: 'Virulent Factor & Antimicrobial Resistance Gene Detection',
+            analysistype: 'Virulence Factor & Antibiotic Resistance Gene Detection',
             userid: getOrCreateUserId(),
             inputtype: 'upload',
             microbialtype: 'Bacteria'
@@ -62,7 +62,7 @@ const VFandARGModule = ({}) => {
 
         formData.append('modulelist', '{"annotation":true,"arvf":true}')
         formData.append('rundemo', 'false')
-        formData.append('analysistype', 'Virulent Factor & Antimicrobial Resistance Gene Detection')
+        formData.append('analysistype', 'Virulence Factor & Antibiotic Resistance Gene Detection')
         formData.append('userid', getOrCreateUserId())
         formData.append('inputtype', 'upload')
         formData.append('microbialtype', microbialType)
@@ -113,7 +113,7 @@ const VFandARGModule = ({}) => {
                         borderBottom: '1px solid rgb(211, 211, 211)'
                     }}
                 >
-                    Virulent Factor & Antibiotic Resistance Gene Detection
+                    Virulence Factor & Antibiotic Resistance Gene Detection
                 </Title>
                 <ActionButtonGroup
                     onRunDemo={onRunDemo}
@@ -123,6 +123,7 @@ const VFandARGModule = ({}) => {
                 <AnalysisBasicAlert/>
                 <AnalysisSubmitCard
                     onSubmit={onSubmit}
+                    href='/demoData/GCA_000010385.1.fna'
                 />
             </Stack>
         </Spin>
