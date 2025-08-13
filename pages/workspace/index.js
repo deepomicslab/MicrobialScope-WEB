@@ -34,7 +34,12 @@ const getTaskTableColumns = (handleViewResult, handleOpenLogModal) => [
         key: 'analysisType',
         align: 'center',
         filters: [
-            { text: 'ORF prediction & Protein classification', value: 'ORF prediction & Protein classification' },
+            { text: 'ORF Prediction & Protein Classification', value: 'ORF Prediction & Protein Classification' },
+            { text: 'tRNA & tmRNA Prediction', value: 'tRNA & tmRNA Prediction' },
+            { text: 'Virulence Factor & Antibiotic Resistance Gene Detection', value: 'Virulence Factor & Antibiotic Resistance Gene Detection' },
+            { text: 'Transmembrane Protein Annotation', value: 'Transmembrane Protein Annotation' },
+            { text: 'Sequence Alignment', value: 'Sequence Alignment' },
+            { text: 'Comparative Analysis', value: 'Comparative Analysis' }
         ],
         onFilter: (value, record) => record['analysis_type'] === value
     },
@@ -192,11 +197,11 @@ const Workspace = ({ tasks, userId }) => {
     }
 
     const handleViewResult = (record) => {
-        if (record['analysis_type'] === 'ORF prediction & Protein classification') {
+        if (record['analysis_type'] === 'ORF Prediction & Protein Classification') {
             router.push(`/analysis/result/orf/${record['id']}`)
-        } else if (record['analysis_type'] === 'tRNA & tmRNA gene annotation') {
+        } else if (record['analysis_type'] === 'tRNA & tmRNA Prediction') {
             router.push(`/analysis/result/trna/${record['id']}`)
-        } else if (record['analysis_type'] === 'Virulent Factor & Antimicrobial Resistance Gene Detection') {
+        } else if (record['analysis_type'] === 'Virulence Factor & Antibiotic Resistance Gene Detection') {
             router.push(`/analysis/result/vf/${record['id']}`)
         } else if (record['analysis_type'] === 'Transmembrane Protein Annotation') {
             router.push(`/analysis/result/transmembrane/${record['id']}`)
