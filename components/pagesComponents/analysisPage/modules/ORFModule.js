@@ -48,11 +48,11 @@ const ORFModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/orf/31')
+        router.push('/analysis/result/orf/45')
     }
 
     const onHelp = () => {
-        console.log('Help!')
+        router.push('/tutorial')
     }
 
     const onSubmit = (microbialType, fileList) => {

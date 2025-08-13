@@ -53,7 +53,7 @@ const ComparativeAnalysisModule = ({}) => {
     }
 
     const onHelp = () => {
-        console.log('Help!')
+        router.push('/tutorial')
     }
 
     const onSubmit = (microbialType, fileList) => {

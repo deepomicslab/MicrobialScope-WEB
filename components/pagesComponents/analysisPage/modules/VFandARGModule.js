@@ -48,11 +48,11 @@ const VFandARGModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/vf/33')
+        router.push('/analysis/result/vf/47')
     }
 
     const onHelp = () => {
-        console.log('Help!')
+        router.push('/tutorial')
     }
 
     const onSubmit = (microbialType, fileList) => {

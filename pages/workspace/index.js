@@ -93,9 +93,9 @@ const getTaskTableColumns = (handleViewResult, handleOpenLogModal) => [
 ]
 
 const moduleNameMap = {
-    'ORF prediction & Protein classification': 'annotation',
-    'tRNA & tmRNA gene annotation': 'trna',
-    'Virulent Factor & Antimicrobial Resistance Gene Detection': 'arvf',
+    'ORF Prediction & Protein Classification': 'annotation',
+    'tRNA & tmRNA Prediction': 'trna',
+    'Virulence Factor & Antibiotic Resistance Gene Detection': 'arvf',
     'Transmembrane Protein Annotation': 'transmembrane',
     'Sequence Alignment': 'alignment',
     'Comparative Tree Construction': 'tree'

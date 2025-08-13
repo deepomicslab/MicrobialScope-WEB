@@ -48,11 +48,11 @@ const TRNAModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/trna/32')
+        router.push('/analysis/result/trna/46')
     }
 
     const onHelp = () => {
-        console.log('Help!')
+        router.push('/tutorial')
     }
 
     const onSubmit = (microbialType, fileList) => {

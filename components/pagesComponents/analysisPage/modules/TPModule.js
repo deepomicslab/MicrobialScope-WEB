@@ -48,11 +48,11 @@ const TPModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/transmembrane/34')
+        router.push('/analysis/result/transmembrane/48')
     }
 
     const onHelp = () => {
-        console.log('Help!')
+        router.push('/tutorial')
     }
 
     const onSubmit = (microbialType, fileList) => {
