@@ -1,5 +1,5 @@
 import { Box, Container, Stack } from "@mui/system"
-import { Card, Col, Row, Statistic, Typography } from "antd"
+import { Card, Col, Row, Statistic, Tooltip, Typography } from "antd"
 import Image from "next/image"
 import { Span } from "@/components/styledComponents/styledHTMLTags"
 import CountUp from "react-countup"
@@ -48,7 +48,7 @@ const buildFunctionalStatistics = (statistic) => [
             statistic['MAGVirusesAntiCRISPRAnnotationCount'] + statistic['unMAGVirusesAntiCRISPRAnnotationCount']
     },
     {
-        name: 'Secondary Metabolite',
+        name: 'Secondary Metabolite Biosynthetic Cluster',
         icon: '/Secondary_metabolite.png',
         type: 'secondaryMetabolites',
         color: '#F6F4F2',
@@ -151,14 +151,20 @@ const FunctionalStatistic = ({ statistic }) => {
                                     {index === 0 && <Box ref={containerRef}></Box>}
                                     <Statistic
                                         title={
-                                            <Span sx={{
-                                                fontWeight: 600,
-                                                fontSize: '20px',
-                                                color: '#000',
-                                                marginBottom: '2px'
-                                            }}>
-                                                {functionalStatistic.name}
-                                            </Span>
+                                            <Stack
+                                                justifyContent='center'
+                                                sx={{
+                                                    fontWeight: 600,
+                                                    fontSize: '20px',
+                                                    color: '#000',
+                                                    marginBottom: '2px',
+                                                    minHeight: '65px'
+                                                }}
+                                            >
+                                                <Box component='span'>
+                                                    {functionalStatistic.name}
+                                                </Box>
+                                            </Stack>
                                         }
                                         value={functionalStatistic.count}
                                         valueStyle={{

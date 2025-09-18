@@ -46,6 +46,16 @@ import AreaPlot from "@/components/Visualization/vizD3/circoMapViz/AreaPlot"
 import COGCategoryLegend from "@/components/Visualization/vizD3/circoMapViz/COGCategoryLegend"
 import { createPortal } from "react-dom"
 import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
+import LinearAxis from "@/components/Visualization/vizD3/linearMapViz/LinearAxis"
+import GCContentLinear from "@/components/Visualization/vizD3/linearMapViz/GCContentLinear"
+import GCSkewLinear from "@/components/Visualization/vizD3/linearMapViz/GCSkewLinear"
+import LinearTransmembraneHelicesTrack
+    from "@/components/Visualization/vizD3/linearMapViz/TransmembraneProteinLinearTrack"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
 
 const getTPOutputItems = (uploadPath) => [
     {
@@ -310,6 +320,171 @@ const flattenHelicesWithGenomePosition = (transmembraneHelices, proteinList) => 
     return flattened
 }
 
+const LinearAnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins, transmembraneHelices }, ref) => {
+    const { width } = useContainerSize()
+    const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
+    const [domain, setDomain] = useState([0, domainEnd])
+
+    const svgRef = useRef(null)
+    const toolTipRef = useRef(null)
+
+    const svgWidth = width < 1280 ? 1280 : width
+
+    const vizConfig = useMemo(() => ({
+        areaPlotWindowSize: 5000,
+        gcSkewWindowSize: fastaDetail?.length > 200000 ? 500 : 20,
+        linear: {
+            height: 720,
+        },
+        areaPlot: {
+            height: 160,
+            width: 900
+        },
+        axis: {
+            width: 1080,
+            y: 625
+        },
+        gcSkew: {
+            bandWidth: 180,
+            gcContentStyle: { color: '#367dd6', name: 'GC Content' },
+            skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
+            skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
+        },
+        protein: {
+            gap: 20,
+            arrowWidth: 20
+        },
+        transmembraneProtein: {
+            gap: 60,
+            arrowWidth: 20
+        },
+        GCLegend: {
+            gap: 30
+        },
+        COGCategoryLegend: {
+            mt: 20
+        },
+    }), [fastaDetail?.length])
+
+    const transmembraneHelicesViz = useMemo(() => {
+        return flattenHelicesWithGenomePosition(transmembraneHelices, proteins)
+    }, [proteins, transmembraneHelices])
+
+    const gcResult = useMemo(() => {
+        return analyzeGCSkew(fastaDetail.sequence, vizConfig.gcSkewWindowSize);
+    }, [fastaDetail.sequence, vizConfig.gcSkewWindowSize])
+
+    const linearScale = d3.scaleLinear()
+        .domain(domain)
+        .range([0, vizConfig.axis.width])
+
+    const svgHeight = vizConfig.linear.height + vizConfig.areaPlot.height + 35
+
+    const xOffset = (svgWidth - vizConfig.axis.width) / 2
+
+    const gcContentYBase = vizConfig.axis.y - vizConfig.gcSkew.bandWidth
+    const gcSkewYBase = gcContentYBase - vizConfig.gcSkew.bandWidth
+    const proteinsYBase = gcSkewYBase - vizConfig.protein.gap - vizConfig.protein.arrowWidth / 2
+    const transmembraneProteinYBase = proteinsYBase - vizConfig.transmembraneProtein.gap - vizConfig.transmembraneProtein.arrowWidth / 2
+
+    const GCLegendTransform = [svgWidth - 140, 20]
+    const areaPlotTransform = [
+        (svgWidth - vizConfig.areaPlot.width) / 2,
+        vizConfig.linear.height
+    ]
+
+    useEffect(() => {
+        setDomain([0, domainEnd])
+    }, [domainEnd])
+
+    useImperativeHandle(ref, () => ({
+        downloadSvg: () => {
+            if (!svgRef.current) return
+            downloadSvg(svgRef.current, `${fastaDetail.contig || 'tRNA_map'}.svg`)
+        },
+        downloadPng: () => {
+            if (!svgRef.current) return
+            downloadSvgAsPng(svgRef.current, `${fastaDetail.contig || 'tRNA_map'}.png`, 2)
+        }
+    }))
+
+    return (
+        <>
+            <Box
+                sx={{
+                    width: 'fit-content',
+                    margin: '0 auto',
+                }}
+            >
+                <svg ref={svgRef} width={svgWidth} height={svgHeight} id='test-svg'>
+                    <defs>
+                        <clipPath id="areaPlotClip">
+                            <rect
+                                width={vizConfig.areaPlot.width}
+                                height={vizConfig.areaPlot.height}
+                            ></rect>
+                        </clipPath>
+                    </defs>
+                    <GCLegend
+                        transform={GCLegendTransform}
+                        legendGap={vizConfig.GCLegend.gap}
+                    />
+                    <LinearAxis
+                        xOffset={xOffset}
+                        yOffset={vizConfig.axis.y}
+                        scale={linearScale}
+                    />
+                    <g transform={`translate(${xOffset}, 0)`}>
+                        <GCContentLinear
+                            xScale={linearScale}
+                            gcContent={gcResult.gcContent}
+                            yBase={gcContentYBase}
+                            bandWidth={vizConfig.gcSkew.bandWidth}
+                            pathFillColor={vizConfig.gcSkew.gcContentStyle.color}
+                        />
+                        <GCSkewLinear
+                            xScale={linearScale}
+                            skewMinus={gcResult.skewMinus}
+                            skewPlus={gcResult.skewPlus}
+                            bandWidth={vizConfig.gcSkew.bandWidth}
+                            skewMinusColor={vizConfig.gcSkew.skewMinusStyle.color}
+                            skewPlusColor={vizConfig.gcSkew.skewPlusStyle.color}
+                            yTop={gcSkewYBase}
+                        />
+                        <LinearTransmembraneHelicesTrack
+                            xScale={linearScale}
+                            yCenter={transmembraneProteinYBase}
+                            arrowHeight={vizConfig.transmembraneProtein.arrowWidth}
+                            transmembraneHelices={transmembraneHelicesViz}
+                            toolTipRef={toolTipRef}
+                        />
+                    </g>
+                    <ContigVizInfos
+                        contigName={fastaDetail['contig']}
+                        contigLength={fastaDetail.length}
+                        displayRange={domain}
+                        maxRange={domainEnd}
+                    />
+                    <AreaPlot
+                        width={vizConfig.areaPlot.width}
+                        height={vizConfig.areaPlot.height}
+                        transform={areaPlotTransform}
+                        totalAxisLength={fastaDetail.length}
+                        onDomainChange={setDomain}
+                        data={transmembraneHelicesViz}
+                        windowSize={vizConfig.areaPlotWindowSize}
+                        title='Transmembrane Proteins/5kb'
+                        toolTipRef={toolTipRef}
+                    />
+                </svg>
+            </Box>
+            {createPortal(<CustomTooltip ref={toolTipRef}/>, document.body)}
+        </>
+    )
+})
+
+LinearAnnotatedTransmembraneHelicesMapViz.displayName = 'LinearAnnotatedTransmembraneHelicesMapViz'
+
 const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins, transmembraneHelices }, ref) => {
     const { width } = useContainerSize()
     const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
@@ -527,6 +702,7 @@ AnnotatedTransmembraneHelicesMapViz.displayName = "AnnotatedTransmembraneHelices
 
 const SequenceTPsMap = ({ fastaDetail, proteins, tps }) => {
     const vizRef = useRef(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     return (
         <Stack spacing={2}>
@@ -539,18 +715,11 @@ const SequenceTPsMap = ({ fastaDetail, proteins, tps }) => {
                     Annotated Transmembrane Protein Map
                 </H6>
                 <Stack direction='row' spacing={2}>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadSvg()}
-                    >
-                        Download SVG Chart
-                    </Button>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadPng()}
-                    >
-                        Download PNG Chart
-                    </Button>
+                    <VisualizationModeSwitchButton
+                        visualizationMode={visualizationMode}
+                        handleVisualizationModeChange={handleVisualizationModeChange}
+                    />
+                    <VisualizationDownloadButton vizRef={vizRef}/>
                 </Stack>
             </Stack>
             <ResponsiveVisualizationContainer
@@ -571,13 +740,25 @@ const SequenceTPsMap = ({ fastaDetail, proteins, tps }) => {
                     },
                 }}
             >
-                <AnnotatedTransmembraneHelicesMapViz
-                    key={fastaDetail['contig']}
-                    ref={vizRef}
-                    fastaDetail={fastaDetail}
-                    proteins={proteins}
-                    transmembraneHelices={tps}
-                />
+                {
+                    visualizationMode === 'circular' ? (
+                        <AnnotatedTransmembraneHelicesMapViz
+                            key={fastaDetail['contig']}
+                            ref={vizRef}
+                            fastaDetail={fastaDetail}
+                            proteins={proteins}
+                            transmembraneHelices={tps}
+                        />
+                    ) : (
+                        <LinearAnnotatedTransmembraneHelicesMapViz
+                            key={fastaDetail['contig']}
+                            ref={vizRef}
+                            fastaDetail={fastaDetail}
+                            proteins={proteins}
+                            transmembraneHelices={tps}
+                        />
+                    )
+                }
             </ResponsiveVisualizationContainer>
             <Box></Box>
         </Stack>

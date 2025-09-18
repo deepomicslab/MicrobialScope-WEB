@@ -20,10 +20,15 @@ import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
 import {
-    AntiCRISPRAnnotationModalDetailDescriptions
+    AntiCRISPRAnnotationModalDetailDescriptions, AntiCRISPRAnnotationModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/AntiCRISPRAnnotationModalDetailComponents"
 import AnnotatedAntiCRISPRMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedAntiCRISPRMapViz"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
 
 const GenomeAntiCRISPRDetail = ({ fastaDetail, proteins }) => {
     const { microbe, magStatus, genomeId } = useDatabaseGenomeDetailContext()
@@ -36,6 +41,7 @@ const GenomeAntiCRISPRDetail = ({ fastaDetail, proteins }) => {
 
     const [open, setOpen] = useState(false)
     const [selectedRecord, setSelectedRecord] = useState(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     const vizRef = useRef(null)
 
@@ -104,18 +110,11 @@ const GenomeAntiCRISPRDetail = ({ fastaDetail, proteins }) => {
                                         Annotated Anti-CRISPR Element Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadSvg()}
-                                        >
-                                            Download SVG Chart
-                                        </Button>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadPng()}
-                                        >
-                                            Download PNG Chart
-                                        </Button>
+                                        <VisualizationModeSwitchButton
+                                            visualizationMode={visualizationMode}
+                                            handleVisualizationModeChange={handleVisualizationModeChange}
+                                        />
+                                        <VisualizationDownloadButton vizRef={vizRef}/>
                                     </Stack>
                                 </Stack>
                                 <ResponsiveVisualizationContainer
@@ -142,6 +141,7 @@ const GenomeAntiCRISPRDetail = ({ fastaDetail, proteins }) => {
                                         fastaDetail={fastaDetail}
                                         proteins={filteredProteins}
                                         antiCRISPR={filteredAntiCRISPR}
+                                        mode={visualizationMode}
                                     />
                                 </ResponsiveVisualizationContainer>
                                 <Box></Box>
@@ -151,7 +151,7 @@ const GenomeAntiCRISPRDetail = ({ fastaDetail, proteins }) => {
                             open={open}
                             handleConfirm={handleConfirm}
                             handleCancel={handleCancel}
-                            title={() => <ProteinModalDetailTitle/>}
+                            title={<AntiCRISPRAnnotationModalDetailTitle/>}
                         >
                             <Box
                                 sx={{

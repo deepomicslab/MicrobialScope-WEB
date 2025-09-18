@@ -4,7 +4,7 @@ const ContigVizInfos = ({
     displayRange,
     maxRange
 }) => (
-    <foreignObject x="20" y="20" width="350" height="200">
+    <foreignObject x="20" y="20" width="350" height="130">
         <div
             xmlns="http://www.w3.org/1999/xhtml"
             style={{
@@ -15,7 +15,7 @@ const ContigVizInfos = ({
                 padding: '10px',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
                 maxWidth: '350px',
-                maxHeight: '200px',
+                maxHeight: '130px',
                 overflow: 'auto'
             }}
         >

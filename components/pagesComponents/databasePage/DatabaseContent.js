@@ -24,7 +24,8 @@ const shouldShowLoading = (microbe, dataType) => {
         { microbe: 'fungi', dataType: 'CRISPRCasSystems' },
         { microbe: 'fungi', dataType: 'antiCRISPRProteins' },
         { microbe: 'viruses', dataType: 'secondaryMetabolites' },
-        { microbe: 'viruses', dataType: 'signalPeptides' }
+        { microbe: 'viruses', dataType: 'signalPeptides' },
+        { microbe: 'viruses', dataType: 'antibioticResistanceGenes' }
     ];
 
     return invalidCombinations.some(item => item.microbe === microbe && item.dataType === dataType);
@@ -156,7 +157,7 @@ export const annotationToMicrobeMap = {
     'secondaryMetabolites': ['archaea', 'bacteria', 'fungi'],
     'signalPeptides': ['archaea', 'bacteria', 'fungi'],
     'virulenceFactors': ['archaea', 'bacteria', 'fungi', 'viruses'],
-    'antibioticResistanceGenes': ['archaea', 'bacteria', 'fungi', 'viruses'],
+    'antibioticResistanceGenes': ['archaea', 'bacteria', 'fungi'],
     'transmembraneHelices': ['archaea', 'bacteria', 'fungi', 'viruses']
 }
 

@@ -45,6 +45,17 @@ import AreaPlot from "@/components/Visualization/vizD3/circoMapViz/AreaPlot"
 import { createPortal } from "react-dom"
 import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
 import TRNAArc from "@/components/Visualization/vizD3/circoMapViz/TRNAArc"
+import LinearAxis from "@/components/Visualization/vizD3/linearMapViz/LinearAxis"
+import GCContentLinear from "@/components/Visualization/vizD3/linearMapViz/GCContentLinear"
+import GCSkewLinear from "@/components/Visualization/vizD3/linearMapViz/GCSkewLinear"
+import LinearProteinTrack from "@/components/Visualization/vizD3/linearMapViz/ProteinLinearTrack"
+import LinearTRNATrack from "@/components/Visualization/vizD3/linearMapViz/TRNALinearTrack"
+import COGCategoryLegend from "@/components/Visualization/vizD3/circoMapViz/COGCategoryLegend"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
 
 const getTRNAOutputItems = (uploadPath) => [
     {
@@ -269,6 +280,159 @@ const SequenceTRNATable = ({ trnas }) => {
     )
 }
 
+const LinearAnnotatedTRNAMapViz = forwardRef(({ fastaDetail, tRNAs }, ref) => {
+    const { width } = useContainerSize()
+    const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
+    const [domain, setDomain] = useState([0, domainEnd])
+
+    const svgRef = useRef(null)
+    const toolTipRef = useRef(null)
+
+    const svgWidth = width < 1280 ? 1280 : width
+
+    const vizConfig = useMemo(() => ({
+        areaPlotWindowSize: 5000,
+        gcSkewWindowSize: fastaDetail?.length > 200000 ? 500 : 20,
+        linear: {
+            height: 720,
+        },
+        areaPlot: {
+            height: 160,
+            width: 900
+        },
+        axis: {
+            width: 1080,
+            y: 625
+        },
+        gcSkew: {
+            bandWidth: 180,
+            gcContentStyle: { color: '#367dd6', name: 'GC Content' },
+            skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
+            skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
+        },
+        tRNA: {
+            gap: 20,
+            arrowWidth: 20
+        },
+        GCLegend: {
+            gap: 30
+        }
+    }), [fastaDetail?.length])
+
+    const gcResult = useMemo(() => {
+        return analyzeGCSkew(fastaDetail.sequence, vizConfig.gcSkewWindowSize);
+    }, [fastaDetail.sequence, vizConfig.gcSkewWindowSize])
+
+    const linearScale = d3.scaleLinear()
+        .domain(domain)
+        .range([0, vizConfig.axis.width])
+
+    const svgHeight = vizConfig.linear.height + vizConfig.areaPlot.height + 35
+
+    const xOffset = (svgWidth - vizConfig.axis.width) / 2
+
+    const gcContentYBase = vizConfig.axis.y - vizConfig.gcSkew.bandWidth
+    const gcSkewYBase = gcContentYBase - vizConfig.gcSkew.bandWidth
+    const tRNAYBase = gcSkewYBase - vizConfig.tRNA.gap - vizConfig.tRNA.arrowWidth / 2
+
+    const GCLegendTransform = [svgWidth - 140, 20]
+    const areaPlotTransform = [
+        (svgWidth - vizConfig.areaPlot.width) / 2,
+        vizConfig.linear.height
+    ]
+
+    useEffect(() => {
+        setDomain([0, domainEnd])
+    }, [domainEnd])
+
+    useImperativeHandle(ref, () => ({
+        downloadSvg: () => {
+            if (!svgRef.current) return
+            downloadSvg(svgRef.current, `${fastaDetail.contig || 'tRNA_map'}.svg`)
+        },
+        downloadPng: () => {
+            if (!svgRef.current) return
+            downloadSvgAsPng(svgRef.current, `${fastaDetail.contig || 'tRNA_map'}.png`, 2)
+        }
+    }))
+
+    return (
+        <>
+            <Box
+                sx={{
+                    width: 'fit-content',
+                    margin: '0 auto',
+                }}
+            >
+                <svg ref={svgRef} width={svgWidth} height={svgHeight} id='test-svg'>
+                    <defs>
+                        <clipPath id="areaPlotClip">
+                            <rect
+                                width={vizConfig.areaPlot.width}
+                                height={vizConfig.areaPlot.height}
+                            ></rect>
+                        </clipPath>
+                    </defs>
+                    <GCLegend
+                        transform={GCLegendTransform}
+                        legendGap={vizConfig.GCLegend.gap}
+                    />
+                    <LinearAxis
+                        xOffset={xOffset}
+                        yOffset={vizConfig.axis.y}
+                        scale={linearScale}
+                    />
+                    <g transform={`translate(${xOffset}, 0)`}>
+                        <GCContentLinear
+                            xScale={linearScale}
+                            gcContent={gcResult.gcContent}
+                            yBase={gcContentYBase}
+                            bandWidth={vizConfig.gcSkew.bandWidth}
+                            pathFillColor={vizConfig.gcSkew.gcContentStyle.color}
+                        />
+                        <GCSkewLinear
+                            xScale={linearScale}
+                            skewMinus={gcResult.skewMinus}
+                            skewPlus={gcResult.skewPlus}
+                            bandWidth={vizConfig.gcSkew.bandWidth}
+                            skewMinusColor={vizConfig.gcSkew.skewMinusStyle.color}
+                            skewPlusColor={vizConfig.gcSkew.skewPlusStyle.color}
+                            yTop={gcSkewYBase}
+                        />
+                        <LinearTRNATrack
+                            xScale={linearScale}
+                            yCenter={tRNAYBase}
+                            arrowHeight={vizConfig.tRNA.arrowWidth}
+                            tRNAs={tRNAs}
+                            toolTipRef={toolTipRef}
+                        />
+                    </g>
+                    <ContigVizInfos
+                        contigName={fastaDetail['contig']}
+                        contigLength={fastaDetail.length}
+                        displayRange={domain}
+                        maxRange={domainEnd}
+                    />
+                    <AreaPlot
+                        width={vizConfig.areaPlot.width}
+                        height={vizConfig.areaPlot.height}
+                        transform={areaPlotTransform}
+                        totalAxisLength={fastaDetail.length}
+                        onDomainChange={setDomain}
+                        data={tRNAs}
+                        windowSize={vizConfig.areaPlotWindowSize}
+                        title='tRNAs & tmRNAs/5kb'
+                        toolTipRef={toolTipRef}
+                    />
+                </svg>
+            </Box>
+            {createPortal(<CustomTooltip ref={toolTipRef}/>, document.body)}
+        </>
+    )
+})
+
+LinearAnnotatedTRNAMapViz.displayName = "LinearAnnotatedTRNAMapViz"
+
 const AnnotatedTRNAMapViz = forwardRef(({ fastaDetail, tRNAs }, ref) => {
     const { width } = useContainerSize()
     const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
@@ -454,6 +618,7 @@ AnnotatedTRNAMapViz.displayName = "AnnotatedTRNAMapViz"
 
 const SequenceTRNAsMap = ({ fastaDetail, trnas }) => {
     const vizRef = useRef(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     return (
         <Stack spacing={2}>
@@ -466,18 +631,11 @@ const SequenceTRNAsMap = ({ fastaDetail, trnas }) => {
                     Annotated tRNA & tmRNA Map
                 </H6>
                 <Stack direction='row' spacing={2}>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadSvg()}
-                    >
-                        Download SVG Chart
-                    </Button>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadPng()}
-                    >
-                        Download PNG Chart
-                    </Button>
+                    <VisualizationModeSwitchButton
+                        visualizationMode={visualizationMode}
+                        handleVisualizationModeChange={handleVisualizationModeChange}
+                    />
+                    <VisualizationDownloadButton vizRef={vizRef}/>
                 </Stack>
             </Stack>
             <ResponsiveVisualizationContainer
@@ -498,12 +656,23 @@ const SequenceTRNAsMap = ({ fastaDetail, trnas }) => {
                     },
                 }}
             >
-               <AnnotatedTRNAMapViz
-                   key={fastaDetail['contig']}
-                   ref={vizRef}
-                   fastaDetail={fastaDetail}
-                   tRNAs={trnas}
-               />
+                {
+                    visualizationMode === 'circular' ? (
+                        <AnnotatedTRNAMapViz
+                            key={fastaDetail['contig']}
+                            ref={vizRef}
+                            fastaDetail={fastaDetail}
+                            tRNAs={trnas}
+                        />
+                    ) : (
+                        <LinearAnnotatedTRNAMapViz
+                            key={fastaDetail['contig']}
+                            ref={vizRef}
+                            fastaDetail={fastaDetail}
+                            tRNAs={trnas}
+                        />
+                    )
+                }
             </ResponsiveVisualizationContainer>
             <Box></Box>
         </Stack>

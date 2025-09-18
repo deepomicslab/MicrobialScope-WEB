@@ -21,7 +21,11 @@ export const DownloadDescriptions = ({ microbe, magStatus }) => {
             >
                 {`${magStatus} ${microbe} Meta Download`}
             </H6>
-            <Descriptions bordered items={columns} column={2} />
+            <Descriptions
+                bordered
+                items={columns}
+                column={2}
+            />
         </Stack>
     )
 }

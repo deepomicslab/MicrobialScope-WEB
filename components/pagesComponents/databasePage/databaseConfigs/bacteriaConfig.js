@@ -208,7 +208,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolite',
+                title: 'Secondary Metabolite Biosynthetic Cluster',
                 columns: bacteriaSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postBacteriaSecondaryMetabolitesURL,
@@ -330,7 +330,7 @@ export const bacteriaConfig = {
                 searchBarFields: BacteriaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolite',
+                title: 'Secondary Metabolite Biosynthetic Cluster',
                 columns: bacteriaSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postUnMAGBacteriaSecondaryMetabolitesURL,

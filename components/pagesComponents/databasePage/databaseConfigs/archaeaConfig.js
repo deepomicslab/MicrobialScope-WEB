@@ -210,7 +210,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolite',
+                title: 'Secondary Metabolite Biosynthetic Cluster',
                 columns: archaeaSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postArchaeaSecondaryMetabolitesURL,
@@ -332,7 +332,7 @@ export const archaeaConfig = {
                 searchBarFields: ArchaeaAntiCRISPRSearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolite',
+                title: 'Secondary Metabolite Biosynthetic Cluster',
                 columns: archaeaSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postUnMAGArchaeaSecondaryMetabolitesURL,

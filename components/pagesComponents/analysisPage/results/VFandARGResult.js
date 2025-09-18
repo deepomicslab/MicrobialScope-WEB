@@ -22,8 +22,6 @@ import SequenceSelectorCard from "@/components/pagesComponents/analysisPage/shar
 import { SequenceProteinsTable } from "@/components/pagesComponents/analysisPage/results/ORFResult"
 import {
     BasicChip,
-    DetailButton,
-    StrandChip
 } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
 import { StyledTable } from "@/components/styledComponents/styledAntdTable"
 import ResponsiveVisualizationContainer, {
@@ -47,6 +45,22 @@ import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
 import AnalysisVirulenceFactorsArc from "@/components/Visualization/vizD3/circoMapViz/AnalysisVirulenceFactorsArc"
 import AnalysisAntibioticResistanceArc
     from "@/components/Visualization/vizD3/circoMapViz/AnalysisAntibioticResistanceArc"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
+import LinearAxis from "@/components/Visualization/vizD3/linearMapViz/LinearAxis"
+import GCContentLinear from "@/components/Visualization/vizD3/linearMapViz/GCContentLinear"
+import GCSkewLinear from "@/components/Visualization/vizD3/linearMapViz/GCSkewLinear"
+import LinearProteinTrack from "@/components/Visualization/vizD3/linearMapViz/ProteinLinearTrack"
+import LinearVirulenceFactorsTrack from "@/components/Visualization/vizD3/linearMapViz/VirulenceFactorLinearTrack"
+import AnalysisLinearVirulenceFactorsTrack
+    from "@/components/Visualization/vizD3/linearMapViz/VirulenceFactorAnalysisLinearTrack"
+import LinearAntibioticResistanceTrack
+    from "@/components/Visualization/vizD3/linearMapViz/AntibioticResistanceGeneLinearTrack"
+import AnalysisLinearAntibioticResistanceTrack
+    from "@/components/Visualization/vizD3/linearMapViz/AntibioticResistanceGeneAnalysisLinearTrack"
 
 const getVFAndARGOutputItems = (uploadPath) => [
     {
@@ -296,7 +310,183 @@ const addStartAndEndToVF = (spList, proteinList) => {
     })
 }
 
-const AnnotatedVirulenceFactorMapViz = forwardRef(({ fastaDetail, proteins, virulenceFactors }, ref) => {
+const LinearAnnotatedVirulenceFactorMapViz = forwardRef(({
+    fastaDetail, proteins, virulenceFactors
+}, ref) => {
+    const { width } = useContainerSize()
+    const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
+    const [domain, setDomain] = useState([0, domainEnd])
+
+    const svgRef = useRef(null)
+    const toolTipRef = useRef(null)
+
+    const svgWidth = width < 1280 ? 1280 : width
+
+    const vizConfig = useMemo(() => ({
+        areaPlotWindowSize: 5000,
+        gcSkewWindowSize: fastaDetail?.length > 200000 ? 500 : 20,
+        linear: {
+            height: 720,
+        },
+        areaPlot: {
+            height: 160,
+            width: 900
+        },
+        axis: {
+            width: 1080,
+            y: 625
+        },
+        gcSkew: {
+            bandWidth: 180,
+            gcContentStyle: { color: '#367dd6', name: 'GC Content' },
+            skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
+            skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
+        },
+        protein: {
+            gap: 20,
+            arrowWidth: 20
+        },
+        virulenceFactor: {
+            gap: 60,
+            arrowWidth: 20
+        },
+        GCLegend: {
+            gap: 30
+        },
+        COGCategoryLegend: {
+            mt: 20
+        },
+    }), [fastaDetail?.length])
+
+    const virulenceFactorsViz = useMemo(() => {
+        return addStartAndEndToVF(virulenceFactors, proteins)
+    }, [proteins, virulenceFactors])
+
+    const gcResult = useMemo(() => {
+        return analyzeGCSkew(fastaDetail.sequence, vizConfig.gcSkewWindowSize);
+    }, [fastaDetail.sequence, vizConfig.gcSkewWindowSize])
+
+    const linearScale = d3.scaleLinear()
+        .domain(domain)
+        .range([0, vizConfig.axis.width])
+
+    const svgHeight = vizConfig.linear.height + vizConfig.areaPlot.height + 35
+
+    const xOffset = (svgWidth - vizConfig.axis.width) / 2
+
+    const gcContentYBase = vizConfig.axis.y - vizConfig.gcSkew.bandWidth
+    const gcSkewYBase = gcContentYBase - vizConfig.gcSkew.bandWidth
+    const proteinsYBase = gcSkewYBase - vizConfig.protein.gap - vizConfig.protein.arrowWidth / 2
+    const virulenceFactorYBase = proteinsYBase - vizConfig.virulenceFactor.gap - vizConfig.virulenceFactor.arrowWidth / 2
+
+    const GCLegendTransform = [svgWidth - 140, 20]
+    const areaPlotTransform = [
+        (svgWidth - vizConfig.areaPlot.width) / 2,
+        vizConfig.linear.height
+    ]
+
+    useEffect(() => {
+        setDomain([0, domainEnd])
+    }, [domainEnd])
+
+    useImperativeHandle(ref, () => ({
+        downloadSvg: () => {
+            if (!svgRef.current) return
+            downloadSvg(svgRef.current, `${fastaDetail.contig || 'protein_map'}.svg`)
+        },
+        downloadPng: () => {
+            if (!svgRef.current) return
+            downloadSvgAsPng(svgRef.current, `${fastaDetail.contig || 'protein_map'}.png`, 2)
+        }
+    }))
+
+    return (
+        <>
+            <Box
+                sx={{
+                    width: 'fit-content',
+                    margin: '0 auto',
+                }}
+            >
+                <svg ref={svgRef} width={svgWidth} height={svgHeight} id='test-svg'>
+                    <defs>
+                        <clipPath id="areaPlotClip">
+                            <rect
+                                width={vizConfig.areaPlot.width}
+                                height={vizConfig.areaPlot.height}
+                            ></rect>
+                        </clipPath>
+                    </defs>
+                    <GCLegend
+                        transform={GCLegendTransform}
+                        legendGap={vizConfig.GCLegend.gap}
+                    />
+                    <LinearAxis
+                        xOffset={xOffset}
+                        yOffset={vizConfig.axis.y}
+                        scale={linearScale}
+                    />
+                    <g transform={`translate(${xOffset}, 0)`}>
+                        <GCContentLinear
+                            xScale={linearScale}
+                            gcContent={gcResult.gcContent}
+                            yBase={gcContentYBase}
+                            bandWidth={vizConfig.gcSkew.bandWidth}
+                            pathFillColor={vizConfig.gcSkew.gcContentStyle.color}
+                        />
+                        <GCSkewLinear
+                            xScale={linearScale}
+                            skewMinus={gcResult.skewMinus}
+                            skewPlus={gcResult.skewPlus}
+                            bandWidth={vizConfig.gcSkew.bandWidth}
+                            skewMinusColor={vizConfig.gcSkew.skewMinusStyle.color}
+                            skewPlusColor={vizConfig.gcSkew.skewPlusStyle.color}
+                            yTop={gcSkewYBase}
+                        />
+                        <LinearProteinTrack
+                            xScale={linearScale}
+                            yCenter={proteinsYBase}
+                            arrowHeight={vizConfig.protein.arrowWidth}
+                            proteins={proteins}
+                            toolTipRef={toolTipRef}
+                        />
+                        <AnalysisLinearVirulenceFactorsTrack
+                            xScale={linearScale}
+                            yCenter={virulenceFactorYBase}
+                            arrowHeight={vizConfig.virulenceFactor.arrowWidth}
+                            virulenceFactors={virulenceFactorsViz}
+                            toolTipRef={toolTipRef}
+                        />
+                    </g>
+                    <ContigVizInfos
+                        contigName={fastaDetail['contig']}
+                        contigLength={fastaDetail.length}
+                        displayRange={domain}
+                        maxRange={domainEnd}
+                    />
+                    <AreaPlot
+                        width={vizConfig.areaPlot.width}
+                        height={vizConfig.areaPlot.height}
+                        transform={areaPlotTransform}
+                        totalAxisLength={fastaDetail.length}
+                        onDomainChange={setDomain}
+                        data={virulenceFactorsViz}
+                        windowSize={vizConfig.areaPlotWindowSize}
+                        title='Virulence Factors/5kb'
+                        toolTipRef={toolTipRef}
+                    />
+                </svg>
+            </Box>
+            {createPortal(<CustomTooltip ref={toolTipRef}/>, document.body)}
+        </>
+)
+})
+
+LinearAnnotatedVirulenceFactorMapViz.displayName = 'LinearAnnotatedVirulenceFactorMapViz'
+
+const AnnotatedVirulenceFactorMapViz = forwardRef(({
+    fastaDetail, proteins, virulenceFactors
+}, ref) => {
     const { width } = useContainerSize()
     const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
     const [radicalDomain, setRadicalDomain] = useState([0, domainEnd])
@@ -513,6 +703,7 @@ AnnotatedVirulenceFactorMapViz.displayName = "AnnotatedVirulenceFactorMapViz"
 
 const SequenceVFsMap = ({ fastaDetail, proteins, vfs }) => {
     const vizRef = useRef(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     return (
         <Stack spacing={2}>
@@ -525,18 +716,11 @@ const SequenceVFsMap = ({ fastaDetail, proteins, vfs }) => {
                     Annotated Virulence Factor Map
                 </H6>
                 <Stack direction='row' spacing={2}>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadSvg()}
-                    >
-                        Download SVG Chart
-                    </Button>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadPng()}
-                    >
-                        Download PNG Chart
-                    </Button>
+                    <VisualizationModeSwitchButton
+                        visualizationMode={visualizationMode}
+                        handleVisualizationModeChange={handleVisualizationModeChange}
+                    />
+                    <VisualizationDownloadButton vizRef={vizRef}/>
                 </Stack>
             </Stack>
             <ResponsiveVisualizationContainer
@@ -557,13 +741,25 @@ const SequenceVFsMap = ({ fastaDetail, proteins, vfs }) => {
                     },
                 }}
             >
-                <AnnotatedVirulenceFactorMapViz
-                    key={fastaDetail['contig']}
-                    ref={vizRef}
-                    fastaDetail={fastaDetail}
-                    proteins={proteins}
-                    virulenceFactors={vfs}
-                />
+                {
+                    visualizationMode === 'circular' ? (
+                        <AnnotatedVirulenceFactorMapViz
+                            key={fastaDetail['contig']}
+                            ref={vizRef}
+                            fastaDetail={fastaDetail}
+                            proteins={proteins}
+                            virulenceFactors={vfs}
+                        />
+                    ) : (
+                        <LinearAnnotatedVirulenceFactorMapViz
+                            key={fastaDetail['contig']}
+                            ref={vizRef}
+                            fastaDetail={fastaDetail}
+                            proteins={proteins}
+                            virulenceFactors={vfs}
+                        />
+                    )
+                }
             </ResponsiveVisualizationContainer>
             <Box></Box>
         </Stack>
@@ -627,7 +823,181 @@ const addStartAndEndToARG = (spList, proteinList) => {
     })
 }
 
-const AnnotatedAntibioticResistanceMapViz = forwardRef(({ fastaDetail, proteins, antibioticResistance }, ref) => {
+const LinearAnnotatedAntibioticResistanceMapViz = forwardRef(({ fastaDetail, proteins, antibioticResistance }, ref) => {
+    const { width } = useContainerSize()
+    const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
+    const [domain, setDomain] = useState([0, domainEnd])
+
+    const svgRef = useRef(null)
+    const toolTipRef = useRef(null)
+
+    const svgWidth = width < 1280 ? 1280 : width
+
+    const vizConfig = useMemo(() => ({
+        areaPlotWindowSize: 5000,
+        gcSkewWindowSize: fastaDetail?.length > 200000 ? 500 : 20,
+        linear: {
+            height: 720,
+        },
+        areaPlot: {
+            height: 160,
+            width: 900
+        },
+        axis: {
+            width: 1080,
+            y: 625
+        },
+        gcSkew: {
+            bandWidth: 180,
+            gcContentStyle: { color: '#367dd6', name: 'GC Content' },
+            skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
+            skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
+        },
+        protein: {
+            gap: 20,
+            arrowWidth: 20
+        },
+        antibioticResistanceGene: {
+            gap: 60,
+            arrowWidth: 20
+        },
+        GCLegend: {
+            gap: 30
+        },
+        COGCategoryLegend: {
+            mt: 20
+        },
+    }), [fastaDetail?.length])
+
+    const antibioticResistanceViz = useMemo(() => {
+        return addStartAndEndToARG(antibioticResistance, proteins)
+    }, [antibioticResistance, proteins])
+
+    const gcResult = useMemo(() => {
+        return analyzeGCSkew(fastaDetail.sequence, vizConfig.gcSkewWindowSize);
+    }, [fastaDetail.sequence, vizConfig.gcSkewWindowSize])
+
+    const linearScale = d3.scaleLinear()
+        .domain(domain)
+        .range([0, vizConfig.axis.width])
+
+    const svgHeight = vizConfig.linear.height + vizConfig.areaPlot.height + 35
+
+    const xOffset = (svgWidth - vizConfig.axis.width) / 2
+
+    const gcContentYBase = vizConfig.axis.y - vizConfig.gcSkew.bandWidth
+    const gcSkewYBase = gcContentYBase - vizConfig.gcSkew.bandWidth
+    const proteinsYBase = gcSkewYBase - vizConfig.protein.gap - vizConfig.protein.arrowWidth / 2
+    const antibioticResistanceGeneYBase = proteinsYBase - vizConfig.antibioticResistanceGene.gap - vizConfig.antibioticResistanceGene.arrowWidth / 2
+
+    const GCLegendTransform = [svgWidth - 140, 20]
+    const areaPlotTransform = [
+        (svgWidth - vizConfig.areaPlot.width) / 2,
+        vizConfig.linear.height
+    ]
+
+    useEffect(() => {
+        setDomain([0, domainEnd])
+    }, [domainEnd])
+
+    useImperativeHandle(ref, () => ({
+        downloadSvg: () => {
+            if (!svgRef.current) return
+            downloadSvg(svgRef.current, `${fastaDetail.contig || 'tRNA_map'}.svg`)
+        },
+        downloadPng: () => {
+            if (!svgRef.current) return
+            downloadSvgAsPng(svgRef.current, `${fastaDetail.contig || 'tRNA_map'}.png`, 2)
+        }
+    }))
+
+    return (
+        <>
+            <Box
+                sx={{
+                    width: 'fit-content',
+                    margin: '0 auto',
+                }}
+            >
+                <svg ref={svgRef} width={svgWidth} height={svgHeight} id='test-svg'>
+                    <defs>
+                        <clipPath id="areaPlotClip">
+                            <rect
+                                width={vizConfig.areaPlot.width}
+                                height={vizConfig.areaPlot.height}
+                            ></rect>
+                        </clipPath>
+                    </defs>
+                    <GCLegend
+                        transform={GCLegendTransform}
+                        legendGap={vizConfig.GCLegend.gap}
+                    />
+                    <LinearAxis
+                        xOffset={xOffset}
+                        yOffset={vizConfig.axis.y}
+                        scale={linearScale}
+                    />
+                    <g transform={`translate(${xOffset}, 0)`}>
+                        <GCContentLinear
+                            xScale={linearScale}
+                            gcContent={gcResult.gcContent}
+                            yBase={gcContentYBase}
+                            bandWidth={vizConfig.gcSkew.bandWidth}
+                            pathFillColor={vizConfig.gcSkew.gcContentStyle.color}
+                        />
+                        <GCSkewLinear
+                            xScale={linearScale}
+                            skewMinus={gcResult.skewMinus}
+                            skewPlus={gcResult.skewPlus}
+                            bandWidth={vizConfig.gcSkew.bandWidth}
+                            skewMinusColor={vizConfig.gcSkew.skewMinusStyle.color}
+                            skewPlusColor={vizConfig.gcSkew.skewPlusStyle.color}
+                            yTop={gcSkewYBase}
+                        />
+                        <LinearProteinTrack
+                            xScale={linearScale}
+                            yCenter={proteinsYBase}
+                            arrowHeight={vizConfig.protein.arrowWidth}
+                            proteins={proteins}
+                            toolTipRef={toolTipRef}
+                        />
+                        <AnalysisLinearAntibioticResistanceTrack
+                            xScale={linearScale}
+                            yCenter={antibioticResistanceGeneYBase}
+                            arrowHeight={vizConfig.antibioticResistanceGene.arrowWidth}
+                            antibioticResistance={antibioticResistanceViz}
+                            toolTipRef={toolTipRef}
+                        />
+                    </g>
+                    <ContigVizInfos
+                        contigName={fastaDetail['contig']}
+                        contigLength={fastaDetail.length}
+                        displayRange={domain}
+                        maxRange={domainEnd}
+                    />
+                    <AreaPlot
+                        width={vizConfig.areaPlot.width}
+                        height={vizConfig.areaPlot.height}
+                        transform={areaPlotTransform}
+                        totalAxisLength={fastaDetail.length}
+                        onDomainChange={setDomain}
+                        data={antibioticResistanceViz}
+                        windowSize={vizConfig.areaPlotWindowSize}
+                        title='Antibiotic Resistance Genes/5kb'
+                        toolTipRef={toolTipRef}
+                    />
+                </svg>
+            </Box>
+            {createPortal(<CustomTooltip ref={toolTipRef}/>, document.body)}
+        </>
+)
+})
+
+LinearAnnotatedAntibioticResistanceMapViz.displayName = 'LinearAnnotatedAntibioticResistanceMapViz'
+
+const AnnotatedAntibioticResistanceMapViz = forwardRef(({
+    fastaDetail, proteins, antibioticResistance
+}, ref) => {
     const { width } = useContainerSize()
     const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
     const [radicalDomain, setRadicalDomain] = useState([0, domainEnd])
@@ -844,6 +1214,7 @@ AnnotatedAntibioticResistanceMapViz.displayName = "AnnotatedAntibioticResistance
 
 const SequenceARGsMap = ({ fastaDetail, proteins, args }) => {
     const vizRef = useRef(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     return (
         <Stack spacing={2}>
@@ -856,18 +1227,11 @@ const SequenceARGsMap = ({ fastaDetail, proteins, args }) => {
                     Annotated Antibiotic Resistance Gene Map
                 </H6>
                 <Stack direction='row' spacing={2}>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadSvg()}
-                    >
-                        Download SVG Chart
-                    </Button>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadPng()}
-                    >
-                        Download PNG Chart
-                    </Button>
+                    <VisualizationModeSwitchButton
+                        visualizationMode={visualizationMode}
+                        handleVisualizationModeChange={handleVisualizationModeChange}
+                    />
+                    <VisualizationDownloadButton vizRef={vizRef}/>
                 </Stack>
             </Stack>
             <ResponsiveVisualizationContainer
@@ -888,13 +1252,25 @@ const SequenceARGsMap = ({ fastaDetail, proteins, args }) => {
                     },
                 }}
             >
-                <AnnotatedAntibioticResistanceMapViz
-                    key={fastaDetail['contig']}
-                    ref={vizRef}
-                    fastaDetail={fastaDetail}
-                    proteins={proteins}
-                    antibioticResistance={args}
-                />
+                {
+                    visualizationMode === 'circular' ? (
+                        <AnnotatedAntibioticResistanceMapViz
+                            key={fastaDetail['contig']}
+                            ref={vizRef}
+                            fastaDetail={fastaDetail}
+                            proteins={proteins}
+                            antibioticResistance={args}
+                        />
+                    ) : (
+                        <LinearAnnotatedAntibioticResistanceMapViz
+                            key={fastaDetail['contig']}
+                            ref={vizRef}
+                            fastaDetail={fastaDetail}
+                            proteins={proteins}
+                            antibioticResistance={args}
+                        />
+                    )
+                }
             </ResponsiveVisualizationContainer>
             <Box></Box>
         </Stack>

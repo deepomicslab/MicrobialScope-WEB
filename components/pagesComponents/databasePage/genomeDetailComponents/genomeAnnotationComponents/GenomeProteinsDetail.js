@@ -11,16 +11,21 @@ import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
 import ResponsiveVisualizationContainer from "@/components/Visualization/containers/ResponsiveVisualizationContainer"
-import { Button } from "antd"
 import AnnotatedProteinMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedProteinMapViz"
 import { useDatabaseGenomeDetailContext } from "@/components/context/DatabaseGenomeDetailContext"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
 
 const GenomeProteinsDetail = ({ fastaDetail, proteins }) => {
     const { microbe } = useDatabaseGenomeDetailContext()
 
     const [open, setOpen] = useState(false)
     const [selectedRecord, setSelectedRecord] = useState(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     const vizRef = useRef(null)
 
@@ -74,18 +79,11 @@ const GenomeProteinsDetail = ({ fastaDetail, proteins }) => {
                             Annotated Protein Map
                         </H6>
                         <Stack direction='row' spacing={2}>
-                            <Button
-                                type="primary"
-                                onClick={() => vizRef.current?.downloadSvg()}
-                            >
-                                Download SVG Chart
-                            </Button>
-                            <Button
-                                type="primary"
-                                onClick={() => vizRef.current?.downloadPng()}
-                            >
-                                Download PNG Chart
-                            </Button>
+                            <VisualizationModeSwitchButton
+                                visualizationMode={visualizationMode}
+                                handleVisualizationModeChange={handleVisualizationModeChange}
+                            />
+                            <VisualizationDownloadButton vizRef={vizRef}/>
                         </Stack>
                     </Stack>
                     <ResponsiveVisualizationContainer
@@ -111,6 +109,7 @@ const GenomeProteinsDetail = ({ fastaDetail, proteins }) => {
                             ref={vizRef}
                             fastaDetail={fastaDetail}
                             proteins={filteredProteins}
+                            mode={visualizationMode}
                         />
                     </ResponsiveVisualizationContainer>
                     <Box></Box>
@@ -120,7 +119,7 @@ const GenomeProteinsDetail = ({ fastaDetail, proteins }) => {
                 open={open}
                 handleConfirm={handleConfirm}
                 handleCancel={handleCancel}
-                title={() => <ProteinModalDetailTitle/>}
+                title={<ProteinModalDetailTitle/>}
             >
                 <Box
                     sx={{

@@ -1,7 +1,5 @@
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react"
+import { forwardRef, useImperativeHandle, useRef } from "react"
 import { useContainerSize } from "@/components/Visualization/containers/ResponsiveVisualizationContainer"
-import * as d3 from "d3"
-import { analyzeGCSkew } from "@/components/Visualization/vizD3/utils/gcContentUtils"
 import { buildAnnularSectorClipPath } from "@/components/Visualization/vizD3/utils/cicularPathUtils"
 import { downloadSvg, downloadSvgAsPng } from "@/components/Visualization/vizD3/utils/svgExportUtils"
 import { Box } from "@mui/system"
@@ -17,156 +15,22 @@ import COGCategoryLegend from "@/components/Visualization/vizD3/circoMapViz/COGC
 import { createPortal } from "react-dom"
 import CustomTooltip from "@/components/Visualization/tooltip/Tooltip"
 import TransmembraneHelicesArc from "@/components/Visualization/vizD3/circoMapViz/TransmembraneHelicesArc"
+import useGenomeMapVizModel
+    from "@/components/pagesComponents/databasePage/hooks/visualization/visualizationModel/useGenomeMapVizModel"
+import LinearAxis from "@/components/Visualization/vizD3/linearMapViz/LinearAxis"
+import GCContentLinear from "@/components/Visualization/vizD3/linearMapViz/GCContentLinear"
+import GCSkewLinear from "@/components/Visualization/vizD3/linearMapViz/GCSkewLinear"
+import LinearProteinTrack from "@/components/Visualization/vizD3/linearMapViz/ProteinLinearTrack"
+import LinearTransmembraneHelicesTrack
+    from "@/components/Visualization/vizD3/linearMapViz/TransmembraneProteinLinearTrack"
 
-const flattenHelicesWithGenomePosition = (transmembraneHelices, proteinList) => {
-    const proteinMap = new Map()
-    proteinList.forEach(protein => {
-        proteinMap.set(protein.protein_id, {
-            start: protein.start,
-            end: protein.end,
-            strand: protein.strand
-        })
-    })
-
-    const flattened = []
-
-    transmembraneHelices.forEach(tmh => {
-        const proteinInfo = proteinMap.get(tmh.protein_id)
-
-        if (tmh.helices && Array.isArray(tmh.helices) && proteinInfo) {
-            const { start: pStart, end: pEnd, strand } = proteinInfo
-
-            tmh.helices.forEach(helix => {
-                let genomeStart, genomeEnd
-
-                if (strand === 0) {
-                    genomeStart = pStart + helix.start - 1
-                    genomeEnd = pStart + helix.end - 1
-                } else {
-                    genomeStart = pEnd - helix.end + 1
-                    genomeEnd = pEnd - helix.start + 1
-                }
-
-                flattened.push({
-                    ...helix,
-                    protein_id: tmh.protein_id,
-                    strand,
-                    source: tmh.source,
-                    predicted_tmh_count: tmh.predicted_tmh_count,
-                    protein_start: helix.start,
-                    protein_end: helix.end,
-                    start: genomeStart,
-                    end: genomeEnd
-                })
-            })
-        }
-    })
-
-    return flattened
-}
-
-const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins, transmembraneHelices }, ref) => {
+const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins, transmembraneHelices, mode }, ref) => {
     const { width } = useContainerSize()
-    const domainEnd = fastaDetail.length > 500000 ? 500000 : fastaDetail.length
-    const [radicalDomain, setRadicalDomain] = useState([0, domainEnd])
 
     const svgRef = useRef(null)
     const toolTipRef = useRef(null)
 
-    const svgWidth = width < 1280 ? 1280 : width
-
-    const MapVizConfig = useMemo(() => ({
-        areaPlotWindowSize: 5000,
-        circular: {
-            height: 720
-        },
-        areaPlot: {
-            height: 160,
-            width: 900
-        },
-        axis: {
-            radius: 140
-        },
-        gcSkew: {
-            windowSize: fastaDetail?.length > 200000 ? 500 : 20,
-            bandWidth: 80,
-            gcContentStyle: { color: '#367dd6', name: 'GC Content' },
-            skewPlusStyle: { color: '#fb475e', name: 'GC Skew+' },
-            skewMinusStyle: { color: '#019992', name: 'GC Skew-' },
-        },
-        protein: {
-            radius: 310,
-            arrowWidth: 20
-        },
-        transmembraneHelices: {
-            radius: 335,
-            arrowWidth: 20
-        },
-        GCLegend: {
-            gap: 30
-        },
-        COGCategoryLegend: {
-            mt: 20
-        }
-    }), [fastaDetail?.length])
-    const [cx, cy] = useMemo(
-        () => [svgWidth / 2, MapVizConfig.circular.height / 2],
-        [MapVizConfig.circular.height, svgWidth]
-    )
-    const radicalScale = useMemo(() => {
-        return d3.scaleLinear()
-            .range([0, 350 * (Math.PI / 180)])
-            .domain(radicalDomain)
-    }, [radicalDomain])
-    const GCSkew = useMemo(() => {
-        return analyzeGCSkew(fastaDetail.sequence, MapVizConfig.gcSkew.windowSize);
-    }, [MapVizConfig.gcSkew.windowSize, fastaDetail.sequence])
-    const COGCategories = useMemo(() => {
-        const uniqueCogs = new Set()
-
-        proteins.forEach(protein => {
-            [...protein['cog_category']].forEach(cog => uniqueCogs.add(cog))
-        })
-
-        return Array.from(uniqueCogs).sort()
-    }, [proteins])
-    const transmembraneHelicesViz = useMemo(() => {
-        return flattenHelicesWithGenomePosition(transmembraneHelices, proteins)
-    }, [proteins, transmembraneHelices])
-
-    const svgHeight =
-        MapVizConfig.circular.height + MapVizConfig.areaPlot.height +
-        MapVizConfig.COGCategoryLegend.mt + 6 * 30 + 35
-
-    const gcContentRadiusBase = MapVizConfig.axis.radius
-    const gcContentRadiusMid = gcContentRadiusBase + MapVizConfig.gcSkew.bandWidth / 2
-
-    const gcSkewRadiusBase = gcContentRadiusBase + MapVizConfig.gcSkew.bandWidth
-    const gcSkewRadiusMid = gcSkewRadiusBase + MapVizConfig.gcSkew.bandWidth / 2
-
-    const proteinsClipPath = buildAnnularSectorClipPath(
-        cx,
-        cy,
-        0,
-        350 * (Math.PI / 180),
-        MapVizConfig.protein.radius,
-        MapVizConfig.protein.radius + MapVizConfig.protein.arrowWidth
-    )
-
-    const GCLegendTransform = [svgWidth - 140, 20]
-    const areaPlotTransform = [
-        (svgWidth - MapVizConfig.areaPlot.width) / 2,
-        MapVizConfig.circular.height
-    ]
-    const COGCategoryLegendTransform = [
-        (svgWidth - MapVizConfig.areaPlot.width) / 2,
-        MapVizConfig.areaPlot.height + MapVizConfig.circular.height +
-        MapVizConfig.COGCategoryLegend.mt
-    ]
-
-    useEffect(() => {
-        setRadicalDomain([0, domainEnd])
-    }, [domainEnd])
+    const model = useGenomeMapVizModel('transmembraneProtein', mode, fastaDetail, proteins, width, transmembraneHelices)
 
     useImperativeHandle(ref, () => ({
         downloadSvg: () => {
@@ -179,6 +43,13 @@ const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins,
         }
     }))
 
+    const renderers = {
+        circular: CircularTransmembraneProteinMap,
+        linear: LinearTransmembraneProteinMap
+    }
+
+    const Renderer = renderers[mode]
+
     return (
         <>
             <Box
@@ -187,90 +58,8 @@ const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins,
                     margin: '0 auto',
                 }}
             >
-                <svg ref={svgRef} width={svgWidth} height={svgHeight} id='test-svg'>
-                    <defs>
-                        <clipPath id="gcSkewClip">
-                            <path d={proteinsClipPath}></path>
-                        </clipPath>
-                        <clipPath id="areaPlotClip">
-                            <rect
-                                width={MapVizConfig.areaPlot.width}
-                                height={MapVizConfig.areaPlot.height}
-                            ></rect>
-                        </clipPath>
-                    </defs>
-                    <GCLegend
-                        transform={GCLegendTransform}
-                        legendGap={MapVizConfig.GCLegend.gap}
-                    />
-                    <ContigVizInfos
-                        contigName={fastaDetail['contig']}
-                        contigLength={fastaDetail.length}
-                        displayRange={radicalDomain}
-                        maxRange={domainEnd}
-                    />
-                    <CircularAxis
-                        radicalScale={radicalScale}
-                        cx={cx}
-                        cy={cy}
-                        radius={MapVizConfig.axis.radius}
-                    />
-                    <GCContentArc
-                        cx={cx}
-                        cy={cy}
-                        radicalScale={radicalScale}
-                        gcContent={GCSkew.gcContent}
-                        bandWidth={MapVizConfig.gcSkew.bandWidth}
-                        pathFillColor={MapVizConfig.gcSkew.gcContentStyle.color}
-                        gcContentRadiusBase={gcContentRadiusBase}
-                        gcContentRadiusMid={gcContentRadiusMid}
-                    />
-                    <GCSkewArc
-                        cx={cx}
-                        cy={cy}
-                        radicalScale={radicalScale}
-                        skewMinus={GCSkew.skewMinus}
-                        skewPlus={GCSkew.skewPlus}
-                        bandWidth={MapVizConfig.gcSkew.bandWidth}
-                        skewMinusColor={MapVizConfig.gcSkew.skewMinusStyle.color}
-                        skewPlusColor={MapVizConfig.gcSkew.skewPlusStyle.color}
-                        gcSkewRadiusBase={gcSkewRadiusBase}
-                        gcSkewRadiusMid={gcSkewRadiusMid}
-                    />
-                    <ProteinArc
-                        cx={cx}
-                        cy={cy}
-                        radicalScale={radicalScale}
-                        radius={MapVizConfig.protein.radius}
-                        proteins={proteins}
-                        arrowWidth={MapVizConfig.protein.arrowWidth}
-                        toolTipRef={toolTipRef}
-                    />
-                    <TransmembraneHelicesArc
-                        cx={cx}
-                        cy={cy}
-                        radicalScale={radicalScale}
-                        radius={MapVizConfig.transmembraneHelices.radius}
-                        transmembraneHelices={transmembraneHelicesViz}
-                        arrowWidth={MapVizConfig.transmembraneHelices.arrowWidth}
-                        toolTipRef={toolTipRef}
-                    />
-                    <AreaPlot
-                        width={MapVizConfig.areaPlot.width}
-                        height={MapVizConfig.areaPlot.height}
-                        transform={areaPlotTransform}
-                        totalAxisLength={fastaDetail.length}
-                        onDomainChange={setRadicalDomain}
-                        data={transmembraneHelicesViz}
-                        windowSize={MapVizConfig.areaPlotWindowSize}
-                        title='Transmembrane Proteins/5kb'
-                        toolTipRef={toolTipRef}
-                    />
-                    <COGCategoryLegend
-                        COGCategories={COGCategories}
-                        transform={COGCategoryLegendTransform}
-                        toolTipRef={toolTipRef}
-                    />
+                <svg ref={svgRef} width={model.svgWidth} height={model.layout.svgHeight} id='test-svg'>
+                    <Renderer model={model} toolTipRef={toolTipRef}/>
                 </svg>
             </Box>
             {createPortal(<CustomTooltip ref={toolTipRef}/>, document.body)}
@@ -279,5 +68,252 @@ const AnnotatedTransmembraneHelicesMapViz = forwardRef(({ fastaDetail, proteins,
 })
 
 AnnotatedTransmembraneHelicesMapViz.displayName = "AnnotatedTransmembraneHelicesMapViz"
+
+const CircularTransmembraneProteinMap = ({ model, toolTipRef }) => {
+    const {
+        config,
+        svgWidth,
+        domain,
+        domainEnd,
+        setDomain,
+        gcResult,
+        COGCategories,
+        contigLength,
+        contigName,
+        proteins,
+        entities: transmembraneProteins,
+        layout
+    } = model
+    const {
+        cx,
+        cy,
+        angleScale,
+        vizConfig,
+        gcContentRadiusBase,
+        gcContentRadiusMid,
+        gcSkewRadiusBase,
+        gcSkewRadiusMid
+    } = layout
+
+    const proteinsClipPath = buildAnnularSectorClipPath(
+        cx,
+        cy,
+        0,
+        350 * (Math.PI / 180),
+        vizConfig.protein.radius,
+        vizConfig.protein.radius + vizConfig.protein.arrowWidth
+    )
+
+    const GCLegendTransform = [svgWidth - 140, 20]
+    const areaPlotTransform = [
+        (svgWidth - vizConfig.areaPlot.width) / 2,
+        vizConfig.circular.height
+    ]
+    const COGCategoryLegendTransform = [
+        (svgWidth - vizConfig.areaPlot.width) / 2,
+        vizConfig.areaPlot.height + vizConfig.circular.height + vizConfig.COGCategoryLegend.mt
+    ]
+
+    return (
+        <>
+            <defs>
+                <clipPath id="gcSkewClip">
+                    <path d={proteinsClipPath}></path>
+                </clipPath>
+                <clipPath id="areaPlotClip">
+                    <rect
+                        width={vizConfig.areaPlot.width}
+                        height={vizConfig.areaPlot.height}
+                    ></rect>
+                </clipPath>
+            </defs>
+            <GCLegend
+                transform={GCLegendTransform}
+                legendGap={vizConfig.GCLegend.gap}
+            />
+            <ContigVizInfos
+                contigName={contigName}
+                contigLength={contigLength}
+                displayRange={domain}
+                maxRange={domainEnd}
+            />
+            <CircularAxis
+                radicalScale={angleScale}
+                cx={cx}
+                cy={cy}
+                radius={vizConfig.axis.radius}
+            />
+            <GCContentArc
+                cx={cx}
+                cy={cy}
+                radicalScale={angleScale}
+                gcContent={gcResult.gcContent}
+                bandWidth={vizConfig.gcSkew.bandWidth}
+                pathFillColor={vizConfig.gcSkew.gcContentStyle.color}
+                gcContentRadiusBase={gcContentRadiusBase}
+                gcContentRadiusMid={gcContentRadiusMid}
+            />
+            <GCSkewArc
+                cx={cx}
+                cy={cy}
+                radicalScale={angleScale}
+                skewMinus={gcResult.skewMinus}
+                skewPlus={gcResult.skewPlus}
+                bandWidth={vizConfig.gcSkew.bandWidth}
+                skewMinusColor={vizConfig.gcSkew.skewMinusStyle.color}
+                skewPlusColor={vizConfig.gcSkew.skewPlusStyle.color}
+                gcSkewRadiusBase={gcSkewRadiusBase}
+                gcSkewRadiusMid={gcSkewRadiusMid}
+            />
+            <ProteinArc
+                cx={cx}
+                cy={cy}
+                radicalScale={angleScale}
+                radius={vizConfig.protein.radius}
+                proteins={proteins}
+                arrowWidth={vizConfig.protein.arrowWidth}
+                toolTipRef={toolTipRef}
+            />
+            <TransmembraneHelicesArc
+                cx={cx}
+                cy={cy}
+                radicalScale={angleScale}
+                radius={vizConfig.transmembraneProtein.radius}
+                transmembraneHelices={transmembraneProteins}
+                arrowWidth={vizConfig.transmembraneProtein.arrowWidth}
+                toolTipRef={toolTipRef}
+            />
+            <AreaPlot
+                width={vizConfig.areaPlot.width}
+                height={vizConfig.areaPlot.height}
+                transform={areaPlotTransform}
+                totalAxisLength={contigLength}
+                onDomainChange={setDomain}
+                data={transmembraneProteins}
+                windowSize={config.areaPlotWindowSize}
+                title='Transmembrane Proteins/5kb'
+                toolTipRef={toolTipRef}
+            />
+            <COGCategoryLegend
+                COGCategories={COGCategories}
+                transform={COGCategoryLegendTransform}
+                toolTipRef={toolTipRef}
+            />
+        </>
+    )
+}
+
+const LinearTransmembraneProteinMap = ({ model, toolTipRef }) => {
+    const {
+        svgWidth,
+        domain,
+        domainEnd,
+        setDomain,
+        config,
+        gcResult,
+        COGCategories,
+        contigLength,
+        contigName,
+        proteins,
+        entities: transmembraneProteins,
+        layout
+    } = model
+    const {
+        svgHeight,
+        linearScale,
+        vizConfig,
+        xOffset,
+        gcContentYBase,
+        gcSkewYBase,
+        proteinsYBase,
+        transmembraneProteinYBase,
+    } = layout
+
+    const GCLegendTransform = [svgWidth - 140, 20]
+    const areaPlotTransform = [
+        (svgWidth - vizConfig.areaPlot.width) / 2,
+        vizConfig.linear.height
+    ]
+    const COGCategoryLegendTransform = [
+        (svgWidth - vizConfig.areaPlot.width) / 2,
+        vizConfig.areaPlot.height + vizConfig.linear.height + vizConfig.COGCategoryLegend.mt
+    ]
+
+    return (
+        <>
+            <defs>
+                <clipPath id="areaPlotClip">
+                    <rect
+                        width={vizConfig.areaPlot.width}
+                        height={vizConfig.areaPlot.height}
+                    ></rect>
+                </clipPath>
+            </defs>
+            <GCLegend
+                transform={GCLegendTransform}
+                legendGap={vizConfig.GCLegend.gap}
+            />
+            <LinearAxis
+                xOffset={xOffset}
+                yOffset={vizConfig.axis.y}
+                scale={linearScale}
+            />
+            <g transform={`translate(${xOffset}, 0)`}>
+                <GCContentLinear
+                    xScale={linearScale}
+                    gcContent={gcResult.gcContent}
+                    yBase={gcContentYBase}
+                    bandWidth={vizConfig.gcSkew.bandWidth}
+                    pathFillColor={vizConfig.gcSkew.gcContentStyle.color}
+                />
+                <GCSkewLinear
+                    xScale={linearScale}
+                    skewMinus={gcResult.skewMinus}
+                    skewPlus={gcResult.skewPlus}
+                    bandWidth={vizConfig.gcSkew.bandWidth}
+                    skewMinusColor={vizConfig.gcSkew.skewMinusStyle.color}
+                    skewPlusColor={vizConfig.gcSkew.skewPlusStyle.color}
+                    yTop={gcSkewYBase}
+                />
+                <LinearProteinTrack
+                    xScale={linearScale}
+                    yCenter={proteinsYBase}
+                    arrowHeight={vizConfig.protein.arrowWidth}
+                    proteins={proteins}
+                    toolTipRef={toolTipRef}
+                />
+                <LinearTransmembraneHelicesTrack
+                    xScale={linearScale}
+                    yCenter={transmembraneProteinYBase}
+                    arrowHeight={vizConfig.transmembraneProtein.arrowWidth}
+                    transmembraneHelices={transmembraneProteins}
+                    toolTipRef={toolTipRef}
+                />
+            </g>
+            <ContigVizInfos
+                contigName={contigName}
+                contigLength={contigLength}
+                displayRange={domain}
+                maxRange={domainEnd}
+            />
+            <AreaPlot
+                width={vizConfig.areaPlot.width}
+                height={vizConfig.areaPlot.height}
+                transform={areaPlotTransform}
+                totalAxisLength={contigLength}
+                onDomainChange={setDomain}
+                data={transmembraneProteins}
+                windowSize={config.areaPlotWindowSize}
+                title='Transmembrane Proteins/5kb'
+                toolTipRef={toolTipRef}
+            />
+            <COGCategoryLegend
+                COGCategories={COGCategories}
+                transform={COGCategoryLegendTransform}
+                toolTipRef={toolTipRef}
+            />
+        </>
+    )
+}
 
 export default AnnotatedTransmembraneHelicesMapViz

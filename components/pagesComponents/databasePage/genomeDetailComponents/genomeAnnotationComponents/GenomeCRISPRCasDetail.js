@@ -13,17 +13,21 @@ import { ErrorView } from "@/components/stateViews/ErrorView"
 import { Box, Stack } from "@mui/system"
 import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import { StyledTable } from "@/components/styledComponents/styledAntdTable"
-import { Button } from "antd"
 import ResponsiveVisualizationContainer from "@/components/Visualization/containers/ResponsiveVisualizationContainer"
 import DraggableModal from "@/components/feedbackComponents/modals/DraggableModal"
 import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
 import {
-    CRISPRCasSystemModalDetailDescriptions
+    CRISPRCasSystemModalDetailDescriptions, CRISPRCasSystemModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/CRISPRCasSystemModalDetailComponents"
 import AnnotatedCRISPRCasMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedCRISPRCasMapViz"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
 
 const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
     const { microbe, magStatus, genomeId } = useDatabaseGenomeDetailContext()
@@ -36,6 +40,7 @@ const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
 
     const [open, setOpen] = useState(false)
     const [selectedRecord, setSelectedRecord] = useState(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     const vizRef = useRef(null)
 
@@ -104,18 +109,11 @@ const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
                                         Annotated CRISPR/Cas System Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadSvg()}
-                                        >
-                                            Download SVG Chart
-                                        </Button>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadPng()}
-                                        >
-                                            Download PNG Chart
-                                        </Button>
+                                        <VisualizationModeSwitchButton
+                                            visualizationMode={visualizationMode}
+                                            handleVisualizationModeChange={handleVisualizationModeChange}
+                                        />
+                                        <VisualizationDownloadButton vizRef={vizRef}/>
                                     </Stack>
                                 </Stack>
                                 <ResponsiveVisualizationContainer
@@ -142,6 +140,7 @@ const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
                                         fastaDetail={fastaDetail}
                                         proteins={filteredProteins}
                                         CRISPRCas={filteredCRISPRCas}
+                                        mode={visualizationMode}
                                     />
                                 </ResponsiveVisualizationContainer>
                                 <Box></Box>
@@ -151,7 +150,7 @@ const GenomeCRISPRCasDetail = ({ fastaDetail, proteins }) => {
                             open={open}
                             handleConfirm={handleConfirm}
                             handleCancel={handleCancel}
-                            title={() => <ProteinModalDetailTitle/>}
+                            title={<CRISPRCasSystemModalDetailTitle/>}
                         >
                             <Box
                                 sx={{

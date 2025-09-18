@@ -1,4 +1,4 @@
-import { Descriptions, Input, Typography } from "antd"
+import { Button, Descriptions, Input, Typography } from "antd"
 import { Box, Stack } from "@mui/system"
 import {
     BasicChip,
@@ -6,12 +6,28 @@ import {
 } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
 import dynamic from "next/dynamic"
 import MolstarViewer from "@/components/pagesComponents/MolStarComponents/MolstarViewer"
+import { downloadSingleFile, getProteinCIFURL } from "@/dataFetch/get"
+import { DownloadOutlined } from "@ant-design/icons"
 
 const MolStarWrapper = dynamic(() => import('@/components/pagesComponents/MolStarComponents/MolStarWrapper'), {
     ssr: false,
 })
 
 const { Title } = Typography
+
+const CIFDownloadButton = ({ proteinId, sequence }) => {
+    const downloadURL = `${getProteinCIFURL}?proteinId=${proteinId}&sequence=${encodeURIComponent(sequence)}`
+
+    return (
+        <Button
+            icon={<DownloadOutlined/>}
+            type='primary'
+            onClick={() => downloadSingleFile(downloadURL)}
+        >
+            Download CIF Structure File
+        </Button>
+    )
+}
 
 export const ProteinModalDetailTitle = () => (
     <Box
@@ -37,6 +53,12 @@ export const ProteinModalDetailDescriptions = ({ record, microbe }) => {
     return (
         <>
             <Stack spacing={2}>
+                <Box>
+                    <CIFDownloadButton
+                        proteinId={record['protein_id']}
+                        sequence={record['sequence']}
+                    />
+                </Box>
                 <Descriptions bordered items={items} column={2}/>
                 <Stack>
                     <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>

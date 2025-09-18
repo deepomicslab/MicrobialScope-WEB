@@ -6,15 +6,6 @@ import {
 import Link from "next/link"
 import { Progress, Tag, Tooltip, Typography } from "antd"
 import { Stack } from "@mui/system"
-import {
-    getArchaeaAntibioticResistancesSingleFileURL,
-    getArchaeaAntiCRISPRAnnotationsSingleFileURL,
-    getArchaeaCRISPRCasSystemsSingleFileURL,
-    getArchaeaSecondaryMetabolitesSingleFileURL,
-    getArchaeaSignalPeptidesSingleFileURL,
-    getArchaeaTransmembraneHelicesSingleFileURL,
-    getArchaeaTRNAsSingleFileURL, getArchaeaVirulenceFactorsSingleFileURL
-} from "@/dataFetch/get"
 
 export const buildProteinsTableColumns = (handleDetailClick) => [
     {

@@ -118,7 +118,7 @@ const columns = [
         render: (value) => value === 0 ? '--' : Number(value).toLocaleString()
     },
     {
-        title: <TitleWithTooltip title='Secondary Metabolite' info='info'/>,
+        title: <TitleWithTooltip title='Secondary Metabolite Biosynthetic Cluster' info='info'/>,
         dataIndex: 'secondaryMetabolites',
         key: 'secondaryMetabolites',
         align: 'center',

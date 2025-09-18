@@ -30,6 +30,11 @@ import DownloadOutputResult, { TaskOutputDownloadButton } from "@/components/pag
 import SubmittedMicrobialSequences from "@/components/pagesComponents/analysisPage/shared/SubmittedMicrobialSequences"
 import SequenceSelectorCard from "@/components/pagesComponents/analysisPage/shared/SequenceSelectorCard"
 import AnnotationDetailSkeleton from "@/components/pagesComponents/analysisPage/shared/AnnotationDetailSkeleton"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
 
 const getORFOutputItems = (uploadPath) => [
     {
@@ -287,6 +292,7 @@ export const SequenceProteinsTable = ({ proteins }) => {
 
 const SequenceProteinsMap = ({ fastaDetail, proteins }) => {
     const vizRef = useRef(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     return (
         <Stack spacing={2}>
@@ -299,18 +305,11 @@ const SequenceProteinsMap = ({ fastaDetail, proteins }) => {
                     Annotated Protein Map
                 </H6>
                 <Stack direction='row' spacing={2}>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadSvg()}
-                    >
-                        Download SVG Chart
-                    </Button>
-                    <Button
-                        type="primary"
-                        onClick={() => vizRef.current?.downloadPng()}
-                    >
-                        Download PNG Chart
-                    </Button>
+                    <VisualizationModeSwitchButton
+                        visualizationMode={visualizationMode}
+                        handleVisualizationModeChange={handleVisualizationModeChange}
+                    />
+                    <VisualizationDownloadButton vizRef={vizRef}/>
                 </Stack>
             </Stack>
             <ResponsiveVisualizationContainer
@@ -336,6 +335,7 @@ const SequenceProteinsMap = ({ fastaDetail, proteins }) => {
                     ref={vizRef}
                     fastaDetail={fastaDetail}
                     proteins={proteins}
+                    mode={visualizationMode}
                 />
             </ResponsiveVisualizationContainer>
             <Box></Box>

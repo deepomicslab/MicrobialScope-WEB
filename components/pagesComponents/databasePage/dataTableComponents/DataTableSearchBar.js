@@ -53,10 +53,31 @@ const DataTableSearchBar = ({
 
     return (
         <Stack direction="row" spacing={2}>
-            <Stack direction="row" spacing={1} alignItems="center" sx={{ fontSize: '20px' }}>
+            <Stack
+                direction="row"
+                spacing={1}
+                alignItems="center"
+                sx={{
+                    fontSize: '20px',
+                }}
+            >
                 <Span>TOTAL OF </Span>
                 <Statistic value={dataCount} valueStyle={{ fontSize: '20px', fontWeight: 700 }}/>
-                <Span> {DATABASECONFIG[microbe][magStatus][dataType]['title'].toUpperCase()}</Span>
+                <Tooltip title={DATABASECONFIG[microbe][magStatus][dataType]['title']}>
+                    <Span
+                        sx={{
+                            maxWidth: '100%',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            '@media (max-width: 1700px)': {
+                                maxWidth: '260px'
+                            }
+                        }}
+                    >
+                        {DATABASECONFIG[microbe][magStatus][dataType]['title'].toUpperCase()}
+                    </Span>
+                </Tooltip>
             </Stack>
             <Stack direction="row" spacing={1}>
                 <Space.Compact>
@@ -70,7 +91,7 @@ const DataTableSearchBar = ({
                         placeholder="Search..."
                         allowClear
                         value={localSearchText.value}
-                        onChange={(e) => handleSearchTextChange({value: e.target.value})}
+                        onChange={(e) => handleSearchTextChange({ value: e.target.value })}
                         onSearch={(value) => onSearch({ value })}
                         onClear={onClear}
                         style={{

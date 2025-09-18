@@ -11,8 +11,8 @@ const Download = ({}) => {
             <DownloadDescriptions microbe='Bacteria' magStatus='Monoisolate'/>
             <DownloadDescriptions microbe='Fungi' magStatus='MAG'/>
             <DownloadDescriptions microbe='Fungi' magStatus='Monoisolate'/>
-            <DownloadDescriptions microbe='Viruses' magStatus='MAG'/>
-            <DownloadDescriptions microbe='Viruses' magStatus='Monoisolate'/>
+            <DownloadDescriptions microbe='Virus' magStatus='MAG'/>
+            <DownloadDescriptions microbe='Virus' magStatus='Monoisolate'/>
         </Stack>
     )
 }

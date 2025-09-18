@@ -13,17 +13,21 @@ import { ErrorView } from "@/components/stateViews/ErrorView"
 import { Box, Stack } from "@mui/system"
 import { H6 } from "@/components/styledComponents/styledHTMLTags"
 import { StyledTable } from "@/components/styledComponents/styledAntdTable"
-import { Button } from "antd"
 import ResponsiveVisualizationContainer from "@/components/Visualization/containers/ResponsiveVisualizationContainer"
 import DraggableModal from "@/components/feedbackComponents/modals/DraggableModal"
 import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
 import {
-    VirulenceFactorModalDetailDescriptions
+    VirulenceFactorModalDetailDescriptions, VirulenceFactorModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/VirulenceFactorModalDetailComponents"
 import AnnotatedVirulenceFactorMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedVirulenceFactorMapViz"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
 
 const GenomeVirulenceFactorsDetail = ({ fastaDetail, proteins }) => {
     const { microbe, magStatus, genomeId } = useDatabaseGenomeDetailContext()
@@ -36,6 +40,7 @@ const GenomeVirulenceFactorsDetail = ({ fastaDetail, proteins }) => {
 
     const [open, setOpen] = useState(false)
     const [selectedRecord, setSelectedRecord] = useState(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     const vizRef = useRef(null)
 
@@ -104,18 +109,11 @@ const GenomeVirulenceFactorsDetail = ({ fastaDetail, proteins }) => {
                                         Annotated Virulence Factor Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadSvg()}
-                                        >
-                                            Download SVG Chart
-                                        </Button>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadPng()}
-                                        >
-                                            Download PNG Chart
-                                        </Button>
+                                        <VisualizationModeSwitchButton
+                                            visualizationMode={visualizationMode}
+                                            handleVisualizationModeChange={handleVisualizationModeChange}
+                                        />
+                                        <VisualizationDownloadButton vizRef={vizRef}/>
                                     </Stack>
                                 </Stack>
                                 <ResponsiveVisualizationContainer
@@ -142,6 +140,7 @@ const GenomeVirulenceFactorsDetail = ({ fastaDetail, proteins }) => {
                                         fastaDetail={fastaDetail}
                                         proteins={filteredProteins}
                                         virulenceFactors={filteredVirulenceFactors}
+                                        mode={visualizationMode}
                                     />
                                 </ResponsiveVisualizationContainer>
                                 <Box></Box>
@@ -151,7 +150,7 @@ const GenomeVirulenceFactorsDetail = ({ fastaDetail, proteins }) => {
                             open={open}
                             handleConfirm={handleConfirm}
                             handleCancel={handleCancel}
-                            title={() => <ProteinModalDetailTitle/>}
+                            title={<VirulenceFactorModalDetailTitle/>}
                         >
                             <Box
                                 sx={{

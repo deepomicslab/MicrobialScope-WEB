@@ -105,7 +105,7 @@ const menuItems = [
             },
             {
                 key: 'secondaryMetabolites',
-                label: 'Secondary Metabolite',
+                label: 'Secondary Metabolite Biosynthetic Cluster',
                 link: '/database/secondaryMetabolites'
             },
             {

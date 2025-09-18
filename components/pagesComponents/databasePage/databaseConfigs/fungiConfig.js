@@ -151,7 +151,7 @@ export const fungiConfig = {
                 searchBarFields: FungiTRNASearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolite',
+                title: 'Secondary Metabolite Biosynthetic Cluster',
                 columns: fungiSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postFungiSecondaryMetabolitesURL,
@@ -249,7 +249,7 @@ export const fungiConfig = {
                 searchBarFields: FungiTRNASearchBarConfig
             },
             'secondaryMetabolites': {
-                title: 'Secondary Metabolite',
+                title: 'Secondary Metabolite Biosynthetic Cluster',
                 columns: fungiSecondaryMetaboliteColumns,
                 filterItems: getArchaeaSecondaryMetabolitesFilterItems,
                 endpointList: postUnMAGFungiSecondaryMetabolitesURL,

@@ -113,7 +113,7 @@ export const buildArchaeaGenomeDetailItems = (genomeDetail, microbe) => [
     },
     {
         key: 'secondary_metabolite_count',
-        label: '# of Secondary Metabolites',
+        label: '# of Secondary Metabolite Biosynthetic Cluster',
         children: genomeDetail['secondary_metabolite_count'] === undefined ? '--' : genomeDetail['secondary_metabolite_count']
     },
     {

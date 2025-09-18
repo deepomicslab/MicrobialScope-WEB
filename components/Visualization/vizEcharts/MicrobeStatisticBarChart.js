@@ -40,7 +40,7 @@ const MicrobeStatisticBarChart = ({ data }) => {
                             },
                             axisLabel: {
                                 interval: 0,
-                                rotate: 15,
+                                rotate: 8,
                                 align: 'center',
                                 margin: 30
                             }
@@ -277,7 +277,7 @@ const buildDrillDownData = (data) => {
                 ['tRNA & tmRNA', data['MAGArchaeaTrnaCount']],
                 ['CRISPR/Cas System', data['MAGArchaeaCRISPRCount']],
                 ['Anti-CRISPR Protein', data['MAGArchaeaAntiCRISPRAnnotationCount']],
-                ['Secondary Metabolite', data['MAGArchaeaSecondaryMetaboliteRegionCount']],
+                ['Secondary Metabolite Biosynthetic Cluster', data['MAGArchaeaSecondaryMetaboliteRegionCount']],
                 ['Signal Peptide', data['MAGArchaeaSignalPeptidePredictionCount']],
                 ['Virulence Factor', data['MAGArchaeaVirulenceFactorCount']],
                 ['Antibiotic Resistance Gene', data['MAGArchaeaAntibioticResistanceCount']],
@@ -292,7 +292,7 @@ const buildDrillDownData = (data) => {
                 ['tRNA & tmRNA', data['MAGBacteriaTrnaCount']],
                 ['CRISPR/Cas System', data['MAGBacteriaCRISPRCount']],
                 ['Anti-CRISPR Protein', data['MAGBacteriaAntiCRISPRAnnotationCount']],
-                ['Secondary Metabolite', data['MAGBacteriaSecondaryMetaboliteRegionCount']],
+                ['Secondary Metabolite Biosynthetic Cluster', data['MAGBacteriaSecondaryMetaboliteRegionCount']],
                 ['Signal Peptide', data['MAGBacteriaSignalPeptidePredictionCount']],
                 ['Virulence Factor', data['MAGBacteriaVirulenceFactorCount']],
                 ['Antibiotic Resistance Gene', data['MAGBacteriaAntibioticResistanceCount']],
@@ -305,7 +305,7 @@ const buildDrillDownData = (data) => {
                 // ['Taxonomy', data['MAGFungiTaxonomyCount']],
                 ['Protein', data['MAGFungiProteinCount']],
                 ['tRNA & tmRNA', data['MAGFungiTrnaCount']],
-                ['Secondary Metabolite', data['MAGFungiSecondaryMetaboliteRegionCount']],
+                ['Secondary Metabolite Biosynthetic Cluster', data['MAGFungiSecondaryMetaboliteRegionCount']],
                 ['Signal Peptide', data['MAGFungiSignalPeptidePredictionCount']],
                 ['Virulence Factor', data['MAGFungiVirulenceFactorCount']],
                 ['Antibiotic Resistance Gene', data['MAGFungiAntibioticResistanceCount']],
@@ -333,7 +333,7 @@ const buildDrillDownData = (data) => {
                 ['tRNA & tmRNA', data['unMAGArchaeaTrnaCount']],
                 ['CRISPR/Cas System', data['unMAGArchaeaCRISPRCount']],
                 ['Anti-CRISPR Protein', data['unMAGArchaeaAntiCRISPRAnnotationCount']],
-                ['Secondary Metabolite', data['unMAGArchaeaSecondaryMetaboliteRegionCount']],
+                ['Secondary Metabolite Biosynthetic Cluster', data['unMAGArchaeaSecondaryMetaboliteRegionCount']],
                 ['Signal Peptide', data['unMAGArchaeaSignalPeptidePredictionCount']],
                 ['Virulence Factor', data['unMAGArchaeaVirulenceFactorCount']],
                 ['Antibiotic Resistance Gene', data['unMAGArchaeaAntibioticResistanceCount']],
@@ -365,7 +365,7 @@ const buildDrillDownData = (data) => {
                     data['unMAGBacteriaAntiCRISPRAnnotationCount']
                 ],
                 [
-                    'Secondary Metabolite',
+                    'Secondary Metabolite Biosynthetic Cluster',
                     // 14237
                     data['unMAGBacteriaSecondaryMetaboliteRegionCount']
                 ],
@@ -397,7 +397,7 @@ const buildDrillDownData = (data) => {
                 // ['Taxonomy', data['unMAGFungiTaxonomyCount']],
                 ['Protein', data['unMAGFungiProteinCount']],
                 ['tRNA & tmRNA', data['unMAGFungiTrnaCount']],
-                ['Secondary Metabolite', data['unMAGFungiSecondaryMetaboliteRegionCount']],
+                ['Secondary Metabolite Biosynthetic Cluster', data['unMAGFungiSecondaryMetaboliteRegionCount']],
                 ['Signal Peptide', data['unMAGFungiSignalPeptidePredictionCount']],
                 ['Virulence Factor', data['unMAGFungiVirulenceFactorCount']],
                 ['Antibiotic Resistance Gene', data['unMAGFungiAntibioticResistanceCount']],

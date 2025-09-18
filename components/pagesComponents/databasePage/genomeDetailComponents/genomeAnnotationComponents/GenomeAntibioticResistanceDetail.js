@@ -20,10 +20,15 @@ import {
     ProteinModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/ProteinModalDetailComponents"
 import {
-    AntibioticResistanceGeneModalDetailDescriptions
+    AntibioticResistanceGeneModalDetailDescriptions, AntibioticResistanceGeneModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/AntibioticResistanceGeneModalDetailComponents"
 import AnnotatedAntibioticResistanceMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedAntibioticResistanceMapViz"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
 
 const GenomeAntibioticResistanceDetail = ({ fastaDetail, proteins }) => {
     const { microbe, magStatus, genomeId } = useDatabaseGenomeDetailContext()
@@ -36,6 +41,7 @@ const GenomeAntibioticResistanceDetail = ({ fastaDetail, proteins }) => {
 
     const [open, setOpen] = useState(false)
     const [selectedRecord, setSelectedRecord] = useState(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     const vizRef = useRef(null)
 
@@ -104,18 +110,11 @@ const GenomeAntibioticResistanceDetail = ({ fastaDetail, proteins }) => {
                                         Annotated Antibiotic Resistance Gene Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadSvg()}
-                                        >
-                                            Download SVG Chart
-                                        </Button>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadPng()}
-                                        >
-                                            Download PNG Chart
-                                        </Button>
+                                        <VisualizationModeSwitchButton
+                                            visualizationMode={visualizationMode}
+                                            handleVisualizationModeChange={handleVisualizationModeChange}
+                                        />
+                                        <VisualizationDownloadButton vizRef={vizRef}/>
                                     </Stack>
                                 </Stack>
                                 <ResponsiveVisualizationContainer
@@ -142,6 +141,7 @@ const GenomeAntibioticResistanceDetail = ({ fastaDetail, proteins }) => {
                                         fastaDetail={fastaDetail}
                                         proteins={filteredProteins}
                                         antibioticResistance={filteredAntibioticResistance}
+                                        mode={visualizationMode}
                                     />
                                 </ResponsiveVisualizationContainer>
                                 <Box></Box>
@@ -151,7 +151,7 @@ const GenomeAntibioticResistanceDetail = ({ fastaDetail, proteins }) => {
                             open={open}
                             handleConfirm={handleConfirm}
                             handleCancel={handleCancel}
-                            title={() => <ProteinModalDetailTitle/>}
+                            title={<AntibioticResistanceGeneModalDetailTitle/>}
                         >
                             <Box
                                 sx={{

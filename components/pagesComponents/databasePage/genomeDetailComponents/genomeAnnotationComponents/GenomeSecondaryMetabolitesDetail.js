@@ -22,8 +22,13 @@ import {
 import AnnotatedSecondaryMetabolitesMapViz
     from "@/components/pagesComponents/databasePage/genomeDetailComponents/genomeAnnotationVizComponents/AnnotatedSecondaryMetabolitesMapViz"
 import {
-    SecondaryMetabolitesModalDetailDescriptions
+    SecondaryMetabolitesModalDetailDescriptions, SecondaryMetabolitesModalDetailTitle
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/SecondaryMetabolitesModalDetailComponents"
+import VisualizationDownloadButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationDownloadButton"
+import useVisualizationMode from "@/components/pagesComponents/databasePage/hooks/visualization/useVisualizationMode"
+import VisualizationModeSwitchButton
+    from "@/components/pagesComponents/databasePage/_shared/button/VisualizationModeSwitchButton"
 
 const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
     const { microbe, magStatus, genomeId } = useDatabaseGenomeDetailContext()
@@ -36,6 +41,7 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
 
     const [open, setOpen] = useState(false)
     const [selectedRecord, setSelectedRecord] = useState(null)
+    const { visualizationMode, handleVisualizationModeChange } = useVisualizationMode()
 
     const vizRef = useRef(null)
 
@@ -85,11 +91,11 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
                                     paddingBottom: '12px',
                                 }}
                             >
-                                Secondary Metabolite Annotation
+                                Secondary Metabolite Biosynthetic Cluster Annotation
                             </H6>
                             <Stack>
                                 <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                    Secondary Metabolite List
+                                    Secondary Metabolite Biosynthetic Cluster List
                                 </H6>
                                 <StyledTable
                                     columns={columns}
@@ -101,21 +107,14 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
                             <Stack spacing={2}>
                                 <Stack direction='row' spacing={6} alignItems="center">
                                     <H6 sx={{ fontSize: '28px', mt: '12px', mb: '36px' }}>
-                                        Annotated Secondary Metabolite Map
+                                        Annotated Secondary Metabolite Biosynthetic Cluster Map
                                     </H6>
                                     <Stack direction='row' spacing={2}>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadSvg()}
-                                        >
-                                            Download SVG Chart
-                                        </Button>
-                                        <Button
-                                            type="primary"
-                                            onClick={() => vizRef.current?.downloadPng()}
-                                        >
-                                            Download PNG Chart
-                                        </Button>
+                                        <VisualizationModeSwitchButton
+                                            visualizationMode={visualizationMode}
+                                            handleVisualizationModeChange={handleVisualizationModeChange}
+                                        />
+                                        <VisualizationDownloadButton vizRef={vizRef}/>
                                     </Stack>
                                 </Stack>
                                 <ResponsiveVisualizationContainer
@@ -142,6 +141,7 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
                                         fastaDetail={fastaDetail}
                                         proteins={filteredProteins}
                                         secondaryMetabolites={filterSecondaryMetabolites}
+                                        mode={visualizationMode}
                                     />
                                 </ResponsiveVisualizationContainer>
                                 <Box></Box>
@@ -151,7 +151,7 @@ const GenomeSecondaryMetabolitesDetail = ({ fastaDetail, proteins }) => {
                             open={open}
                             handleConfirm={handleConfirm}
                             handleCancel={handleCancel}
-                            title={() => <ProteinModalDetailTitle/>}
+                            title={<SecondaryMetabolitesModalDetailTitle/>}
                         >
                             <Box
                                 sx={{
