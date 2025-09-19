@@ -146,7 +146,18 @@ const menuItems = [
         key: 'download',
         label: 'Download',
         icon: <CloudDownloadOutlined style={{ fontSize: '20px' }}/>,
-        link: '/download'
+        children: [
+            {
+                key: 'web',
+                label: 'Web Download',
+                link: '/download'
+            },
+            {
+                key: 'api',
+                label: 'API Download',
+                link: '/download/api'
+            },
+        ]
     },
     {
         key: 'tutorial',
