@@ -15,7 +15,7 @@ export const SecondaryMetabolitesModalDetailTitle = () => (
         }}
     >
         <Title level={3} style={{ margin: 0, fontWeight: 600, color: '#333', pointerEvents: 'none' }}>
-            Secondary Metabolite Detail
+            Secondary Metabolite Biosynthetic Cluster Detail
         </Title>
     </Box>
 )

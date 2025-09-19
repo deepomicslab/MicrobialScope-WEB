@@ -1,0 +1,3 @@
+## Data Submission
+
+To ensure the highest standards of data quality and consistency, MicrobialScope does not accept direct data submissions from the community. However, if you have identified datasets relevant to MicrobialScope, we welcome you to contact us at `shuaicli@cityu.edu.hk`. Please provide the dataset identifier, access link, or the DOI of the associated publication. Our team will collect and review the submitted information, perform rigorous quality control (QC) processing, and integrate qualifying datasets into the MicrobialScope database to support its ongoing development and sustainability.

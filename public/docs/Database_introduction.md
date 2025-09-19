@@ -1,9 +1,9 @@
 # Welcome to MicrobialScope
 
-<div align=center><img src="./Figures/database.png" width="80%"></div>
+<div align=center><img src="Figures/database.png" width="80%"></div>
 
 ## Data Description
-MicrobialScope integrates **2,652,060** microorganisms from various databases, including **1,963,557** bacterial, **2,555** archaeal, **19,610** fungal, and **171,014** viral genomes from monoisolate assemblies, as well as **458,869** bacterial, **22,451** archaeal, **683** fungal, and **13,321** viral MAGs.
+MicrobialScope integrates **2,652,060** microorganisms from various databases, including **1,956,198** bacterial, **2,346** archaeal, **19,540** fungal, and **174,956** viral genomes from monoisolate assemblies, as well as **455,305** bacterial, **22,126** archaeal, **663** fungal, and **13,311** viral MAGs.
 
 Applying multiple state-of-the-art tools to analyzing the micorbial sequences, we obtained **comprehensive annotations** for the microorganisms.
 
