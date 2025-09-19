@@ -6,6 +6,7 @@ import {
 import Link from "next/link"
 import { Progress, Tag, Tooltip, Typography } from "antd"
 import { Stack } from "@mui/system"
+import GTDBPopover from "@/components/pagesComponents/databasePage/_shared/popover/GTDBPopover"
 
 export const bacteriaTableColumns = (handleDetailClick, getSingleFileURL) => [
     {
@@ -48,15 +49,24 @@ export const bacteriaTableColumns = (handleDetailClick, getSingleFileURL) => [
         title: 'Species',
         dataIndex: 'species',
         align: 'center',
-        render: value => (
-            <Tooltip title={value}>
-                <Typography.Text
-                    ellipsis={true}
-                    style={{ width: '175px' }}
-                >
-                    {value}
-                </Typography.Text>
-            </Tooltip>
+        render: (value, record) => (
+            <Stack direction="row" spacing={1}>
+                <Tooltip title={value}>
+                    <Typography.Text
+                        ellipsis={true}
+                        style={{ width: '175px' }}
+                    >
+                        {value}
+                    </Typography.Text>
+                </Tooltip>
+                {
+                    record?.['gtdb'] ? (
+                        <GTDBPopover gtdb={record?.['gtdb']} />
+                    ) : (
+                        <></>
+                    )
+                }
+            </Stack>
         )
     },
     {

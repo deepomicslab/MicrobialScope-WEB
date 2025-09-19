@@ -6,6 +6,7 @@ import {
     ArchaeaIDChips, BasicChip, COGCategoryChips,
     DetailButton, DownloadButton, StrandChip
 } from "@/components/pagesComponents/databasePage/dataTableComponents/tableRenderers"
+import GTDBPopover from "@/components/pagesComponents/databasePage/_shared/popover/GTDBPopover"
 
 export const archaeaTableColumns = (handleDetailClick, getSingleFileURL) => [
     {
@@ -48,15 +49,24 @@ export const archaeaTableColumns = (handleDetailClick, getSingleFileURL) => [
         title: 'Species',
         dataIndex: 'species',
         align: 'center',
-        render: value => (
-            <Tooltip title={value}>
-                <Typography.Text
-                    ellipsis={true}
-                    style={{ width: '175px' }}
-                >
-                    {value}
-                </Typography.Text>
-            </Tooltip>
+        render: (value, record) => (
+            <Stack direction="row" spacing={1}>
+                <Tooltip title={value}>
+                    <Typography.Text
+                        ellipsis={true}
+                        style={{ width: '175px' }}
+                    >
+                        {value}
+                    </Typography.Text>
+                </Tooltip>
+                {
+                    record?.['gtdb'] ? (
+                        <GTDBPopover gtdb={record?.['gtdb']} />
+                    ) : (
+                        <></>
+                    )
+                }
+            </Stack>
         )
     },
     {
