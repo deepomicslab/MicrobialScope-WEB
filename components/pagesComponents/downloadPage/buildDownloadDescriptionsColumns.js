@@ -79,7 +79,7 @@ export const buildDownloadDescriptionsColumns = (microbe, magStatus) => {
                                     baseFileName='.SMs_list.xls' type='tsv'/>
                 </Stack>
             ),
-            visible: microbe !== 'Viruses',
+            visible: microbe !== 'Virus',
         },
         {
             key: '7',
@@ -92,7 +92,7 @@ export const buildDownloadDescriptionsColumns = (microbe, magStatus) => {
                                     baseFileName='.SP_list.xls' type='tsv'/>
                 </Stack>
             ),
-            visible: microbe !== 'Viruses',
+            visible: microbe !== 'Virus',
         },
         {
             key: '8',
@@ -117,6 +117,7 @@ export const buildDownloadDescriptionsColumns = (microbe, magStatus) => {
                                     baseFileName='.ARG_list.xls' type='tsv'/>
                 </Stack>
             ),
+            visible: microbe !== 'Virus',
         },
         {
             key: '10',
