@@ -48,7 +48,7 @@ const ORFModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/orf/45')
+        router.push('/analysis/result/orf/1')
     }
 
     const onHelp = () => {

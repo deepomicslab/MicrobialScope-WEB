@@ -49,7 +49,7 @@ const SequenceAlignmentModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/alignment/35')
+        router.push('/analysis/result/alignment/6')
     }
 
     const onHelp = () => {

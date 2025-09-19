@@ -48,7 +48,7 @@ const TPModule = ({}) => {
     }
 
     const onViewResult = () => {
-        router.push('/analysis/result/transmembrane/48')
+        router.push('/analysis/result/transmembrane/4')
     }
 
     const onHelp = () => {
