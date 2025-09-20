@@ -11,34 +11,62 @@ const timelineItems = [
         dot: <CalendarOutlined style={{ fontSize: '20px' }}/>,
         children: (
             <>
+                <Title level={4} style={{ marginBottom: 8 }}>Version 1.3 (2025.9.20)</Title>
+                <Box>
+                    <strong>Quality Enhancements and Expanded Features</strong>. This update focuses on improving data
+                    reliability and
+                    user accessibility. Key highlights include:
+                    <ul style={{ paddingLeft: '30px', margin: 0 }}>
+                        <li>
+                            Integration of <strong>GTDB taxonomy</strong> for bacterial and archaeal genomes, enhancing
+                            phylogenetic resolution.
+                        </li>
+                        <li>
+                            Introduced <strong>a flexible Download API</strong> for customized data retrieval, including
+                            Metadata, FASTA, and more.
+                        </li>
+                        <li>
+                            Performed dataset update with newly released genomes and refined QC filters.
+                        </li>
+                        <li>
+                            Fixed various bugs.
+                        </li>
+                    </ul>
+                </Box>
+            </>
+        )
+    },
+    {
+        color: 'blue',
+        dot: <CalendarOutlined style={{ fontSize: '20px' }}/>,
+        children: (
+            <>
                 <Title level={4} style={{ marginBottom: 8 }}>Version 1.2 (2025.7.23)</Title>
-                <ul style={{ paddingLeft: '20px', margin: 0 }}>
-                    <li>
-                        <strong>New Analysis Modules.</strong> We&apos;ve expanded our analytical capabilities with new
-                        modules allowing users to upload and analyze their own data. New features include:
-                        <ul>
-                            <li>
-                                ORF Prediction & Protein Classification
-                            </li>
-                            <li>
-                                tRNA & tmRNA Prediction
-                            </li>
-                            <li>
-                                Virulence Factor & Antibiotic Resistance Gene Detecion
-                            </li>
-                            <li>
-                                Transmembrane Protein Annotation
-                            </li>
-                            <li>
-                                Sequence Alignment
-                            </li>
-                            <li>
-                                Comparative Analysis
-                            </li>
-                        </ul>
-                        All modules generate interactive visualizations and downloadable results.
-                    </li>
-                </ul>
+                <Box>
+                    <strong>New Analysis Modules.</strong> We&apos;ve expanded our analytical capabilities with new
+                    modules allowing users to upload and analyze their own data. New features include:
+                    <ul style={{ paddingLeft: '30px', margin: 0 }}>
+                        <li>
+                            ORF Prediction & Protein Classification
+                        </li>
+                        <li>
+                            tRNA & tmRNA Prediction
+                        </li>
+                        <li>
+                            Virulence Factor & Antibiotic Resistance Gene Detecion
+                        </li>
+                        <li>
+                            Transmembrane Protein Annotation
+                        </li>
+                        <li>
+                            Sequence Alignment
+                        </li>
+                        <li>
+                            Comparative Analysis
+                        </li>
+                    </ul>
+                    All modules generate interactive visualizations and downloadable results.
+                </Box>
             </>
         )
     },
@@ -48,27 +76,25 @@ const timelineItems = [
         children: (
             <>
                 <Title level={4} style={{ marginBottom: 8 }}>Version 1.1 (2025.6.30)</Title>
-                <ul style={{ paddingLeft: '20px', margin: 0 }}>
-                    <li>
-                        <strong>Interactive Visualization Features.</strong> Our new interactive genomic annotation
-                        visualization enables intuitive exploration of genomic features. You can now:
-                        <ul>
-                            <li>
-                                Zoom in/out using mouse wheel
-                            </li>
-                            <li>
-                                Navigate through regions by horizontal dragging
-                            </li>
-                            <li>
-                                Download visualization charts in SVG and PNG formats
-                            </li>
-                            <li>
-                                View protein product names directly on the map when viewing regions smaller than 25,000
-                                bp
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <Box>
+                    <strong>Interactive Visualization Features.</strong> Our new interactive genomic annotation
+                    visualization enables intuitive exploration of genomic features. You can now:
+                    <ul style={{ paddingLeft: '30px', margin: 0 }}>
+                        <li>
+                            Zoom in/out using mouse wheel
+                        </li>
+                        <li>
+                            Navigate through regions by horizontal dragging
+                        </li>
+                        <li>
+                            Download visualization charts in SVG and PNG formats
+                        </li>
+                        <li>
+                            View protein product names directly on the map when viewing regions smaller than 25,000
+                            bp
+                        </li>
+                    </ul>
+                </Box>
             </>
         ),
     },
