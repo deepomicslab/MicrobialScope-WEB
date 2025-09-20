@@ -129,7 +129,7 @@ export const buildArchaeaGenomeDetailItems = (genomeDetail, microbe) => [
     {
         key: 'arg_count',
         label: '# of Antibiotic Resistance Genes',
-        children: genomeDetail['arg_count']
+        children: genomeDetail['arg_count'] === null ? '--' : genomeDetail['arg_count']
     },
     {
         key: 'tmh_count',
