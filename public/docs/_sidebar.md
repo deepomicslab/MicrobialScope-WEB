@@ -1,5 +1,4 @@
-- Overview
-    - [Introduction](/README.md)
+- [Overview](/README.md)
 - Database
     - [Database introduction](./Database_introduction.md)
     - [Database exploration](./Database_explore.md)
@@ -7,7 +6,5 @@
 - Analysis
   - [Analysis Introduction](./Analysis_introduction.md)
   - [Analysis Explore](./Analysis_explore.md)
-- Download API
-  - [API Introduction](./Download_API_Documentation.md)
-- Data Submission
-  - [Introduce](./Data_Submission.md)
+- [Download API](./Download_API_Documentation.md)
+- [Data Submission](./Data_Submission.md)

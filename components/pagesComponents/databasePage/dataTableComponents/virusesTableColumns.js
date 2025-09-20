@@ -105,6 +105,18 @@ export const virusesTableColumns = (handleDetailClick, getSingleFileURL) => [
         align: 'center'
     },
     {
+        title: 'CheckM Completeness',
+        dataIndex: 'checkM_completeness',
+        align: 'center',
+        render: value => value === 'nan' ? '-': value
+    },
+    {
+        title: 'CheckM Contamination',
+        dataIndex: 'checkM_contamination',
+        align: 'center',
+        render: value => value === 'nan' ? '-': value
+    },
+    {
         title: 'Action',
         key: 'operation',
         fixed: 'right',
