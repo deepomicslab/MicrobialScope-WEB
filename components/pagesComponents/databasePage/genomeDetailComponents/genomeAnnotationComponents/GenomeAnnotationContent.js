@@ -155,7 +155,7 @@ const GenomeAnnotationContent = ({ genomeDetail }) => {
                     <GenomeVirulenceFactorsDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
                 {
-                    proteins.length !== 0 && genomeDetail['arg_count'] !== 0 &&
+                    microbe !== 'viruses' && proteins.length !== 0 && genomeDetail['arg_count'] !== 0 &&
                     <GenomeAntibioticResistanceDetail fastaDetail={fastaDetail} proteins={proteins}/>
                 }
                 {
