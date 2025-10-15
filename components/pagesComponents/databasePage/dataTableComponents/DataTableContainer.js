@@ -8,6 +8,11 @@ import { produce } from "immer"
 import { useDatabaseContext } from "@/components/context/DatabaseContext"
 import { useDatabaseDetailModalContext } from "@/components/context/DatabaseDetailModalContext"
 
+const ARG_MAG_STATUS_MAP = {
+    MAG: 'mag',
+    unMAG: 'unmag'
+}
+
 const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) => {
     const { dataTableState, dataType, updateSearchContent } = useDatabaseContext()
     const { microbe, magStatus, searchContent } = dataTableState
@@ -59,25 +64,52 @@ const DataTableContainer = ({ selectedFilterOptions, showLeft, setShowLeft }) =>
         searchContent
     ) => {
         setLoading(true)
-        axios.post(
-            DATABASECONFIG[microbe][magStatus][dataType]['endpointList'],
-            {
-                ...tableParams,
-                filterOptions: filterOptions,
-                searchContent: searchContent
-            }
-        ).then(res => res.data)
-            .then(({ count, results }) => {
-                setTableData(results)
-                setTableParams(prev => ({
-                    ...prev,
-                    pagination: {
-                        ...prev.pagination,
-                        total: count
-                    }
-                }))
-                setTotal(count)
-            }).finally(() => setLoading(false))
+        if (dataType !== 'antibioticResistanceGenes') {
+            axios.post(
+                DATABASECONFIG[microbe][magStatus][dataType]['endpointList'],
+                {
+                    ...tableParams,
+                    filterOptions: filterOptions,
+                    searchContent: searchContent
+                }
+            ).then(res => res.data)
+                .then(({ count, results }) => {
+                    setTableData(results)
+                    setTableParams(prev => ({
+                        ...prev,
+                        pagination: {
+                            ...prev.pagination,
+                            total: count
+                        }
+                    }))
+                    setTotal(count)
+                }).finally(() => setLoading(false))
+        } else {
+            axios.post(
+                DATABASECONFIG[microbe][magStatus][dataType]['endpointList'],
+                {
+                    ...tableParams,
+                    filterOptions: {
+                        ...filterOptions,
+                        species: [microbe],
+                        magType: [ARG_MAG_STATUS_MAP[magStatus]]
+                    },
+                    searchContent: searchContent
+                }
+            ).then(res => res.data)
+                .then(({ count, results }) => {
+                    setTableData(results)
+                    setTableParams(prev => ({
+                        ...prev,
+                        pagination: {
+                            ...prev.pagination,
+                            total: count
+                        }
+                    }))
+                    setTotal(count)
+                }).finally(() => setLoading(false))
+        }
+
     }, [
         tableParams.pagination?.current,
         tableParams.pagination?.pageSize,

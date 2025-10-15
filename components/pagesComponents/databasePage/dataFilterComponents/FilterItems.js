@@ -149,16 +149,16 @@ export const getArchaeaVirulenceFactorsFilterItems = (filterOptions, selected, s
     )
 
 export const getArchaeaAntibioticResistancesFilterItems = (filterOptions, selected, setSelected) => [
-    // {
-    //     key: 'cutoff',
-    //     label: 'Cut Off',
-    //     children: <FilterCheckBox
-    //         name='cutoff'
-    //         options={filterOptions['cutoff']}
-    //         selected={selected}
-    //         setSelected={setSelected}
-    //     />
-    // },
+    {
+        key: 'cutoff',
+        label: 'Cut Off',
+        children: <FilterCheckBox
+            name='cutoff'
+            options={filterOptions['cutoff']}
+            selected={selected}
+            setSelected={setSelected}
+        />
+    },
     // {
     //     key: 'drug_class',
     //     label: 'Drug Class',

@@ -9,7 +9,6 @@ import {
 } from "@/components/pagesComponents/databasePage/dataFilterComponents/FilterItems"
 import {
     postBacteriaAntibioticResistancesBatchDownloadURL,
-    postBacteriaAntibioticResistancesURL,
     postBacteriaAntiCRISPRAnnotationsBatchDownloadURL,
     postBacteriaAntiCRISPRAnnotationsURL,
     postBacteriaCRISPRCasSystemsBatchDownloadURL,
@@ -26,12 +25,14 @@ import {
     postBacteriaTRNAsURL,
     postBacteriaVirulenceFactorsBatchDownloadURL,
     postBacteriaVirulenceFactorsURL,
+    postUniversalAntibioticResistancesURL,
     postUnMAGBacteriaAntibioticResistancesBatchDownloadURL,
-    postUnMAGBacteriaAntibioticResistancesURL,
     postUnMAGBacteriaAntiCRISPRAnnotationsBatchDownloadURL,
     postUnMAGBacteriaAntiCRISPRAnnotationsURL,
     postUnMAGBacteriaCRISPRCasSystemsBatchDownloadURL,
-    postUnMAGBacteriaCRISPRCasSystemsURL, postUnMAGBacteriaGenomesBatchDownloadURL, postUnMAGBacteriaGenomesURL,
+    postUnMAGBacteriaCRISPRCasSystemsURL,
+    postUnMAGBacteriaGenomesBatchDownloadURL,
+    postUnMAGBacteriaGenomesURL,
     postUnMAGBacteriaProteinsBatchDownloadURL,
     postUnMAGBacteriaProteinsURL,
     postUnMAGBacteriaSecondaryMetabolitesBatchDownloadURL,
@@ -191,7 +192,8 @@ export const bacteriaConfig = {
                 endpointFilter: getBacteriaCRISPRCasSystemsFilterOptionsURL,
                 endpointSingleDownload: getBacteriaCRISPRCasSystemsSingleFileURL,
                 endpointBatchDownload: postBacteriaCRISPRCasSystemsBatchDownloadURL,
-                modalDetail: (record, microbe) => <CRISPRCasSystemModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <CRISPRCasSystemModalDetailDescriptions record={record}
+                                                                                          microbe={microbe}/>,
                 modalTitle: <CRISPRCasSystemModalDetailTitle/>,
                 searchBarFields: BacteriaCRISPRSearchBarConfig
             },
@@ -203,7 +205,8 @@ export const bacteriaConfig = {
                 endpointFilter: getBacteriaAntiCRISPRAnnotationsFilterOptionsURL,
                 endpointSingleDownload: getBacteriaAntiCRISPRAnnotationsSingleFileURL,
                 endpointBatchDownload: postBacteriaAntiCRISPRAnnotationsBatchDownloadURL,
-                modalDetail: (record, microbe) => <AntiCRISPRAnnotationModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <AntiCRISPRAnnotationModalDetailDescriptions record={record}
+                                                                                               microbe={microbe}/>,
                 modalTitle: <AntiCRISPRAnnotationModalDetailTitle/>,
                 searchBarFields: BacteriaAntiCRISPRSearchBarConfig
             },
@@ -215,7 +218,8 @@ export const bacteriaConfig = {
                 endpointFilter: getBacteriaSecondaryMetabolitesFilterOptionsURL,
                 endpointSingleDownload: getBacteriaSecondaryMetabolitesSingleFileURL,
                 endpointBatchDownload: postBacteriaSecondaryMetabolitesBatchDownloadURL,
-                modalDetail: (record, microbe) => <SecondaryMetabolitesModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <SecondaryMetabolitesModalDetailDescriptions record={record}
+                                                                                               microbe={microbe}/>,
                 modalTitle: <SecondaryMetabolitesModalDetailTitle/>,
                 searchBarFields: BacteriaSecondaryMetabolitesSearchBarConfig
             },
@@ -227,7 +231,8 @@ export const bacteriaConfig = {
                 endpointFilter: getBacteriaSignalPeptidesFilterOptionsURL,
                 endpointSingleDownload: getBacteriaSignalPeptidesSingleFileURL,
                 endpointBatchDownload: postBacteriaSignalPeptidesBatchDownloadURL,
-                modalDetail: (record, microbe) => <SignalPeptideModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <SignalPeptideModalDetailDescriptions record={record}
+                                                                                        microbe={microbe}/>,
                 modalTitle: <SignalPeptideModalDetailTitle/>,
                 searchBarFields: BacteriaSignalPeptideSearchBarConfig
             },
@@ -239,7 +244,8 @@ export const bacteriaConfig = {
                 endpointFilter: getBacteriaVirulenceFactorsFilterOptionsURL,
                 endpointSingleDownload: getBacteriaVirulenceFactorsSingleFileURL,
                 endpointBatchDownload: postBacteriaVirulenceFactorsBatchDownloadURL,
-                modalDetail: (record, microbe) => <VirulenceFactorModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <VirulenceFactorModalDetailDescriptions record={record}
+                                                                                          microbe={microbe}/>,
                 modalTitle: <VirulenceFactorModalDetailTitle/>,
                 searchBarFields: BacteriaVirulenceFactorSearchBarConfig
             },
@@ -247,11 +253,12 @@ export const bacteriaConfig = {
                 title: 'Antibiotic Resistance Gene',
                 columns: bacteriaAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
-                endpointList: postBacteriaAntibioticResistancesURL,
+                endpointList: postUniversalAntibioticResistancesURL,
                 endpointFilter: getBacteriaAntibioticResistancesFilterOptionsURL,
                 endpointSingleDownload: getBacteriaAntibioticResistancesSingleFileURL,
                 endpointBatchDownload: postBacteriaAntibioticResistancesBatchDownloadURL,
-                modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record}
+                                                                                                   microbe={microbe}/>,
                 modalTitle: <AntibioticResistanceGeneModalDetailTitle/>,
                 searchBarFields: BacteriaAntibioticResistanceSearchBarConfig
             },
@@ -263,7 +270,8 @@ export const bacteriaConfig = {
                 endpointFilter: getBacteriaTransmembraneHelicesFilterOptionsURL,
                 endpointSingleDownload: getBacteriaTransmembraneHelicesSingleFileURL,
                 endpointBatchDownload: postBacteriaTransmembraneHelicesBatchDownloadURL,
-                modalDetail: (record, microbe) => <TransmembraneHelicesModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <TransmembraneHelicesModalDetailDescriptions record={record}
+                                                                                               microbe={microbe}/>,
                 modalTitle: <TransmembraneHelicesModalDetailTitle/>,
                 searchBarFields: BacteriaTransmembraneHelicesSearchBarConfig
             }
@@ -313,7 +321,8 @@ export const bacteriaConfig = {
                 endpointFilter: getUnMAGBacteriaCRISPRCasSystemsFilterOptionsURL,
                 endpointSingleDownload: getUnMAGBacteriaCRISPRCasSystemsSingleFileURL,
                 endpointBatchDownload: postUnMAGBacteriaCRISPRCasSystemsBatchDownloadURL,
-                modalDetail: (record, microbe) => <CRISPRCasSystemModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <CRISPRCasSystemModalDetailDescriptions record={record}
+                                                                                          microbe={microbe}/>,
                 modalTitle: <CRISPRCasSystemModalDetailTitle/>,
                 searchBarFields: BacteriaCRISPRSearchBarConfig
             },
@@ -325,7 +334,8 @@ export const bacteriaConfig = {
                 endpointFilter: getUnMAGBacteriaAntiCRISPRAnnotationsFilterOptionsURL,
                 endpointSingleDownload: getUnMAGBacteriaAntiCRISPRAnnotationsSingleFileURL,
                 endpointBatchDownload: postUnMAGBacteriaAntiCRISPRAnnotationsBatchDownloadURL,
-                modalDetail: (record, microbe) => <AntiCRISPRAnnotationModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <AntiCRISPRAnnotationModalDetailDescriptions record={record}
+                                                                                               microbe={microbe}/>,
                 modalTitle: <AntiCRISPRAnnotationModalDetailTitle/>,
                 searchBarFields: BacteriaAntiCRISPRSearchBarConfig
             },
@@ -337,7 +347,8 @@ export const bacteriaConfig = {
                 endpointFilter: getUnMAGBacteriaSecondaryMetabolitesFilterOptionsURL,
                 endpointSingleDownload: getUnMAGBacteriaSecondaryMetabolitesSingleFileURL,
                 endpointBatchDownload: postUnMAGBacteriaSecondaryMetabolitesBatchDownloadURL,
-                modalDetail: (record, microbe) => <SecondaryMetabolitesModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <SecondaryMetabolitesModalDetailDescriptions record={record}
+                                                                                               microbe={microbe}/>,
                 modalTitle: <SecondaryMetabolitesModalDetailTitle/>,
                 searchBarFields: BacteriaSecondaryMetabolitesSearchBarConfig
             },
@@ -349,7 +360,8 @@ export const bacteriaConfig = {
                 endpointFilter: getUnMAGBacteriaSignalPeptidesFilterOptionsURL,
                 endpointSingleDownload: getUnMAGBacteriaSignalPeptidesSingleFileURL,
                 endpointBatchDownload: postUnMAGBacteriaSignalPeptidesBatchDownloadURL,
-                modalDetail: (record, microbe) => <SignalPeptideModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <SignalPeptideModalDetailDescriptions record={record}
+                                                                                        microbe={microbe}/>,
                 modalTitle: <SignalPeptideModalDetailTitle/>,
                 searchBarFields: BacteriaSignalPeptideSearchBarConfig
             },
@@ -361,7 +373,8 @@ export const bacteriaConfig = {
                 endpointFilter: getUnMAGBacteriaVirulenceFactorsFilterOptionsURL,
                 endpointSingleDownload: getUnMAGBacteriaVirulenceFactorsSingleFileURL,
                 endpointBatchDownload: postUnMAGBacteriaVirulenceFactorsBatchDownloadURL,
-                modalDetail: (record, microbe) => <VirulenceFactorModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <VirulenceFactorModalDetailDescriptions record={record}
+                                                                                          microbe={microbe}/>,
                 modalTitle: <VirulenceFactorModalDetailTitle/>,
                 searchBarFields: BacteriaVirulenceFactorSearchBarConfig
             },
@@ -369,11 +382,12 @@ export const bacteriaConfig = {
                 title: 'Antibiotic Resistance Gene',
                 columns: bacteriaAntibioticResistanceColumns,
                 filterItems: getArchaeaAntibioticResistancesFilterItems,
-                endpointList: postUnMAGBacteriaAntibioticResistancesURL,
+                endpointList: postUniversalAntibioticResistancesURL,
                 endpointFilter: getUnMAGBacteriaAntibioticResistancesFilterOptionsURL,
                 endpointSingleDownload: getUnMAGBacteriaAntibioticResistancesSingleFileURL,
                 endpointBatchDownload: postUnMAGBacteriaAntibioticResistancesBatchDownloadURL,
-                modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record}
+                                                                                                   microbe={microbe}/>,
                 modalTitle: <AntibioticResistanceGeneModalDetailTitle/>,
                 searchBarFields: BacteriaAntibioticResistanceSearchBarConfig
             },
@@ -385,7 +399,8 @@ export const bacteriaConfig = {
                 endpointFilter: getUnMAGBacteriaTransmembraneHelicesFilterOptionsURL,
                 endpointSingleDownload: getUnMAGBacteriaTransmembraneHelicesSingleFileURL,
                 endpointBatchDownload: postUnMAGBacteriaTransmembraneHelicesBatchDownloadURL,
-                modalDetail: (record, microbe) => <TransmembraneHelicesModalDetailDescriptions record={record} microbe={microbe}/>,
+                modalDetail: (record, microbe) => <TransmembraneHelicesModalDetailDescriptions record={record}
+                                                                                               microbe={microbe}/>,
                 modalTitle: <TransmembraneHelicesModalDetailTitle/>,
                 searchBarFields: BacteriaTransmembraneHelicesSearchBarConfig,
             }

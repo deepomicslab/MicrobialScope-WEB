@@ -241,3 +241,6 @@ export const postVirusesTransmembraneHelicesURL = `https://microbialapi.deepomic
 export const postUnMAGVirusesTransmembraneHelicesURL = `https://microbialapi.deepomics.org/api/largetable/viruses_unmag_tmh_list/`
 export const postVirusesTransmembraneHelicesBatchDownloadURL = `https://microbialapi.deepomics.org/api/largetable/download_large_table_meta_data/`
 export const postUnMAGVirusesTransmembraneHelicesBatchDownloadURL = `https://microbialapi.deepomics.org/api/largetable/download_large_table_meta_data/`
+
+// Universal Antibiotic Resistances URL
+export const postUniversalAntibioticResistancesURL = `https://microbialapi.deepomics.org/api/largetable/universal_arg_list/`
