@@ -171,6 +171,8 @@ export const getArchaeaAntibioticResistancesFilterItems = (filterOptions, select
     // }
 ]
 
+export const getVirusesAntibioticResistancesFilterItems = (filterOptions, selected, setSelected) => []
+
 export const getArchaeaTransmembraneHelicesFilterItems = (filterOptions, selected, setSelected) => [
     // {
     //     key: 'predicted_tmh_count',

@@ -1,11 +1,10 @@
 import {
-    getArchaeaAntibioticResistancesFilterItems,
     getArchaeaAntiCRISPRAnnotationsFilterItems,
     getArchaeaCRISPRCasSystemsFilterItems, getArchaeaFilterItems,
     getArchaeaProteinsFilterItems,
     getArchaeaTransmembraneHelicesFilterItems,
     getArchaeaTRNAsFilterItems,
-    getArchaeaVirulenceFactorsFilterItems
+    getArchaeaVirulenceFactorsFilterItems, getVirusesAntibioticResistancesFilterItems
 } from "@/components/pagesComponents/databasePage/dataFilterComponents/FilterItems"
 import {
     postUniversalAntibioticResistancesURL,
@@ -114,7 +113,7 @@ import {
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/VirulenceFactorModalDetailComponents"
 import {
     AntibioticResistanceGeneModalDetailDescriptions,
-    AntibioticResistanceGeneModalDetailTitle
+    AntibioticResistanceGeneModalDetailTitle, VirusesAntibioticResistanceGeneModalDetailDescriptions
 } from "@/components/pagesComponents/databasePage/dataModalDetailComponents/AntibioticResistanceGeneModalDetailComponents"
 import {
     TransmembraneHelicesModalDetailDescriptions,
@@ -202,12 +201,12 @@ export const virusesConfig = {
             'antibioticResistanceGenes': {
                 title: 'Antibiotic Resistance Gene',
                 columns: virusesAntibioticResistanceColumns,
-                filterItems: getArchaeaAntibioticResistancesFilterItems,
+                filterItems: getVirusesAntibioticResistancesFilterItems,
                 endpointList: postUniversalAntibioticResistancesURL,
                 endpointFilter: getVirusesAntibioticResistancesFilterOptionsURL,
                 endpointSingleDownload: getVirusesAntibioticResistancesSingleFileURL,
                 endpointBatchDownload: postVirusesAntibioticResistancesBatchDownloadURL,
-                modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record}
+                modalDetail: (record, microbe) => <VirusesAntibioticResistanceGeneModalDetailDescriptions record={record}
                                                                                                    microbe={microbe}/>,
                 modalTitle: <AntibioticResistanceGeneModalDetailTitle/>,
                 searchBarFields: VirusesAntibioticResistanceSearchBarConfig
@@ -305,12 +304,12 @@ export const virusesConfig = {
             'antibioticResistanceGenes': {
                 title: 'Antibiotic Resistance Gene',
                 columns: virusesAntibioticResistanceColumns,
-                filterItems: getArchaeaAntibioticResistancesFilterItems,
+                filterItems: getVirusesAntibioticResistancesFilterItems,
                 endpointList: postUniversalAntibioticResistancesURL,
                 endpointFilter: getUnMAGVirusesAntibioticResistancesFilterOptionsURL,
                 endpointSingleDownload: getUnMAGVirusesAntibioticResistancesSingleFileURL,
                 endpointBatchDownload: postUnMAGVirusesAntibioticResistancesBatchDownloadURL,
-                modalDetail: (record, microbe) => <AntibioticResistanceGeneModalDetailDescriptions record={record}
+                modalDetail: (record, microbe) => <VirusesAntibioticResistanceGeneModalDetailDescriptions record={record}
                                                                                                    microbe={microbe}/>,
                 modalTitle: <AntibioticResistanceGeneModalDetailTitle/>,
                 searchBarFields: VirusesAntibioticResistanceSearchBarConfig

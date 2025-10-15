@@ -178,3 +178,126 @@ const microbeMap = {
         value: 'viruses_id'
     }
 }
+
+export const VirusesAntibioticResistanceGeneModalDetailDescriptions = ({ record, microbe }) => {
+    const items = buildVirusesItems(record)
+
+    return (
+        <Stack spacing={2}>
+            <Descriptions bordered items={items} column={2}/>
+            <Stack>
+                <Title level={5} style={{ margin: 0, marginBottom: '20px' }}>
+                    Sequence
+                </Title>
+                <TextArea
+                    value={record['sequence']}
+                    readOnly
+                    rows={3}
+                />
+            </Stack>
+        </Stack>
+    )
+}
+
+const buildVirusesItems = (record) => [
+    {
+        key: 'virusesId',
+        label: 'Viruses ID',
+        children: <BasicChip value={record['viruses_id']} color="volcano"/>,
+    },
+    {
+        key: 'contigId',
+        label: 'Contig ID',
+        children: <BasicChip value={record['contig_id']} color="geekblue" />,
+    },
+    {
+        key: 'proteinId',
+        label: 'Protein ID',
+        children: <BasicChip value={record['protein_id']} color="gold" />,
+    },
+    {
+        key: 'elementSymbol',
+        label: 'Element symbol',
+        children: record['element_symbol'] === '' ? '--' : record['element_symbol']
+    },
+    {
+        key: 'elementName',
+        label: 'Element Name',
+        children: record['element_name'] === '' ? '--' : record['element_name']
+    },
+    {
+        key: 'scope',
+        label: 'Scope',
+        children: record['scope'] === '' ? '--' : record['scope']
+    },
+    {
+        key: 'type',
+        label: 'Type',
+        children: record['type'] === '' ? '--' : record['type']
+    },
+    {
+        key: 'subtype',
+        label: 'Subtype',
+        children: record['subtype'] === '' ? '--' : record['subtype']
+    },
+    {
+        key: 'class',
+        label: 'Class',
+        children: record['class'] === '' ? '--' : record['class']
+    },
+    {
+        key: 'subclass',
+        label: 'Subclass',
+        children: record['subclass'] === '' ? '--' : record['subclass']
+    },
+    {
+        key: 'method',
+        label: 'Method',
+        children: record['method'] === '' ? '--' : record['method']
+    },
+    {
+        key: 'target_length',
+        label: 'Target length',
+        children: record['target_length'] === '' ? '--' : record['target_length']
+    },
+    {
+        key: 'reference_sequence_length',
+        label: 'Reference sequence length',
+        children: record['reference_sequence_length'] === '' ? '--' : record['reference_sequence_length']
+    },
+    {
+        key: 'coverage_of_reference',
+        label: '% Coverage of reference',
+        children: record['coverage_of_reference'] === '' ? '--' : record['coverage_of_reference']
+    },
+    {
+        key: 'identity_to_reference',
+        label: '% Identity to reference',
+        children: record['identity_to_reference'] === '' ? '--' : record['identity_to_reference']
+    },
+    {
+        key: 'alignment_length',
+        label: 'Alignment length',
+        children: record['alignment_length'] === '' ? '--' : record['alignment_length']
+    },
+    {
+        key: 'closest_reference_accessionh',
+        label: 'Closest reference accession',
+        children: record['closest_reference_accession'] === '' ? '--' : record['closest_reference_accession']
+    },
+    {
+        key: 'closest_reference_name',
+        label: 'Closest reference name',
+        children: record['closest_reference_name'] === '' ? '--' : record['closest_reference_name']
+    },
+    {
+        key: 'HMM_accession',
+        label: 'HMM accession',
+        children: record['hmm_accession'] === '' ? '--' : record['hmm_accession']
+    },
+    {
+        key: 'HMM_description',
+        label: 'HMM description',
+        children: record['hmm_description'] === '' ? '--' : record['hmm_description']
+    }
+]

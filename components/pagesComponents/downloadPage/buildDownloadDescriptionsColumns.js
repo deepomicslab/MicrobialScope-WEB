@@ -100,9 +100,9 @@ export const buildDownloadDescriptionsColumns = (microbe, magStatus) => {
             children: (
                 <Stack alignItems="center" direction="row" justifyContent="center" spacing={2}>
                     <DownloadButton text='Download XLS' microbe={microbe} magStatus={magStatus}
-                                    baseFileName='.VF_list.xls' type='xls'/>
+                                    baseFileName='.VF2_list.xls' type='xls'/>
                     <DownloadButton text='Download TSV' microbe={microbe} magStatus={magStatus}
-                                    baseFileName='.VF_list.xls' type='tsv'/>
+                                    baseFileName='.VF2_list.xls' type='tsv'/>
                 </Stack>
             ),
         },
@@ -110,14 +110,22 @@ export const buildDownloadDescriptionsColumns = (microbe, magStatus) => {
             key: '9',
             label: <LabelWrapper label='Antibiotic Resistance Genes'/>,
             children: (
-                <Stack alignItems="center" direction="row" justifyContent="center" spacing={2}>
-                    <DownloadButton text='Download XLS' microbe={microbe} magStatus={magStatus}
-                                    baseFileName='.ARG_list.xls' type='xls'/>
-                    <DownloadButton text='Download TSV' microbe={microbe} magStatus={magStatus}
-                                    baseFileName='.ARG_list.xls' type='tsv'/>
-                </Stack>
+                microbe === 'Virus' ? (
+                    <Stack alignItems="center" direction="row" justifyContent="center" spacing={2}>
+                        <DownloadButton text='Download XLS' microbe={microbe} magStatus={magStatus}
+                                        baseFileName='.AMR_list.xls' type='xls'/>
+                        <DownloadButton text='Download TSV' microbe={microbe} magStatus={magStatus}
+                                        baseFileName='.AMR_list.xls' type='tsv'/>
+                    </Stack>
+                ) : (
+                    <Stack alignItems="center" direction="row" justifyContent="center" spacing={2}>
+                        <DownloadButton text='Download XLS' microbe={microbe} magStatus={magStatus}
+                                        baseFileName='.ARG_list.xls' type='xls'/>
+                        <DownloadButton text='Download TSV' microbe={microbe} magStatus={magStatus}
+                                        baseFileName='.ARG_list.xls' type='tsv'/>
+                    </Stack>
+                )
             ),
-            visible: microbe !== 'Virus',
         },
         {
             key: '10',
@@ -137,14 +145,14 @@ export const buildDownloadDescriptionsColumns = (microbe, magStatus) => {
 }
 
 const LabelWrapper = ({ label }) => (
-        <Span
-            sx={{
-                fontWeight: 600,
-                fontSize: '18px',
-            }}
-        >
-            {label}
-        </Span>
+    <Span
+        sx={{
+            fontWeight: 600,
+            fontSize: '18px',
+        }}
+    >
+        {label}
+    </Span>
 )
 
 const DownloadButton = ({ text, microbe, magStatus, baseFileName, type }) => (

@@ -548,26 +548,52 @@ export const virusesAntibioticResistanceColumns = (handleDetailClick, getSingleF
         render: (value) => <BasicChip value={value} color='gold'/>
     },
     {
-        title: 'ARG Database',
-        dataIndex: 'arg_database',
+        title: 'Element symbol',
+        dataIndex: 'element_symbol',
         align: 'center',
-        render: (value) => (
-            <Link href='https://card.mcmaster.ca/' target='_blank'>
-                {value}
-            </Link>
-        )
+        render: value => value === '' ? '--' : value
     },
     {
-        title: 'Cut Off',
-        dataIndex: 'cutoff',
+        title: 'Element name',
+        dataIndex: 'element_name',
         align: 'center',
-        render: (value) => <BasicChip value={value} color='purple'/>
+        render: value => value === '' ? '--' : value
     },
     {
-        title: 'Drug Class',
-        dataIndex: 'drug_class',
+        title: 'Scope',
+        dataIndex: 'scope',
         align: 'center',
-        render: (value) => <AntibioticResistanceDrugClassChips drugClasses={value} color='blue' />
+        render: value => value === '' ? '--' : value
+    },
+    {
+        title: 'Type',
+        dataIndex: 'type',
+        align: 'center',
+        render: value => value === '' ? '--' : value
+    },
+    {
+        title: 'Subtype',
+        dataIndex: 'subtype',
+        align: 'center',
+        render: value => value === '' ? '--' : value
+    },
+    {
+        title: 'Class',
+        dataIndex: 'class',
+        align: 'center',
+        render: value => value === '' ? '--' : value
+    },
+    {
+        title: 'Subclass',
+        dataIndex: 'subclass',
+        align: 'center',
+        render: value => value === '' ? '--' : value
+    },
+    {
+        title: 'Method',
+        dataIndex: 'method',
+        align: 'center',
+        render: value => value === '' ? '--' : value
     },
     {
         title: 'Action',
