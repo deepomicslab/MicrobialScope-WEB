@@ -11,6 +11,30 @@ const timelineItems = [
         dot: <CalendarOutlined style={{ fontSize: '20px' }}/>,
         children: (
             <>
+                <Title level={4} style={{ marginBottom: 8 }}>Version 1.4 (2025.10.15)</Title>
+                <Box>
+                    <ul style={{ paddingLeft: '30px', margin: 0 }}>
+                        <li>
+                            Added <strong>antibiotic resistance gene (ARG)</strong> annotations for <strong>all viral
+                            genomes</strong> using <strong>AMRFinderPlus</strong>.
+                        </li>
+                        <li>
+                            Applied <strong>a more stringent filtering criterion (80% coverage cutoff) for virulence
+                            gene identification</strong> to improve annotation accuracy.
+                        </li>
+                        <li>
+                            Fixed technical issues and improved website stability.
+                        </li>
+                    </ul>
+                </Box>
+            </>
+        )
+    },
+    {
+        color: 'blue',
+        dot: <CalendarOutlined style={{ fontSize: '20px' }}/>,
+        children: (
+            <>
                 <Title level={4} style={{ marginBottom: 8 }}>Version 1.3 (2025.9.20)</Title>
                 <Box>
                     <strong>Quality Enhancements and Expanded Features</strong>. This update focuses on improving data
