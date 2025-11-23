@@ -6,6 +6,7 @@ import FunctionalStatistic from "@/components/pagesComponents/homePage/Functiona
 import Focus from "@/components/pagesComponents/homePage/Focus"
 import KeywordCloud from "@/components/pagesComponents/homePage/KeywordCloud"
 import News from "@/components/pagesComponents/homePage/News"
+import PublicationAlert from "@/components/pagesComponents/homePage/PublicationAlert"
 
 const HomeContent = ({ statistic }) => (
     <Stack>
@@ -36,6 +37,9 @@ const HomeContent = ({ statistic }) => (
                 </Box>
             </Grid>
         </Grid>
+        <Box sx={{ marginTop: '24px', mx: '48px' }}>
+            <PublicationAlert/>
+        </Box>
     </Stack>
 )
 
